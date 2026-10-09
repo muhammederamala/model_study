@@ -1,0 +1,163 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "theme_gallery",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "artist": {
+      "source_label": "artist",
+      "meaning": "Table labeled 'artist' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Artist_ID",
+      "primary_key_columns": [
+        "Artist_ID"
+      ],
+      "columns": {
+        "Artist_ID": {
+          "type": "number",
+          "source_label": "artist id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Vijay Singh",
+            "John Daly",
+            "Paul Azinger",
+            "Jeff Sluman",
+            "Mark Brooks",
+            "Nick Price",
+            "Larry Nelson"
+          ]
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "Fiji",
+            "United States",
+            "Zimbabwe"
+          ]
+        },
+        "Year_Join": {
+          "type": "number",
+          "source_label": "year join"
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        }
+      },
+      "observed_row_count": 7
+    },
+    "exhibition": {
+      "source_label": "exhibition",
+      "meaning": "Table labeled 'exhibition' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Exhibition_ID",
+      "primary_key_columns": [
+        "Exhibition_ID"
+      ],
+      "columns": {
+        "Exhibition_ID": {
+          "type": "number",
+          "source_label": "exhibition id",
+          "primary_key": true
+        },
+        "Year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "Theme": {
+          "type": "text",
+          "source_label": "theme",
+          "observed_values": [
+            "Santa Claus",
+            "Christmas stocking",
+            "Santa Claus and Rudolph the Red-Nosed Reindeer",
+            "Christmas Tree",
+            "Spring",
+            "Summer"
+          ]
+        },
+        "Artist_ID": {
+          "type": "number",
+          "source_label": "artist id",
+          "foreign_key": {
+            "table": "artist",
+            "column": "Artist_ID"
+          }
+        },
+        "Ticket_Price": {
+          "type": "number",
+          "source_label": "ticket price"
+        }
+      },
+      "observed_row_count": 6
+    },
+    "exhibition_record": {
+      "source_label": "exhibition record",
+      "meaning": "Table labeled 'exhibition record' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Exhibition_ID",
+      "primary_key_columns": [
+        "Exhibition_ID"
+      ],
+      "columns": {
+        "Exhibition_ID": {
+          "type": "number",
+          "source_label": "exhibition id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "exhibition",
+            "column": "Exhibition_ID"
+          }
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date"
+        },
+        "Attendance": {
+          "type": "number",
+          "source_label": "attendance"
+        }
+      },
+      "observed_row_count": 13
+    }
+  },
+  "terms": {
+    "exhibition record": {
+      "maps_to": "exhibition_record",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "artist__row_count": {
+      "meaning": "Number of rows in artist.",
+      "base_table": "artist",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "exhibition__row_count": {
+      "meaning": "Number of rows in exhibition.",
+      "base_table": "exhibition",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "exhibition_record__row_count": {
+      "meaning": "Number of rows in exhibition_record.",
+      "base_table": "exhibition_record",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

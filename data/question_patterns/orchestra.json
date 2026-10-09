@@ -1,0 +1,140 @@
+{
+  "db_id": "orchestra",
+  "n_questions": 40,
+  "n_questions_with_join": 10,
+  "join_pairs": [
+    {
+      "left": "conductor.conductor_id",
+      "right": "orchestra.conductor_id",
+      "n": 8
+    },
+    {
+      "left": "orchestra.orchestra_id",
+      "right": "performance.orchestra_id",
+      "n": 2
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 16
+    },
+    {
+      "fn": "AVG",
+      "target": "attendance",
+      "n": 2
+    },
+    {
+      "fn": "MAX",
+      "target": "share",
+      "n": 2
+    },
+    {
+      "fn": "MIN",
+      "target": "share",
+      "n": 2
+    },
+    {
+      "fn": "COUNT",
+      "target": "nationality",
+      "n": 2
+    }
+  ],
+  "column_clause_usage": {
+    "age": {
+      "order by": 2
+    },
+    "conductor_id": {
+      "group by": 4
+    },
+    "major_record_format": {
+      "group by": 2,
+      "where": 2
+    },
+    "nationality": {
+      "where": 2
+    },
+    "orchestra_id": {
+      "where": 2,
+      "group by": 2
+    },
+    "record_company": {
+      "group by": 4
+    },
+    "type": {
+      "where": 2
+    },
+    "year_of_founded": {
+      "where": 4,
+      "order by": 2
+    },
+    "year_of_work": {
+      "order by": 4
+    }
+  },
+  "question_openers": {
+    "what is the": {
+      "ORDER BY ... DESC": 3,
+      "LIMIT 1": 3,
+      "GROUP BY": 2,
+      "COUNT": 2,
+      "AVG": 1
+    },
+    "what are the": {
+      "ORDER BY ... DESC": 2,
+      "GROUP BY": 2,
+      "COUNT": 2,
+      "subquery": 2,
+      "negation (NOT IN / EXCEPT)": 1,
+      "INTERSECT": 1
+    },
+    "show the name": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "please show the": {
+      "GROUP BY": 2,
+      "COUNT": 2
+    },
+    "list the record": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "count the number": {
+      "COUNT": 3
+    },
+    "list the name": {
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1
+    },
+    "show the names": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "how many orchestras": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "list the names": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "show the record": {
+      "INTERSECT": 1,
+      "subquery": 1
+    },
+    "show the years": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "what are years": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    }
+  }
+}

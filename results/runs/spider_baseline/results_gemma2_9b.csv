@@ -1,0 +1,407 @@
+id,db_id,complexity_bucket,question,gold_sql,pred_sql,raw_response,exec_error,exec_match,latency_sec
+23,battle_death,moderate,How many battles did not lose any ship with tonnage '225'?,SELECT count(*) FROM battle WHERE id NOT IN ( SELECT lost_in_battle FROM ship WHERE tonnage  =  '225' );,SELECT COUNT(*) FROM battle WHERE id NOT IN (SELECT lost_in_battle FROM ship WHERE tonnage = '225');,"SELECT COUNT(*) FROM battle WHERE id NOT IN (SELECT lost_in_battle FROM ship WHERE tonnage = '225'); 
+",,True,69.21
+51,battle_death,simple,What are the distinct battle names which are between bulgarian commander 'Kaloyan' and latin commander 'Baldwin I'?,SELECT name FROM battle WHERE bulgarian_commander  =  'Kaloyan' AND latin_commander  =  'Baldwin I',SELECT DISTINCT name FROM battle WHERE bulgarian_commander = 'Kaloyan' AND latin_commander = 'Baldwin I';,"SELECT DISTINCT name FROM battle WHERE bulgarian_commander = 'Kaloyan' AND latin_commander = 'Baldwin I'; 
+",,True,47.94
+80,battle_death,simple,What are the different ids and names of the battles that lost any 'Brig' type shipes?,"SELECT DISTINCT T1.id ,  T1.name FROM battle AS T1 JOIN ship AS T2 ON T1.id  =  T2.lost_in_battle WHERE T2.ship_type  =  'Brig'","SELECT DISTINCT battle.id, battle.name FROM battle JOIN ship ON battle.id = ship.lost_in_battle WHERE ship.ship_type = 'Brig';","SELECT DISTINCT battle.id, battle.name FROM battle JOIN ship ON battle.id = ship.lost_in_battle WHERE ship.ship_type = 'Brig'; 
+",,True,48.06
+153,battle_death,complex,List the name and date the battle that has lost the ship named 'Lettice' and the ship named 'HMS Atalanta',"SELECT T1.name ,  T1.date FROM battle AS T1 JOIN ship AS T2 ON T1.id  =  T2.lost_in_battle WHERE T2.name  =  'Lettice' INTERSECT SELECT T1.name ,  T1.date FROM battle AS T1 JOIN ship AS T2 ON T1.id  =  T2.lost_in_battle WHERE T2.name  =  'HMS Atalanta'","SELECT b.name, b.date FROM battle b JOIN ship s ON b.id = s.lost_in_battle WHERE s.name IN ('Lettice', 'HMS Atalanta');","SELECT b.name, b.date FROM battle b JOIN ship s ON b.id = s.lost_in_battle WHERE s.name IN ('Lettice', 'HMS Atalanta');  
+",,False,50.21
+326,battle_death,simple,What is the average number of injuries caused each time?,SELECT avg(injured) FROM death,SELECT AVG(injured) FROM death;,"SELECT AVG(injured) FROM death; 
+",,True,40.24
+389,battle_death,simple,List the name and tonnage ordered by in descending alphaetical order for the names.,"SELECT name ,  tonnage FROM ship ORDER BY name DESC","SELECT name, tonnage FROM ship ORDER BY name DESC;","SELECT name, tonnage FROM ship ORDER BY name DESC; 
+",,True,42.1
+395,battle_death,moderate,"Show names, results and bulgarian commanders of the battles with no ships lost in the 'English Channel'.","SELECT name ,  RESULT ,  bulgarian_commander FROM battle EXCEPT SELECT T1.name ,  T1.result ,  T1.bulgarian_commander FROM battle AS T1 JOIN ship AS T2 ON T1.id  =  T2.lost_in_battle WHERE T2.location  =  'English Channel'","SELECT battle.name, battle.result, battle.bulgarian_commander FROM battle LEFT JOIN ship ON battle.id = ship.lost_in_battle WHERE ship.location != 'English Channel'  ;","SELECT battle.name, battle.result, battle.bulgarian_commander FROM battle LEFT JOIN ship ON battle.id = ship.lost_in_battle WHERE ship.location != 'English Channel'  ; 
+",,False,51.89
+425,battle_death,simple,What are the name and results of the battles when the bulgarian commander is not 'Boril',"SELECT name ,  RESULT FROM battle WHERE bulgarian_commander != 'Boril'","SELECT name, result FROM battle WHERE bulgarian_commander != 'Boril';","SELECT name, result FROM battle WHERE bulgarian_commander != 'Boril'; 
+",,True,44.4
+454,battle_death,simple,"List the name, date and result of each battle.","SELECT name ,  date FROM battle","SELECT name, date, result FROM battle;","SELECT name, date, result FROM battle; 
+",,False,43.98
+465,battle_death,simple,What are the notes of the death events which has substring 'East'?,SELECT note FROM death WHERE note LIKE '%East%',SELECT note FROM death WHERE note LIKE '%East%' ;,"SELECT note FROM death WHERE note LIKE '%East%' ; 
+",,True,42.16
+466,battle_death,simple,What are the death and injury situations caused by the ship with tonnage 't'?,"SELECT T1.killed ,  T1.injured FROM death AS T1 JOIN ship AS t2 ON T1.caused_by_ship_id  =  T2.id WHERE T2.tonnage  =  't'","SELECT note, killed, injured FROM death WHERE caused_by_ship_id IN (SELECT id FROM ship WHERE tonnage = 't');","SELECT note, killed, injured FROM death WHERE caused_by_ship_id IN (SELECT id FROM ship WHERE tonnage = 't'); 
+",,False,48.11
+659,battle_death,moderate,What is maximum and minimum death toll caused each time?,"SELECT max(killed) ,  min(killed) FROM death","SELECT MIN(killed) AS min_death, MAX(killed) AS max_death FROM death;","SELECT MIN(killed) AS min_death, MAX(killed) AS max_death FROM death; 
+",,False,44.27
+693,battle_death,simple,How many ships ended up being 'Captured'?,SELECT count(*) FROM ship WHERE disposition_of_ship  =  'Captured',SELECT COUNT(*) FROM ship WHERE disposition_of_ship = 'Captured';,"SELECT COUNT(*) FROM ship WHERE disposition_of_ship = 'Captured'; 
+",,True,43.76
+798,battle_death,simple,How many different results are there for the battles?,SELECT count(DISTINCT RESULT) FROM battle,SELECT COUNT(DISTINCT result) FROM battle;,"SELECT COUNT(DISTINCT result) FROM battle; 
+",,True,42.68
+950,battle_death,complex,What are the ids and names of the battles that led to more than 10 people killed in total.,"SELECT T1.id ,  T1.name FROM battle AS T1 JOIN ship AS T2 ON T1.id  =  T2.lost_in_battle JOIN death AS T3 ON T2.id  =  T3.caused_by_ship_id GROUP BY T1.id HAVING sum(T3.killed)  >  10","SELECT battle.id, battle.name FROM battle JOIN death ON battle.id = death.caused_by_ship_id GROUP BY battle.id, battle.name HAVING SUM(death.killed) > 10;","SELECT battle.id, battle.name FROM battle JOIN death ON battle.id = death.caused_by_ship_id GROUP BY battle.id, battle.name HAVING SUM(death.killed) > 10; 
+",,False,54.74
+997,battle_death,complex,What is the ship id and name that caused most total injuries?,"SELECT T2.id ,  T2.name FROM death AS T1 JOIN ship AS t2 ON T1.caused_by_ship_id  =  T2.id GROUP BY T2.id ORDER BY count(*) DESC LIMIT 1","SELECT ship.id, ship.name FROM death JOIN ship ON death.caused_by_ship_id = ship.id GROUP BY ship.id, ship.name ORDER BY injured DESC LIMIT 1;","SELECT ship.id, ship.name FROM death JOIN ship ON death.caused_by_ship_id = ship.id GROUP BY ship.id, ship.name ORDER BY injured DESC LIMIT 1; 
+",,False,51.91
+27,car_1,simple,What is the minimum weight of the car with 8 cylinders produced in 1974 ?,select min(weight) from cars_data where cylinders  =  8 and year  =  1974,SELECT MIN(Weight) FROM cars_data WHERE Cylinders = 8 AND Year = 1974;,"SELECT MIN(Weight) FROM cars_data WHERE Cylinders = 8 AND Year = 1974; 
+",,True,54.66
+37,car_1,moderate,What is the model for the car with a weight smaller than the average?,SELECT T1.model FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T2.Weight  <  (SELECT avg(Weight) FROM CARS_DATA),SELECT car_names.Model FROM cars_data JOIN car_names ON cars_data.Id = car_names.MakeId WHERE cars_data.Weight < (SELECT AVG(Weight) FROM cars_data);,"SELECT car_names.Model FROM cars_data JOIN car_names ON cars_data.Id = car_names.MakeId WHERE cars_data.Weight < (SELECT AVG(Weight) FROM cars_data); 
+",,True,54.15
+52,car_1,simple,What is the average miles per gallon of all the cards with 4 cylinders?,SELECT avg(mpg) FROM CARS_DATA WHERE Cylinders  =  4;,SELECT AVG(MPG) FROM cars_data WHERE Cylinders = 4;,"SELECT AVG(MPG) FROM cars_data WHERE Cylinders = 4; 
+",,True,45.44
+55,car_1,complex,What are the countries having at least one car maker? List name and id.,"SELECT T1.CountryName ,  T1.CountryId FROM COUNTRIES AS T1 JOIN CAR_MAKERS AS T2 ON T1.CountryId  =  T2.Country GROUP BY T1.CountryId HAVING count(*)  >=  1;","SELECT c.CountryName, c.CountryId FROM countries c JOIN car_makers cm ON c.CountryId = cm.Country  GROUP BY c.CountryName, c.CountryId;","SELECT c.CountryName, c.CountryId FROM countries c JOIN car_makers cm ON c.CountryId = cm.Country  GROUP BY c.CountryName, c.CountryId;  
+",,True,50.1
+56,car_1,simple,How many cars has over 6 cylinders?,SELECT COUNT(*) FROM CARS_DATA WHERE Cylinders  >  6;,SELECT COUNT(*) FROM cars_data WHERE Cylinders > 6;,"SELECT COUNT(*) FROM cars_data WHERE Cylinders > 6; 
+",,True,44.17
+63,car_1,moderate,What is the maximum accelerate for different number of cylinders?,"SELECT max(Accelerate) ,  Cylinders FROM CARS_DATA GROUP BY Cylinders;","SELECT Cylinders, MAX(Accelerate) FROM cars_data GROUP BY Cylinders;","SELECT Cylinders, MAX(Accelerate) FROM cars_data GROUP BY Cylinders;  
+",,False,43.43
+67,car_1,simple,How many countries exist?,SELECT count(*) FROM COUNTRIES;,SELECT COUNT(*) FROM countries;,"SELECT COUNT(*) FROM countries; 
+",,True,40.79
+87,car_1,complex,What is the name of each continent and how many car makers are there in each one?,"SELECT T1.Continent ,  count(*) FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId  =  T2.continent JOIN car_makers AS T3 ON T2.CountryId  =  T3.Country GROUP BY T1.Continent;","SELECT continents.Continent, COUNT(car_makers.Id) AS CarMakerCount FROM continents LEFT JOIN countries ON continents.ContId = countries.Continent JOIN car_makers ON countries.CountryId = car_makers.Country GROUP BY continents.Continent;","SELECT continents.Continent, COUNT(car_makers.Id) AS CarMakerCount FROM continents LEFT JOIN countries ON continents.ContId = countries.Continent JOIN car_makers ON countries.CountryId = car_makers.Country GROUP BY continents.Continent;  
+",,True,54.04
+89,car_1,simple,How many countries are listed?,SELECT count(*) FROM COUNTRIES;,SELECT COUNT(*) FROM countries;,"SELECT COUNT(*) FROM countries; 
+",,True,40.73
+110,car_1,simple,What is the number of continents?,SELECT count(*) FROM CONTINENTS;,SELECT COUNT(*) FROM continents;,"SELECT COUNT(*) FROM continents; 
+",,True,39.41
+116,car_1,moderate,"What is the full name of each car maker, along with its id and how many models it produces?","SELECT T1.FullName ,  T1.Id ,  count(*) FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker GROUP BY T1.Id;","SELECT car_makers.Id, car_makers.FullName, COUNT(model_list.ModelId) AS NumModels FROM car_makers LEFT JOIN model_list ON car_makers.Id = model_list.Maker GROUP BY car_makers.Id, car_makers.FullName;","SELECT car_makers.Id, car_makers.FullName, COUNT(model_list.ModelId) AS NumModels FROM car_makers LEFT JOIN model_list ON car_makers.Id = model_list.Maker GROUP BY car_makers.Id, car_makers.FullName;  
+",,False,57.16
+119,car_1,moderate,Which distinctive models are produced by maker with the full name General Motors or weighing more than 3500?,SELECT DISTINCT T2.Model FROM CAR_NAMES AS T1 JOIN MODEL_LIST AS T2 ON T1.Model  =  T2.Model JOIN CAR_MAKERS AS T3 ON T2.Maker  =  T3.Id JOIN CARS_DATA AS T4 ON T1.MakeId  =  T4.Id WHERE T3.FullName  =  'General Motors' OR T4.weight  >  3500;,SELECT DISTINCT car_names.Model FROM car_names JOIN car_makers ON car_names.MakeId = car_makers.Id WHERE car_makers.FullName = 'General Motors' OR cars_data.Weight > 3500;,"SELECT DISTINCT car_names.Model FROM car_names JOIN car_makers ON car_names.MakeId = car_makers.Id WHERE car_makers.FullName = 'General Motors' OR cars_data.Weight > 3500; 
+",no such column: cars_data.Weight,False,56.16
+128,car_1,complex,Which of the countries has the most car makers? List the country name.,SELECT T2.CountryName FROM CAR_MAKERS AS T1 JOIN COUNTRIES AS T2 ON T1.Country  =  T2.CountryId GROUP BY T1.Country ORDER BY Count(*) DESC LIMIT 1;,SELECT CountryName FROM countries c JOIN car_makers cm ON c.CountryId = cm.Country  GROUP BY CountryName ORDER BY COUNT(cm.Id) DESC LIMIT 1;,"SELECT CountryName FROM countries c JOIN car_makers cm ON c.CountryId = cm.Country  GROUP BY CountryName ORDER BY COUNT(cm.Id) DESC LIMIT 1;  
+",,True,50.68
+138,car_1,moderate,"How many countries does each continent have? List the continent id, continent name and the number of countries.","SELECT T1.ContId ,  T1.Continent ,  count(*) FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId  =  T2.Continent GROUP BY T1.ContId;","SELECT c.ContId, c.Continent, COUNT(co.CountryId) AS NumberOfCountries FROM continents c LEFT JOIN countries co ON c.ContId = co.Continent GROUP BY c.ContId, c.Continent;","SELECT c.ContId, c.Continent, COUNT(co.CountryId) AS NumberOfCountries FROM continents c LEFT JOIN countries co ON c.ContId = co.Continent GROUP BY c.ContId, c.Continent;  
+",,True,51.02
+148,car_1,simple,What is the average miles per gallon(mpg) of the cars with 4 cylinders?,SELECT avg(mpg) FROM CARS_DATA WHERE Cylinders  =  4;,SELECT AVG(MPG) FROM cars_data WHERE Cylinders = 4;,"SELECT AVG(MPG) FROM cars_data WHERE Cylinders = 4; 
+",,True,44.55
+150,car_1,simple,What are the makers and models?,"SELECT Maker ,  Model FROM MODEL_LIST;","SELECT car_makers.Maker, model_list.Model FROM car_makers INNER JOIN model_list ON car_makers.Id = model_list.Maker;","SELECT car_makers.Maker, model_list.Model FROM car_makers INNER JOIN model_list ON car_makers.Id = model_list.Maker; 
+",,False,48.35
+154,car_1,moderate,What is the largest amount of horsepower for the models with 3 cylinders and what make is it?,"SELECT T2.horsepower ,  T1.Make FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T2.cylinders  =  3 ORDER BY T2.horsepower DESC LIMIT 1;","SELECT MAX(Horsepower), Make FROM cars_data WHERE Cylinders = 3 GROUP BY Make;","SELECT MAX(Horsepower), Make FROM cars_data WHERE Cylinders = 3 GROUP BY Make;  
+",no such column: Make,False,45.17
+163,car_1,simple,What is the number of the cars with horsepower more than 150?,SELECT count(*) FROM CARS_DATA WHERE horsepower  >  150;,SELECT COUNT(*) FROM cars_data WHERE Horsepower > '150';,"SELECT COUNT(*) FROM cars_data WHERE Horsepower > '150'; 
+",,True,44.36
+194,car_1,simple,How many continents are there?,SELECT count(*) FROM CONTINENTS;,SELECT COUNT(*) FROM continents;,"SELECT COUNT(*) FROM continents; 
+",,True,40.89
+221,car_1,moderate,Which model of the car has the minimum horsepower?,SELECT T1.Model FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id ORDER BY T2.horsepower ASC LIMIT 1;,SELECT Model FROM car_names ORDER BY Horsepower ASC LIMIT 1;,"SELECT Model FROM car_names ORDER BY Horsepower ASC LIMIT 1; 
+",no such column: Horsepower,False,45.85
+223,car_1,moderate,Which models are lighter than 3500 but not built by the 'Ford Motor Company'?,SELECT DISTINCT T1.model FROM MODEL_LIST AS T1 JOIN CAR_NAMES AS T2 ON T1.Model  =  T2.Model JOIN CARS_DATA AS T3 ON T2.MakeId  =  T3.Id JOIN CAR_MAKERS AS T4 ON T1.Maker  =  T4.Id WHERE T3.weight  <  3500 AND T4.FullName != 'Ford Motor Company';,"SELECT DISTINCT Model 
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+WHERE Weight < 3500
+AND Make NOT LIKE 'Ford Motor Company';","SELECT DISTINCT Model 
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+WHERE Weight < 3500
+AND Make NOT LIKE 'Ford Motor Company'; 
+",,False,53.47
+233,car_1,moderate,How many car makers are there in france?,SELECT count(*) FROM CAR_MAKERS AS T1 JOIN COUNTRIES AS T2 ON T1.Country  =  T2.CountryId WHERE T2.CountryName  =  'france';,SELECT COUNT(*) FROM car_makers WHERE Country = '6';,"SELECT COUNT(*) FROM car_makers WHERE Country = '6'; 
+",,False,42.05
+235,car_1,simple,What is the average horsepower of the cars before 1980?,SELECT avg(horsepower) FROM CARS_DATA WHERE YEAR  <  1980;,SELECT AVG(Horsepower) FROM cars_data WHERE Year < 1980;,"SELECT AVG(Horsepower) FROM cars_data WHERE Year < 1980; 
+",,True,43.16
+238,car_1,moderate,How many cars have a larger accelerate than the car with the largest horsepower?,SELECT COUNT(*) FROM CARS_DATA WHERE Accelerate  >  ( SELECT Accelerate FROM CARS_DATA ORDER BY Horsepower DESC LIMIT 1 );,SELECT COUNT(*) FROM cars_data WHERE Accelerate > (SELECT MAX(Horsepower) FROM cars_data);,"SELECT COUNT(*) FROM cars_data WHERE Accelerate > (SELECT MAX(Horsepower) FROM cars_data); 
+",,False,44.26
+246,car_1,moderate,What is the number of car models that are produced by each maker and what is the id and full name of each maker?,"SELECT Count(*) ,  T2.FullName ,  T2.id FROM MODEL_LIST AS T1 JOIN CAR_MAKERS AS T2 ON T1.Maker  =  T2.Id GROUP BY T2.id;","SELECT car_makers.Id, car_makers.FullName, COUNT(DISTINCT model_list.ModelId) AS NumberOfModels FROM car_makers LEFT JOIN model_list ON car_makers.Id = model_list.Maker GROUP BY car_makers.Id, car_makers.FullName;","SELECT car_makers.Id, car_makers.FullName, COUNT(DISTINCT model_list.ModelId) AS NumberOfModels FROM car_makers LEFT JOIN model_list ON car_makers.Id = model_list.Maker GROUP BY car_makers.Id, car_makers.FullName;  
+",,False,56.17
+255,car_1,moderate,What is the maximum horsepower and the make of the car models with 3 cylinders?,"SELECT T2.horsepower ,  T1.Make FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T2.cylinders  =  3 ORDER BY T2.horsepower DESC LIMIT 1;","SELECT MAX(Horsepower), Make FROM cars_data JOIN car_names ON cars_data.MakeId = car_names.MakeId JOIN model_list ON car_names.Make = model_list.Maker WHERE Cylinders = 3;","SELECT MAX(Horsepower), Make FROM cars_data JOIN car_names ON cars_data.MakeId = car_names.MakeId JOIN model_list ON car_names.Make = model_list.Maker WHERE Cylinders = 3; 
+",no such column: cars_data.MakeId,False,51.63
+271,car_1,simple,What is the accelerate of the car make amc hornet sportabout (sw)?,SELECT T1.Accelerate FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T2.Make  =  'amc hornet sportabout (sw)';,SELECT Accelerate FROM cars_data WHERE MakeId = (SELECT Id FROM car_makers WHERE Maker = 'amc' AND FullName = 'AMC Hornet Sportabout (SW)')  ;,"SELECT Accelerate FROM cars_data WHERE MakeId = (SELECT Id FROM car_makers WHERE Maker = 'amc' AND FullName = 'AMC Hornet Sportabout (SW)')  ; 
+",no such column: MakeId,False,49.86
+277,car_1,moderate,What is the number of cars with a greater accelerate than the one with the most horsepower?,SELECT COUNT(*) FROM CARS_DATA WHERE Accelerate  >  ( SELECT Accelerate FROM CARS_DATA ORDER BY Horsepower DESC LIMIT 1 );,SELECT COUNT(*) FROM cars_data WHERE Accelerate > (SELECT MAX(Horsepower) FROM cars_data);,"SELECT COUNT(*) FROM cars_data WHERE Accelerate > (SELECT MAX(Horsepower) FROM cars_data); 
+",,False,46.22
+288,car_1,complex,What is the number of countries with more than 2 car makers ?,select count(*) from countries as t1 join car_makers as t2 on t1.countryid  =  t2.country group by t1.countryid having count(*)  >  2,SELECT COUNT(*) FROM countries c JOIN car_makers cm ON c.CountryId = cm.Country GROUP BY c.CountryId HAVING COUNT(cm.Id) > 2;,"SELECT COUNT(*) FROM countries c JOIN car_makers cm ON c.CountryId = cm.Country GROUP BY c.CountryId HAVING COUNT(cm.Id) > 2; 
+",,True,48.79
+308,car_1,complex,Which are the car makers which produce at least 2 models and more than 3 car makers ? List the id and the maker .,"select t1.id ,  t1.maker from car_makers as t1 join model_list as t2 on t1.id  =  t2.maker group by t1.id having count(*)  >=  2 intersect select t1.id ,  t1.maker from car_makers as t1 join model_list as t2 on t1.id  =  t2.maker join car_names as t3 on t2.model  =  t3.model group by t1.id having count(*)  >  3;","SELECT car_makers.Id, car_makers.Maker FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker GROUP BY car_makers.Id, car_makers.Maker HAVING COUNT(DISTINCT model_list.ModelId) >= 2 AND (SELECT COUNT(*) FROM car_makers) > 3;","SELECT car_makers.Id, car_makers.Maker FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker GROUP BY car_makers.Id, car_makers.Maker HAVING COUNT(DISTINCT model_list.ModelId) >= 2 AND (SELECT COUNT(*) FROM car_makers) > 3;  
+",,False,63.87
+324,car_1,simple,how many cars were produced in 1980?,SELECT count(*) FROM CARS_DATA WHERE YEAR  =  1980;,SELECT COUNT(*) FROM cars_data WHERE Year = 1980;,"SELECT COUNT(*) FROM cars_data WHERE Year = 1980; 
+",,True,42.66
+331,car_1,moderate,Which distinct car models are the produced after 1980?,SELECT DISTINCT T1.model FROM MODEL_LIST AS T1 JOIN CAR_NAMES AS T2 ON T1.model  =  T2.model JOIN CARS_DATA AS T3 ON T2.MakeId  =  T3.id WHERE T3.year  >  1980;,SELECT DISTINCT Model FROM car_names WHERE MakeId IN (SELECT Id FROM cars_data WHERE Year > 1980);,"SELECT DISTINCT Model FROM car_names WHERE MakeId IN (SELECT Id FROM cars_data WHERE Year > 1980);  
+",,True,47.22
+332,car_1,simple,"In 1980, how many cars were made?",SELECT count(*) FROM CARS_DATA WHERE YEAR  =  1980;,SELECT COUNT(*) FROM cars_data WHERE Year = 1980;,"SELECT COUNT(*) FROM cars_data WHERE Year = 1980; 
+",,True,45.54
+348,car_1,complex,What are the names of all European countries with at least 3 manufacturers?,SELECT T1.CountryName FROM COUNTRIES AS T1 JOIN CONTINENTS AS T2 ON T1.Continent  =  T2.ContId JOIN CAR_MAKERS AS T3 ON T1.CountryId  =  T3.Country WHERE T2.Continent  =  'europe' GROUP BY T1.CountryName HAVING count(*)  >=  3;,SELECT CountryName FROM countries c JOIN car_makers cm ON c.CountryId = cm.Country  GROUP BY CountryName HAVING COUNT(DISTINCT cm.Id) >= 3;,"SELECT CountryName FROM countries c JOIN car_makers cm ON c.CountryId = cm.Country  GROUP BY CountryName HAVING COUNT(DISTINCT cm.Id) >= 3;  
+",,False,49.6
+353,car_1,moderate,What are the different models wthat are lighter than 3500 but were not built by the Ford Motor Company?,SELECT DISTINCT T1.model FROM MODEL_LIST AS T1 JOIN CAR_NAMES AS T2 ON T1.Model  =  T2.Model JOIN CARS_DATA AS T3 ON T2.MakeId  =  T3.Id JOIN CAR_MAKERS AS T4 ON T1.Maker  =  T4.Id WHERE T3.weight  <  3500 AND T4.FullName != 'Ford Motor Company';,"SELECT DISTINCT Model 
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+WHERE Weight < 3500
+AND MakeId NOT IN (SELECT Id FROM car_makers WHERE Maker = 'Ford Motor Company');","SELECT DISTINCT Model 
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+WHERE Weight < 3500
+AND MakeId NOT IN (SELECT Id FROM car_makers WHERE Maker = 'Ford Motor Company'); 
+",,False,56.4
+367,car_1,complex,Which countries in europe have at least 3 car manufacturers?,SELECT T1.CountryName FROM COUNTRIES AS T1 JOIN CONTINENTS AS T2 ON T1.Continent  =  T2.ContId JOIN CAR_MAKERS AS T3 ON T1.CountryId  =  T3.Country WHERE T2.Continent  =  'europe' GROUP BY T1.CountryName HAVING count(*)  >=  3;,SELECT c.CountryName FROM countries c JOIN car_makers cm ON c.CountryId = cm.Country  GROUP BY c.CountryName HAVING COUNT(cm.Id) >= 3 WHERE c.Continent = 'europe';,"SELECT c.CountryName FROM countries c JOIN car_makers cm ON c.CountryId = cm.Country  GROUP BY c.CountryName HAVING COUNT(cm.Id) >= 3 WHERE c.Continent = 'europe';  
+","near ""WHERE"": syntax error",False,51.52
+369,car_1,moderate,"For a volvo model, how many cylinders does the version with least accelerate have?",SELECT T1.cylinders FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T2.Model  =  'volvo' ORDER BY T1.accelerate ASC LIMIT 1;,SELECT Cylinders FROM cars_data WHERE MakeId IN (SELECT Id FROM car_makers WHERE Maker = 'volvo') ORDER BY Accelerate ASC LIMIT 1;,"SELECT Cylinders FROM cars_data WHERE MakeId IN (SELECT Id FROM car_makers WHERE Maker = 'volvo') ORDER BY Accelerate ASC LIMIT 1; 
+",no such column: MakeId,False,50.46
+372,car_1,moderate,What is the average edispl of the cars of model volvo?,SELECT avg(T2.edispl) FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T1.Model  =  'volvo';,SELECT AVG(Edispl) FROM cars_data c JOIN car_names cn ON c.MakeId = cn.MakeId JOIN model_list ml ON cn.MakeId = ml.Maker WHERE ml.Model = 'volvo';,"SELECT AVG(Edispl) FROM cars_data c JOIN car_names cn ON c.MakeId = cn.MakeId JOIN model_list ml ON cn.MakeId = ml.Maker WHERE ml.Model = 'volvo'; 
+",no such column: c.MakeId,False,51.34
+374,car_1,moderate,What are the different models created by either the car maker General Motors or weighed more than 3500?,SELECT DISTINCT T2.Model FROM CAR_NAMES AS T1 JOIN MODEL_LIST AS T2 ON T1.Model  =  T2.Model JOIN CAR_MAKERS AS T3 ON T2.Maker  =  T3.Id JOIN CARS_DATA AS T4 ON T1.MakeId  =  T4.Id WHERE T3.FullName  =  'General Motors' OR T4.weight  >  3500;,SELECT DISTINCT Model FROM car_names WHERE MakeId IN (SELECT Id FROM car_makers WHERE Maker = 'General Motors') UNION SELECT DISTINCT Model FROM car_names WHERE Weight > 3500;,"SELECT DISTINCT Model FROM car_names WHERE MakeId IN (SELECT Id FROM car_makers WHERE Maker = 'General Motors') UNION SELECT DISTINCT Model FROM car_names WHERE Weight > 3500; 
+",no such column: Weight,False,52.98
+414,car_1,complex,What are the ids and makers of all car makers that produce at least 2 models and make more than 3 cars?,"SELECT T1.Id ,  T1.Maker FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker GROUP BY T1.Id HAVING count(*)  >=  2 INTERSECT SELECT T1.Id ,  T1.Maker FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker JOIN CAR_NAMES AS T3 ON T2.model  =  T3.model GROUP BY T1.Id HAVING count(*)  >  3;","SELECT car_makers.Id, car_makers.Maker FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker GROUP BY car_makers.Id, car_makers.Maker HAVING COUNT(DISTINCT model_list.ModelId) >= 2 AND COUNT(DISTINCT cars_data.Id) > 3;","SELECT car_makers.Id, car_makers.Maker FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker GROUP BY car_makers.Id, car_makers.Maker HAVING COUNT(DISTINCT model_list.ModelId) >= 2 AND COUNT(DISTINCT cars_data.Id) > 3;  
+",no such column: cars_data.Id,False,59.04
+433,car_1,complex,Which makers designed more than 3 car models? List full name and the id.,"SELECT T1.FullName ,  T1.Id FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker GROUP BY T1.Id HAVING count(*)  >  3;","SELECT FullName, Id FROM car_makers WHERE Id IN (SELECT Maker FROM model_list GROUP BY Maker HAVING COUNT(*) > 3);","SELECT FullName, Id FROM car_makers WHERE Id IN (SELECT Maker FROM model_list GROUP BY Maker HAVING COUNT(*) > 3); 
+",,True,45.77
+442,car_1,simple,What is the maximum miles per gallon of the car with 8 cylinders or produced before 1980 ?,select max(mpg) from cars_data where cylinders  =  8 or year  <  1980,SELECT MAX(MPG) FROM cars_data WHERE Cylinders = 8 OR Year < 1980;,"SELECT MAX(MPG) FROM cars_data WHERE Cylinders = 8 OR Year < 1980; 
+
+
+",,True,45.2
+448,car_1,simple,What is the number of carsw ith over 6 cylinders?,SELECT COUNT(*) FROM CARS_DATA WHERE Cylinders  >  6;,SELECT COUNT(*) FROM cars_data WHERE Cylinders > 6;,"SELECT COUNT(*) FROM cars_data WHERE Cylinders > 6; 
+",,True,42.2
+455,car_1,moderate,"For model volvo, how many cylinders does the car with the least accelerate have?",SELECT T1.cylinders FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T2.Model  =  'volvo' ORDER BY T1.accelerate ASC LIMIT 1;,SELECT Cylinders FROM cars_data WHERE MakeId = (SELECT Id FROM car_makers WHERE Maker = 'volvo') AND Accelerate = (SELECT MIN(Accelerate) FROM cars_data WHERE MakeId = (SELECT Id FROM car_makers WHERE Maker = 'volvo')) ;,"SELECT Cylinders FROM cars_data WHERE MakeId = (SELECT Id FROM car_makers WHERE Maker = 'volvo') AND Accelerate = (SELECT MIN(Accelerate) FROM cars_data WHERE MakeId = (SELECT Id FROM car_makers WHERE Maker = 'volvo')) ;  
+",no such column: MakeId,False,55.4
+473,car_1,simple,What are the different years in which there were cars produced that weighed less than 4000 and also cars that weighted more than 3000 ?,select distinct year from cars_data where weight between 3000 and 4000;,SELECT DISTINCT Year FROM cars_data WHERE Weight < 4000 AND Weight > 3000;,"SELECT DISTINCT Year FROM cars_data WHERE Weight < 4000 AND Weight > 3000; 
+",,True,46.54
+485,car_1,complex,What are the id and names of the countries which have more than 3 car makers or produce the 'fiat' model?,"SELECT T1.countryId ,  T1.CountryName FROM Countries AS T1 JOIN CAR_MAKERS AS T2 ON T1.CountryId  =  T2.Country GROUP BY T1.countryId HAVING count(*)  >  3 UNION SELECT T1.countryId ,  T1.CountryName FROM Countries AS T1 JOIN CAR_MAKERS AS T2 ON T1.CountryId  =  T2.Country JOIN MODEL_LIST AS T3 ON T2.Id  =  T3.Maker WHERE T3.Model  =  'fiat';","SELECT CountryId, CountryName FROM countries WHERE CountryId IN (SELECT Country FROM car_makers GROUP BY Country HAVING COUNT(*) > 3) OR CountryId IN (SELECT Maker FROM model_list WHERE Model = 'fiat' GROUP BY Maker);","SELECT CountryId, CountryName FROM countries WHERE CountryId IN (SELECT Country FROM car_makers GROUP BY Country HAVING COUNT(*) > 3) OR CountryId IN (SELECT Maker FROM model_list WHERE Model = 'fiat' GROUP BY Maker);  
+",,False,53.08
+490,car_1,moderate,What is the count of the car models produced in the United States?,SELECT count(*) FROM MODEL_LIST AS T1 JOIN CAR_MAKERS AS T2 ON T1.Maker  =  T2.Id JOIN COUNTRIES AS T3 ON T2.Country  =  T3.CountryId WHERE T3.CountryName  =  'usa';,SELECT COUNT(DISTINCT ml.ModelId) FROM model_list ml JOIN car_makers cm ON ml.Maker = cm.Id JOIN countries c ON cm.Country = c.CountryId WHERE c.CountryName = 'United States';,"SELECT COUNT(DISTINCT ml.ModelId) FROM model_list ml JOIN car_makers cm ON ml.Maker = cm.Id JOIN countries c ON cm.Country = c.CountryId WHERE c.CountryName = 'United States';  
+",,False,52.32
+492,car_1,moderate,Find the model of the car whose weight is below the average weight.,SELECT T1.model FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T2.Weight  <  (SELECT avg(Weight) FROM CARS_DATA),SELECT car_names.Model FROM cars_data JOIN car_names ON cars_data.MakeId = car_names.MakeId WHERE cars_data.Weight < (SELECT AVG(Weight) FROM cars_data);,"SELECT car_names.Model FROM cars_data JOIN car_names ON cars_data.MakeId = car_names.MakeId WHERE cars_data.Weight < (SELECT AVG(Weight) FROM cars_data); 
+",no such column: cars_data.MakeId,False,50.34
+495,car_1,moderate,"Which model saves the most gasoline? That is to say, have the maximum miles per gallon.",SELECT T1.Model FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id ORDER BY T2.mpg DESC LIMIT 1;,SELECT Model FROM cars_data ORDER BY MPG DESC LIMIT 1;,"SELECT Model FROM cars_data ORDER BY MPG DESC LIMIT 1; 
+",no such column: Model,False,45.63
+530,car_1,complex,What are the ids and names of all countries that either have more than 3 car makers or produce fiat model ?,"select t1.countryid ,  t1.countryname from countries as t1 join car_makers as t2 on t1.countryid  =  t2.country group by t1.countryid having count(*)  >  3 union select t1.countryid ,  t1.countryname from countries as t1 join car_makers as t2 on t1.countryid  =  t2.country join model_list as t3 on t2.id  =  t3.maker where t3.model  =  'fiat';","SELECT CountryId, CountryName FROM countries WHERE CountryId IN (SELECT CountryId FROM car_makers GROUP BY CountryId HAVING COUNT(*) > 3) UNION SELECT CountryId, CountryName FROM countries WHERE CountryId IN (SELECT CountryId FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker WHERE model_list.Model = 'fiat');","SELECT CountryId, CountryName FROM countries WHERE CountryId IN (SELECT CountryId FROM car_makers GROUP BY CountryId HAVING COUNT(*) > 3) UNION SELECT CountryId, CountryName FROM countries WHERE CountryId IN (SELECT CountryId FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker WHERE model_list.Model = 'fiat');  
+
+
+
+",no such column: CountryId,False,64.33
+540,car_1,simple,What is the smallest weight of the car produced with 8 cylinders on 1974 ?,select min(weight) from cars_data where cylinders  =  8 and year  =  1974,SELECT MIN(Weight) FROM cars_data WHERE Cylinders = 8 AND Year = 1974;,"SELECT MIN(Weight) FROM cars_data WHERE Cylinders = 8 AND Year = 1974; 
+",,True,48.54
+568,car_1,complex,What are the names and ids of all countries with at least one car maker?,"SELECT T1.CountryName ,  T1.CountryId FROM COUNTRIES AS T1 JOIN CAR_MAKERS AS T2 ON T1.CountryId  =  T2.Country GROUP BY T1.CountryId HAVING count(*)  >=  1;","SELECT CountryName, CountryId FROM countries c JOIN car_makers cm ON c.CountryId = cm.Country  GROUP BY CountryName, CountryId HAVING COUNT(*) > 0;","SELECT CountryName, CountryId FROM countries c JOIN car_makers cm ON c.CountryId = cm.Country  GROUP BY CountryName, CountryId HAVING COUNT(*) > 0;  
+",,True,57.62
+580,car_1,simple,What is the number of cars with more than 4 cylinders?,SELECT count(*) FROM CARS_DATA WHERE Cylinders  >  4;,SELECT COUNT(*) FROM cars_data WHERE Cylinders > 4;,"SELECT COUNT(*) FROM cars_data WHERE Cylinders > 4; 
+",,True,49.39
+581,car_1,complex,What is the name of the country with the most car makers?,SELECT T2.CountryName FROM CAR_MAKERS AS T1 JOIN COUNTRIES AS T2 ON T1.Country  =  T2.CountryId GROUP BY T1.Country ORDER BY Count(*) DESC LIMIT 1;,SELECT CountryName FROM countries c JOIN car_makers cm ON c.CountryId = cm.Country  GROUP BY CountryName ORDER BY COUNT(cm.Id) DESC LIMIT 1;,"SELECT CountryName FROM countries c JOIN car_makers cm ON c.CountryId = cm.Country  GROUP BY CountryName ORDER BY COUNT(cm.Id) DESC LIMIT 1;  
+",,True,58.13
+588,car_1,moderate,What are the different models for the cards produced after 1980?,SELECT DISTINCT T1.model FROM MODEL_LIST AS T1 JOIN CAR_NAMES AS T2 ON T1.model  =  T2.model JOIN CARS_DATA AS T3 ON T2.MakeId  =  T3.id WHERE T3.year  >  1980;,SELECT DISTINCT Model FROM car_names WHERE MakeId IN (SELECT Id FROM cars_data WHERE Year > 1980)  ;,"SELECT DISTINCT Model FROM car_names WHERE MakeId IN (SELECT Id FROM cars_data WHERE Year > 1980)  ; 
+",,True,52.45
+590,car_1,moderate,What is the car model with the highest mpg ?,select t1.model from car_names as t1 join cars_data as t2 on t1.makeid  =  t2.id order by t2.mpg desc limit 1;,SELECT Model FROM cars_data ORDER BY MPG DESC LIMIT 1;,"SELECT Model FROM cars_data ORDER BY MPG DESC LIMIT 1; 
+",no such column: Model,False,50.94
+601,car_1,simple,What are all the makers and models?,"SELECT Maker ,  Model FROM MODEL_LIST;","SELECT car_makers.Maker, model_list.Model FROM car_makers INNER JOIN model_list ON car_makers.Id = model_list.Maker;","SELECT car_makers.Maker, model_list.Model FROM car_makers INNER JOIN model_list ON car_makers.Id = model_list.Maker; 
+",,False,53.74
+606,car_1,moderate,"Among the cars that do not have the minimum horsepower , what are the make ids and names of all those with less than 4 cylinders ?","select t2.makeid ,  t2.make from cars_data as t1 join car_names as t2 on t1.id  =  t2.makeid where t1.horsepower  >  (select min(horsepower) from cars_data) and t1.cylinders  <  4;","SELECT car_names.MakeId, car_names.Make 
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.MakeId
+WHERE cars_data.Horsepower > (SELECT MIN(Horsepower) FROM cars_data)
+AND cars_data.Cylinders < 4;","SELECT car_names.MakeId, car_names.Make 
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.MakeId
+WHERE cars_data.Horsepower > (SELECT MIN(Horsepower) FROM cars_data)
+AND cars_data.Cylinders < 4; 
+",no such column: cars_data.MakeId,False,67.94
+617,car_1,moderate,What is the model of the car with the smallest amount of horsepower?,SELECT T1.Model FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id ORDER BY T2.horsepower ASC LIMIT 1;,SELECT Model FROM car_names JOIN cars_data ON car_names.MakeId = cars_data.MakeId ORDER BY cars_data.Horsepower ASC LIMIT 1;,"SELECT Model FROM car_names JOIN cars_data ON car_names.MakeId = cars_data.MakeId ORDER BY cars_data.Horsepower ASC LIMIT 1; 
+",no such column: cars_data.MakeId,False,55.52
+623,car_1,moderate,What is the name of the different car makers who produced a car in 1970?,SELECT DISTINCT T1.Maker FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker JOIN CAR_NAMES AS T3 ON T2.model  =  T3.model JOIN CARS_DATA AS T4 ON T3.MakeId  =  T4.id WHERE T4.year  =  '1970';,SELECT DISTINCT Maker FROM car_names JOIN cars_data ON car_names.MakeId = cars_data.MakeId WHERE cars_data.Year = 1970;,"SELECT DISTINCT Maker FROM car_names JOIN cars_data ON car_names.MakeId = cars_data.MakeId WHERE cars_data.Year = 1970; 
+",no such column: Maker,False,58.11
+628,car_1,moderate,What is the average weight of cars each year?,"SELECT avg(Weight) ,  YEAR FROM CARS_DATA GROUP BY YEAR;","SELECT Year, AVG(Weight) FROM cars_data GROUP BY Year;","SELECT Year, AVG(Weight) FROM cars_data GROUP BY Year; 
+",,False,51.07
+634,car_1,moderate,Which model has the most version(make) of cars?,SELECT Model FROM CAR_NAMES GROUP BY Model ORDER BY count(*) DESC LIMIT 1;,"SELECT Model, COUNT(*) AS NumVersions FROM car_names GROUP BY Model ORDER BY NumVersions DESC LIMIT 1;","SELECT Model, COUNT(*) AS NumVersions FROM car_names GROUP BY Model ORDER BY NumVersions DESC LIMIT 1;  
+",,False,54.98
+655,car_1,moderate,How many car models are produced in the usa?,SELECT count(*) FROM MODEL_LIST AS T1 JOIN CAR_MAKERS AS T2 ON T1.Maker  =  T2.Id JOIN COUNTRIES AS T3 ON T2.Country  =  T3.CountryId WHERE T3.CountryName  =  'usa';,"SELECT COUNT(DISTINCT ml.ModelId) 
+FROM model_list ml
+JOIN car_makers cm ON ml.Maker = cm.Id
+JOIN countries c ON cm.Country = c.CountryId
+WHERE c.CountryName = 'USA';","SELECT COUNT(DISTINCT ml.ModelId) 
+FROM model_list ml
+JOIN car_makers cm ON ml.Maker = cm.Id
+JOIN countries c ON cm.Country = c.CountryId
+WHERE c.CountryName = 'USA'; 
+",,False,66.15
+660,car_1,moderate,What is the average edispl for all volvos?,SELECT avg(T2.edispl) FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T1.Model  =  'volvo';,SELECT AVG(Edispl) FROM cars_data WHERE MakeId IN (SELECT Id FROM car_makers WHERE Maker = 'volvo')  ;,"SELECT AVG(Edispl) FROM cars_data WHERE MakeId IN (SELECT Id FROM car_makers WHERE Maker = 'volvo')  ; 
+",no such column: MakeId,False,57.77
+674,car_1,moderate,What are the names of the countries with no car makers?,SELECT CountryName FROM countries EXCEPT SELECT T1.CountryName FROM countries AS T1 JOIN CAR_MAKERS AS T2 ON T1.countryId  =  T2.Country;,SELECT CountryName FROM countries WHERE CountryId NOT IN (SELECT Country FROM car_makers);,"SELECT CountryName FROM countries WHERE CountryId NOT IN (SELECT Country FROM car_makers); 
+",,True,52.31
+676,car_1,complex,How many car makers are there in each continents? List the continent name and the count.,"SELECT T1.Continent ,  count(*) FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId  =  T2.continent JOIN car_makers AS T3 ON T2.CountryId  =  T3.Country GROUP BY T1.Continent;","SELECT continents.Continent, COUNT(car_makers.Id) AS CarMakerCount FROM continents LEFT JOIN countries ON continents.ContId = countries.Continent JOIN car_makers ON countries.CountryId = car_makers.Country GROUP BY continents.Continent;","SELECT continents.Continent, COUNT(car_makers.Id) AS CarMakerCount FROM continents LEFT JOIN countries ON continents.ContId = countries.Continent JOIN car_makers ON countries.CountryId = car_makers.Country GROUP BY continents.Continent;  
+",,True,60.11
+691,car_1,simple,In which years cars were produced weighing no less than 3000 and no more than 4000 ?,select distinct year from cars_data where weight between 3000 and 4000;,SELECT Year FROM cars_data WHERE Weight BETWEEN 3000 AND 4000;,"SELECT Year FROM cars_data WHERE Weight BETWEEN 3000 AND 4000; 
+",,False,53.33
+697,car_1,moderate,How many car models are produced by each maker ? Only list the count and the maker full name .,"select count(*) ,  t2.fullname from model_list as t1 join car_makers as t2 on t1.maker  =  t2.id group by t2.id;","SELECT COUNT(DISTINCT ml.Model) AS car_models, cm.FullName AS maker_full_name
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker
+GROUP BY cm.FullName;","SELECT COUNT(DISTINCT ml.Model) AS car_models, cm.FullName AS maker_full_name
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker
+GROUP BY cm.FullName; 
+",,True,60.15
+720,car_1,simple,What is the horsepower of the car with the greatest accelerate?,SELECT T1.horsepower FROM CARS_DATA AS T1 ORDER BY T1.accelerate DESC LIMIT 1;,SELECT MPG FROM cars_data ORDER BY Accelerate DESC LIMIT 1;,"SELECT MPG FROM cars_data ORDER BY Accelerate DESC LIMIT 1;  
+",,False,49.37
+734,car_1,simple,How much does the car accelerate that makes amc hornet sportabout (sw)?,SELECT T1.Accelerate FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T2.Make  =  'amc hornet sportabout (sw)';,SELECT Accelerate FROM cars_data WHERE MakeId = (SELECT Id FROM car_makers WHERE Maker = 'amc' AND FullName = 'AMC Hornet Sportabout (SW)')  ;,"SELECT Accelerate FROM cars_data WHERE MakeId = (SELECT Id FROM car_makers WHERE Maker = 'amc' AND FullName = 'AMC Hornet Sportabout (SW)')  ; 
+",no such column: MakeId,False,54.86
+781,car_1,moderate,"Among the cars with more than lowest horsepower, which ones do not have more than 3 cylinders? List the car makeid and make name.","SELECT T2.MakeId ,  T2.Make FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T1.Horsepower  >  (SELECT min(Horsepower) FROM CARS_DATA) AND T1.Cylinders  <=  3;","SELECT car_names.MakeId, car_names.Make 
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+WHERE cars_data.Horsepower > (SELECT MIN(Horsepower) FROM cars_data)
+AND cars_data.Cylinders <= 3;","SELECT car_names.MakeId, car_names.Make 
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+WHERE cars_data.Horsepower > (SELECT MIN(Horsepower) FROM cars_data)
+AND cars_data.Cylinders <= 3; 
+",,True,62.48
+794,car_1,complex,What are the names and ids of all makers with more than 3 models?,"SELECT T1.FullName ,  T1.Id FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker GROUP BY T1.Id HAVING count(*)  >  3;","SELECT Maker, Id FROM car_makers c JOIN model_list ml ON c.Id = ml.Maker GROUP BY c.Id, c.Maker HAVING COUNT(ml.ModelId) > 3;","SELECT Maker, Id FROM car_makers c JOIN model_list ml ON c.Id = ml.Maker GROUP BY c.Id, c.Maker HAVING COUNT(ml.ModelId) > 3; 
+",ambiguous column name: Maker,False,49.77
+807,car_1,simple,What is the number of cars with a horsepower greater than 150?,SELECT count(*) FROM CARS_DATA WHERE horsepower  >  150;,SELECT COUNT(*) FROM cars_data WHERE Horsepower > '150';,"SELECT COUNT(*) FROM cars_data WHERE Horsepower > '150'; 
+",,True,42.5
+815,car_1,simple,What is the horsepower of the car with the largest accelerate?,SELECT T1.horsepower FROM CARS_DATA AS T1 ORDER BY T1.accelerate DESC LIMIT 1;,SELECT Horsepower FROM cars_data ORDER BY Accelerate DESC LIMIT 1;,"SELECT Horsepower FROM cars_data ORDER BY Accelerate DESC LIMIT 1; 
+",,True,42.32
+819,car_1,simple,How many cars have more than 4 cylinders?,SELECT count(*) FROM CARS_DATA WHERE Cylinders  >  4;,SELECT COUNT(*) FROM cars_data WHERE Cylinders > 4;,"SELECT COUNT(*) FROM cars_data WHERE Cylinders > 4; 
+",,True,46.45
+820,car_1,complex,How many countries has more than 2 car makers ?,select count(*) from countries as t1 join car_makers as t2 on t1.countryid  =  t2.country group by t1.countryid having count(*)  >  2,"SELECT CountryId, COUNT(DISTINCT Maker) AS num_makers FROM car_makers GROUP BY CountryId HAVING num_makers > 2;","SELECT CountryId, COUNT(DISTINCT Maker) AS num_makers FROM car_makers GROUP BY CountryId HAVING num_makers > 2;  
+",no such column: CountryId,False,51.77
+827,car_1,moderate,How many car models were produced by the maker with full name American Motor Company?,SELECT count(*) FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker WHERE T1.FullName  =  'American Motor Company';,SELECT COUNT(DISTINCT ml.ModelId) FROM model_list ml JOIN car_makers cm ON ml.Maker = cm.Id WHERE cm.FullName = 'American Motor Company';,"SELECT COUNT(DISTINCT ml.ModelId) FROM model_list ml JOIN car_makers cm ON ml.Maker = cm.Id WHERE cm.FullName = 'American Motor Company'; 
+",,True,49.21
+841,car_1,moderate,"For all of the 4 cylinder cars, which model has the most horsepower?",SELECT T1.Model FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T2.Cylinders  =  4 ORDER BY T2.horsepower DESC LIMIT 1;,SELECT Model FROM cars_data c JOIN car_names cn ON c.MakeId = cn.MakeId JOIN model_list ml ON cn.MakeId = ml.Maker WHERE c.Cylinders = 4 ORDER BY c.Horsepower DESC LIMIT 1;,"SELECT Model FROM cars_data c JOIN car_names cn ON c.MakeId = cn.MakeId JOIN model_list ml ON cn.MakeId = ml.Maker WHERE c.Cylinders = 4 ORDER BY c.Horsepower DESC LIMIT 1; 
+",ambiguous column name: Model,False,53.89
+866,car_1,moderate,What model has the most different versions?,SELECT Model FROM CAR_NAMES GROUP BY Model ORDER BY count(*) DESC LIMIT 1;,"SELECT Model, COUNT(DISTINCT MakeId) AS NumVersions FROM car_names GROUP BY Model ORDER BY NumVersions DESC LIMIT 1;","SELECT Model, COUNT(DISTINCT MakeId) AS NumVersions FROM car_names GROUP BY Model ORDER BY NumVersions DESC LIMIT 1; 
+",,False,46.45
+872,car_1,moderate,What is the maker of the carr produced in the earliest year and what year was it?,"SELECT T2.Make ,  T1.Year FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T1.Year  =  (SELECT min(YEAR) FROM CARS_DATA);","SELECT car_names.Make, cars_data.Year FROM car_names JOIN cars_data ON car_names.MakeId = cars_data.Id ORDER BY cars_data.Year ASC LIMIT 1;","SELECT car_names.Make, cars_data.Year FROM car_names JOIN cars_data ON car_names.MakeId = cars_data.Id ORDER BY cars_data.Year ASC LIMIT 1; 
+",,False,51.64
+905,car_1,moderate,What is the number of makers of care in France?,SELECT count(*) FROM CAR_MAKERS AS T1 JOIN COUNTRIES AS T2 ON T1.Country  =  T2.CountryId WHERE T2.CountryName  =  'france';,SELECT COUNT(DISTINCT car_makers.Id) FROM car_makers WHERE car_makers.Country = '6' ;,"SELECT COUNT(DISTINCT car_makers.Id) FROM car_makers WHERE car_makers.Country = '6' ; 
+",,False,45.57
+939,car_1,moderate,Find the name of the makers that produced some cars in the year of 1970?,SELECT DISTINCT T1.Maker FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker JOIN CAR_NAMES AS T3 ON T2.model  =  T3.model JOIN CARS_DATA AS T4 ON T3.MakeId  =  T4.id WHERE T4.year  =  '1970';,SELECT DISTINCT Maker FROM car_names JOIN cars_data ON car_names.MakeId = cars_data.MakeId WHERE cars_data.Year = 1970;,"SELECT DISTINCT Maker FROM car_names JOIN cars_data ON car_names.MakeId = cars_data.MakeId WHERE cars_data.Year = 1970; 
+",no such column: Maker,False,50.19
+941,car_1,moderate,What is the number of car models created by the car maker American Motor Company?,SELECT count(*) FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker WHERE T1.FullName  =  'American Motor Company';,SELECT COUNT(*) FROM model_list WHERE Maker = (SELECT Id FROM car_makers WHERE Maker = 'American Motor Company') ;,"SELECT COUNT(*) FROM model_list WHERE Maker = (SELECT Id FROM car_makers WHERE Maker = 'American Motor Company') ; 
+",,False,48.45
+945,car_1,moderate,"For the cars with 4 cylinders, which model has the largest horsepower?",SELECT T1.Model FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T2.Cylinders  =  4 ORDER BY T2.horsepower DESC LIMIT 1;,SELECT Model FROM car_names JOIN cars_data ON car_names.MakeId = cars_data.MakeId WHERE cars_data.Cylinders = 4 ORDER BY cars_data.Horsepower DESC LIMIT 1;,"SELECT Model FROM car_names JOIN cars_data ON car_names.MakeId = cars_data.MakeId WHERE cars_data.Cylinders = 4 ORDER BY cars_data.Horsepower DESC LIMIT 1; 
+",no such column: cars_data.MakeId,False,53.27
+962,car_1,moderate,"For each continent, list its id, name, and how many countries it has?","SELECT T1.ContId ,  T1.Continent ,  count(*) FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId  =  T2.Continent GROUP BY T1.ContId;","SELECT ContId, Continent, COUNT(CountryId) AS NumCountries FROM continents LEFT JOIN countries ON continents.ContId = countries.Continent GROUP BY ContId, Continent;","SELECT ContId, Continent, COUNT(CountryId) AS NumCountries FROM continents LEFT JOIN countries ON continents.ContId = countries.Continent GROUP BY ContId, Continent;  
+",ambiguous column name: Continent,False,49.99
+966,car_1,moderate,What is the average weight and year for each year?,"SELECT avg(Weight) ,  YEAR FROM CARS_DATA GROUP BY YEAR;","SELECT Year, AVG(Weight) AS AverageWeight FROM cars_data GROUP BY Year;","SELECT Year, AVG(Weight) AS AverageWeight FROM cars_data GROUP BY Year;  
+",,False,45.07
+967,car_1,simple,What is the maximum mpg of the cars that had 8 cylinders or that were produced before 1980 ?,select max(mpg) from cars_data where cylinders  =  8 or year  <  1980,SELECT MAX(MPG) FROM cars_data WHERE Cylinders = 8 OR Year < 1980;,"SELECT MAX(MPG) FROM cars_data WHERE Cylinders = 8 OR Year < 1980; 
+
+
+",,True,47.02
+976,car_1,moderate,"How many models does each car maker produce? List maker full name, id and the number.","SELECT T1.FullName ,  T1.Id ,  count(*) FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker GROUP BY T1.Id;","SELECT car_makers.FullName, car_makers.Id, COUNT(DISTINCT model_list.Model) AS NumberOfModels FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker GROUP BY car_makers.FullName, car_makers.Id;","SELECT car_makers.FullName, car_makers.Id, COUNT(DISTINCT model_list.Model) AS NumberOfModels FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker GROUP BY car_makers.FullName, car_makers.Id;  
+",,True,57.67
+996,car_1,moderate,What are the name of the countries where there is not a single car maker?,SELECT CountryName FROM countries EXCEPT SELECT T1.CountryName FROM countries AS T1 JOIN CAR_MAKERS AS T2 ON T1.countryId  =  T2.Country;,SELECT c.CountryName FROM countries c LEFT JOIN car_makers cm ON c.CountryId = cm.Country  WHERE cm.Id IS NULL;,"SELECT c.CountryName FROM countries c LEFT JOIN car_makers cm ON c.CountryId = cm.Country  WHERE cm.Id IS NULL; 
+",,True,48.71
+999,car_1,simple,What is the average horsepower for all cars produced before 1980 ?,select avg(horsepower) from cars_data where year  <  1980;,SELECT AVG(Horsepower) FROM cars_data WHERE Year < 1980;,"SELECT AVG(Horsepower) FROM cars_data WHERE Year < 1980; 
+",,True,48.04
+1004,car_1,moderate,Find the make and production time of the cars that were produced in the earliest year?,"SELECT T2.Make ,  T1.Year FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T1.Year  =  (SELECT min(YEAR) FROM CARS_DATA);","SELECT Make, Year FROM cars_data ORDER BY Year ASC LIMIT 1;","SELECT Make, Year FROM cars_data ORDER BY Year ASC LIMIT 1;  
+",no such column: Make,False,45.26
+1027,car_1,moderate,What is the maximum accelerate for all the different cylinders?,"SELECT max(Accelerate) ,  Cylinders FROM CARS_DATA GROUP BY Cylinders;",SELECT MAX(Accelerate) FROM cars_data GROUP BY Cylinders;,"SELECT MAX(Accelerate) FROM cars_data GROUP BY Cylinders; 
+",,False,45.36
+4,concert_singer,moderate,"What is the average, minimum, and maximum age for all French singers?","SELECT avg(age) ,  min(age) ,  max(age) FROM singer WHERE country  =  'France'","SELECT AVG(Age), MIN(Age), MAX(Age) FROM singer WHERE Country = 'France';","SELECT AVG(Age), MIN(Age), MAX(Age) FROM singer WHERE Country = 'France'; 
+",,True,73.17
+77,concert_singer,simple,What are the names of the stadiums without any concerts?,SELECT name FROM stadium WHERE stadium_id NOT IN (SELECT stadium_id FROM concert),SELECT Name FROM stadium WHERE Stadium_ID NOT IN (SELECT DISTINCT Stadium_ID FROM concert);,"SELECT Name FROM stadium WHERE Stadium_ID NOT IN (SELECT DISTINCT Stadium_ID FROM concert); 
+",,True,46.7
+123,concert_singer,moderate,Which year has most number of concerts?,SELECT YEAR FROM concert GROUP BY YEAR ORDER BY count(*) DESC LIMIT 1,"SELECT Year, COUNT(*) AS ConcertCount FROM concert GROUP BY Year ORDER BY ConcertCount DESC LIMIT 1;","SELECT Year, COUNT(*) AS ConcertCount FROM concert GROUP BY Year ORDER BY ConcertCount DESC LIMIT 1; 
+",,False,46.39
+133,concert_singer,moderate,What are the names of the singers who performed in a concert in 2014?,SELECT T2.name FROM singer_in_concert AS T1 JOIN singer AS T2 ON T1.singer_id  =  T2.singer_id JOIN concert AS T3 ON T1.concert_id  =  T3.concert_id WHERE T3.year  =  2014,SELECT s.Name FROM singer s JOIN singer_in_concert sic ON s.Singer_ID = sic.Singer_ID JOIN concert c ON sic.concert_ID = c.concert_ID WHERE c.Year = '2014';,"SELECT s.Name FROM singer s JOIN singer_in_concert sic ON s.Singer_ID = sic.Singer_ID JOIN concert c ON sic.concert_ID = c.concert_ID WHERE c.Year = '2014'; 
+",,True,58.18
+143,concert_singer,simple,"Show name, country, age for all singers ordered by age from the oldest to the youngest.","SELECT name ,  country ,  age FROM singer ORDER BY age DESC","SELECT Name, Country, Age FROM singer ORDER BY Age DESC;","SELECT Name, Country, Age FROM singer ORDER BY Age DESC; 
+",,True,44.33
+177,concert_singer,moderate,Show all countries and the number of singers in each country.,"SELECT country ,  count(*) FROM singer GROUP BY country","SELECT Country, COUNT(*) AS NumberOfSingers FROM singer GROUP BY Country;","SELECT Country, COUNT(*) AS NumberOfSingers FROM singer GROUP BY Country; 
+",,True,44.37
+182,concert_singer,moderate,"What is the average, minimum, and maximum age of all singers from France?","SELECT avg(age) ,  min(age) ,  max(age) FROM singer WHERE country  =  'France'","SELECT AVG(Age), MIN(Age), MAX(Age) FROM singer WHERE Country = 'France';","SELECT AVG(Age), MIN(Age), MAX(Age) FROM singer WHERE Country = 'France'; 
+",,True,47.33
+208,concert_singer,moderate,How many singers are from each country?,"SELECT country ,  count(*) FROM singer GROUP BY country","SELECT Country, COUNT(*) FROM singer GROUP BY Country;","SELECT Country, COUNT(*) FROM singer GROUP BY Country; 
+",,True,44.38
+229,concert_singer,simple,What are  the different countries with singers above age 20?,SELECT DISTINCT country FROM singer WHERE age  >  20,SELECT DISTINCT Country FROM singer WHERE Age > 20;,"SELECT DISTINCT Country FROM singer WHERE Age > 20; 
+",,True,44.41
+242,concert_singer,simple,Show location and name for all stadiums with a capacity between 5000 and 10000.,"SELECT LOCATION ,  name FROM stadium WHERE capacity BETWEEN 5000 AND 10000","SELECT Location, Name FROM stadium WHERE Capacity BETWEEN 5000 AND 10000;","SELECT Location, Name FROM stadium WHERE Capacity BETWEEN 5000 AND 10000; 
+",,True,47.3
+245,concert_singer,simple,How many concerts are there in year 2014 or 2015?,SELECT count(*) FROM concert WHERE YEAR  =  2014 OR YEAR  =  2015,"SELECT COUNT(*) FROM concert WHERE Year IN ('2014', '2015');","SELECT COUNT(*) FROM concert WHERE Year IN ('2014', '2015');  
+",,True,46.54
+248,concert_singer,simple,Show the name and the release year of the song by the youngest singer.,"SELECT song_name ,  song_release_year FROM singer ORDER BY age LIMIT 1","SELECT Song_Name, Song_release_year FROM singer WHERE Singer_ID = (SELECT Singer_ID FROM singer ORDER BY Age ASC LIMIT 1);","SELECT Song_Name, Song_release_year FROM singer WHERE Singer_ID = (SELECT Singer_ID FROM singer ORDER BY Age ASC LIMIT 1);  
+",,True,48.45
+263,concert_singer,moderate,List all singer names in concerts in year 2014.,SELECT T2.name FROM singer_in_concert AS T1 JOIN singer AS T2 ON T1.singer_id  =  T2.singer_id JOIN concert AS T3 ON T1.concert_id  =  T3.concert_id WHERE T3.year  =  2014,SELECT s.Name FROM singer s JOIN singer_in_concert sic ON s.Singer_ID = sic.Singer_ID JOIN concert c ON sic.concert_ID = c.concert_ID WHERE c.Year = '2014';,"SELECT s.Name FROM singer s JOIN singer_in_concert sic ON s.Singer_ID = sic.Singer_ID JOIN concert c ON sic.concert_ID = c.concert_ID WHERE c.Year = '2014'; 
+",,True,56.8
+285,concert_singer,moderate,Show the name and theme for all concerts and the number of singers in each concert.,"SELECT T2.concert_name ,  T2.theme ,  count(*) FROM singer_in_concert AS T1 JOIN concert AS T2 ON T1.concert_id  =  T2.concert_id GROUP BY T2.concert_id","SELECT c.concert_Name, c.Theme, COUNT(sic.Singer_ID) AS NumberOfSingers FROM concert c LEFT JOIN singer_in_concert sic ON c.concert_ID = sic.concert_ID GROUP BY c.concert_Name, c.Theme;","SELECT c.concert_Name, c.Theme, COUNT(sic.Singer_ID) AS NumberOfSingers FROM concert c LEFT JOIN singer_in_concert sic ON c.concert_ID = sic.concert_ID GROUP BY c.concert_Name, c.Theme;  
+",,True,59.74
+302,concert_singer,moderate,"For each stadium, how many concerts play there?","SELECT T2.name ,  count(*) FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id GROUP BY T1.stadium_id","SELECT Stadium_ID, COUNT(*) AS Concert_Count FROM stadium JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID GROUP BY Stadium_ID;","SELECT Stadium_ID, COUNT(*) AS Concert_Count FROM stadium JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID GROUP BY Stadium_ID; 
+",ambiguous column name: Stadium_ID,False,50.26
+333,concert_singer,simple,How many singers do we have?,SELECT count(*) FROM singer,SELECT COUNT(*) FROM singer;,"SELECT COUNT(*) FROM singer; 
+",,True,41.82
+345,concert_singer,complex,Find the name and location of the stadiums which some concerts happened in the years of both 2014 and 2015.,"SELECT T2.name ,  T2.location FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id WHERE T1.Year  =  2014 INTERSECT SELECT T2.name ,  T2.location FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id WHERE T1.Year  =  2015","SELECT s.Name, s.Location FROM stadium s JOIN concert c ON s.Stadium_ID = c.Stadium_ID WHERE c.Year IN ('2014', '2015') GROUP BY s.Name, s.Location HAVING COUNT(DISTINCT c.concert_ID) > 1;","SELECT s.Name, s.Location FROM stadium s JOIN concert c ON s.Stadium_ID = c.Stadium_ID WHERE c.Year IN ('2014', '2015') GROUP BY s.Name, s.Location HAVING COUNT(DISTINCT c.concert_ID) > 1;  
+",,True,60.17
+391,concert_singer,complex,What are the names and locations of the stadiums that had concerts that occurred in both 2014 and 2015?,"SELECT T2.name ,  T2.location FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id WHERE T1.Year  =  2014 INTERSECT SELECT T2.name ,  T2.location FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id WHERE T1.Year  =  2015","SELECT DISTINCT s.Name, s.Location FROM stadium s JOIN concert c ON s.Stadium_ID = c.Stadium_ID WHERE c.Year IN ('2014', '2015')  ;","SELECT DISTINCT s.Name, s.Location FROM stadium s JOIN concert c ON s.Stadium_ID = c.Stadium_ID WHERE c.Year IN ('2014', '2015')  ; 
+",,False,52.88
+393,concert_singer,moderate,Find the number of concerts happened in the stadium with the highest capacity .,select count(*) from concert where stadium_id = (select stadium_id from stadium order by capacity desc limit 1),SELECT COUNT(*) FROM concert WHERE Stadium_ID = (SELECT Stadium_ID FROM stadium ORDER BY Capacity DESC LIMIT 1);,"SELECT COUNT(*) FROM concert WHERE Stadium_ID = (SELECT Stadium_ID FROM stadium ORDER BY Capacity DESC LIMIT 1);  
+",,True,49.13
+399,concert_singer,simple,What are the locations and names of all stations with capacity between 5000 and 10000?,"SELECT LOCATION ,  name FROM stadium WHERE capacity BETWEEN 5000 AND 10000","SELECT Location, Name FROM stadium WHERE Capacity BETWEEN 5000 AND 10000;","SELECT Location, Name FROM stadium WHERE Capacity BETWEEN 5000 AND 10000; 
+",,True,48.74
+429,concert_singer,moderate,"What are the names , themes , and number of singers for every concert ?","select t2.concert_name ,  t2.theme ,  count(*) from singer_in_concert as t1 join concert as t2 on t1.concert_id  =  t2.concert_id group by t2.concert_id","SELECT c.concert_Name, c.Theme, COUNT(sc.Singer_ID) AS Number_of_Singers FROM concert c LEFT JOIN singer_in_concert sc ON c.concert_ID = sc.concert_ID GROUP BY c.concert_Name, c.Theme;","SELECT c.concert_Name, c.Theme, COUNT(sc.Singer_ID) AS Number_of_Singers FROM concert c LEFT JOIN singer_in_concert sc ON c.concert_ID = sc.concert_ID GROUP BY c.concert_Name, c.Theme;  
+",,True,60.41
+434,concert_singer,moderate,What is the average and maximum capacities for all stadiums ?,"select avg(capacity) ,  max(capacity) from stadium","SELECT AVG(Capacity) AS Average_Capacity, MAX(Capacity) AS Max_Capacity FROM stadium;","SELECT AVG(Capacity) AS Average_Capacity, MAX(Capacity) AS Max_Capacity FROM stadium; 
+",,True,47.64
+616,concert_singer,moderate,What are the number of concerts that occurred in the stadium with the largest capacity ?,select count(*) from concert where stadium_id = (select stadium_id from stadium order by capacity desc limit 1),SELECT COUNT(*) FROM concert WHERE Stadium_ID = (SELECT Stadium_ID FROM stadium ORDER BY Capacity DESC LIMIT 1);,"SELECT COUNT(*) FROM concert WHERE Stadium_ID = (SELECT Stadium_ID FROM stadium ORDER BY Capacity DESC LIMIT 1);  
+",,True,50.49
+621,concert_singer,simple,What is the name and capacity for the stadium with the highest average attendance?,"SELECT name ,  capacity FROM stadium ORDER BY average DESC LIMIT 1","SELECT Name, Capacity FROM stadium ORDER BY Average DESC LIMIT 1;","SELECT Name, Capacity FROM stadium ORDER BY Average DESC LIMIT 1; 
+",,True,46.62
+622,concert_singer,moderate,Show countries where a singer above age 40 and a singer below 30 are from.,SELECT country FROM singer WHERE age  >  40 INTERSECT SELECT country FROM singer WHERE age  <  30,SELECT DISTINCT Country FROM singer WHERE Age > 40 UNION ALL SELECT DISTINCT Country FROM singer WHERE Age < 30;,"SELECT DISTINCT Country FROM singer WHERE Age > 40 UNION ALL SELECT DISTINCT Country FROM singer WHERE Age < 30; 
+",,False,50.56
+652,concert_singer,simple,What is the maximum capacity and the average of all stadiums ?,"select max(capacity), average from stadium","SELECT MAX(Capacity), AVG(Average) FROM stadium;","SELECT MAX(Capacity), AVG(Average) FROM stadium; 
+",,False,45.26
+675,concert_singer,simple,"What are the names, countries, and ages for every singer in descending order of age?","SELECT name ,  country ,  age FROM singer ORDER BY age DESC","SELECT Name, Country, Age FROM singer ORDER BY Age DESC;","SELECT Name, Country, Age FROM singer ORDER BY Age DESC; 
+",,True,44.27
+694,concert_singer,moderate,What are the names of the singers and number of concerts for each person?,"SELECT T2.name ,  count(*) FROM singer_in_concert AS T1 JOIN singer AS T2 ON T1.singer_id  =  T2.singer_id GROUP BY T2.singer_id","SELECT Singer_ID, Name, COUNT(*) AS Number_of_Concerts FROM singer_in_concert GROUP BY Singer_ID, Name;","SELECT Singer_ID, Name, COUNT(*) AS Number_of_Concerts FROM singer_in_concert GROUP BY Singer_ID, Name;  
+",no such column: Name,False,50.83
+712,concert_singer,simple,What are all distinct countries where singers above age 20 are from?,SELECT DISTINCT country FROM singer WHERE age  >  20,SELECT DISTINCT Country FROM singer WHERE Age > 20;,"SELECT DISTINCT Country FROM singer WHERE Age > 20; 
+",,True,44.31
+722,concert_singer,simple,Show the stadium names without any concert.,SELECT name FROM stadium WHERE stadium_id NOT IN (SELECT stadium_id FROM concert),SELECT Name FROM stadium WHERE Stadium_ID NOT IN (SELECT DISTINCT Stadium_ID FROM concert);,"SELECT Name FROM stadium WHERE Stadium_ID NOT IN (SELECT DISTINCT Stadium_ID FROM concert); 
+",,True,45.65
+724,concert_singer,simple,How many concerts occurred in 2014 or 2015?,SELECT count(*) FROM concert WHERE YEAR  =  2014 OR YEAR  =  2015,"SELECT COUNT(*) FROM concert WHERE Year IN ('2014', '2015');","SELECT COUNT(*) FROM concert WHERE Year IN ('2014', '2015');  
+",,True,49.73
+770,concert_singer,moderate,Show names for all stadiums except for stadiums having a concert in year 2014.,SELECT name FROM stadium EXCEPT SELECT T2.name FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id WHERE T1.year  =  2014,SELECT Name FROM stadium WHERE Stadium_ID NOT IN (SELECT DISTINCT Stadium_ID FROM concert WHERE Year = '2014');,"SELECT Name FROM stadium WHERE Stadium_ID NOT IN (SELECT DISTINCT Stadium_ID FROM concert WHERE Year = '2014'); 
+",,True,51.77
+787,concert_singer,simple,What is the name and capacity for the stadium with highest average attendance?,"SELECT name ,  capacity FROM stadium ORDER BY average DESC LIMIT 1","SELECT Name, Capacity FROM stadium ORDER BY Average DESC LIMIT 1;","SELECT Name, Capacity FROM stadium ORDER BY Average DESC LIMIT 1; 
+",,True,47.06
+804,concert_singer,complex,What is the name and capacity of the stadium with the most concerts after 2013 ?,"select t2.name ,  t2.capacity from concert as t1 join stadium as t2 on t1.stadium_id  =  t2.stadium_id where t1.year  >  2013 group by t2.stadium_id order by count(*) desc limit 1","SELECT s.Name, s.Capacity FROM stadium s JOIN concert c ON s.Stadium_ID = c.Stadium_ID WHERE c.Year > '2013' GROUP BY s.Stadium_ID ORDER BY COUNT(*) DESC LIMIT 1;","SELECT s.Name, s.Capacity FROM stadium s JOIN concert c ON s.Stadium_ID = c.Stadium_ID WHERE c.Year > '2013' GROUP BY s.Stadium_ID ORDER BY COUNT(*) DESC LIMIT 1; 
+",,True,58.86
+809,concert_singer,moderate,List all song names by singers above the average age.,SELECT song_name FROM singer WHERE age  >  (SELECT avg(age) FROM singer),SELECT Song_Name FROM singer WHERE Age > (SELECT AVG(Age) FROM singer) ;,"SELECT Song_Name FROM singer WHERE Age > (SELECT AVG(Age) FROM singer) ; 
+",,True,47.92
+851,concert_singer,complex,Show the stadium name and capacity with most number of concerts in year 2014 or after.,"SELECT T2.name ,  T2.capacity FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id WHERE T1.year  >=  2014 GROUP BY T2.stadium_id ORDER BY count(*) DESC LIMIT 1","SELECT Name, Capacity FROM stadium JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID WHERE Year >= '2014' GROUP BY Name, Capacity ORDER BY COUNT(*) DESC LIMIT 1;","SELECT Name, Capacity FROM stadium JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID WHERE Year >= '2014' GROUP BY Name, Capacity ORDER BY COUNT(*) DESC LIMIT 1; 
+",,True,53.48
+901,concert_singer,moderate,What are the names of all stadiums that did not have a concert in 2014?,SELECT name FROM stadium EXCEPT SELECT T2.name FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id WHERE T1.year  =  2014,SELECT Name FROM stadium WHERE Stadium_ID NOT IN (SELECT DISTINCT Stadium_ID FROM concert WHERE Year = '2014');,"SELECT Name FROM stadium WHERE Stadium_ID NOT IN (SELECT DISTINCT Stadium_ID FROM concert WHERE Year = '2014'); 
+",,True,47.54
+903,concert_singer,moderate,What are all the song names by singers who are older than average?,SELECT song_name FROM singer WHERE age  >  (SELECT avg(age) FROM singer),SELECT Song_Name FROM singer WHERE Age > (SELECT AVG(Age) FROM singer)  ;,"SELECT Song_Name FROM singer WHERE Age > (SELECT AVG(Age) FROM singer)  ; 
+",,True,45.94
+921,concert_singer,simple,What are the names and release years for all the songs of the youngest singer?,"SELECT song_name ,  song_release_year FROM singer ORDER BY age LIMIT 1","SELECT Song_Name, Song_release_year FROM singer WHERE Age = (SELECT MIN(Age) FROM singer);","SELECT Song_Name, Song_release_year FROM singer WHERE Age = (SELECT MIN(Age) FROM singer);  
+",,True,46.44
+926,concert_singer,simple,what is the name and nation of the singer who have a song having 'Hey' in its name?,"SELECT name ,  country FROM singer WHERE song_name LIKE '%Hey%'","SELECT s.Name, s.Country FROM singer s WHERE s.Song_Name LIKE '%Hey%' ;","SELECT s.Name, s.Country FROM singer s WHERE s.Song_Name LIKE '%Hey%' ; 
+",,True,47.63
+931,concert_singer,simple,What is the name and country of origin of every singer who has a song with the word 'Hey' in its title?,"SELECT name ,  country FROM singer WHERE song_name LIKE '%Hey%'","SELECT s.Name, s.Country FROM singer s WHERE s.Song_Name LIKE '%Hey%' ;","SELECT s.Name, s.Country FROM singer s WHERE s.Song_Name LIKE '%Hey%' ; 
+",,True,49.38
+935,concert_singer,simple,What is the total number of singers?,SELECT count(*) FROM singer,SELECT COUNT(*) FROM singer;,"SELECT COUNT(*) FROM singer; 
+",,True,41.54
+944,concert_singer,moderate,What is the year that had the most concerts?,SELECT YEAR FROM concert GROUP BY YEAR ORDER BY count(*) DESC LIMIT 1,"SELECT Year, COUNT(*) AS ConcertCount FROM concert GROUP BY Year ORDER BY ConcertCount DESC LIMIT 1;","SELECT Year, COUNT(*) AS ConcertCount FROM concert GROUP BY Year ORDER BY ConcertCount DESC LIMIT 1; 
+",,False,47.14
+969,concert_singer,moderate,Show the stadium name and the number of concerts in each stadium.,"SELECT T2.name ,  count(*) FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id GROUP BY T1.stadium_id","SELECT stadium.Name, COUNT(concert.concert_ID) AS NumberOfConcerts FROM stadium INNER JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID GROUP BY stadium.Name;","SELECT stadium.Name, COUNT(concert.concert_ID) AS NumberOfConcerts FROM stadium INNER JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID GROUP BY stadium.Name; 
+",,True,52.35
+994,concert_singer,moderate,List singer names and number of concerts for each singer.,"SELECT T2.name ,  count(*) FROM singer_in_concert AS T1 JOIN singer AS T2 ON T1.singer_id  =  T2.singer_id GROUP BY T2.singer_id","SELECT Singer.Name, COUNT(*) AS NumberOfConcerts FROM singer JOIN singer_in_concert ON singer.Singer_ID = singer_in_concert.Singer_ID GROUP BY Singer.Name;","SELECT Singer.Name, COUNT(*) AS NumberOfConcerts FROM singer JOIN singer_in_concert ON singer.Singer_ID = singer_in_concert.Singer_ID GROUP BY Singer.Name; 
+",,True,53.24
+7,course_teach,simple,What is the hometown of the youngest teacher?,SELECT Hometown FROM teacher ORDER BY Age ASC LIMIT 1,SELECT Hometown FROM teacher ORDER BY Age ASC LIMIT 1;,"SELECT Hometown FROM teacher ORDER BY Age ASC LIMIT 1; 
+",,True,39.73
+36,course_teach,simple,List the name of teachers whose hometown is not `` Little Lever Urban District '' .,"select name from teacher where hometown != ""little lever urban district""",SELECT Name FROM teacher WHERE Hometown != 'Little Lever Urban District';,"SELECT Name FROM teacher WHERE Hometown != 'Little Lever Urban District'; 
+",,False,41.3
+82,course_teach,moderate,Show names of teachers and the number of courses they teach.,"SELECT T2.Name ,  COUNT(*) FROM course_arrange AS T1 JOIN teacher AS T2 ON T1.Teacher_ID  =  T2.Teacher_ID GROUP BY T2.Name","SELECT teacher.Name, COUNT(course_arrange.Teacher_ID) AS NumberOfCourses FROM teacher JOIN course_arrange ON teacher.Teacher_ID = course_arrange.Teacher_ID GROUP BY teacher.Name;","SELECT teacher.Name, COUNT(course_arrange.Teacher_ID) AS NumberOfCourses FROM teacher JOIN course_arrange ON teacher.Teacher_ID = course_arrange.Teacher_ID GROUP BY teacher.Name;  
+",,True,49.12
+135,course_teach,moderate,What are the names of the teachers and how many courses do they teach?,"SELECT T2.Name ,  COUNT(*) FROM course_arrange AS T1 JOIN teacher AS T2 ON T1.Teacher_ID  =  T2.Teacher_ID GROUP BY T2.Name","SELECT teacher.Name, COUNT(course_arrange.Course_ID) AS NumberOfCourses FROM teacher JOIN course_arrange ON teacher.Teacher_ID = course_arrange.Teacher_ID GROUP BY teacher.Name;","SELECT teacher.Name, COUNT(course_arrange.Course_ID) AS NumberOfCourses FROM teacher JOIN course_arrange ON teacher.Teacher_ID = course_arrange.Teacher_ID GROUP BY teacher.Name;  
+",,True,47.28
+180,course_teach,simple,Where is the youngest teacher from?,SELECT Hometown FROM teacher ORDER BY Age ASC LIMIT 1,SELECT Hometown FROM teacher ORDER BY Age ASC LIMIT 1;,"SELECT Hometown FROM teacher ORDER BY Age ASC LIMIT 1; 
+",,True,51.77
+183,course_teach,moderate,Show the hometowns shared by at least two teachers.,SELECT Hometown FROM teacher GROUP BY Hometown HAVING COUNT(*)  >=  2,SELECT Hometown FROM teacher GROUP BY Hometown HAVING COUNT(*) > 1;,"SELECT Hometown FROM teacher GROUP BY Hometown HAVING COUNT(*) > 1; 
+",,True,38.93
+192,course_teach,moderate,Show names of teachers and the courses they are arranged to teach.,"SELECT T3.Name ,  T2.Course FROM course_arrange AS T1 JOIN course AS T2 ON T1.Course_ID  =  T2.Course_ID JOIN teacher AS T3 ON T1.Teacher_ID  =  T3.Teacher_ID","SELECT t.Name, c.Course FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID JOIN course c ON ca.Course_ID = c.Course_ID;","SELECT t.Name, c.Course FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID JOIN course c ON ca.Course_ID = c.Course_ID; 
+",,True,46.97
+211,course_teach,complex,Show names of teachers that teach at least two courses.,SELECT T2.Name FROM course_arrange AS T1 JOIN teacher AS T2 ON T1.Teacher_ID  =  T2.Teacher_ID GROUP BY T2.Name HAVING COUNT(*)  >=  2,SELECT Name FROM teacher WHERE Teacher_ID IN (SELECT DISTINCT Teacher_ID FROM course_arrange GROUP BY Teacher_ID HAVING COUNT(*) >= 2);,SELECT Name FROM teacher WHERE Teacher_ID IN (SELECT DISTINCT Teacher_ID FROM course_arrange GROUP BY Teacher_ID HAVING COUNT(*) >= 2);,,True,43.35
+219,course_teach,simple,Show the name of teachers aged either 32 or 33?,SELECT Name FROM teacher WHERE Age  =  32 OR Age  =  33,"SELECT Name FROM teacher WHERE Age IN ('32', '33');","SELECT Name FROM teacher WHERE Age IN ('32', '33'); 
+",,True,41.38
+275,course_teach,simple,How many teachers are there?,SELECT count(*) FROM teacher,SELECT COUNT(*) FROM teacher;,"SELECT COUNT(*) FROM teacher; 
+",,True,36.97
+307,course_teach,simple,What are the names of the teachers ordered by ascending age?,SELECT Name FROM teacher ORDER BY Age ASC,SELECT Name FROM teacher ORDER BY Age ASC;,"SELECT Name FROM teacher ORDER BY Age ASC; 
+",,True,38.22
+342,course_teach,simple,What are the names of the teachers who are aged either 32 or 33?,SELECT Name FROM teacher WHERE Age  =  32 OR Age  =  33,"SELECT Name FROM teacher WHERE Age IN ('32', '33');","SELECT Name FROM teacher WHERE Age IN ('32', '33'); 
+",,True,40.44
+387,course_teach,moderate,Show different hometown of teachers and the number of teachers from each hometown.,"SELECT Hometown ,  COUNT(*) FROM teacher GROUP BY Hometown","SELECT Hometown, COUNT(*) AS NumberOfTeachers FROM teacher GROUP BY Hometown;","SELECT Hometown, COUNT(*) AS NumberOfTeachers FROM teacher GROUP BY Hometown;  
+",,True,40.42
+388,course_teach,simple,What is the total count of teachers?,SELECT count(*) FROM teacher,SELECT COUNT(*) FROM teacher;,"SELECT COUNT(*) FROM teacher; 
+",,True,37.6
+453,course_teach,moderate,What are the towns from which at least two teachers come from?,SELECT Hometown FROM teacher GROUP BY Hometown HAVING COUNT(*)  >=  2,SELECT Hometown FROM teacher GROUP BY Hometown HAVING COUNT(*) >= 2;,"SELECT Hometown FROM teacher GROUP BY Hometown HAVING COUNT(*) >= 2; 
+",,True,41.63
+520,course_teach,moderate,What are the names of the people who teach math courses?,"SELECT T3.Name FROM course_arrange AS T1 JOIN course AS T2 ON T1.Course_ID  =  T2.Course_ID JOIN teacher AS T3 ON T1.Teacher_ID  =  T3.Teacher_ID WHERE T2.Course  =  ""Math""",SELECT t.Name FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID JOIN course c ON ca.Course_ID = c.Course_ID WHERE c.Course = 'Math';,"SELECT t.Name FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID JOIN course c ON ca.Course_ID = c.Course_ID WHERE c.Course = 'Math'; 
+",,True,49.74
+526,course_teach,moderate,What are the names of the teachers and the courses they teach in ascending alphabetical order by the name of the teacher?,"SELECT T3.Name ,  T2.Course FROM course_arrange AS T1 JOIN course AS T2 ON T1.Course_ID  =  T2.Course_ID JOIN teacher AS T3 ON T1.Teacher_ID  =  T3.Teacher_ID ORDER BY T3.Name","SELECT t.Name, c.Course FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID JOIN course c ON ca.Course_ID = c.Course_ID ORDER BY t.Name ASC;","SELECT t.Name, c.Course FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID JOIN course c ON ca.Course_ID = c.Course_ID ORDER BY t.Name ASC; 
+",,True,51.8
+555,course_teach,moderate,Show names of teachers and the courses they are arranged to teach in ascending alphabetical order of the teacher's name.,"SELECT T3.Name ,  T2.Course FROM course_arrange AS T1 JOIN course AS T2 ON T1.Course_ID  =  T2.Course_ID JOIN teacher AS T3 ON T1.Teacher_ID  =  T3.Teacher_ID ORDER BY T3.Name","SELECT t.Name, c.Course FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID JOIN course c ON ca.Course_ID = c.Course_ID ORDER BY t.Name ASC;","SELECT t.Name, c.Course FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID JOIN course c ON ca.Course_ID = c.Course_ID ORDER BY t.Name ASC; 
+",,True,49.76
+566,course_teach,simple,What are the names of the teachers whose courses have not been arranged?,SELECT Name FROM teacher WHERE Teacher_id NOT IN (SELECT Teacher_id FROM course_arrange),SELECT Name FROM teacher WHERE Teacher_ID NOT IN (SELECT Teacher_ID FROM course_arrange);,"SELECT Name FROM teacher WHERE Teacher_ID NOT IN (SELECT Teacher_ID FROM course_arrange); 
+",,True,44.17
+602,course_teach,moderate,Show the name of the teacher for the math course.,"SELECT T3.Name FROM course_arrange AS T1 JOIN course AS T2 ON T1.Course_ID  =  T2.Course_ID JOIN teacher AS T3 ON T1.Teacher_ID  =  T3.Teacher_ID WHERE T2.Course  =  ""Math""",SELECT t.Name FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID JOIN course c ON ca.Course_ID = c.Course_ID WHERE c.Course = 'Math';,"SELECT t.Name FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID JOIN course c ON ca.Course_ID = c.Course_ID WHERE c.Course = 'Math'; 
+",,True,47.64
+614,course_teach,moderate,What is the name of each teacher and what course they teach?,"SELECT T3.Name ,  T2.Course FROM course_arrange AS T1 JOIN course AS T2 ON T1.Course_ID  =  T2.Course_ID JOIN teacher AS T3 ON T1.Teacher_ID  =  T3.Teacher_ID","SELECT t.Name, c.Course FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID JOIN course c ON ca.Course_ID = c.Course_ID;","SELECT t.Name, c.Course FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID JOIN course c ON ca.Course_ID = c.Course_ID; 
+",,True,47.14
+673,course_teach,simple,List the names of teachers who have not been arranged to teach courses.,SELECT Name FROM teacher WHERE Teacher_id NOT IN (SELECT Teacher_id FROM course_arrange),SELECT Name FROM teacher WHERE Teacher_ID NOT IN (SELECT Teacher_ID FROM course_arrange);,"SELECT Name FROM teacher WHERE Teacher_ID NOT IN (SELECT Teacher_ID FROM course_arrange); 
+",,True,42.09
+696,course_teach,simple,List the names of teachers in ascending order of age.,SELECT Name FROM teacher ORDER BY Age ASC,SELECT Name FROM teacher ORDER BY Age ASC;,"SELECT Name FROM teacher ORDER BY Age ASC; 
+",,True,44.26
+715,course_teach,complex,What are the names of the teachers who teach at least two courses?,SELECT T2.Name FROM course_arrange AS T1 JOIN teacher AS T2 ON T1.Teacher_ID  =  T2.Teacher_ID GROUP BY T2.Name HAVING COUNT(*)  >=  2,SELECT DISTINCT t.Name FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID GROUP BY t.Name HAVING COUNT(ca.Course_ID) >= 2;,"SELECT DISTINCT t.Name FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID GROUP BY t.Name HAVING COUNT(ca.Course_ID) >= 2; 
+",,True,51.69

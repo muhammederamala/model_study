@@ -1,0 +1,307 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "tracking_orders",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Customers": {
+      "source_label": "customers",
+      "meaning": "Table labeled 'customers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key customer_id",
+      "primary_key_columns": [
+        "customer_id"
+      ],
+      "columns": {
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true
+        },
+        "customer_name": {
+          "type": "text",
+          "source_label": "customer name"
+        },
+        "customer_details": {
+          "type": "text",
+          "source_label": "customer details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Invoices": {
+      "source_label": "invoices",
+      "meaning": "Table labeled 'invoices' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key invoice_number",
+      "primary_key_columns": [
+        "invoice_number"
+      ],
+      "columns": {
+        "invoice_number": {
+          "type": "number",
+          "source_label": "invoice number",
+          "primary_key": true
+        },
+        "invoice_date": {
+          "type": "time",
+          "source_label": "invoice date"
+        },
+        "invoice_details": {
+          "type": "text",
+          "source_label": "invoice details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Orders": {
+      "source_label": "orders",
+      "meaning": "Table labeled 'orders' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key order_id",
+      "primary_key_columns": [
+        "order_id"
+      ],
+      "columns": {
+        "order_id": {
+          "type": "number",
+          "source_label": "order id",
+          "primary_key": true
+        },
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers",
+            "column": "customer_id"
+          }
+        },
+        "order_status": {
+          "type": "text",
+          "source_label": "order status",
+          "observed_values": [
+            "Shipped",
+            "Packing",
+            "On Road"
+          ]
+        },
+        "date_order_placed": {
+          "type": "time",
+          "source_label": "date order placed"
+        },
+        "order_details": {
+          "type": "text",
+          "source_label": "order details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Products": {
+      "source_label": "products",
+      "meaning": "Table labeled 'products' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key product_id",
+      "primary_key_columns": [
+        "product_id"
+      ],
+      "columns": {
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "primary_key": true
+        },
+        "product_name": {
+          "type": "text",
+          "source_label": "product name",
+          "observed_values": [
+            "food",
+            "book",
+            "clothes",
+            "phone",
+            "music"
+          ]
+        },
+        "product_details": {
+          "type": "text",
+          "source_label": "product details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Order_Items": {
+      "source_label": "order items",
+      "meaning": "Table labeled 'order items' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key order_item_id",
+      "primary_key_columns": [
+        "order_item_id"
+      ],
+      "columns": {
+        "order_item_id": {
+          "type": "number",
+          "source_label": "order item id",
+          "primary_key": true
+        },
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "foreign_key": {
+            "table": "Products",
+            "column": "product_id"
+          }
+        },
+        "order_id": {
+          "type": "number",
+          "source_label": "order id",
+          "foreign_key": {
+            "table": "Orders",
+            "column": "order_id"
+          }
+        },
+        "order_item_status": {
+          "type": "text",
+          "source_label": "order item status",
+          "observed_values": [
+            "Finish",
+            "Payed",
+            "Cancel"
+          ]
+        },
+        "order_item_details": {
+          "type": "text",
+          "source_label": "order item details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Shipments": {
+      "source_label": "shipments",
+      "meaning": "Table labeled 'shipments' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key shipment_id",
+      "primary_key_columns": [
+        "shipment_id"
+      ],
+      "columns": {
+        "shipment_id": {
+          "type": "number",
+          "source_label": "shipment id",
+          "primary_key": true
+        },
+        "order_id": {
+          "type": "number",
+          "source_label": "order id",
+          "foreign_key": {
+            "table": "Orders",
+            "column": "order_id"
+          }
+        },
+        "invoice_number": {
+          "type": "number",
+          "source_label": "invoice number",
+          "foreign_key": {
+            "table": "Invoices",
+            "column": "invoice_number"
+          }
+        },
+        "shipment_tracking_number": {
+          "type": "text",
+          "source_label": "shipment tracking number"
+        },
+        "shipment_date": {
+          "type": "time",
+          "source_label": "shipment date"
+        },
+        "other_shipment_details": {
+          "type": "text",
+          "source_label": "other shipment details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Shipment_Items": {
+      "source_label": "shipment items",
+      "meaning": "Table labeled 'shipment items' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "shipment_id": {
+          "type": "number",
+          "source_label": "shipment id",
+          "foreign_key": {
+            "table": "Shipments",
+            "column": "shipment_id"
+          }
+        },
+        "order_item_id": {
+          "type": "number",
+          "source_label": "order item id",
+          "foreign_key": {
+            "table": "Order_Items",
+            "column": "order_item_id"
+          }
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "order items": {
+      "maps_to": "Order_Items",
+      "source": "Spider normalized table name"
+    },
+    "shipment items": {
+      "maps_to": "Shipment_Items",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Customers__row_count": {
+      "meaning": "Number of rows in Customers.",
+      "base_table": "Customers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Invoices__row_count": {
+      "meaning": "Number of rows in Invoices.",
+      "base_table": "Invoices",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Orders__row_count": {
+      "meaning": "Number of rows in Orders.",
+      "base_table": "Orders",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Products__row_count": {
+      "meaning": "Number of rows in Products.",
+      "base_table": "Products",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Order_Items__row_count": {
+      "meaning": "Number of rows in Order_Items.",
+      "base_table": "Order_Items",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Shipments__row_count": {
+      "meaning": "Number of rows in Shipments.",
+      "base_table": "Shipments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Shipment_Items__row_count": {
+      "meaning": "Number of rows in Shipment_Items.",
+      "base_table": "Shipment_Items",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

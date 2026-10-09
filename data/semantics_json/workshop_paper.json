@@ -1,0 +1,178 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "workshop_paper",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "workshop": {
+      "source_label": "workshop",
+      "meaning": "Table labeled 'workshop' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Workshop_ID",
+      "primary_key_columns": [
+        "Workshop_ID"
+      ],
+      "columns": {
+        "Workshop_ID": {
+          "type": "number",
+          "source_label": "workshop id",
+          "primary_key": true
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "August 18, 2007",
+            "August 21, 2007",
+            "August 25, 2007",
+            "October 8, 2007",
+            "January 14, 2008",
+            "July 5, 2011"
+          ]
+        },
+        "Venue": {
+          "type": "text",
+          "source_label": "venue",
+          "observed_values": [
+            "London UK",
+            "New Jersey USA",
+            "New York USA",
+            "Istanbul Turkey"
+          ]
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "ABC 2007",
+            "Conference 2007",
+            "Workshop 2007",
+            "2007 qualification",
+            "2008 qualification",
+            "Anual Workshop 2011"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "submission": {
+      "source_label": "submission",
+      "meaning": "Table labeled 'submission' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Submission_ID",
+      "primary_key_columns": [
+        "Submission_ID"
+      ],
+      "columns": {
+        "Submission_ID": {
+          "type": "number",
+          "source_label": "submission id",
+          "primary_key": true
+        },
+        "Scores": {
+          "type": "number",
+          "source_label": "scores"
+        },
+        "Author": {
+          "type": "text",
+          "source_label": "author",
+          "observed_values": [
+            "Steve Niehaus",
+            "Sammy Green",
+            "Sherman Smith",
+            "Steve Raible",
+            "Jeff Lloyd",
+            "Rick Engles",
+            "Don Bitterlich",
+            "Steve Myer",
+            "Randy Johnson",
+            "Andy Bolton"
+          ]
+        },
+        "College": {
+          "type": "text",
+          "source_label": "college",
+          "observed_values": [
+            "Notre Dame",
+            "Florida",
+            "Miami (OH)",
+            "Georgia Tech",
+            "West Texas State",
+            "Tulsa",
+            "Temple",
+            "New Mexico",
+            "Georgia",
+            "Fisk"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    },
+    "Acceptance": {
+      "source_label": "acceptance",
+      "meaning": "Table labeled 'acceptance' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Submission_ID",
+      "primary_key_columns": [
+        "Submission_ID"
+      ],
+      "columns": {
+        "Submission_ID": {
+          "type": "number",
+          "source_label": "submission id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "submission",
+            "column": "Submission_ID"
+          }
+        },
+        "Workshop_ID": {
+          "type": "number",
+          "source_label": "workshop id",
+          "foreign_key": {
+            "table": "workshop",
+            "column": "Workshop_ID"
+          }
+        },
+        "Result": {
+          "type": "text",
+          "source_label": "result",
+          "observed_values": [
+            "Accepted",
+            "Rejected"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "workshop__row_count": {
+      "meaning": "Number of rows in workshop.",
+      "base_table": "workshop",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "submission__row_count": {
+      "meaning": "Number of rows in submission.",
+      "base_table": "submission",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Acceptance__row_count": {
+      "meaning": "Number of rows in Acceptance.",
+      "base_table": "Acceptance",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

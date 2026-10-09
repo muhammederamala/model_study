@@ -1,0 +1,233 @@
+{
+  "format_version": "1.0",
+  "db_id": "network_1",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "Highschooler": {
+      "source_label": "high schooler",
+      "meaning": "Table labeled 'high schooler' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "ID"
+      ],
+      "columns": {
+        "ID": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "grade": {
+          "type": "number",
+          "source_label": "grade"
+        }
+      },
+      "observed_row_count": 16
+    },
+    "Friend": {
+      "source_label": "friend",
+      "meaning": "Table labeled 'friend' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "student_id"
+      ],
+      "columns": {
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Highschooler",
+            "column": "ID"
+          }
+        },
+        "friend_id": {
+          "type": "number",
+          "source_label": "friend id",
+          "foreign_key": {
+            "table": "Highschooler",
+            "column": "ID"
+          }
+        }
+      },
+      "observed_row_count": 20
+    },
+    "Likes": {
+      "source_label": "likes",
+      "meaning": "Table labeled 'likes' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "student_id"
+      ],
+      "columns": {
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Highschooler",
+            "column": "ID"
+          }
+        },
+        "liked_id": {
+          "type": "number",
+          "source_label": "liked id",
+          "foreign_key": {
+            "table": "Highschooler",
+            "column": "ID"
+          }
+        }
+      },
+      "observed_row_count": 10
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "Friend",
+      "from_column": "friend_id",
+      "to_table": "Highschooler",
+      "to_column": "ID",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Friend",
+      "from_column": "student_id",
+      "to_table": "Highschooler",
+      "to_column": "ID",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Likes",
+      "from_column": "liked_id",
+      "to_table": "Highschooler",
+      "to_column": "ID",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Likes",
+      "from_column": "student_id",
+      "to_table": "Highschooler",
+      "to_column": "ID",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {
+    "high schooler": {
+      "maps_to": "Highschooler",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Highschooler__row_count": {
+      "meaning": "Number of rows in Highschooler.",
+      "base_table": "Highschooler",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Friend__row_count": {
+      "meaning": "Number of rows in Friend.",
+      "base_table": "Friend",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Likes__row_count": {
+      "meaning": "Number of rows in Likes.",
+      "base_table": "Likes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "Highschooler",
+      "column": "name",
+      "value": "Alexis",
+      "key": "alexis"
+    },
+    {
+      "table": "Highschooler",
+      "column": "name",
+      "value": "Andrew",
+      "key": "andrew"
+    },
+    {
+      "table": "Highschooler",
+      "column": "name",
+      "value": "Austin",
+      "key": "austin"
+    },
+    {
+      "table": "Highschooler",
+      "column": "name",
+      "value": "Brittany",
+      "key": "brittany"
+    },
+    {
+      "table": "Highschooler",
+      "column": "name",
+      "value": "Cassandra",
+      "key": "cassandra"
+    },
+    {
+      "table": "Highschooler",
+      "column": "name",
+      "value": "Gabriel",
+      "key": "gabriel"
+    },
+    {
+      "table": "Highschooler",
+      "column": "name",
+      "value": "Haley",
+      "key": "haley"
+    },
+    {
+      "table": "Highschooler",
+      "column": "name",
+      "value": "Jessica",
+      "key": "jessica"
+    },
+    {
+      "table": "Highschooler",
+      "column": "name",
+      "value": "John",
+      "key": "john"
+    },
+    {
+      "table": "Highschooler",
+      "column": "name",
+      "value": "Jordan",
+      "key": "jordan"
+    },
+    {
+      "table": "Highschooler",
+      "column": "name",
+      "value": "Kris",
+      "key": "kris"
+    },
+    {
+      "table": "Highschooler",
+      "column": "name",
+      "value": "Kyle",
+      "key": "kyle"
+    },
+    {
+      "table": "Highschooler",
+      "column": "name",
+      "value": "Logan",
+      "key": "logan"
+    },
+    {
+      "table": "Highschooler",
+      "column": "name",
+      "value": "Tiffany",
+      "key": "tiffany"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

@@ -1,0 +1,145 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "journal_committee",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "journal": {
+      "source_label": "journal",
+      "meaning": "Table labeled 'journal' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Journal_ID",
+      "primary_key_columns": [
+        "Journal_ID"
+      ],
+      "columns": {
+        "Journal_ID": {
+          "type": "number",
+          "source_label": "journal id",
+          "primary_key": true
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date"
+        },
+        "Theme": {
+          "type": "text",
+          "source_label": "theme"
+        },
+        "Sales": {
+          "type": "number",
+          "source_label": "sales"
+        }
+      },
+      "observed_row_count": 16
+    },
+    "editor": {
+      "source_label": "editor",
+      "meaning": "Table labeled 'editor' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Editor_ID",
+      "primary_key_columns": [
+        "Editor_ID"
+      ],
+      "columns": {
+        "Editor_ID": {
+          "type": "number",
+          "source_label": "editor id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Kamila Porczyk",
+            "Anna Powierza",
+            "Marek Siudym",
+            "Piotr Pręgowski",
+            "Szymon Wydra",
+            "Władysław Grzywna",
+            "Mariusz Zalejski",
+            "Grażyna Wolszczak",
+            "Maria Góralczyk"
+          ]
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        }
+      },
+      "observed_row_count": 9
+    },
+    "journal_committee": {
+      "source_label": "journal committee",
+      "meaning": "Table labeled 'journal committee' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Editor_ID",
+      "primary_key_columns": [
+        "Editor_ID"
+      ],
+      "columns": {
+        "Editor_ID": {
+          "type": "number",
+          "source_label": "editor id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "editor",
+            "column": "Editor_ID"
+          }
+        },
+        "Journal_ID": {
+          "type": "number",
+          "source_label": "journal id",
+          "foreign_key": {
+            "table": "journal",
+            "column": "Journal_ID"
+          }
+        },
+        "Work_Type": {
+          "type": "text",
+          "source_label": "work type",
+          "observed_values": [
+            "Photo",
+            "Article",
+            "Title"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    }
+  },
+  "terms": {
+    "journal committee": {
+      "maps_to": "journal_committee",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "journal__row_count": {
+      "meaning": "Number of rows in journal.",
+      "base_table": "journal",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "editor__row_count": {
+      "meaning": "Number of rows in editor.",
+      "base_table": "editor",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "journal_committee__row_count": {
+      "meaning": "Number of rows in journal_committee.",
+      "base_table": "journal_committee",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

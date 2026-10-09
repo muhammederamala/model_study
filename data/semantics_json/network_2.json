@@ -1,0 +1,132 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "network_2",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Person": {
+      "source_label": "person",
+      "meaning": "Table labeled 'person' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key name",
+      "primary_key_columns": [
+        "name"
+      ],
+      "columns": {
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "primary_key": true,
+          "observed_values": [
+            "Alice",
+            "Bob",
+            "Dan",
+            "Zach"
+          ]
+        },
+        "age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city",
+          "observed_values": [
+            "new york city",
+            "salt lake city",
+            "austin",
+            "chicago"
+          ]
+        },
+        "gender": {
+          "type": "text",
+          "source_label": "gender",
+          "observed_values": [
+            "female",
+            "male"
+          ]
+        },
+        "job": {
+          "type": "text",
+          "source_label": "job",
+          "observed_values": [
+            "student",
+            "engineer",
+            "doctor"
+          ]
+        }
+      },
+      "observed_row_count": 4
+    },
+    "PersonFriend": {
+      "source_label": "person friend",
+      "meaning": "Table labeled 'person friend' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "foreign_key": {
+            "table": "Person",
+            "column": "name"
+          },
+          "observed_values": [
+            "Alice",
+            "Zach",
+            "Bob"
+          ]
+        },
+        "friend": {
+          "type": "text",
+          "source_label": "friend",
+          "foreign_key": {
+            "table": "Person",
+            "column": "name"
+          },
+          "observed_values": [
+            "Bob",
+            "Dan",
+            "Zach",
+            "Alice"
+          ]
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        }
+      },
+      "observed_row_count": 4
+    }
+  },
+  "terms": {
+    "person friend": {
+      "maps_to": "PersonFriend",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Person__row_count": {
+      "meaning": "Number of rows in Person.",
+      "base_table": "Person",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "PersonFriend__row_count": {
+      "meaning": "Number of rows in PersonFriend.",
+      "base_table": "PersonFriend",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

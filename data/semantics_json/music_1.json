@@ -1,0 +1,305 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "music_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "genre": {
+      "source_label": "genre",
+      "meaning": "Table labeled 'genre' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key g_name",
+      "primary_key_columns": [
+        "g_name"
+      ],
+      "columns": {
+        "g_name": {
+          "type": "text",
+          "source_label": "genre name",
+          "primary_key": true,
+          "observed_values": [
+            "blues",
+            "folk",
+            "modern",
+            "nazrul",
+            "pop",
+            "tagore"
+          ]
+        },
+        "rating": {
+          "type": "text",
+          "source_label": "rating",
+          "observed_values": [
+            "8",
+            "7",
+            "9"
+          ]
+        },
+        "most_popular_in": {
+          "type": "text",
+          "source_label": "most popular in",
+          "observed_values": [
+            "Bangladesh",
+            "Sylhet,Chittagong,Kustia",
+            "Canada",
+            "America"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "artist": {
+      "source_label": "artist",
+      "meaning": "Table labeled 'artist' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key artist_name",
+      "primary_key_columns": [
+        "artist_name"
+      ],
+      "columns": {
+        "artist_name": {
+          "type": "text",
+          "source_label": "artist name",
+          "primary_key": true,
+          "observed_values": [
+            "Enrique",
+            "Farida",
+            "Michel",
+            "Prity",
+            "Shrikanta",
+            "Topu"
+          ]
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "India",
+            "Bangladesh",
+            "USA",
+            "UK"
+          ]
+        },
+        "gender": {
+          "type": "text",
+          "source_label": "gender",
+          "observed_values": [
+            "Male",
+            "Female"
+          ]
+        },
+        "preferred_genre": {
+          "type": "text",
+          "source_label": "preferred genre",
+          "foreign_key": {
+            "table": "genre",
+            "column": "g_name"
+          },
+          "observed_values": [
+            "tagore",
+            "nazrul",
+            "folk",
+            "modern",
+            "blues",
+            "pop"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "files": {
+      "source_label": "files",
+      "meaning": "Table labeled 'files' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key f_id",
+      "primary_key_columns": [
+        "f_id"
+      ],
+      "columns": {
+        "f_id": {
+          "type": "number",
+          "source_label": "song id",
+          "primary_key": true
+        },
+        "artist_name": {
+          "type": "text",
+          "source_label": "artist name",
+          "foreign_key": {
+            "table": "artist",
+            "column": "artist_name"
+          },
+          "observed_values": [
+            "Shrikanta",
+            "Prity",
+            "Farida",
+            "Enrique",
+            "Michel",
+            "Topu"
+          ]
+        },
+        "file_size": {
+          "type": "text",
+          "source_label": "file size",
+          "observed_values": [
+            "3.78 MB",
+            "4.12 MB",
+            "3.69 MB",
+            "4.58 MB",
+            "5.10 MB",
+            "4.10 MB"
+          ]
+        },
+        "duration": {
+          "type": "text",
+          "source_label": "duration",
+          "observed_values": [
+            "3:45",
+            "2:56",
+            "4:12",
+            "5:23",
+            "4:34",
+            "4:30"
+          ]
+        },
+        "formats": {
+          "type": "text",
+          "source_label": "formats",
+          "observed_values": [
+            "mp4",
+            "mp3"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "song": {
+      "source_label": "song",
+      "meaning": "Table labeled 'song' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key song_name",
+      "primary_key_columns": [
+        "song_name"
+      ],
+      "columns": {
+        "song_name": {
+          "type": "text",
+          "source_label": "song name",
+          "primary_key": true,
+          "observed_values": [
+            "Aj ei akash",
+            "Ami opar hoye",
+            "Just beat it",
+            "My love",
+            "Shukno patar nupur pae",
+            "Tumi robe nirobe"
+          ]
+        },
+        "artist_name": {
+          "type": "text",
+          "source_label": "artist name",
+          "foreign_key": {
+            "table": "artist",
+            "column": "artist_name"
+          },
+          "observed_values": [
+            "Shrikanta",
+            "Prity",
+            "Farida",
+            "Enrique",
+            "Michel",
+            "Topu"
+          ]
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "India",
+            "Bangladesh",
+            "USA",
+            "UK"
+          ]
+        },
+        "f_id": {
+          "type": "number",
+          "source_label": "song id",
+          "foreign_key": {
+            "table": "files",
+            "column": "f_id"
+          }
+        },
+        "genre_is": {
+          "type": "text",
+          "source_label": "genre is",
+          "foreign_key": {
+            "table": "genre",
+            "column": "g_name"
+          },
+          "observed_values": [
+            "tagore",
+            "nazrul",
+            "folk",
+            "blues",
+            "pop",
+            "modern"
+          ]
+        },
+        "rating": {
+          "type": "number",
+          "source_label": "rating"
+        },
+        "languages": {
+          "type": "text",
+          "source_label": "languages",
+          "observed_values": [
+            "bangla",
+            "english"
+          ]
+        },
+        "releasedate": {
+          "type": "time",
+          "source_label": "releasedate"
+        },
+        "resolution": {
+          "type": "number",
+          "source_label": "resolution"
+        }
+      },
+      "observed_row_count": 6
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "genre__row_count": {
+      "meaning": "Number of rows in genre.",
+      "base_table": "genre",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "artist__row_count": {
+      "meaning": "Number of rows in artist.",
+      "base_table": "artist",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "files__row_count": {
+      "meaning": "Number of rows in files.",
+      "base_table": "files",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "song__row_count": {
+      "meaning": "Number of rows in song.",
+      "base_table": "song",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

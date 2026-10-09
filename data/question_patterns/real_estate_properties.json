@@ -1,0 +1,37 @@
+{
+  "db_id": "real_estate_properties",
+  "n_questions": 4,
+  "n_questions_with_join": 2,
+  "join_pairs": [
+    {
+      "left": "other_available_features.feature_type_code",
+      "right": "ref_feature_types.feature_type_code",
+      "n": 1
+    },
+    {
+      "left": "properties.property_type_code",
+      "right": "ref_property_types.property_type_code",
+      "n": 1
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 1
+    }
+  ],
+  "column_clause_usage": {
+    "feature_name": {
+      "where": 1
+    },
+    "property_type_code": {
+      "group by": 1,
+      "where": 1
+    },
+    "room_count": {
+      "where": 1
+    }
+  },
+  "question_openers": {}
+}

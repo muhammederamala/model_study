@@ -1,0 +1,306 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "tracking_share_transactions",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Investors": {
+      "source_label": "investors",
+      "meaning": "Table labeled 'investors' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key investor_id",
+      "primary_key_columns": [
+        "investor_id"
+      ],
+      "columns": {
+        "investor_id": {
+          "type": "number",
+          "source_label": "investor id",
+          "primary_key": true
+        },
+        "Investor_details": {
+          "type": "text",
+          "source_label": "investor details"
+        }
+      },
+      "observed_row_count": 20
+    },
+    "Lots": {
+      "source_label": "lots",
+      "meaning": "Table labeled 'lots' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key lot_id",
+      "primary_key_columns": [
+        "lot_id"
+      ],
+      "columns": {
+        "lot_id": {
+          "type": "number",
+          "source_label": "lot id",
+          "primary_key": true
+        },
+        "investor_id": {
+          "type": "number",
+          "source_label": "investor id",
+          "foreign_key": {
+            "table": "Investors",
+            "column": "investor_id"
+          }
+        },
+        "lot_details": {
+          "type": "text",
+          "source_label": "lot details",
+          "observed_values": [
+            "r",
+            "z",
+            "s",
+            "q",
+            "d",
+            "m",
+            "h",
+            "x"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Ref_Transaction_Types": {
+      "source_label": "reference transaction types",
+      "meaning": "Table labeled 'reference transaction types' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key transaction_type_code",
+      "primary_key_columns": [
+        "transaction_type_code"
+      ],
+      "columns": {
+        "transaction_type_code": {
+          "type": "text",
+          "source_label": "transaction type code",
+          "primary_key": true,
+          "observed_values": [
+            "PUR",
+            "SALE"
+          ]
+        },
+        "transaction_type_description": {
+          "type": "text",
+          "source_label": "transaction type description",
+          "observed_values": [
+            "Sale",
+            "Purchase"
+          ]
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Transactions": {
+      "source_label": "transactions",
+      "meaning": "Table labeled 'transactions' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key transaction_id",
+      "primary_key_columns": [
+        "transaction_id"
+      ],
+      "columns": {
+        "transaction_id": {
+          "type": "number",
+          "source_label": "transaction id",
+          "primary_key": true
+        },
+        "investor_id": {
+          "type": "number",
+          "source_label": "investor id",
+          "foreign_key": {
+            "table": "Investors",
+            "column": "investor_id"
+          }
+        },
+        "transaction_type_code": {
+          "type": "text",
+          "source_label": "transaction type code",
+          "foreign_key": {
+            "table": "Ref_Transaction_Types",
+            "column": "transaction_type_code"
+          },
+          "observed_values": [
+            "SALE",
+            "PUR"
+          ]
+        },
+        "date_of_transaction": {
+          "type": "time",
+          "source_label": "date of transaction"
+        },
+        "amount_of_transaction": {
+          "type": "number",
+          "source_label": "amount of transaction"
+        },
+        "share_count": {
+          "type": "text",
+          "source_label": "share count"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Sales": {
+      "source_label": "sales",
+      "meaning": "Table labeled 'sales' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key sales_transaction_id",
+      "primary_key_columns": [
+        "sales_transaction_id"
+      ],
+      "columns": {
+        "sales_transaction_id": {
+          "type": "number",
+          "source_label": "sales transaction id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Transactions",
+            "column": "transaction_id"
+          }
+        },
+        "sales_details": {
+          "type": "text",
+          "source_label": "sales details",
+          "observed_values": [
+            "x",
+            "o",
+            "a",
+            "f",
+            "y",
+            "p",
+            "e",
+            "s",
+            "t",
+            "n"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Purchases": {
+      "source_label": "purchases",
+      "meaning": "Table labeled 'purchases' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "purchase_transaction_id": {
+          "type": "number",
+          "source_label": "purchase transaction id",
+          "foreign_key": {
+            "table": "Transactions",
+            "column": "transaction_id"
+          }
+        },
+        "purchase_details": {
+          "type": "text",
+          "source_label": "purchase details",
+          "observed_values": [
+            "c",
+            "y",
+            "i",
+            "x",
+            "a",
+            "r",
+            "l",
+            "z",
+            "h",
+            "t",
+            "o"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Transactions_Lots": {
+      "source_label": "transactions lots",
+      "meaning": "Table labeled 'transactions lots' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "transaction_id": {
+          "type": "number",
+          "source_label": "transaction id",
+          "foreign_key": {
+            "table": "Transactions",
+            "column": "transaction_id"
+          }
+        },
+        "lot_id": {
+          "type": "number",
+          "source_label": "lot id",
+          "foreign_key": {
+            "table": "Lots",
+            "column": "lot_id"
+          }
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "reference transaction types": {
+      "maps_to": "Ref_Transaction_Types",
+      "source": "Spider normalized table name"
+    },
+    "transactions lots": {
+      "maps_to": "Transactions_Lots",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Investors__row_count": {
+      "meaning": "Number of rows in Investors.",
+      "base_table": "Investors",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Lots__row_count": {
+      "meaning": "Number of rows in Lots.",
+      "base_table": "Lots",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Ref_Transaction_Types__row_count": {
+      "meaning": "Number of rows in Ref_Transaction_Types.",
+      "base_table": "Ref_Transaction_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Transactions__row_count": {
+      "meaning": "Number of rows in Transactions.",
+      "base_table": "Transactions",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Sales__row_count": {
+      "meaning": "Number of rows in Sales.",
+      "base_table": "Sales",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Purchases__row_count": {
+      "meaning": "Number of rows in Purchases.",
+      "base_table": "Purchases",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Transactions_Lots__row_count": {
+      "meaning": "Number of rows in Transactions_Lots.",
+      "base_table": "Transactions_Lots",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

@@ -1,0 +1,185 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "flight_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "flight": {
+      "source_label": "flight",
+      "meaning": "Table labeled 'flight' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key flno",
+      "primary_key_columns": [
+        "flno"
+      ],
+      "columns": {
+        "flno": {
+          "type": "number",
+          "source_label": "flight number",
+          "primary_key": true
+        },
+        "origin": {
+          "type": "text",
+          "source_label": "origin",
+          "observed_values": [
+            "Los Angeles",
+            "Chicago"
+          ]
+        },
+        "destination": {
+          "type": "text",
+          "source_label": "destination",
+          "observed_values": [
+            "Washington D.C.",
+            "Chicago",
+            "Dallas",
+            "Boston",
+            "Sydney",
+            "Tokyo",
+            "Honolulu",
+            "Los Angeles",
+            "New York"
+          ]
+        },
+        "distance": {
+          "type": "number",
+          "source_label": "distance"
+        },
+        "departure_date": {
+          "type": "time",
+          "source_label": "departure date"
+        },
+        "arrival_date": {
+          "type": "time",
+          "source_label": "arrival date"
+        },
+        "price": {
+          "type": "number",
+          "source_label": "price"
+        },
+        "aid": {
+          "type": "number",
+          "source_label": "airline id",
+          "foreign_key": {
+            "table": "aircraft",
+            "column": "aid"
+          }
+        }
+      },
+      "observed_row_count": 10
+    },
+    "aircraft": {
+      "source_label": "aircraft",
+      "meaning": "Table labeled 'aircraft' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key aid",
+      "primary_key_columns": [
+        "aid"
+      ],
+      "columns": {
+        "aid": {
+          "type": "number",
+          "source_label": "airline id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "distance": {
+          "type": "number",
+          "source_label": "distance"
+        }
+      },
+      "observed_row_count": 16
+    },
+    "employee": {
+      "source_label": "employee",
+      "meaning": "Table labeled 'employee' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key eid",
+      "primary_key_columns": [
+        "eid"
+      ],
+      "columns": {
+        "eid": {
+          "type": "number",
+          "source_label": "employee id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "salary": {
+          "type": "number",
+          "source_label": "salary"
+        }
+      },
+      "observed_row_count": 31
+    },
+    "certificate": {
+      "source_label": "certificate",
+      "meaning": "Table labeled 'certificate' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key eid",
+      "primary_key_columns": [
+        "eid"
+      ],
+      "columns": {
+        "eid": {
+          "type": "number",
+          "source_label": "employee id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "employee",
+            "column": "eid"
+          }
+        },
+        "aid": {
+          "type": "number",
+          "source_label": "airline id",
+          "foreign_key": {
+            "table": "aircraft",
+            "column": "aid"
+          }
+        }
+      },
+      "observed_row_count": 69
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "flight__row_count": {
+      "meaning": "Number of rows in flight.",
+      "base_table": "flight",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "aircraft__row_count": {
+      "meaning": "Number of rows in aircraft.",
+      "base_table": "aircraft",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "employee__row_count": {
+      "meaning": "Number of rows in employee.",
+      "base_table": "employee",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "certificate__row_count": {
+      "meaning": "Number of rows in certificate.",
+      "base_table": "certificate",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

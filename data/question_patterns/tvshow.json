@@ -1,0 +1,156 @@
+{
+  "db_id": "tvshow",
+  "n_questions": 62,
+  "n_questions_with_join": 14,
+  "join_pairs": [
+    {
+      "left": "cartoon.channel",
+      "right": "tv_channel.id",
+      "n": 10
+    },
+    {
+      "left": "tv_channel.id",
+      "right": "tv_series.channel",
+      "n": 4
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 18
+    },
+    {
+      "fn": "COUNT",
+      "target": "series_name",
+      "n": 2
+    },
+    {
+      "fn": "COUNT",
+      "target": "content",
+      "n": 2
+    },
+    {
+      "fn": "MAX",
+      "target": "share",
+      "n": 2
+    },
+    {
+      "fn": "MIN",
+      "target": "share",
+      "n": 2
+    }
+  ],
+  "column_clause_usage": {
+    "channel": {
+      "where": 2
+    },
+    "country": {
+      "group by": 4
+    },
+    "directed_by": {
+      "where": 10,
+      "group by": 2
+    },
+    "episode": {
+      "where": 6
+    },
+    "hight_definition_tv": {
+      "where": 2
+    },
+    "id": {
+      "where": 2
+    },
+    "language": {
+      "where": 4,
+      "group by": 4
+    },
+    "original_air_date": {
+      "order by": 4
+    },
+    "rating": {
+      "order by": 4
+    },
+    "series_name": {
+      "where": 8
+    },
+    "title": {
+      "order by": 2,
+      "where": 2
+    },
+    "written_by": {
+      "where": 6
+    }
+  },
+  "question_openers": {
+    "what are the": {
+      "negation (NOT IN / EXCEPT)": 3,
+      "subquery": 3,
+      "GROUP BY": 2,
+      "COUNT": 2,
+      "LIMIT 1": 1
+    },
+    "what is the": {
+      "COUNT": 2,
+      "ORDER BY ... DESC": 2,
+      "LIMIT 1": 2,
+      "GROUP BY": 1,
+      "INTERSECT": 1,
+      "subquery": 1
+    },
+    "which country has": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "how many cartoons": {
+      "COUNT": 2,
+      "GROUP BY": 1
+    },
+    "list the language": {
+      "GROUP BY": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "how many tv": {
+      "COUNT": 2
+    },
+    "list each language": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "for each language,": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "find the number": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "find the production": {
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1
+    },
+    "which countries' tv": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "find the series": {
+      "INTERSECT": 1,
+      "subquery": 1
+    },
+    "find id of": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "find the id": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "find the package": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    }
+  }
+}

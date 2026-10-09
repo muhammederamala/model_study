@@ -1,0 +1,133 @@
+{
+  "db_id": "pets_1",
+  "n_questions": 42,
+  "n_questions_with_join": 24,
+  "join_pairs": [
+    {
+      "left": "has_pet.stuid",
+      "right": "student.stuid",
+      "n": 24
+    },
+    {
+      "left": "has_pet.petid",
+      "right": "pets.petid",
+      "n": 14
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 10
+    },
+    {
+      "fn": "MAX",
+      "target": "weight",
+      "n": 2
+    },
+    {
+      "fn": "COUNT",
+      "target": "pettype",
+      "n": 2
+    },
+    {
+      "fn": "AVG",
+      "target": "pet_age",
+      "n": 2
+    },
+    {
+      "fn": "MAX",
+      "target": "pet_age",
+      "n": 2
+    },
+    {
+      "fn": "AVG",
+      "target": "weight",
+      "n": 2
+    },
+    {
+      "fn": "AVG",
+      "target": "age",
+      "n": 2
+    }
+  ],
+  "column_clause_usage": {
+    "age": {
+      "where": 2
+    },
+    "lname": {
+      "where": 2
+    },
+    "pet_age": {
+      "order by": 4,
+      "where": 4
+    },
+    "petid": {
+      "where": 4
+    },
+    "pettype": {
+      "where": 14,
+      "group by": 6
+    },
+    "sex": {
+      "where": 2
+    },
+    "stuid": {
+      "where": 6,
+      "group by": 4
+    },
+    "weight": {
+      "where": 2
+    }
+  },
+  "question_openers": {
+    "what is the": {
+      "GROUP BY": 3,
+      "AVG": 3,
+      "negation (NOT IN / EXCEPT)": 2,
+      "subquery": 2,
+      "COUNT": 1
+    },
+    "find the average": {
+      "AVG": 3,
+      "GROUP BY": 2,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "find the first": {
+      "subquery": 2,
+      "INTERSECT": 1,
+      "negation (NOT IN / EXCEPT)": 1,
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "find the number": {
+      "COUNT": 4,
+      "GROUP BY": 1
+    },
+    "what are the": {
+      "subquery": 2,
+      "INTERSECT": 1,
+      "negation (NOT IN / EXCEPT)": 1
+    },
+    "how many pets": {
+      "COUNT": 2
+    },
+    "find the major": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "what major is": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "find the id": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "for students who": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    }
+  }
+}

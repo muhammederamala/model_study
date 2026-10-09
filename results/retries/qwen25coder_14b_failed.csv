@@ -1,0 +1,1515 @@
+id,db_id,complexity_bucket,question,baseline_sql,plan,first_sql,first_error,pred_sql,exec_error,exec_match,column_permutation_match,latency_sec,repaired,variant
+153,battle_death,complex,List the name and date the battle that has lost the ship named 'Lettice' and the ship named 'HMS Atalanta',"SELECT b.name, b.date 
+FROM battle b 
+JOIN ship s ON b.id = s.lost_in_battle 
+WHERE s.name IN ('Lettice', 'HMS Atalanta');","**Result Columns:**
+- battle.name
+- battle.date
+
+**Entities and Literals:**
+- battle.name
+- battle.date
+- ship.name = 'Lettice'
+- ship.name = 'HMS Atalanta'
+
+**Join Path:**
+- battle (T1) JOIN ship (T2) ON T1.id = T2.lost_in_battle
+
+**Filter Logic:**
+- T2.name = 'Lettice' AND T2.name = 'HMS Atalanta'
+
+**Grouping Grain:**
+- None
+
+**Aggregate or Comparison Target:**
+- None","SELECT T1.name, T1.date
+FROM battle AS T1
+JOIN ship AS T2 ON T1.id = T2.lost_in_battle
+WHERE T2.name = 'Lettice' AND T2.name = 'HMS Atalanta';",,"SELECT T1.name, T1.date
+FROM battle AS T1
+JOIN ship AS T2 ON T1.id = T2.lost_in_battle
+WHERE T2.name = 'Lettice' AND T2.name = 'HMS Atalanta';",,False,False,201.58,False,grounded_plan_repair_v1
+454,battle_death,simple,"List the name, date and result of each battle.","SELECT name, date, result FROM battle;","- **Result Columns**: name, date, result
+- **Table**: battle
+- **Columns**: name, date, result
+- **Join Path**: None (single table query)
+- **Filter Logic**: None
+- **Grouping Grain**: None
+- **Aggregate/Comparison**: None","SELECT name, date, result FROM battle;",,"SELECT name, date, result FROM battle;",,False,False,49.35,False,grounded_plan_repair_v1
+950,battle_death,complex,What are the ids and names of the battles that led to more than 10 people killed in total.,"SELECT battle.id, battle.name 
+FROM battle 
+JOIN death ON battle.id = death.caused_by_ship_id 
+GROUP BY battle.id, battle.name 
+HAVING SUM(death.killed) > 10;","**Result Columns:**  
+- battle.id  
+- battle.name  
+
+**Tables and Columns:**  
+- battle (id, name)  
+- death (caused_by_ship_id, killed)  
+
+**Join Path:**  
+- battle.id = death.caused_by_ship_id  
+
+**Filter Logic:**  
+- SUM(death.killed) > 10  
+
+**Grouping Grain:**  
+- battle.id  
+
+**Aggregate/Comparison Target:**  
+- SUM(death.killed)","SELECT battle.id, battle.name
+FROM battle
+JOIN death ON battle.id = death.caused_by_ship_id
+GROUP BY battle.id
+HAVING SUM(death.killed) > 10;",,"SELECT battle.id, battle.name
+FROM battle
+JOIN death ON battle.id = death.caused_by_ship_id
+GROUP BY battle.id
+HAVING SUM(death.killed) > 10;",,False,False,83.53,False,grounded_plan_repair_v1
+997,battle_death,complex,What is the ship id and name that caused most total injuries?,"SELECT T1.id, T1.name FROM ship AS T1 JOIN death AS T2 ON T1.id = T2.caused_by_ship_id GROUP BY T1.id ORDER BY SUM(T2.injured) DESC LIMIT 1;","**Result Columns:** ship.id, ship.name
+
+**Tables and Columns:**
+- **ship**: id, name
+- **death**: caused_by_ship_id, injured
+
+**Join Path:** death.caused_by_ship_id -> ship.id
+
+**Filter Logic:** None
+
+**Grouping Grain:** death.caused_by_ship_id
+
+**Aggregate/Comparison Target:** SUM(death.injured) DESC
+
+**Target of Aggregate:** death.injured
+
+**Ordering:** By the sum of injuries in descending order to get the ship with the most total injuries.","SELECT ship.id, ship.name
+FROM ship
+JOIN death ON ship.id = death.caused_by_ship_id
+GROUP BY death.caused_by_ship_id
+ORDER BY SUM(death.injured) DESC
+LIMIT 1;",,"SELECT ship.id, ship.name
+FROM ship
+JOIN death ON ship.id = death.caused_by_ship_id
+GROUP BY death.caused_by_ship_id
+ORDER BY SUM(death.injured) DESC
+LIMIT 1;",,False,False,198.15,False,grounded_plan_repair_v1
+63,car_1,moderate,What is the maximum accelerate for different number of cylinders?,"SELECT Cylinders, MAX(Accelerate) FROM cars_data GROUP BY Cylinders;","**Result Columns:**  
+- `Cylinders`  
+- `MAX(Accelerate)`
+
+**Table and Columns:**  
+- `cars_data`: `Cylinders`, `Accelerate`
+
+**Join Path:**  
+- Directly from `cars_data`
+
+**Filter Logic:**  
+- None
+
+**Grouping Grain:**  
+- `Cylinders`
+
+**Aggregate/Comparison Target:**  
+- `MAX(Accelerate)`","SELECT Cylinders, MAX(Accelerate) 
+FROM cars_data 
+GROUP BY Cylinders;",,"SELECT Cylinders, MAX(Accelerate) 
+FROM cars_data 
+GROUP BY Cylinders;",,False,True,220.45,False,grounded_plan_repair_v1
+116,car_1,moderate,"What is the full name of each car maker, along with its id and how many models it produces?","SELECT cm.Id, cm.FullName, COUNT(ml.ModelId) AS ModelCount
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker
+GROUP BY cm.Id, cm.FullName;","**Result Columns:**
+- `FullName` (from `car_makers`)
+- `Id` (from `car_makers`)
+- `ModelCount` (count of models produced by each maker)
+
+**Tables and Columns:**
+- `car_makers` (T1): `FullName`, `Id`
+- `model_list` (T2): `Maker` (foreign key to `car_makers.Id`), `Model`
+
+**Join Path:**
+- `car_makers` (T1) JOIN `model_list` (T2) ON `T1.Id` = `T2.Maker`
+
+**Filter Logic:**
+- None
+
+**Grouping Grain:**
+- Group by `T1.Id` and `T1.FullName`
+
+**Aggregate:**
+- `COUNT(T2.Model)` to get the number of models produced by each maker","SELECT 
+    T1.FullName, 
+    T1.Id, 
+    COUNT(T2.Model) AS ModelCount
+FROM 
+    car_makers AS T1
+JOIN 
+    model_list AS T2 ON T1.Id = T2.Maker
+GROUP BY 
+    T1.Id, T1.FullName;",,"SELECT 
+    T1.FullName, 
+    T1.Id, 
+    COUNT(T2.Model) AS ModelCount
+FROM 
+    car_makers AS T1
+JOIN 
+    model_list AS T2 ON T1.Id = T2.Maker
+GROUP BY 
+    T1.Id, T1.FullName;",,True,False,132.12,False,grounded_plan_repair_v1
+119,car_1,moderate,Which distinctive models are produced by maker with the full name General Motors or weighing more than 3500?,"SELECT DISTINCT Model
+FROM model_list
+WHERE Maker IN (
+  SELECT Id
+  FROM car_makers
+  WHERE FullName = 'General Motors'
+)
+UNION
+SELECT DISTINCT Model
+FROM car_names
+WHERE MakeId IN (
+  SELECT Id
+  FROM cars_data
+  WHERE Weight > 3500
+);","**Result Columns:** model_list.Model
+
+**Tables and Columns:**
+- `car_makers` (Maker, FullName)
+- `model_list` (Model, Maker)
+- `cars_data` (Weight, Id)
+
+**Join Path:**
+1. `car_makers` -> `model_list` (Maker)
+2. `model_list` -> `cars_data` (Id)
+
+**Filter Logic:**
+- `car_makers.FullName = 'General Motors'`
+- `cars_data.Weight > 3500`
+
+**Grouping Grain:** None
+
+**Aggregates/Comparisons:** None","SELECT DISTINCT model_list.Model
+FROM car_makers
+JOIN model_list ON car_makers.Id = model_list.Maker
+JOIN cars_data ON model_list.ModelId = cars_data.Id
+WHERE car_makers.FullName = 'General Motors' OR cars_data.Weight > 3500;",,"SELECT DISTINCT model_list.Model
+FROM car_makers
+JOIN model_list ON car_makers.Id = model_list.Maker
+JOIN cars_data ON model_list.ModelId = cars_data.Id
+WHERE car_makers.FullName = 'General Motors' OR cars_data.Weight > 3500;",,False,False,108.71,False,grounded_plan_repair_v1
+150,car_1,simple,What are the makers and models?,"SELECT Maker, Model FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker;","**Result Columns:**
+- Maker
+- Model
+
+**Tables and Columns:**
+- `car_makers` (Maker, FullName)
+- `model_list` (Model, Maker)
+
+**Join Path:**
+- `car_makers.Id` -> `model_list.Maker`
+
+**Filter Logic:**
+- None
+
+**Grouping Grain:**
+- None
+
+**Aggregate/Comparison Target:**
+- None","SELECT cm.Maker, ml.Model
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker;",,"SELECT cm.Maker, ml.Model
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker;",,False,False,64.71,False,grounded_plan_repair_v1
+223,car_1,moderate,Which models are lighter than 3500 but not built by the 'Ford Motor Company'?,"SELECT Model 
+FROM car_names 
+WHERE MakeId IN (
+  SELECT Id 
+  FROM cars_data 
+  WHERE Weight < 3500
+) 
+AND MakeId NOT IN (
+  SELECT Id 
+  FROM car_makers 
+  WHERE Maker = 'Ford Motor Company'
+);","**Result Columns:**  
+- `model_list.Model`
+
+**Tables and Columns:**  
+- `car_names.Model`  
+- `cars_data.Weight`  
+- `model_list.Model`  
+- `car_makers.FullName`
+
+**Join Path:**  
+1. `car_names.MakeId` -> `cars_data.Id`  
+2. `car_names.Model` -> `model_list.Model`  
+3. `model_list.Maker` -> `car_makers.Id`
+
+**Filter Logic:**  
+- `cars_data.Weight < 3500`  
+- `car_makers.FullName != 'Ford Motor Company'`
+
+**Grouping Grain:**  
+- None
+
+**Aggregate/Comparison Target:**  
+- `cars_data.Weight` for comparison  
+- `car_makers.FullName` for filtering","SELECT model_list.Model
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+JOIN model_list ON car_names.Model = model_list.Model
+JOIN car_makers ON model_list.Maker = car_makers.Id
+WHERE cars_data.Weight < 3500
+AND car_makers.FullName != 'Ford Motor Company';",,"SELECT model_list.Model
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+JOIN model_list ON car_names.Model = model_list.Model
+JOIN car_makers ON model_list.Maker = car_makers.Id
+WHERE cars_data.Weight < 3500
+AND car_makers.FullName != 'Ford Motor Company';",,False,False,137.18,False,grounded_plan_repair_v1
+238,car_1,moderate,How many cars have a larger accelerate than the car with the largest horsepower?,"SELECT COUNT(*) 
+FROM cars_data 
+WHERE Accelerate > (SELECT MAX(Horsepower) FROM cars_data);","**Result Columns:** Count of cars
+
+**Tables and Columns:**
+- `cars_data`: `Accelerate`, `Horsepower`
+
+**Join Path:** None (single table query)
+
+**Filter Logic:**
+- Compare `Accelerate` of each car to the maximum `Horsepower` in the `cars_data` table.
+
+**Grouping Grain:** None
+
+**Aggregate/Comparison Target:**
+- Count cars where `Accelerate` > (SELECT MAX(Horsepower) FROM cars_data)","SELECT COUNT(*) 
+FROM cars_data 
+WHERE Accelerate > (SELECT MAX(Horsepower) FROM cars_data);",,"SELECT COUNT(*) 
+FROM cars_data 
+WHERE Accelerate > (SELECT MAX(Horsepower) FROM cars_data);",,False,False,76.22,False,grounded_plan_repair_v1
+246,car_1,moderate,What is the number of car models that are produced by each maker and what is the id and full name of each maker?,"SELECT cm.Id, cm.FullName, COUNT(ml.ModelId) AS ModelCount
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker
+GROUP BY cm.Id, cm.FullName;","**Result Columns:**
+- Number of car models per maker
+- Maker ID
+- Maker Full Name
+
+**Tables and Columns:**
+- `car_makers`: `Id` (Maker ID), `FullName` (Maker Full Name)
+- `model_list`: `Maker` (Maker ID), `Model` (Car Model)
+
+**Join Path:**
+- `car_makers.Id` -> `model_list.Maker`
+
+**Filter Logic:**
+- None
+
+**Grouping Grain:**
+- `car_makers.Id`
+
+**Aggregate or Comparison Target:**
+- Count of `model_list.Model` per `car_makers.Id`","SELECT 
+    COUNT(model_list.Model) AS NumberOfCarModels,
+    car_makers.Id AS MakerID,
+    car_makers.FullName AS MakerFullName
+FROM 
+    car_makers
+JOIN 
+    model_list ON car_makers.Id = model_list.Maker
+GROUP BY 
+    car_makers.Id;",,"SELECT 
+    COUNT(model_list.Model) AS NumberOfCarModels,
+    car_makers.Id AS MakerID,
+    car_makers.FullName AS MakerFullName
+FROM 
+    car_makers
+JOIN 
+    model_list ON car_makers.Id = model_list.Maker
+GROUP BY 
+    car_makers.Id;",,False,True,109.84,False,grounded_plan_repair_v1
+277,car_1,moderate,What is the number of cars with a greater accelerate than the one with the most horsepower?,SELECT COUNT(*) FROM cars_data WHERE Accelerate > (SELECT MAX(Horsepower) FROM cars_data),"**Result Columns:**  
+- Count of cars
+
+**Tables and Columns:**  
+- `cars_data`: `Accelerate`, `Horsepower`
+
+**Join Path:**  
+- Directly from `cars_data`
+
+**Filter Logic:**  
+- Compare `Accelerate` of each car with the maximum `Horsepower` in `cars_data`.
+
+**Grouping Grain:**  
+- None
+
+**Aggregate/Comparison Target:**  
+- Count of cars where `Accelerate` > (Max `Horsepower` in `cars_data`)","SELECT COUNT(*) 
+FROM cars_data 
+WHERE Accelerate > (SELECT MAX(Horsepower) FROM cars_data);",,"SELECT COUNT(*) 
+FROM cars_data 
+WHERE Accelerate > (SELECT MAX(Horsepower) FROM cars_data);",,False,False,77.18,False,grounded_plan_repair_v1
+288,car_1,complex,What is the number of countries with more than 2 car makers ?,"SELECT COUNT(*) 
+FROM (
+  SELECT Country 
+  FROM car_makers 
+  GROUP BY Country 
+  HAVING COUNT(*) > 2
+);","**Result Columns:**  
+- Count of countries
+
+**Tables and Columns:**  
+- `countries` (T1): `CountryId`, `Continent`  
+- `car_makers` (T2): `Id`, `Country`
+
+**Join Path:**  
+- `countries.CountryId` = `car_makers.Country`
+
+**Filter Logic:**  
+- None
+
+**Grouping Grain:**  
+- `countries.CountryId`
+
+**Aggregate/Comparison Target:**  
+- Count of `car_makers.Id` per country, filter groups with count > 2","SELECT COUNT(*) 
+FROM (
+  SELECT T1.CountryId 
+  FROM countries AS T1 
+  JOIN car_makers AS T2 ON T1.CountryId = T2.Country 
+  GROUP BY T1.CountryId 
+  HAVING COUNT(T2.Id) > 2
+);",,"SELECT COUNT(*) 
+FROM (
+  SELECT T1.CountryId 
+  FROM countries AS T1 
+  JOIN car_makers AS T2 ON T1.CountryId = T2.Country 
+  GROUP BY T1.CountryId 
+  HAVING COUNT(T2.Id) > 2
+);",,False,False,95.28,False,grounded_plan_repair_v1
+308,car_1,complex,Which are the car makers which produce at least 2 models and more than 3 car makers ? List the id and the maker .,"SELECT cm.Id, cm.Maker
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker
+GROUP BY cm.Id, cm.Maker
+HAVING COUNT(ml.ModelId) >= 2
+AND COUNT(DISTINCT cm.Id) > 3;","**Result Columns:** car_makers.Id, car_makers.Maker
+
+**Tables and Columns:**
+- car_makers (Id, Maker)
+- model_list (Maker)
+
+**Join Path:** car_makers.Id = model_list.Maker
+
+**Filter Logic:**
+- Group by car_makers.Id, car_makers.Maker
+- HAVING COUNT(model_list.ModelId) >= 2
+- AND COUNT(DISTINCT car_makers.Id) > 3
+
+**Grouping Grain:** car_makers.Id, car_makers.Maker
+
+**Aggregate/Comparison Target:** COUNT(model_list.ModelId), COUNT(DISTINCT car_makers.Id)","SELECT car_makers.Id, car_makers.Maker
+FROM car_makers
+JOIN model_list ON car_makers.Id = model_list.Maker
+GROUP BY car_makers.Id, car_makers.Maker
+HAVING COUNT(model_list.ModelId) >= 2
+AND COUNT(DISTINCT car_makers.Id) > 3;",,"SELECT car_makers.Id, car_makers.Maker
+FROM car_makers
+JOIN model_list ON car_makers.Id = model_list.Maker
+GROUP BY car_makers.Id, car_makers.Maker
+HAVING COUNT(model_list.ModelId) >= 2
+AND COUNT(DISTINCT car_makers.Id) > 3;",,False,False,116.38,False,grounded_plan_repair_v1
+353,car_1,moderate,What are the different models wthat are lighter than 3500 but were not built by the Ford Motor Company?,"SELECT DISTINCT Model
+FROM car_names
+WHERE MakeId IN (
+  SELECT Id
+  FROM cars_data
+  WHERE Weight < 3500
+)
+AND MakeId NOT IN (
+  SELECT Id
+  FROM car_makers
+  WHERE Maker = 'Ford Motor Company'
+);","**Result Columns:**  
+- `model_list.Model`
+
+**Tables and Columns:**
+- `model_list.Model`
+- `cars_data.Weight`
+- `car_makers.Maker`
+- `car_makers.FullName`
+
+**Join Path:**
+1. `model_list` (T1) JOIN `cars_data` (T2) ON `T1.ModelId` = `T2.Id`
+2. `model_list` (T1) JOIN `car_makers` (T3) ON `T1.Maker` = `T3.Id`
+
+**Filter Logic:**
+- `T2.Weight < 3500`
+- `T3.FullName != 'Ford Motor Company'`
+
+**Grouping Grain:**  
+- `model_list.Model`
+
+**Aggregate/Comparison Target:**  
+- None needed, just distinct models.","SELECT DISTINCT T1.Model
+FROM model_list AS T1
+JOIN cars_data AS T2 ON T1.ModelId = T2.Id
+JOIN car_makers AS T3 ON T1.Maker = T3.Id
+WHERE T2.Weight < 3500 AND T3.FullName != 'Ford Motor Company';",,"SELECT DISTINCT T1.Model
+FROM model_list AS T1
+JOIN cars_data AS T2 ON T1.ModelId = T2.Id
+JOIN car_makers AS T3 ON T1.Maker = T3.Id
+WHERE T2.Weight < 3500 AND T3.FullName != 'Ford Motor Company';",,False,False,142.86,False,grounded_plan_repair_v1
+369,car_1,moderate,"For a volvo model, how many cylinders does the version with least accelerate have?","SELECT Cylinders 
+FROM cars_data 
+WHERE Id = (
+  SELECT MakeId 
+  FROM car_names 
+  WHERE Make = 'volvo' 
+  ORDER BY Accelerate ASC 
+  LIMIT 1
+);","**Result Columns:** Cylinders
+
+**Tables and Columns:**
+- `car_names.Model` = 'volvo'
+- `cars_data.Cylinders`
+- `cars_data.Accelerate`
+
+**Join Path:** `car_names.MakeId` -> `cars_data.Id`
+
+**Filter Logic:** 
+- `car_names.Model = 'volvo'`
+
+**Grouping Grain:** None
+
+**Aggregate/Comparison Target:** 
+- Find the minimum `Accelerate` value for 'volvo' models.
+- Retrieve the `Cylinders` of the car with this minimum `Accelerate` value.","SELECT Cylinders
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+WHERE car_names.Model = 'volvo'
+ORDER BY cars_data.Accelerate ASC
+LIMIT 1;",,"SELECT Cylinders
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+WHERE car_names.Model = 'volvo'
+ORDER BY cars_data.Accelerate ASC
+LIMIT 1;",,True,False,103.53,False,grounded_plan_repair_v1
+372,car_1,moderate,What is the average edispl of the cars of model volvo?,"SELECT AVG(T2.Edispl) 
+FROM car_names AS T1 
+JOIN cars_data AS T2 
+ON T1.MakeId = T2.Id 
+WHERE T1.Make = 'volvo';","**Result Columns:** Average Edispl
+
+**Tables and Columns:**
+- `car_names.Model` (for filtering by 'volvo')
+- `cars_data.Id` (to join with `car_names.MakeId`)
+- `cars_data.Edispl` (to calculate the average)
+
+**Join Path:**
+1. `car_names.MakeId` -> `cars_data.Id`
+
+**Filter Logic:**
+- `car_names.Model = 'volvo'`
+
+**Grouping Grain:**
+- None (aggregate function directly on the column)
+
+**Aggregate/Comparison Target:**
+- `cars_data.Edispl` (average)","SELECT AVG(cars_data.Edispl) AS AverageEdispl
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+WHERE car_names.Model = 'volvo';",,"SELECT AVG(cars_data.Edispl) AS AverageEdispl
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+WHERE car_names.Model = 'volvo';",,True,False,97.94,False,grounded_plan_repair_v1
+374,car_1,moderate,What are the different models created by either the car maker General Motors or weighed more than 3500?,"SELECT DISTINCT Model 
+FROM car_names 
+WHERE MakeId IN (
+    SELECT Id 
+    FROM car_makers 
+    WHERE Maker = 'General Motors'
+) 
+UNION 
+SELECT DISTINCT Model 
+FROM car_names 
+JOIN cars_data ON car_names.MakeId = cars_data.Id 
+WHERE cars_data.Weight > 3500;","**Result Columns:** Model
+
+**Tables and Columns:**
+- `car_makers` (Maker, FullName)
+- `model_list` (Model, Maker)
+- `cars_data` (Id, Weight)
+
+**Join Path:**
+1. `car_makers` -> `model_list` (Maker)
+2. `model_list` -> `cars_data` (Model)
+
+**Filter Logic:**
+- `car_makers.FullName = 'General Motors'`
+- `cars_data.Weight > 3500`
+
+**Grouping Grain:** None
+
+**Aggregate/Comparison Target:** None","SELECT DISTINCT ml.Model
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker
+JOIN cars_data cd ON ml.ModelId = cd.Id
+WHERE cm.FullName = 'General Motors' OR cd.Weight > 3500;",,"SELECT DISTINCT ml.Model
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker
+JOIN cars_data cd ON ml.ModelId = cd.Id
+WHERE cm.FullName = 'General Motors' OR cd.Weight > 3500;",,False,False,104.49,False,grounded_plan_repair_v1
+414,car_1,complex,What are the ids and makers of all car makers that produce at least 2 models and make more than 3 cars?,"SELECT cm.Id, cm.Maker
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker
+JOIN car_names cn ON ml.Model = cn.Model
+GROUP BY cm.Id, cm.Maker
+HAVING COUNT(DISTINCT ml.Model) >= 2 AND COUNT(cn.MakeId) > 3;","**Result Columns:**
+- `car_makers.Id`
+- `car_makers.Maker`
+
+**Tables and Columns:**
+- `car_makers.Id`
+- `car_makers.Maker`
+- `model_list.ModelId`
+- `model_list.Maker`
+- `cars_data.Id`
+
+**Join Path:**
+1. `car_makers` (T1) JOIN `model_list` (T2) ON `car_makers.Id` = `model_list.Maker`
+2. `car_makers` (T1) JOIN `cars_data` (T3) ON `car_makers.Id` = `cars_data.Id`
+
+**Filter Logic:**
+- `GROUP BY` `car_makers.Id`
+- `HAVING` `COUNT(DISTINCT T2.ModelId) >= 2` AND `COUNT(T3.Id) > 3`
+
+**","SELECT T1.Id, T1.Maker
+FROM car_makers AS T1
+JOIN model_list AS T2 ON T1.Id = T2.Maker
+JOIN cars_data AS T3 ON T1.Id = T3.Id
+GROUP BY T1.Id
+HAVING COUNT(DISTINCT T2.ModelId) >= 2 AND COUNT(T3.Id) > 3;",,"SELECT T1.Id, T1.Maker
+FROM car_makers AS T1
+JOIN model_list AS T2 ON T1.Id = T2.Maker
+JOIN cars_data AS T3 ON T1.Id = T3.Id
+GROUP BY T1.Id
+HAVING COUNT(DISTINCT T2.ModelId) >= 2 AND COUNT(T3.Id) > 3;",,False,False,151.59,False,grounded_plan_repair_v1
+455,car_1,moderate,"For model volvo, how many cylinders does the car with the least accelerate have?","SELECT Cylinders 
+FROM cars_data 
+WHERE Id = (
+  SELECT MakeId 
+  FROM car_names 
+  WHERE Model = 'volvo' 
+  ORDER BY Accelerate ASC 
+  LIMIT 1
+);","**Result Columns:** Cylinders
+
+**Tables and Columns:**
+- `car_names.Model` = 'volvo'
+- `cars_data.Cylinders`
+- `cars_data.Accelerate`
+
+**Join Path:** `car_names.MakeId` -> `cars_data.Id`
+
+**Filter Logic:** 
+- `car_names.Model = 'volvo'`
+
+**Grouping Grain:** None
+
+**Aggregate/Comparison Target:** 
+- Find the car with the least `Accelerate` and return its `Cylinders`.","SELECT Cylinders
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+WHERE car_names.Model = 'volvo'
+ORDER BY Accelerate ASC
+LIMIT 1;",,"SELECT Cylinders
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+WHERE car_names.Model = 'volvo'
+ORDER BY Accelerate ASC
+LIMIT 1;",,True,False,98.23,False,grounded_plan_repair_v1
+485,car_1,complex,What are the id and names of the countries which have more than 3 car makers or produce the 'fiat' model?,"SELECT c.CountryId, c.CountryName
+FROM countries c
+JOIN car_makers cm ON c.CountryId = cm.Country
+JOIN model_list ml ON cm.Id = ml.Maker
+WHERE cm.Maker = 'fiat'
+GROUP BY c.CountryId, c.CountryName
+HAVING COUNT(DISTINCT cm.Id) > 3
+UNION
+SELECT c.CountryId, c.CountryName
+FROM countries c
+JOIN car_makers cm ON c.CountryId = cm.Country
+WHERE cm.Maker = 'fiat';","**Result Columns:**  
+- `countries.CountryId`
+- `countries.CountryName`
+
+**Tables and Columns:**
+- `car_makers.Country` (FK -> `countries.CountryId`)
+- `countries.CountryId`
+- `countries.CountryName`
+- `model_list.Model`
+- `car_makers.Maker`
+
+**Join Path:**
+1. `car_makers` -> `countries` (on `car_makers.Country` = `countries.CountryId`)
+2. `car_makers` -> `model_list` (on `car_makers.Id` = `model_list.Maker`)
+
+**Filter Logic:**
+- `car_makers.Maker` = 'fiat' OR `model_list.Model` = 'fiat'
+- Group by `countries.CountryId` and `countries.CountryName`
+- Having count of `car_makers.Id` > 3 OR any","SELECT countries.CountryId, countries.CountryName
+FROM car_makers
+JOIN countries ON car_makers.Country = countries.CountryId
+JOIN model_list ON car_makers.Id = model_list.Maker
+WHERE car_makers.Maker = 'fiat' OR model_list.Model = 'fiat'
+GROUP BY countries.CountryId, countries.CountryName
+HAVING COUNT(car_makers.Id) > 3 OR ANY(model_list.Model = 'fiat');",no such function: ANY,"SELECT countries.CountryId, countries.CountryName
+FROM car_makers
+JOIN countries ON car_makers.Country = countries.CountryId
+JOIN model_list ON car_makers.Id = model_list.Maker
+WHERE car_makers.Maker = 'fiat' OR model_list.Model = 'fiat'
+GROUP BY countries.CountryId, countries.CountryName
+HAVING COUNT(car_makers.Id) > 3 OR MAX(CASE WHEN model_list.Model = 'fiat' THEN 1 ELSE 0 END) = 1;",,False,False,335.72,True,grounded_plan_repair_v1
+490,car_1,moderate,What is the count of the car models produced in the United States?,"SELECT COUNT(*) 
+FROM car_makers 
+JOIN countries ON car_makers.Country = countries.CountryId 
+WHERE countries.CountryName = 'United States';","**Result Columns:** Count of car models
+
+**Tables and Columns:**
+- `car_makers` (Maker, Country)
+- `countries` (CountryId, CountryName)
+
+**Join Path:** `car_makers.Country` -> `countries.CountryId`
+
+**Filter Logic:** `countries.CountryName = 'United States'`
+
+**Grouping Grain:** None (since we are counting all models)
+
+**Aggregate/Comparison Target:** Count of car models","SELECT COUNT(*) AS ModelCount
+FROM car_makers
+JOIN countries ON car_makers.Country = countries.CountryId
+WHERE countries.CountryName = 'United States';",,"SELECT COUNT(*) AS ModelCount
+FROM car_makers
+JOIN countries ON car_makers.Country = countries.CountryId
+WHERE countries.CountryName = 'United States';",,False,False,75.41,False,grounded_plan_repair_v1
+601,car_1,simple,What are all the makers and models?,"SELECT Maker, Model FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker;","**Result Columns:**
+- Maker
+- Model
+
+**Tables and Columns:**
+- `car_makers` (Maker)
+- `model_list` (Model)
+
+**Join Path:**
+- `car_makers.Id` -> `model_list.Maker`
+
+**Filter Logic:**
+- None
+
+**Grouping Grain:**
+- None
+
+**Aggregate/Comparison Target:**
+- None","SELECT cm.Maker, ml.Model
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker;",,"SELECT cm.Maker, ml.Model
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker;",,False,False,60.06,False,grounded_plan_repair_v1
+606,car_1,moderate,"Among the cars that do not have the minimum horsepower , what are the make ids and names of all those with less than 4 cylinders ?","SELECT MakeId, Make 
+FROM car_names 
+WHERE MakeId NOT IN (
+  SELECT MakeId 
+  FROM cars_data 
+  ORDER BY Horsepower ASC 
+  LIMIT 1
+) 
+AND Cylinders < 4;","**Result Columns:**
+- `MakeId`
+- `Make`
+
+**Tables and Columns:**
+- `cars_data`: `MakeId`, `Horsepower`, `Cylinders`
+- `car_names`: `MakeId`, `Make`
+
+**Join Path:**
+- `cars_data` (T1) JOIN `car_names` (T2) ON `T1.MakeId` = `T2.MakeId`
+
+**Filter Logic:**
+- `T1.Cylinders < 4`
+- `T1.Horsepower != (SELECT MIN(Horsepower) FROM cars_data)`
+
+**Grouping Grain:**
+- None
+
+**Aggregates/Comparisons:**
+- None","SELECT T2.MakeId, T2.Make
+FROM cars_data AS T1
+JOIN car_names AS T2 ON T1.MakeId = T2.MakeId
+WHERE T1.Cylinders < 4
+AND T1.Horsepower != (SELECT MIN(Horsepower) FROM cars_data);",no such column: T1.MakeId,"SELECT T2.MakeId, T2.Make
+FROM cars_data AS T1
+JOIN car_names AS T2 ON T1.MakeId = T2.MakeId
+WHERE T1.Cylinders < 4
+AND T1.Horsepower != (SELECT MIN(Horsepower) FROM cars_data);",no such column: T1.MakeId,False,False,189.38,True,grounded_plan_repair_v1
+623,car_1,moderate,What is the name of the different car makers who produced a car in 1970?,"SELECT DISTINCT cm.Maker
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker
+JOIN cars_data cd ON ml.ModelId = cd.Id
+WHERE cd.Year = 1970;","**Result Columns:** Maker
+
+**Tables and Columns:**
+- `car_makers`: Maker
+- `cars_data`: Id, Year
+- `car_names`: MakeId
+
+**Join Path:**
+1. `car_makers.Id` -> `model_list.Maker`
+2. `model_list.Model` -> `car_names.Model`
+3. `car_names.MakeId` -> `cars_data.Id`
+
+**Filter Logic:**
+- `cars_data.Year = 1970`
+
+**Grouping Grain:**
+- `car_makers.Maker`
+
+**Aggregate/Comparison Target:**
+- None needed, just distinct makers.","SELECT DISTINCT cm.Maker
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker
+JOIN car_names cn ON ml.Model = cn.Model
+JOIN cars_data cd ON cn.MakeId = cd.Id
+WHERE cd.Year = 1970;",,"SELECT DISTINCT cm.Maker
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker
+JOIN car_names cn ON ml.Model = cn.Model
+JOIN cars_data cd ON cn.MakeId = cd.Id
+WHERE cd.Year = 1970;",,True,False,104.61,False,grounded_plan_repair_v1
+628,car_1,moderate,What is the average weight of cars each year?,"SELECT Year, AVG(Weight) FROM cars_data GROUP BY Year;","**Result Columns:**  
+- Year  
+- Average Weight
+
+**Tables and Columns:**  
+- `cars_data`: `Year`, `Weight`
+
+**Join Path:**  
+- Directly from `cars_data` as no joins are required.
+
+**Filter Logic:**  
+- None
+
+**Grouping Grain:**  
+- `Year`
+
+**Aggregate/Comparison Target:**  
+- `Weight` (for average calculation)","SELECT Year, AVG(Weight) AS AverageWeight
+FROM cars_data
+GROUP BY Year;",,"SELECT Year, AVG(Weight) AS AverageWeight
+FROM cars_data
+GROUP BY Year;",,False,True,58.11,False,grounded_plan_repair_v1
+634,car_1,moderate,Which model has the most version(make) of cars?,"SELECT Model, COUNT(*) as VersionCount 
+FROM car_names 
+GROUP BY Model 
+ORDER BY VersionCount DESC 
+LIMIT 1;","**Result Columns:** Model
+
+**Tables and Columns:**
+- `car_names` (T1): `Model`
+- `car_names` (T2): `Make`
+
+**Join Path:** T1.Model = T2.Model
+
+**Filter Logic:** None
+
+**Grouping Grain:** T1.Model
+
+**Aggregate/Comparison Target:** COUNT(T2.Make) (to find the model with the most versions)","SELECT T1.Model
+FROM car_names AS T1
+JOIN car_names AS T2 ON T1.Model = T2.Model
+GROUP BY T1.Model
+ORDER BY COUNT(T2.Make) DESC
+LIMIT 1;",,"SELECT T1.Model
+FROM car_names AS T1
+JOIN car_names AS T2 ON T1.Model = T2.Model
+GROUP BY T1.Model
+ORDER BY COUNT(T2.Make) DESC
+LIMIT 1;",,True,False,73.38,False,grounded_plan_repair_v1
+655,car_1,moderate,How many car models are produced in the usa?,"SELECT COUNT(*) 
+FROM car_makers 
+JOIN countries ON car_makers.Country = countries.CountryId 
+WHERE countries.CountryName = 'usa';","**Result Columns:** Count of car models
+
+**Tables and Columns:**
+- `car_makers` (Maker, Country)
+- `countries` (CountryId, CountryName)
+
+**Join Path:** `car_makers.Country` -> `countries.CountryId`
+
+**Filter Logic:** `countries.CountryName = 'usa'`
+
+**Grouping Grain:** None
+
+**Aggregate/Comparison Target:** Count of `car_makers.Maker`","SELECT COUNT(*) AS ModelCount
+FROM car_makers
+JOIN countries ON car_makers.Country = countries.CountryId
+WHERE countries.CountryName = 'usa';",,"SELECT COUNT(*) AS ModelCount
+FROM car_makers
+JOIN countries ON car_makers.Country = countries.CountryId
+WHERE countries.CountryName = 'usa';",,False,False,67.86,False,grounded_plan_repair_v1
+660,car_1,moderate,What is the average edispl for all volvos?,"SELECT AVG(T2.Edispl) 
+FROM car_names AS T1 
+JOIN cars_data AS T2 
+ON T1.MakeId = T2.Id 
+WHERE T1.Make = 'volvo';","- **Result Columns**: Average edispl
+- **Tables and Columns**:
+  - `car_names.Make` (for 'volvo')
+  - `cars_data.Edispl` (for calculating average)
+- **Join Path**: `car_names.MakeId` -> `cars_data.Id`
+- **Filter Logic**: `car_names.Make = 'volvo'`
+- **Grouping Grain**: None (since we are calculating an average)
+- **Aggregate Target**: `cars_data.Edispl` (for average calculation)","SELECT AVG(cars_data.Edispl) AS AverageEdispl
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+WHERE car_names.Make = 'volvo';",,"SELECT AVG(cars_data.Edispl) AS AverageEdispl
+FROM car_names
+JOIN cars_data ON car_names.MakeId = cars_data.Id
+WHERE car_names.Make = 'volvo';",,False,False,83.23,False,grounded_plan_repair_v1
+794,car_1,complex,What are the names and ids of all makers with more than 3 models?,"SELECT Maker, Id 
+FROM car_makers 
+WHERE Maker IN (
+  SELECT Maker 
+  FROM model_list 
+  GROUP BY Maker 
+  HAVING COUNT(*) > 3
+);","**Result Columns:** Maker, Id
+
+**Tables and Columns:**
+- `car_makers`: Maker, Id
+- `model_list`: Maker
+
+**Join Path:** `car_makers` (Maker) -> `model_list` (Maker)
+
+**Filter Logic:** None
+
+**Grouping Grain:** `car_makers.Id`
+
+**Aggregate/Comparison:** COUNT(`model_list.Model`) > 3","SELECT cm.Maker, cm.Id
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker
+GROUP BY cm.Id
+HAVING COUNT(ml.Model) > 3;",,"SELECT cm.Maker, cm.Id
+FROM car_makers cm
+JOIN model_list ml ON cm.Id = ml.Maker
+GROUP BY cm.Id
+HAVING COUNT(ml.Model) > 3;",,False,False,69.4,False,grounded_plan_repair_v1
+820,car_1,complex,How many countries has more than 2 car makers ?,"SELECT COUNT(*) 
+FROM (
+  SELECT Country 
+  FROM car_makers 
+  GROUP BY Country 
+  HAVING COUNT(*) > 2
+);","**Result Columns:**  
+- Count of countries
+
+**Tables and Columns:**  
+- `countries` (T1): `CountryId`, `CountryName`, `Continent`
+- `car_makers` (T2): `Id`, `Maker`, `FullName`, `Country`
+
+**Join Path:**  
+- `countries.CountryId` = `car_makers.Country`
+
+**Filter Logic:**  
+- None
+
+**Grouping Grain:**  
+- `countries.CountryId`
+
+**Aggregate/Comparison Target:**  
+- Count of `car_makers.Id` per country, filter groups with count > 2","SELECT COUNT(*) AS CountryCount
+FROM (
+    SELECT T1.CountryId
+    FROM countries AS T1
+    JOIN car_makers AS T2 ON T1.CountryId = T2.Country
+    GROUP BY T1.CountryId
+    HAVING COUNT(T2.Id) > 2
+);",,"SELECT COUNT(*) AS CountryCount
+FROM (
+    SELECT T1.CountryId
+    FROM countries AS T1
+    JOIN car_makers AS T2 ON T1.CountryId = T2.Country
+    GROUP BY T1.CountryId
+    HAVING COUNT(T2.Id) > 2
+);",,False,False,102.77,False,grounded_plan_repair_v1
+866,car_1,moderate,What model has the most different versions?,"SELECT Model, COUNT(DISTINCT MakeId) AS VersionCount
+FROM car_names
+GROUP BY Model
+ORDER BY VersionCount DESC
+LIMIT 1;","**Result Columns:** Model
+
+**Tables and Columns:**
+- `car_names` (Model)
+- `model_list` (ModelId, Model)
+
+**Join Path:** `car_names.Model` -> `model_list.Model`
+
+**Filter Logic:** None
+
+**Grouping Grain:** `model_list.Model`
+
+**Aggregate/Comparison Target:** COUNT(DISTINCT `car_names.MakeId`)","SELECT Model
+FROM car_names
+JOIN model_list ON car_names.Model = model_list.Model
+GROUP BY model_list.Model
+ORDER BY COUNT(DISTINCT car_names.MakeId) DESC
+LIMIT 1;",ambiguous column name: Model,"SELECT model_list.Model
+FROM car_names
+JOIN model_list ON car_names.Model = model_list.Model
+GROUP BY model_list.Model
+ORDER BY COUNT(DISTINCT car_names.MakeId) DESC
+LIMIT 1;",,True,False,109.09,True,grounded_plan_repair_v1
+872,car_1,moderate,What is the maker of the carr produced in the earliest year and what year was it?,"SELECT cm.Maker, cd.Year 
+FROM car_makers cm 
+JOIN model_list ml ON cm.Id = ml.Maker 
+JOIN car_names cn ON ml.Model = cn.Model 
+JOIN cars_data cd ON cn.MakeId = cd.Id 
+ORDER BY cd.Year ASC 
+LIMIT 1;","**Result Columns:**
+- Maker
+- Year
+
+**Tables and Columns:**
+- `cars_data`: `Year`, `Id`
+- `car_names`: `Make`, `MakeId`
+
+**Join Path:**
+- `cars_data.Id` = `car_names.MakeId`
+
+**Filter Logic:**
+- None
+
+**Grouping Grain:**
+- None
+
+**Aggregate/Comparison Target:**
+- Find the minimum `Year` and its corresponding `Maker`.","SELECT cn.Make, cd.Year
+FROM cars_data cd
+JOIN car_names cn ON cd.Id = cn.MakeId
+ORDER BY cd.Year ASC
+LIMIT 1;",,"SELECT cn.Make, cd.Year
+FROM cars_data cd
+JOIN car_names cn ON cd.Id = cn.MakeId
+ORDER BY cd.Year ASC
+LIMIT 1;",,False,False,75.19,False,grounded_plan_repair_v1
+905,car_1,moderate,What is the number of makers of care in France?,"SELECT COUNT(*) 
+FROM car_makers 
+JOIN countries ON car_makers.Country = countries.CountryId 
+WHERE countries.CountryName = 'France';","**Result Columns:**  
+- Count of car makers
+
+**Tables and Columns:**  
+- `countries.CountryName` = 'france'
+- `car_makers.Country` (FK to `countries.CountryId`)
+- `car_makers.Id` (Primary Key)
+
+**Join Path:**  
+- `countries` JOIN `car_makers` ON `countries.CountryId` = `car_makers.Country`
+
+**Filter Logic:**  
+- `countries.CountryName` = 'france'
+
+**Grouping Grain:**  
+- None (Counting distinct makers)
+
+**Aggregate/Comparison Target:**  
+- Count of distinct `car_makers.Id`","SELECT COUNT(DISTINCT cm.Id) AS NumberOfMakers
+FROM countries c
+JOIN car_makers cm ON c.CountryId = cm.Country
+WHERE c.CountryName = 'france';",,"SELECT COUNT(DISTINCT cm.Id) AS NumberOfMakers
+FROM countries c
+JOIN car_makers cm ON c.CountryId = cm.Country
+WHERE c.CountryName = 'france';",,True,False,96.48,False,grounded_plan_repair_v1
+941,car_1,moderate,What is the number of car models created by the car maker American Motor Company?,"SELECT COUNT(*) 
+FROM car_makers 
+JOIN model_list ON car_makers.Id = model_list.Maker 
+WHERE car_makers.Maker = 'American Motor Company';","**Result Columns:**  
+- Count of car models
+
+**Tables and Columns:**  
+- `car_makers` (Maker, FullName)  
+- `model_list` (ModelId, Maker)
+
+**Join Path:**  
+- `car_makers` (Maker) -> `model_list` (Maker)
+
+**Filter Logic:**  
+- `car_makers.FullName = 'American Motor Company'`
+
+**Grouping Grain:**  
+- None (counting all models)
+
+**Aggregate/Comparison Target:**  
+- Count of `model_list.ModelId`","SELECT COUNT(*) AS NumberOfModels
+FROM car_makers
+JOIN model_list ON car_makers.Id = model_list.Maker
+WHERE car_makers.FullName = 'American Motor Company';",,"SELECT COUNT(*) AS NumberOfModels
+FROM car_makers
+JOIN model_list ON car_makers.Id = model_list.Maker
+WHERE car_makers.FullName = 'American Motor Company';",,True,False,90.51,False,grounded_plan_repair_v1
+966,car_1,moderate,What is the average weight and year for each year?,"SELECT Year, AVG(Weight) FROM cars_data GROUP BY Year;","**Result Columns:**
+- Average Weight
+- Year
+
+**Table and Columns:**
+- `cars_data`: `Weight`, `Year`
+
+**Join Path:**
+- No joins needed as all required columns are in `cars_data`.
+
+**Filter Logic:**
+- None
+
+**Grouping Grain:**
+- Group by `Year`
+
+**Aggregate/Comparison Target:**
+- Average Weight calculated per year","SELECT AVG(Weight) AS AverageWeight, Year
+FROM cars_data
+GROUP BY Year;",,"SELECT AVG(Weight) AS AverageWeight, Year
+FROM cars_data
+GROUP BY Year;",,True,False,62.47,False,grounded_plan_repair_v1
+1027,car_1,moderate,What is the maximum accelerate for all the different cylinders?,"SELECT Cylinders, MAX(Accelerate) FROM cars_data GROUP BY Cylinders;","**Result Columns:**  
+- `Cylinders`  
+- `MAX(Accelerate)`
+
+**Table and Columns:**  
+- `cars_data`: `Cylinders`, `Accelerate`
+
+**Join Path:**  
+- Directly from `cars_data`
+
+**Filter Logic:**  
+- None
+
+**Grouping Grain:**  
+- `Cylinders`
+
+**Aggregate/Comparison Target:**  
+- `MAX(Accelerate)`","SELECT Cylinders, MAX(Accelerate) 
+FROM cars_data 
+GROUP BY Cylinders;",,"SELECT Cylinders, MAX(Accelerate) 
+FROM cars_data 
+GROUP BY Cylinders;",,False,True,64.2,False,grounded_plan_repair_v1
+248,concert_singer,simple,Show the name and the release year of the song by the youngest singer.,"SELECT Name, Song_release_year FROM singer ORDER BY Age ASC LIMIT 1;","**Result Columns:**
+- Name (from singer)
+- Song_release_year (from singer)
+
+**Table and Columns:**
+- singer (Name, Song_release_year, Age)
+
+**Join Path:**
+- No join needed, as all required columns are in the singer table.
+
+**Filter Logic:**
+- None
+
+**Grouping Grain:**
+- None
+
+**Aggregate or Comparison Target:**
+- Find the minimum Age in the singer table to identify the youngest singer.","SELECT Name, Song_release_year
+FROM singer
+WHERE Age = (SELECT MIN(Age) FROM singer);",,"SELECT Name, Song_release_year
+FROM singer
+WHERE Age = (SELECT MIN(Age) FROM singer);",,False,False,298.49,False,grounded_plan_repair_v1
+263,concert_singer,moderate,List all singer names in concerts in year 2014.,"SELECT DISTINCT s.Name
+FROM singer s
+JOIN singer_in_concert sic ON s.Singer_ID = sic.Singer_ID
+JOIN concert c ON sic.concert_ID = c.concert_ID
+WHERE c.Year = '2014';","**Result Columns:** singer.Name
+
+**Tables and Columns:**
+- singer (Name)
+- concert (Year)
+- singer_in_concert (Singer_ID, concert_ID)
+
+**Join Path:**
+1. Join singer_in_concert with concert on concert_ID.
+2. Join the result with singer on Singer_ID.
+
+**Filter Logic:**
+- concert.Year = '2014'
+
+**Grouping Grain:**
+- None
+
+**Aggregate/Comparison Target:**
+- None","SELECT singer.Name
+FROM singer_in_concert
+JOIN concert ON singer_in_concert.concert_ID = concert.concert_ID
+JOIN singer ON singer_in_concert.Singer_ID = singer.Singer_ID
+WHERE concert.Year = '2014';",,"SELECT singer.Name
+FROM singer_in_concert
+JOIN concert ON singer_in_concert.concert_ID = concert.concert_ID
+JOIN singer ON singer_in_concert.Singer_ID = singer.Singer_ID
+WHERE concert.Year = '2014';",,True,False,96.28,False,grounded_plan_repair_v1
+434,concert_singer,moderate,What is the average and maximum capacities for all stadiums ?,"SELECT Average, MAX(Capacity) FROM stadium;","- **Result Columns**: Average, Maximum
+- **Table**: stadium
+- **Columns**: Average, Capacity
+- **Join Path**: None (single table query)
+- **Filter Logic**: None
+- **Grouping Grain**: None
+- **Aggregate/Comparison**: Average and Maximum of Capacity","SELECT Average, MAX(Capacity) AS Maximum
+FROM stadium;",,"SELECT Average, MAX(Capacity) AS Maximum
+FROM stadium;",,False,False,51.08,False,grounded_plan_repair_v1
+652,concert_singer,simple,What is the maximum capacity and the average of all stadiums ?,"SELECT MAX(Capacity), AVG(Capacity) FROM stadium;","- **Result Columns**: Maximum capacity, Average capacity
+- **Table**: stadium
+- **Columns**: Capacity, Average
+- **Join Path**: None (single table query)
+- **Filter Logic**: None
+- **Grouping Grain**: None
+- **Aggregate/Comparison**: MAX(Capacity), AVG(Average)","SELECT MAX(Capacity) AS Max_Capacity, AVG(Average) AS Avg_Average FROM stadium;",,"SELECT MAX(Capacity) AS Max_Capacity, AVG(Average) AS Avg_Average FROM stadium;",,False,False,56.83,False,grounded_plan_repair_v1
+921,concert_singer,simple,What are the names and release years for all the songs of the youngest singer?,"SELECT Name, Song_release_year FROM singer WHERE Age = (SELECT MIN(Age) FROM singer);","**Result Columns:**  
+- `Name` (from `singer` table)
+- `Song_release_year` (from `singer` table)
+
+**Table and Columns for Each Entity or Literal:**  
+- `singer` table: `Name`, `Song_release_year`, `Age`
+
+**Full Join Path:**  
+- Directly from the `singer` table.
+
+**Filter Logic:**  
+- Find the youngest singer by ordering by `Age` in ascending order and limiting the result to 1.
+
+**Grouping Grain:**  
+- No grouping required.
+
+**Target of Aggregate or Comparison:**  
+- Use `MIN(Age)` to identify the youngest singer.","SELECT Name, Song_release_year
+FROM singer
+WHERE Age = (SELECT MIN(Age) FROM singer);",,"SELECT Name, Song_release_year
+FROM singer
+WHERE Age = (SELECT MIN(Age) FROM singer);",,False,False,96.12,False,grounded_plan_repair_v1
+36,course_teach,simple,List the name of teachers whose hometown is not `` Little Lever Urban District '' .,SELECT Name FROM teacher WHERE Hometown != 'Little Lever Urban District';,"**Result Columns:** teacher.Name
+
+**Table and Columns:**
+- teacher (Name, Hometown)
+
+**Filter Logic:** 
+- teacher.Hometown != 'Little Lever Urban District'
+
+**Join Path:** None (single table query)
+
+**Grouping Grain:** None
+
+**Aggregate/Comparison Target:** None",SELECT Name FROM teacher WHERE Hometown != 'Little Lever Urban District';,,SELECT Name FROM teacher WHERE Hometown != 'Little Lever Urban District';,,False,False,185.23,False,grounded_plan_repair_v1
+915,course_teach,simple,What are the names of the teachers whose hometown is not `` Little Lever Urban District '' ?,SELECT Name FROM teacher WHERE Hometown != 'Little Lever Urban District';,"**Result Columns:** teacher.Name
+
+**Table and Columns:**
+- teacher (Name, Hometown)
+
+**Filter Logic:** 
+- teacher.Hometown != 'Little Lever Urban District'
+
+**Join Path:** None (single table query)
+
+**Grouping Grain:** None
+
+**Aggregate/Comparison Target:** None",SELECT Name FROM teacher WHERE Hometown != 'Little Lever Urban District';,,SELECT Name FROM teacher WHERE Hometown != 'Little Lever Urban District';,,False,False,48.32,False,grounded_plan_repair_v1
+924,course_teach,moderate,What is the most commmon hometowns for teachers?,"SELECT Hometown, COUNT(*) as Count FROM teacher GROUP BY Hometown ORDER BY Count DESC LIMIT 1;","**Result Columns:** Hometown, Count
+
+**Table and Columns:**
+- `teacher` table: `Hometown`
+
+**Join Path:** None needed, as we are only querying the `teacher` table.
+
+**Filter Logic:** None
+
+**Grouping Grain:** Hometown
+
+**Aggregate/Comparison Target:** Count of Hometowns
+
+**Goal:** Identify the most common hometowns for teachers by counting the occurrences of each hometown and ordering them in descending order.","SELECT Hometown, COUNT(*) AS Count
+FROM teacher
+GROUP BY Hometown
+ORDER BY Count DESC;",,"SELECT Hometown, COUNT(*) AS Count
+FROM teacher
+GROUP BY Hometown
+ORDER BY Count DESC;",,False,False,74.19,False,grounded_plan_repair_v1
+0,cre_Doc_Template_Mgt,simple,Return the ids corresponding to templates with the description 'Presentation'.,SELECT Template_ID FROM Templates WHERE Template_Type_Code = 'PP';,"**Result Columns:** Template_ID
+
+**Tables and Columns:**
+- Ref_Template_Types (Template_Type_Description)
+- Templates (Template_ID, Template_Type_Code)
+
+**Join Path:** 
+- Ref_Template_Types.Template_Type_Code = Templates.Template_Type_Code
+
+**Filter Logic:** 
+- Ref_Template_Types.Template_Type_Description = 'Presentation'
+
+**Grouping Grain:** None
+
+**Aggregate/Comparison Target:** None","SELECT Templates.Template_ID
+FROM Ref_Template_Types
+JOIN Templates ON Ref_Template_Types.Template_Type_Code = Templates.Template_Type_Code
+WHERE Ref_Template_Types.Template_Type_Description = 'Presentation';",,"SELECT Templates.Template_ID
+FROM Ref_Template_Types
+JOIN Templates ON Ref_Template_Types.Template_Type_Code = Templates.Template_Type_Code
+WHERE Ref_Template_Types.Template_Type_Description = 'Presentation';",,True,False,219.2,False,grounded_plan_repair_v1
+21,cre_Doc_Template_Mgt,moderate,Show all template type codes that are not used by any document.,SELECT Template_Type_Code FROM Ref_Template_Types EXCEPT SELECT Template_Type_Code FROM Templates;,"**Result Columns:** Template_Type_Code
+
+**Tables and Columns:**
+- **Ref_Template_Types**: Template_Type_Code
+- **Documents**: Template_ID
+
+**Join Path:** None (Direct comparison without join)
+
+**Filter Logic:** 
+- NOT IN (Subquery to find all Template_Type_Codes used in Documents)
+
+**Grouping Grain:** None
+
+**Aggregate/Comparison Target:** Template_Type_Code","SELECT Template_Type_Code
+FROM Ref_Template_Types
+WHERE Template_Type_Code NOT IN (
+    SELECT Template_Type_Code
+    FROM Templates
+    JOIN Documents ON Templates.Template_ID = Documents.Template_ID
+);",,"SELECT Template_Type_Code
+FROM Ref_Template_Types
+WHERE Template_Type_Code NOT IN (
+    SELECT Template_Type_Code
+    FROM Templates
+    JOIN Documents ON Templates.Template_ID = Documents.Template_ID
+);",,True,False,66.74,False,grounded_plan_repair_v1
+94,cre_Doc_Template_Mgt,simple,"Return the lowest version number, along with its corresponding template type code.","SELECT MIN(Version_Number), Template_Type_Code FROM Templates GROUP BY Template_Type_Code;","**Result Columns:**
+- Version_Number
+- Template_Type_Code
+
+**Table and Columns:**
+- Templates (Version_Number, Template_Type_Code)
+
+**Join Path:**
+- No joins required; query is on a single table.
+
+**Filter Logic:**
+- None
+
+**Grouping Grain:**
+- None
+
+**Aggregate/Comparison Target:**
+- MIN(Version_Number)","SELECT MIN(Version_Number) AS Version_Number, Template_Type_Code
+FROM Templates;",,"SELECT MIN(Version_Number) AS Version_Number, Template_Type_Code
+FROM Templates;",,True,False,53.99,False,grounded_plan_repair_v1
+109,cre_Doc_Template_Mgt,simple,What are the details for the paragraph that includes the text 'Korea ' ?,SELECT Paragraph_Text FROM Paragraphs WHERE Paragraph_Text LIKE '%Korea %';,"**Result Columns:** Paragraphs.Paragraph_Text, Paragraphs.Other_Details
+
+**Tables and Columns:**
+- **Paragraphs**: Paragraph_Text, Other_Details
+
+**Join Path:** None (direct query on Paragraphs)
+
+**Filter Logic:** Paragraphs.Paragraph_Text = 'Korea'
+
+**Grouping Grain:** None
+
+**Aggregate/Comparison Target:** None","SELECT Paragraphs.Paragraph_Text, Paragraphs.Other_Details
+FROM Paragraphs
+WHERE Paragraphs.Paragraph_Text = 'Korea';",,"SELECT Paragraphs.Paragraph_Text, Paragraphs.Other_Details
+FROM Paragraphs
+WHERE Paragraphs.Paragraph_Text = 'Korea';",,False,False,62.17,False,grounded_plan_repair_v1
+167,cre_Doc_Template_Mgt,moderate,Return the id of the document with the fewest paragraphs.,"SELECT Document_ID 
+FROM Documents 
+GROUP BY Document_ID 
+ORDER BY COUNT(*) ASC 
+LIMIT 1;","**Result Columns:** Document_ID
+
+**Tables and Columns:**
+- **Documents**: Document_ID
+- **Paragraphs**: Document_ID
+
+**Join Path:** Documents (T1) JOIN Paragraphs (T2) ON Documents.Document_ID = Paragraphs.Document_ID
+
+**Filter Logic:** None
+
+**Grouping Grain:** Documents.Document_ID
+
+**Aggregate/Comparison:** COUNT(Paragraphs.Paragraph_ID) ASC
+
+**Target:** Document_ID of the document with the fewest paragraphs","SELECT Document_ID
+FROM Documents
+JOIN Paragraphs ON Documents.Document_ID = Paragraphs.Document_ID
+GROUP BY Documents.Document_ID
+ORDER BY COUNT(Paragraphs.Paragraph_ID) ASC
+LIMIT 1;",ambiguous column name: Document_ID,"SELECT T1.Document_ID
+FROM Documents AS T1
+LEFT JOIN Paragraphs AS T2 ON T1.Document_ID = T2.Document_ID
+GROUP BY T1.Document_ID
+ORDER BY COUNT(T2.Paragraph_ID) ASC
+LIMIT 1;",,False,False,181.03,True,grounded_plan_repair_v1
+592,cre_Doc_Template_Mgt,simple,Show paragraph details for paragraph with text 'Korea ' .,SELECT Paragraph_Text FROM Paragraphs WHERE Paragraph_Text = 'Korea ';,"**Result Columns:** Paragraphs.Paragraph_Text, Paragraphs.Other_Details
+
+**Table and Columns:**
+- Paragraphs.Paragraph_Text
+- Paragraphs.Other_Details
+
+**Full Join Path:** None needed, as the query is focused on a single table.
+
+**Filter Logic:** 
+- Paragraphs.Paragraph_Text = 'Korea'
+
+**Grouping Grain:** None
+
+**Aggregate or Comparison Target:** None","SELECT Paragraphs.Paragraph_Text, Paragraphs.Other_Details
+FROM Paragraphs
+WHERE Paragraphs.Paragraph_Text = 'Korea';",,"SELECT Paragraphs.Paragraph_Text, Paragraphs.Other_Details
+FROM Paragraphs
+WHERE Paragraphs.Paragraph_Text = 'Korea';",,False,False,65.57,False,grounded_plan_repair_v1
+653,cre_Doc_Template_Mgt,moderate,What are the codes of template types that are not used for any document?,SELECT Template_Type_Code FROM Ref_Template_Types EXCEPT SELECT Template_Type_Code FROM Templates;,"**Result Columns:** Template_Type_Code
+
+**Tables and Columns:**
+- Ref_Template_Types (Template_Type_Code)
+- Templates (Template_ID, Template_Type_Code)
+- Documents (Document_ID, Template_ID)
+
+**Join Path:**
+1. Ref_Template_Types (Template_Type_Code) -> Templates (Template_Type_Code)
+2. Templates (Template_ID) -> Documents (Template_ID)
+
+**Filter Logic:**
+- NOT EXISTS (subquery to find Template_Type_Codes used in Documents)
+
+**Grouping Grain:**
+- None
+
+**Aggregate/Comparison Target:**
+- Template_Type_Code from Ref_Template_Types","SELECT Template_Type_Code
+FROM Ref_Template_Types
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM Templates
+    JOIN Documents ON Templates.Template_ID = Documents.Template_ID
+    WHERE Ref_Template_Types.Template_Type_Code = Templates.Template_Type_Code
+);",,"SELECT Template_Type_Code
+FROM Ref_Template_Types
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM Templates
+    JOIN Documents ON Templates.Template_ID = Documents.Template_ID
+    WHERE Ref_Template_Types.Template_Type_Code = Templates.Template_Type_Code
+);",,True,False,97.1,False,grounded_plan_repair_v1
+738,cre_Doc_Template_Mgt,moderate,"Show all document ids, names and the number of paragraphs in each document.","SELECT 
+    Documents.Document_ID, 
+    Documents.Document_Name, 
+    COUNT(Paragraphs.Paragraph_ID) AS Number_of_Paragraphs
+FROM 
+    Documents
+LEFT JOIN 
+    Paragraphs ON Documents.Document_ID = Paragraphs.Document_ID
+GROUP BY 
+    Documents.Document_ID, Documents.Document_Name;","**Result Columns:**
+- Document_ID
+- Document_Name
+- Number_of_Paragraphs
+
+**Tables and Columns:**
+- **Documents**: Document_ID, Document_Name
+- **Paragraphs**: Document_ID
+
+**Join Path:**
+- Documents (T1) JOIN Paragraphs (T2) ON Documents.Document_ID = Paragraphs.Document_ID
+
+**Filter Logic:**
+- None
+
+**Grouping Grain:**
+- Document_ID
+
+**Aggregate or Comparison Target:**
+- COUNT(Paragraph_ID) as Number_of_Paragraphs","SELECT 
+    Documents.Document_ID, 
+    Documents.Document_Name, 
+    COUNT(Paragraphs.Paragraph_ID) AS Number_of_Paragraphs
+FROM 
+    Documents
+JOIN 
+    Paragraphs ON Documents.Document_ID = Paragraphs.Document_ID
+GROUP BY 
+    Documents.Document_ID;",,"SELECT 
+    Documents.Document_ID, 
+    Documents.Document_Name, 
+    COUNT(Paragraphs.Paragraph_ID) AS Number_of_Paragraphs
+FROM 
+    Documents
+JOIN 
+    Paragraphs ON Documents.Document_ID = Paragraphs.Document_ID
+GROUP BY 
+    Documents.Document_ID;",,True,False,90.58,False,grounded_plan_repair_v1
+887,cre_Doc_Template_Mgt,moderate,Return the different descriptions for templates that have been used in a document.,"SELECT DISTINCT Template_Details 
+FROM Templates 
+WHERE Template_ID IN (SELECT Template_ID FROM Documents);","**Result Columns:** Template_Type_Description
+
+**Tables and Columns:**
+- **Ref_Template_Types**: Template_Type_Code, Template_Type_Description
+- **Templates**: Template_ID, Template_Type_Code
+- **Documents**: Document_ID, Template_ID
+
+**Join Path:**
+1. Join **Templates** with **Ref_Template_Types** on Template_Type_Code.
+2. Join **Templates** with **Documents** on Template_ID.
+
+**Filter Logic:** None
+
+**Grouping Grain:** Template_Type_Description
+
+**Aggregate/Comparison Target:** None","SELECT DISTINCT rtt.Template_Type_Description
+FROM Templates t
+JOIN Ref_Template_Types rtt ON t.Template_Type_Code = rtt.Template_Type_Code
+JOIN Documents d ON t.Template_ID = d.Template_ID;",,"SELECT DISTINCT rtt.Template_Type_Description
+FROM Templates t
+JOIN Ref_Template_Types rtt ON t.Template_Type_Code = rtt.Template_Type_Code
+JOIN Documents d ON t.Template_ID = d.Template_ID;",,True,False,84.45,False,grounded_plan_repair_v1
+912,cre_Doc_Template_Mgt,moderate,"What are the ids and names of each document, as well as the number of paragraphs in each?","SELECT D.Document_ID, D.Document_Name, COUNT(P.Paragraph_ID) AS Paragraph_Count
+FROM Documents D
+LEFT JOIN Paragraphs P ON D.Document_ID = P.Document_ID
+GROUP BY D.Document_ID, D.Document_Name;","**Result Columns:**
+- Document_ID
+- Document_Name
+- Number_of_Paragraphs
+
+**Tables and Columns:**
+- **Documents**: Document_ID, Document_Name
+- **Paragraphs**: Paragraph_ID, Document_ID
+
+**Join Path:**
+- Join **Documents** (T1) with **Paragraphs** (T2) on **Document_ID**.
+
+**Filter Logic:**
+- No specific filters required.
+
+**Grouping Grain:**
+- Group by **Document_ID** and **Document_Name**.
+
+**Aggregate or Comparison Target:**
+- Count the number of **Paragraph_ID** for each group to get the number of paragraphs in each document.","SELECT 
+    T1.Document_ID, 
+    T1.Document_Name, 
+    COUNT(T2.Paragraph_ID) AS Number_of_Paragraphs
+FROM 
+    Documents T1
+LEFT JOIN 
+    Paragraphs T2 ON T1.Document_ID = T2.Document_ID
+GROUP BY 
+    T1.Document_ID, 
+    T1.Document_Name;",,"SELECT 
+    T1.Document_ID, 
+    T1.Document_Name, 
+    COUNT(T2.Paragraph_ID) AS Number_of_Paragraphs
+FROM 
+    Documents T1
+LEFT JOIN 
+    Paragraphs T2 ON T1.Document_ID = T2.Document_ID
+GROUP BY 
+    T1.Document_ID, 
+    T1.Document_Name;",,False,False,112.68,False,grounded_plan_repair_v1

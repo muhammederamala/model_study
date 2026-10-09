@@ -1,0 +1,210 @@
+[
+  {
+    "id": 1338,
+    "db_id": "college_2",
+    "question": "How many departments offer courses?",
+    "gold_sql": "SELECT count(DISTINCT dept_name) FROM course",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1339,
+    "db_id": "college_2",
+    "question": "Count the number of departments which offer courses.",
+    "gold_sql": "SELECT count(DISTINCT dept_name) FROM course",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1346,
+    "db_id": "college_2",
+    "question": "How many courses that do not have prerequisite?",
+    "gold_sql": "SELECT count(*) FROM course WHERE course_id NOT IN (SELECT course_id FROM prereq)",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1347,
+    "db_id": "college_2",
+    "question": "Count the number of courses without prerequisites.",
+    "gold_sql": "SELECT count(*) FROM course WHERE course_id NOT IN (SELECT course_id FROM prereq)",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1352,
+    "db_id": "college_2",
+    "question": "Find the total budgets of the Marketing or Finance department.",
+    "gold_sql": "SELECT sum(budget) FROM department WHERE dept_name  =  'Marketing' OR dept_name  =  'Finance'",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1353,
+    "db_id": "college_2",
+    "question": "What is the sum of budgets of the Marketing and Finance departments?",
+    "gold_sql": "SELECT sum(budget) FROM department WHERE dept_name  =  'Marketing' OR dept_name  =  'Finance'",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1382,
+    "db_id": "college_2",
+    "question": "List the information of all instructors ordered by their salary in ascending order.",
+    "gold_sql": "SELECT * FROM instructor ORDER BY salary",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1383,
+    "db_id": "college_2",
+    "question": "Give all information regarding instructors, in order of salary from least to greatest.",
+    "gold_sql": "SELECT * FROM instructor ORDER BY salary",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1386,
+    "db_id": "college_2",
+    "question": "list in alphabetic order all course names and their instructors' names in year 2008.",
+    "gold_sql": "SELECT T1.title ,  T3.name FROM course AS T1 JOIN teaches AS T2 ON T1.course_id  =  T2.course_id JOIN instructor AS T3 ON T2.id  =  T3.id WHERE YEAR  =  2008 ORDER BY T1.title",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1387,
+    "db_id": "college_2",
+    "question": "Show all titles and their instructors' names for courses in 2008, in alphabetical order by title.",
+    "gold_sql": "SELECT T1.title ,  T3.name FROM course AS T1 JOIN teaches AS T2 ON T1.course_id  =  T2.course_id JOIN instructor AS T3 ON T2.id  =  T3.id WHERE YEAR  =  2008 ORDER BY T1.title",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1422,
+    "db_id": "college_2",
+    "question": "What is the title of the prerequisite class of International Finance course?",
+    "gold_sql": "SELECT title FROM course WHERE course_id IN (SELECT T1.prereq_id FROM prereq AS T1 JOIN course AS T2 ON T1.course_id  =  T2.course_id WHERE T2.title  =  'International Finance')",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1423,
+    "db_id": "college_2",
+    "question": "Give the title of the prerequisite to the course International Finance.",
+    "gold_sql": "SELECT title FROM course WHERE course_id IN (SELECT T1.prereq_id FROM prereq AS T1 JOIN course AS T2 ON T1.course_id  =  T2.course_id WHERE T2.title  =  'International Finance')",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1424,
+    "db_id": "college_2",
+    "question": "Find the title of course whose prerequisite is course Differential Geometry.",
+    "gold_sql": "SELECT title FROM course WHERE course_id IN (SELECT T1.course_id FROM prereq AS T1 JOIN course AS T2 ON T1.prereq_id  =  T2.course_id WHERE T2.title  =  'Differential Geometry')",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1425,
+    "db_id": "college_2",
+    "question": "What is the title of the course with Differential Geometry as a prerequisite?",
+    "gold_sql": "SELECT title FROM course WHERE course_id IN (SELECT T1.course_id FROM prereq AS T1 JOIN course AS T2 ON T1.prereq_id  =  T2.course_id WHERE T2.title  =  'Differential Geometry')",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1428,
+    "db_id": "college_2",
+    "question": "What is the title of the course that was offered at building Chandler during the fall semester in the year of 2010?",
+    "gold_sql": "SELECT T1.title FROM course AS T1 JOIN SECTION AS T2 ON T1.course_id  =  T2.course_id WHERE building  =  'Chandler' AND semester  =  'Fall' AND YEAR  =  2010",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1429,
+    "db_id": "college_2",
+    "question": "Give the title of the course offered in Chandler during the Fall of 2010.",
+    "gold_sql": "SELECT T1.title FROM course AS T1 JOIN SECTION AS T2 ON T1.course_id  =  T2.course_id WHERE building  =  'Chandler' AND semester  =  'Fall' AND YEAR  =  2010",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1430,
+    "db_id": "college_2",
+    "question": "Find the name of the instructors who taught C Programming course before.",
+    "gold_sql": "SELECT T1.name FROM instructor AS T1 JOIN teaches AS T2 ON T1.id  =  T2.id JOIN course AS T3 ON T2.course_id  =  T3.course_id WHERE T3.title  =  'C Programming'",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1431,
+    "db_id": "college_2",
+    "question": "What are the names of instructors who have taught C Programming courses?",
+    "gold_sql": "SELECT T1.name FROM instructor AS T1 JOIN teaches AS T2 ON T1.id  =  T2.id JOIN course AS T3 ON T2.course_id  =  T3.course_id WHERE T3.title  =  'C Programming'",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1436,
+    "db_id": "college_2",
+    "question": "What is the course title of the prerequisite of course Mobile Computing?",
+    "gold_sql": "SELECT title FROM course WHERE course_id IN (SELECT T1.prereq_id FROM prereq AS T1 JOIN course AS T2 ON T1.course_id  =  T2.course_id WHERE T2.title  =  'Mobile Computing')",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1437,
+    "db_id": "college_2",
+    "question": "What is the title of the course that is a prerequisite for Mobile Computing?",
+    "gold_sql": "SELECT title FROM course WHERE course_id IN (SELECT T1.prereq_id FROM prereq AS T1 JOIN course AS T2 ON T1.course_id  =  T2.course_id WHERE T2.title  =  'Mobile Computing')",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1442,
+    "db_id": "college_2",
+    "question": "Find the id of instructors who didn't teach any courses?",
+    "gold_sql": "SELECT id FROM instructor EXCEPT SELECT id FROM teaches",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1443,
+    "db_id": "college_2",
+    "question": "What are the ids of instructors who didnt' teach?",
+    "gold_sql": "SELECT id FROM instructor EXCEPT SELECT id FROM teaches",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1454,
+    "db_id": "college_2",
+    "question": "Find the total number of students and total number of instructors for each department.",
+    "gold_sql": "SELECT count(DISTINCT T2.id) ,  count(DISTINCT T3.id) ,  T3.dept_name FROM department AS T1 JOIN student AS T2 ON T1.dept_name  =  T2.dept_name JOIN instructor AS T3 ON T1.dept_name  =  T3.dept_name GROUP BY T3.dept_name",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "complex"
+  },
+  {
+    "id": 1455,
+    "db_id": "college_2",
+    "question": "How many students and instructors are in each department?",
+    "gold_sql": "SELECT count(DISTINCT T2.id) ,  count(DISTINCT T3.id) ,  T3.dept_name FROM department AS T1 JOIN student AS T2 ON T1.dept_name  =  T2.dept_name JOIN instructor AS T3 ON T1.dept_name  =  T3.dept_name GROUP BY T3.dept_name",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "complex"
+  },
+  {
+    "id": 1482,
+    "db_id": "college_2",
+    "question": "Find the salaries of all distinct instructors that are less than the largest salary.",
+    "gold_sql": "SELECT DISTINCT salary FROM instructor WHERE salary  <  (SELECT max(salary) FROM instructor)",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1483,
+    "db_id": "college_2",
+    "question": "What are the distinct salaries of all instructors who earned less than the maximum salary?",
+    "gold_sql": "SELECT DISTINCT salary FROM instructor WHERE salary  <  (SELECT max(salary) FROM instructor)",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  }
+]

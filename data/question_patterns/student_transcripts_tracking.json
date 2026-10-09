@@ -1,0 +1,264 @@
+{
+  "db_id": "student_transcripts_tracking",
+  "n_questions": 78,
+  "n_questions_with_join": 34,
+  "join_pairs": [
+    {
+      "left": "student_enrolment.student_id",
+      "right": "students.student_id",
+      "n": 8
+    },
+    {
+      "left": "degree_programs.degree_program_id",
+      "right": "student_enrolment.degree_program_id",
+      "n": 8
+    },
+    {
+      "left": "degree_programs.department_id",
+      "right": "departments.department_id",
+      "n": 4
+    },
+    {
+      "left": "courses.course_id",
+      "right": "student_enrolment_courses.course_id",
+      "n": 4
+    },
+    {
+      "left": "addresses.address_id",
+      "right": "students.current_address_id",
+      "n": 4
+    },
+    {
+      "left": "transcript_contents.transcript_id",
+      "right": "transcripts.transcript_id",
+      "n": 4
+    },
+    {
+      "left": "courses.course_id",
+      "right": "sections.course_id",
+      "n": 2
+    },
+    {
+      "left": "semesters.semester_id",
+      "right": "student_enrolment.semester_id",
+      "n": 2
+    },
+    {
+      "left": "addresses.address_id",
+      "right": "students.permanent_address_id",
+      "n": 2
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 34
+    },
+    {
+      "fn": "COUNT",
+      "target": "department_id",
+      "n": 2
+    },
+    {
+      "fn": "COUNT",
+      "target": "degree_summary_name",
+      "n": 2
+    },
+    {
+      "fn": "AVG",
+      "target": "transcript_date",
+      "n": 2
+    },
+    {
+      "fn": "COUNT",
+      "target": "current_address_id",
+      "n": 2
+    }
+  ],
+  "column_clause_usage": {
+    "address_id": {
+      "group by": 2
+    },
+    "cell_mobile_number": {
+      "where": 2
+    },
+    "city": {
+      "where": 2
+    },
+    "country": {
+      "where": 2
+    },
+    "course_id": {
+      "group by": 2
+    },
+    "course_name": {
+      "where": 2,
+      "group by": 2
+    },
+    "current_address_id": {
+      "where": 2
+    },
+    "date_first_registered": {
+      "order by": 2
+    },
+    "date_left": {
+      "order by": 2
+    },
+    "degree_program_id": {
+      "group by": 2
+    },
+    "degree_summary_name": {
+      "where": 4,
+      "group by": 2
+    },
+    "department_id": {
+      "group by": 2
+    },
+    "department_name": {
+      "where": 4
+    },
+    "first_name": {
+      "where": 2
+    },
+    "last_name": {
+      "where": 2
+    },
+    "other_student_details": {
+      "order by": 2
+    },
+    "permanent_address_id": {
+      "where": 2
+    },
+    "section_name": {
+      "order by": 2,
+      "where": 2
+    },
+    "semester_id": {
+      "group by": 2,
+      "where": 2
+    },
+    "state_province_county": {
+      "where": 2
+    },
+    "student_course_id": {
+      "group by": 2
+    },
+    "student_id": {
+      "group by": 4
+    },
+    "transcript_date": {
+      "order by": 4
+    },
+    "transcript_id": {
+      "group by": 4
+    }
+  },
+  "question_openers": {
+    "what is the": {
+      "LIMIT 1": 13,
+      "GROUP BY": 10,
+      "COUNT": 10,
+      "ORDER BY ... DESC": 9,
+      "subquery": 2,
+      "negation (NOT IN / EXCEPT)": 1,
+      "AVG": 1,
+      "INTERSECT": 1
+    },
+    "what are the": {
+      "COUNT": 4,
+      "GROUP BY": 3,
+      "ORDER BY ... DESC": 1,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "show the date": {
+      "GROUP BY": 2,
+      "COUNT": 2,
+      "LIMIT 1": 1
+    },
+    "which department offers": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "how many different": {
+      "COUNT": 4
+    },
+    "for each semester,": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "find the kind": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "find the program": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "which student has": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "what's the name": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "which address holds": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "how many times": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "how many courses": {
+      "COUNT": 2
+    },
+    "how many degrees": {
+      "COUNT": 2
+    },
+    "who are enrolled": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "which semesters do": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "find the last": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "who is the": {
+      "LIMIT 1": 2
+    },
+    "how many transcripts": {
+      "COUNT": 2
+    },
+    "when was the": {
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1
+    },
+    "find the semester": {
+      "INTERSECT": 1,
+      "subquery": 1
+    }
+  }
+}

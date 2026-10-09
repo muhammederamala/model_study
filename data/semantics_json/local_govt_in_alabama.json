@@ -1,0 +1,165 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "local_govt_in_alabama",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Services": {
+      "source_label": "services",
+      "meaning": "Table labeled 'services' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Service_ID",
+      "primary_key_columns": [
+        "Service_ID"
+      ],
+      "columns": {
+        "Service_ID": {
+          "type": "number",
+          "source_label": "service id",
+          "primary_key": true
+        },
+        "Service_Type_Code": {
+          "type": "text",
+          "source_label": "service type code",
+          "observed_values": [
+            "Marriage",
+            "Death Proof",
+            "Birth Proof",
+            "Property Change"
+          ]
+        }
+      },
+      "observed_row_count": 4
+    },
+    "Participants": {
+      "source_label": "participants",
+      "meaning": "Table labeled 'participants' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Participant_ID",
+      "primary_key_columns": [
+        "Participant_ID"
+      ],
+      "columns": {
+        "Participant_ID": {
+          "type": "number",
+          "source_label": "participant id",
+          "primary_key": true
+        },
+        "Participant_Type_Code": {
+          "type": "text",
+          "source_label": "participant type code",
+          "observed_values": [
+            "Organizer",
+            "Participant"
+          ]
+        },
+        "Participant_Details": {
+          "type": "text",
+          "source_label": "participant details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Events": {
+      "source_label": "events",
+      "meaning": "Table labeled 'events' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Event_ID",
+      "primary_key_columns": [
+        "Event_ID"
+      ],
+      "columns": {
+        "Event_ID": {
+          "type": "number",
+          "source_label": "event id",
+          "primary_key": true
+        },
+        "Service_ID": {
+          "type": "number",
+          "source_label": "service id",
+          "foreign_key": {
+            "table": "Services",
+            "column": "Service_ID"
+          }
+        },
+        "Event_Details": {
+          "type": "text",
+          "source_label": "event details",
+          "observed_values": [
+            "Success",
+            "Fail"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Participants_in_Events": {
+      "source_label": "participants in events",
+      "meaning": "Table labeled 'participants in events' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Event_ID",
+      "primary_key_columns": [
+        "Event_ID"
+      ],
+      "columns": {
+        "Event_ID": {
+          "type": "number",
+          "source_label": "event id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Events",
+            "column": "Event_ID"
+          }
+        },
+        "Participant_ID": {
+          "type": "number",
+          "source_label": "participant id",
+          "foreign_key": {
+            "table": "Participants",
+            "column": "Participant_ID"
+          }
+        }
+      },
+      "observed_row_count": 18
+    }
+  },
+  "terms": {
+    "participants in events": {
+      "maps_to": "Participants_in_Events",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Services__row_count": {
+      "meaning": "Number of rows in Services.",
+      "base_table": "Services",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Participants__row_count": {
+      "meaning": "Number of rows in Participants.",
+      "base_table": "Participants",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Events__row_count": {
+      "meaning": "Number of rows in Events.",
+      "base_table": "Events",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Participants_in_Events__row_count": {
+      "meaning": "Number of rows in Participants_in_Events.",
+      "base_table": "Participants_in_Events",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

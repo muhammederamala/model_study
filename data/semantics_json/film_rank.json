@@ -1,0 +1,174 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "film_rank",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "film": {
+      "source_label": "film",
+      "meaning": "Table labeled 'film' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Film_ID",
+      "primary_key_columns": [
+        "Film_ID"
+      ],
+      "columns": {
+        "Film_ID": {
+          "type": "number",
+          "source_label": "film id",
+          "primary_key": true
+        },
+        "Title": {
+          "type": "text",
+          "source_label": "title"
+        },
+        "Studio": {
+          "type": "text",
+          "source_label": "studio",
+          "observed_values": [
+            "Universal",
+            "Columbia",
+            "Paramount / Lorimar",
+            "United Artists",
+            "20th Century Fox",
+            "Paramount",
+            "MGM",
+            "Universal / RKO",
+            "Columbia / Rastar",
+            "Orion / Carolco"
+          ]
+        },
+        "Director": {
+          "type": "text",
+          "source_label": "director"
+        },
+        "Gross_in_dollar": {
+          "type": "number",
+          "source_label": "gross in dollar"
+        }
+      },
+      "observed_row_count": 13
+    },
+    "market": {
+      "source_label": "market",
+      "meaning": "Table labeled 'market' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Market_ID",
+      "primary_key_columns": [
+        "Market_ID"
+      ],
+      "columns": {
+        "Market_ID": {
+          "type": "number",
+          "source_label": "market id",
+          "primary_key": true
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "Japan",
+            "China",
+            "USA",
+            "Russia",
+            "France",
+            "Poland"
+          ]
+        },
+        "Number_cities": {
+          "type": "number",
+          "source_label": "number cities"
+        }
+      },
+      "observed_row_count": 6
+    },
+    "film_market_estimation": {
+      "source_label": "film market estimation",
+      "meaning": "Table labeled 'film market estimation' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Estimation_ID",
+      "primary_key_columns": [
+        "Estimation_ID"
+      ],
+      "columns": {
+        "Estimation_ID": {
+          "type": "number",
+          "source_label": "estimation id",
+          "primary_key": true
+        },
+        "Low_Estimate": {
+          "type": "number",
+          "source_label": "low estimate"
+        },
+        "High_Estimate": {
+          "type": "number",
+          "source_label": "high estimate"
+        },
+        "Film_ID": {
+          "type": "number",
+          "source_label": "film id",
+          "foreign_key": {
+            "table": "film",
+            "column": "Film_ID"
+          }
+        },
+        "Type": {
+          "type": "text",
+          "source_label": "type",
+          "observed_values": [
+            "Mass suicide murder",
+            "Mass suicide",
+            "Mass human sacrifice"
+          ]
+        },
+        "Market_ID": {
+          "type": "number",
+          "source_label": "market id",
+          "foreign_key": {
+            "table": "market",
+            "column": "Market_ID"
+          }
+        },
+        "Year": {
+          "type": "number",
+          "source_label": "year"
+        }
+      },
+      "observed_row_count": 9
+    }
+  },
+  "terms": {
+    "film market estimation": {
+      "maps_to": "film_market_estimation",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "film__row_count": {
+      "meaning": "Number of rows in film.",
+      "base_table": "film",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "market__row_count": {
+      "meaning": "Number of rows in market.",
+      "base_table": "market",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "film_market_estimation__row_count": {
+      "meaning": "Number of rows in film_market_estimation.",
+      "base_table": "film_market_estimation",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

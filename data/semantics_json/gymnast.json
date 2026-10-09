@@ -1,0 +1,134 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "gymnast",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "gymnast": {
+      "source_label": "gymnast",
+      "meaning": "Table labeled 'gymnast' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Gymnast_ID",
+      "primary_key_columns": [
+        "Gymnast_ID"
+      ],
+      "columns": {
+        "Gymnast_ID": {
+          "type": "number",
+          "source_label": "gymnast id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "people",
+            "column": "People_ID"
+          }
+        },
+        "Floor_Exercise_Points": {
+          "type": "number",
+          "source_label": "floor exercise points"
+        },
+        "Pommel_Horse_Points": {
+          "type": "number",
+          "source_label": "pommel horse points"
+        },
+        "Rings_Points": {
+          "type": "number",
+          "source_label": "rings points"
+        },
+        "Vault_Points": {
+          "type": "number",
+          "source_label": "vault points"
+        },
+        "Parallel_Bars_Points": {
+          "type": "number",
+          "source_label": "parallel bars points"
+        },
+        "Horizontal_Bar_Points": {
+          "type": "number",
+          "source_label": "horizontal bar points"
+        },
+        "Total_Points": {
+          "type": "number",
+          "source_label": "total points"
+        }
+      },
+      "observed_row_count": 7
+    },
+    "people": {
+      "source_label": "people",
+      "meaning": "Table labeled 'people' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key People_ID",
+      "primary_key_columns": [
+        "People_ID"
+      ],
+      "columns": {
+        "People_ID": {
+          "type": "number",
+          "source_label": "people id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Paul Hamm",
+            "Lorraine Súarez Carmona",
+            "Ashley Pérez Cabrera",
+            "Elizabeth Quiñónez Aroyo",
+            "Eve Tatiana Cruz Oviedo",
+            "Nadia Caba Rodríguez",
+            "Clary Sermina Delgado Cid",
+            "Marina Castro Medina",
+            "Rosa Clarissa Ortíz Melo",
+            "Endis de los Santos Álvarez"
+          ]
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Height": {
+          "type": "number",
+          "source_label": "height"
+        },
+        "Hometown": {
+          "type": "text",
+          "source_label": "hometown",
+          "observed_values": [
+            "Santo Domingo",
+            "Bonao",
+            "Miami",
+            "Santiago de los Caballeros",
+            "La Romana",
+            "Los Alcarrizos"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "gymnast__row_count": {
+      "meaning": "Number of rows in gymnast.",
+      "base_table": "gymnast",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "people__row_count": {
+      "meaning": "Number of rows in people.",
+      "base_table": "people",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

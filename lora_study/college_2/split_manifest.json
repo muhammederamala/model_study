@@ -1,0 +1,16 @@
+{
+  "db_id": "college_2",
+  "seed": 42,
+  "source": "data/spider_data/train_spider.json",
+  "source_sha256": "c43d0d72e59e1a9e1a60837da9bf70d5a6277226bdb7f634d544f380646f527a",
+  "tables_sha256": "61bb20aa401f03164e2d7f3b16509b7b5f79cc9c943ca7bd159046df1159e2ed",
+  "sqlite_sha256": "cb729920ad0b7f06d38a12f6f678307964acc7d3417af83d98c519c65c90d386",
+  "split_method": "group by normalized SQL with literals masked; random seed 42",
+  "counts": {
+    "train": 118,
+    "validation": 26,
+    "test": 26
+  },
+  "schema_sha256": "4d0a8c3085d2171c3a1c9beceb172e92d1ad345c8e80884a1e06aa6089f92616",
+  "catalog_sha256": "bc075afb15b0f8875844336fcb91baf13ceb44c5c110dfb63d70b07e1d0dee9a"
+}

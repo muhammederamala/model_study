@@ -1,0 +1,300 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "orchestra",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "conductor": {
+      "source_label": "conductor",
+      "meaning": "Table labeled 'conductor' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Conductor_ID",
+      "primary_key_columns": [
+        "Conductor_ID"
+      ],
+      "columns": {
+        "Conductor_ID": {
+          "type": "number",
+          "source_label": "conductor id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Antal Doráti",
+            "Igor Stravinsky",
+            "Colin Davis",
+            "Paul Jorgensen",
+            "Antal Brown",
+            "Charles Dutoit",
+            "Gerard Schwarz",
+            "Pierre Boulez",
+            "Valeri Gergiev",
+            "Robert Craft",
+            "Seiji Ozawa",
+            "Michael Tilson Thomas"
+          ]
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Nationality": {
+          "type": "text",
+          "source_label": "nationality",
+          "observed_values": [
+            "USA",
+            "UK",
+            "France"
+          ]
+        },
+        "Year_of_Work": {
+          "type": "number",
+          "source_label": "year of work"
+        }
+      },
+      "observed_row_count": 12
+    },
+    "orchestra": {
+      "source_label": "orchestra",
+      "meaning": "Table labeled 'orchestra' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Orchestra_ID",
+      "primary_key_columns": [
+        "Orchestra_ID"
+      ],
+      "columns": {
+        "Orchestra_ID": {
+          "type": "number",
+          "source_label": "orchestra id",
+          "primary_key": true
+        },
+        "Orchestra": {
+          "type": "text",
+          "source_label": "orchestra",
+          "observed_values": [
+            "London Symphony Orchestra",
+            "Columbia Symphony Orchestra",
+            "Royal Concertgebouw Orchestra",
+            "Royal Danish Orchestra",
+            "Detroit Symphony Orchestra",
+            "Montreal Symphony Orchestra",
+            "Seattle Symphony Orchestra",
+            "Chicago Symphony Orchestra",
+            "Kirov Orchestra",
+            "Philharmonia Orchestra",
+            "Orchestre de Paris",
+            "San Francisco Symphony Orchestra"
+          ]
+        },
+        "Conductor_ID": {
+          "type": "number",
+          "source_label": "conductor id",
+          "foreign_key": {
+            "table": "conductor",
+            "column": "Conductor_ID"
+          }
+        },
+        "Record_Company": {
+          "type": "text",
+          "source_label": "record company",
+          "observed_values": [
+            "Mercury Records",
+            "Columbia Masterworks",
+            "Philips",
+            "Kultur",
+            "Decca Records",
+            "Delos Records",
+            "Deutsche Grammophon",
+            "Philips Classics Records",
+            "Koch Records / Naxos Records",
+            "EMI",
+            "RCA"
+          ]
+        },
+        "Year_of_Founded": {
+          "type": "number",
+          "source_label": "year of founded"
+        },
+        "Major_Record_Format": {
+          "type": "text",
+          "source_label": "major record format",
+          "observed_values": [
+            "CD",
+            "CD / LP",
+            "DVD"
+          ]
+        }
+      },
+      "observed_row_count": 12
+    },
+    "performance": {
+      "source_label": "performance",
+      "meaning": "Table labeled 'performance' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Performance_ID",
+      "primary_key_columns": [
+        "Performance_ID"
+      ],
+      "columns": {
+        "Performance_ID": {
+          "type": "number",
+          "source_label": "performance id",
+          "primary_key": true
+        },
+        "Orchestra_ID": {
+          "type": "number",
+          "source_label": "orchestra id",
+          "foreign_key": {
+            "table": "orchestra",
+            "column": "Orchestra_ID"
+          }
+        },
+        "Type": {
+          "type": "text",
+          "source_label": "type",
+          "observed_values": [
+            "Auditions 1",
+            "Auditions 2",
+            "Auditions 3",
+            "Auditions 4",
+            "Auditions 5",
+            "Semi-final 1",
+            "Semi-final 2",
+            "Semi-final 3",
+            "Live final",
+            "Live final results",
+            "Series average"
+          ]
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "9 June",
+            "10 June",
+            "11 June",
+            "12 June",
+            "13 June",
+            "14 June",
+            "15 June",
+            "16 June",
+            "17 June",
+            "2007"
+          ]
+        },
+        "Official_ratings_(millions)": {
+          "type": "number",
+          "source_label": "official ratings (millions)"
+        },
+        "Weekly_rank": {
+          "type": "text",
+          "source_label": "weekly rank",
+          "observed_values": [
+            "12",
+            "8",
+            "15",
+            "13",
+            "11",
+            "9",
+            "7",
+            "1",
+            "2",
+            "TBC"
+          ]
+        },
+        "Share": {
+          "type": "text",
+          "source_label": "share",
+          "observed_values": [
+            "22.7%",
+            "28.0%",
+            "29.4%",
+            "29.3%",
+            "29.2%",
+            "34.0%",
+            "38.1%",
+            "40.9%",
+            "43.7%",
+            "44.7%",
+            "34%"
+          ]
+        }
+      },
+      "observed_row_count": 11
+    },
+    "show": {
+      "source_label": "show",
+      "meaning": "Table labeled 'show' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "Show_ID": {
+          "type": "number",
+          "source_label": "show id"
+        },
+        "Performance_ID": {
+          "type": "number",
+          "source_label": "performance id",
+          "foreign_key": {
+            "table": "performance",
+            "column": "Performance_ID"
+          }
+        },
+        "If_first_show": {
+          "type": "others",
+          "source_label": "if first show"
+        },
+        "Result": {
+          "type": "text",
+          "source_label": "result",
+          "observed_values": [
+            "T",
+            "F"
+          ]
+        },
+        "Attendance": {
+          "type": "number",
+          "source_label": "attendance"
+        }
+      },
+      "observed_row_count": 5
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "conductor__row_count": {
+      "meaning": "Number of rows in conductor.",
+      "base_table": "conductor",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "orchestra__row_count": {
+      "meaning": "Number of rows in orchestra.",
+      "base_table": "orchestra",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "performance__row_count": {
+      "meaning": "Number of rows in performance.",
+      "base_table": "performance",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "show__row_count": {
+      "meaning": "Number of rows in show.",
+      "base_table": "show",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

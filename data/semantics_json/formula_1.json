@@ -1,0 +1,721 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "formula_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "circuits": {
+      "source_label": "circuits",
+      "meaning": "Table labeled 'circuits' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key circuitId",
+      "primary_key_columns": [
+        "circuitId"
+      ],
+      "columns": {
+        "circuitId": {
+          "type": "number",
+          "source_label": "circuit id",
+          "primary_key": true
+        },
+        "circuitRef": {
+          "type": "text",
+          "source_label": "circuit reference"
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "location": {
+          "type": "text",
+          "source_label": "location"
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country"
+        },
+        "lat": {
+          "type": "number",
+          "source_label": "latitude"
+        },
+        "lng": {
+          "type": "number",
+          "source_label": "longitude"
+        },
+        "alt": {
+          "type": "number",
+          "source_label": "altitude"
+        },
+        "url": {
+          "type": "text",
+          "source_label": "url"
+        }
+      },
+      "observed_row_count": 73
+    },
+    "races": {
+      "source_label": "races",
+      "meaning": "Table labeled 'races' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key raceId",
+      "primary_key_columns": [
+        "raceId"
+      ],
+      "columns": {
+        "raceId": {
+          "type": "number",
+          "source_label": "race id",
+          "primary_key": true
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "round": {
+          "type": "number",
+          "source_label": "round"
+        },
+        "circuitId": {
+          "type": "number",
+          "source_label": "circuit id",
+          "foreign_key": {
+            "table": "circuits",
+            "column": "circuitId"
+          }
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "date": {
+          "type": "text",
+          "source_label": "date"
+        },
+        "time": {
+          "type": "text",
+          "source_label": "time"
+        },
+        "url": {
+          "type": "text",
+          "source_label": "url"
+        }
+      },
+      "observed_row_count": 997
+    },
+    "drivers": {
+      "source_label": "drivers",
+      "meaning": "Table labeled 'drivers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key driverId",
+      "primary_key_columns": [
+        "driverId"
+      ],
+      "columns": {
+        "driverId": {
+          "type": "number",
+          "source_label": "driver id",
+          "primary_key": true
+        },
+        "driverRef": {
+          "type": "text",
+          "source_label": "driver reference"
+        },
+        "number": {
+          "type": "number",
+          "source_label": "number"
+        },
+        "code": {
+          "type": "text",
+          "source_label": "code"
+        },
+        "forename": {
+          "type": "text",
+          "source_label": "forename"
+        },
+        "surname": {
+          "type": "text",
+          "source_label": "surname"
+        },
+        "dob": {
+          "type": "text",
+          "source_label": "dob"
+        },
+        "nationality": {
+          "type": "text",
+          "source_label": "nationality"
+        },
+        "url": {
+          "type": "text",
+          "source_label": "url"
+        }
+      },
+      "observed_row_count": 842
+    },
+    "status": {
+      "source_label": "status",
+      "meaning": "Table labeled 'status' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key statusId",
+      "primary_key_columns": [
+        "statusId"
+      ],
+      "columns": {
+        "statusId": {
+          "type": "number",
+          "source_label": "status id",
+          "primary_key": true
+        },
+        "status": {
+          "type": "text",
+          "source_label": "status"
+        }
+      },
+      "observed_row_count": 134
+    },
+    "seasons": {
+      "source_label": "seasons",
+      "meaning": "Table labeled 'seasons' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key year",
+      "primary_key_columns": [
+        "year"
+      ],
+      "columns": {
+        "year": {
+          "type": "number",
+          "source_label": "year",
+          "primary_key": true
+        },
+        "url": {
+          "type": "text",
+          "source_label": "url"
+        }
+      },
+      "observed_row_count": 69
+    },
+    "constructors": {
+      "source_label": "constructors",
+      "meaning": "Table labeled 'constructors' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key constructorId",
+      "primary_key_columns": [
+        "constructorId"
+      ],
+      "columns": {
+        "constructorId": {
+          "type": "number",
+          "source_label": "constructor id",
+          "primary_key": true
+        },
+        "constructorRef": {
+          "type": "text",
+          "source_label": "constructor reference"
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "nationality": {
+          "type": "text",
+          "source_label": "nationality"
+        },
+        "url": {
+          "type": "text",
+          "source_label": "url"
+        }
+      },
+      "observed_row_count": 208
+    },
+    "constructorStandings": {
+      "source_label": "constructor standings",
+      "meaning": "Table labeled 'constructor standings' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key constructorStandingsId",
+      "primary_key_columns": [
+        "constructorStandingsId"
+      ],
+      "columns": {
+        "constructorStandingsId": {
+          "type": "number",
+          "source_label": "constructor standings id",
+          "primary_key": true
+        },
+        "raceId": {
+          "type": "number",
+          "source_label": "race id",
+          "foreign_key": {
+            "table": "races",
+            "column": "raceId"
+          }
+        },
+        "constructorId": {
+          "type": "number",
+          "source_label": "constructor id",
+          "foreign_key": {
+            "table": "constructors",
+            "column": "constructorId"
+          }
+        },
+        "points": {
+          "type": "number",
+          "source_label": "points"
+        },
+        "position": {
+          "type": "number",
+          "source_label": "position"
+        },
+        "positionText": {
+          "type": "text",
+          "source_label": "position text"
+        },
+        "wins": {
+          "type": "number",
+          "source_label": "wins"
+        }
+      },
+      "observed_row_count": 11896
+    },
+    "results": {
+      "source_label": "results",
+      "meaning": "Table labeled 'results' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key resultId",
+      "primary_key_columns": [
+        "resultId"
+      ],
+      "columns": {
+        "resultId": {
+          "type": "number",
+          "source_label": "result id",
+          "primary_key": true
+        },
+        "raceId": {
+          "type": "number",
+          "source_label": "race id",
+          "foreign_key": {
+            "table": "races",
+            "column": "raceId"
+          }
+        },
+        "driverId": {
+          "type": "number",
+          "source_label": "driver id",
+          "foreign_key": {
+            "table": "drivers",
+            "column": "driverId"
+          }
+        },
+        "constructorId": {
+          "type": "number",
+          "source_label": "constructor id",
+          "foreign_key": {
+            "table": "constructors",
+            "column": "constructorId"
+          }
+        },
+        "number": {
+          "type": "number",
+          "source_label": "number"
+        },
+        "grid": {
+          "type": "number",
+          "source_label": "grid"
+        },
+        "position": {
+          "type": "number",
+          "source_label": "position"
+        },
+        "positionText": {
+          "type": "text",
+          "source_label": "position text"
+        },
+        "positionOrder": {
+          "type": "number",
+          "source_label": "position order"
+        },
+        "points": {
+          "type": "number",
+          "source_label": "points"
+        },
+        "laps": {
+          "type": "number",
+          "source_label": "laps"
+        },
+        "time": {
+          "type": "text",
+          "source_label": "time"
+        },
+        "milliseconds": {
+          "type": "number",
+          "source_label": "milliseconds"
+        },
+        "fastestLap": {
+          "type": "number",
+          "source_label": "fastest lap"
+        },
+        "rank": {
+          "type": "number",
+          "source_label": "rank"
+        },
+        "fastestLapTime": {
+          "type": "text",
+          "source_label": "fastest lap time"
+        },
+        "fastestLapSpeed": {
+          "type": "text",
+          "source_label": "fastest lap speed"
+        },
+        "statusId": {
+          "type": "number",
+          "source_label": "status id"
+        }
+      },
+      "observed_row_count": 23777
+    },
+    "driverStandings": {
+      "source_label": "driver standings",
+      "meaning": "Table labeled 'driver standings' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key driverStandingsId",
+      "primary_key_columns": [
+        "driverStandingsId"
+      ],
+      "columns": {
+        "driverStandingsId": {
+          "type": "number",
+          "source_label": "driver standings id",
+          "primary_key": true
+        },
+        "raceId": {
+          "type": "number",
+          "source_label": "race id",
+          "foreign_key": {
+            "table": "races",
+            "column": "raceId"
+          }
+        },
+        "driverId": {
+          "type": "number",
+          "source_label": "driver id",
+          "foreign_key": {
+            "table": "drivers",
+            "column": "driverId"
+          }
+        },
+        "points": {
+          "type": "number",
+          "source_label": "points"
+        },
+        "position": {
+          "type": "number",
+          "source_label": "position"
+        },
+        "positionText": {
+          "type": "text",
+          "source_label": "position text"
+        },
+        "wins": {
+          "type": "number",
+          "source_label": "wins"
+        }
+      },
+      "observed_row_count": 31726
+    },
+    "constructorResults": {
+      "source_label": "constructor results",
+      "meaning": "Table labeled 'constructor results' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key constructorResultsId",
+      "primary_key_columns": [
+        "constructorResultsId"
+      ],
+      "columns": {
+        "constructorResultsId": {
+          "type": "number",
+          "source_label": "constructor results id",
+          "primary_key": true
+        },
+        "raceId": {
+          "type": "number",
+          "source_label": "race id",
+          "foreign_key": {
+            "table": "races",
+            "column": "raceId"
+          }
+        },
+        "constructorId": {
+          "type": "number",
+          "source_label": "constructor id",
+          "foreign_key": {
+            "table": "constructors",
+            "column": "constructorId"
+          }
+        },
+        "points": {
+          "type": "number",
+          "source_label": "points"
+        },
+        "status": {
+          "type": "number",
+          "source_label": "status"
+        }
+      },
+      "observed_row_count": 11142
+    },
+    "qualifying": {
+      "source_label": "qualifying",
+      "meaning": "Table labeled 'qualifying' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key qualifyId",
+      "primary_key_columns": [
+        "qualifyId"
+      ],
+      "columns": {
+        "qualifyId": {
+          "type": "number",
+          "source_label": "qualify id",
+          "primary_key": true
+        },
+        "raceId": {
+          "type": "number",
+          "source_label": "race id",
+          "foreign_key": {
+            "table": "races",
+            "column": "raceId"
+          }
+        },
+        "driverId": {
+          "type": "number",
+          "source_label": "driver id",
+          "foreign_key": {
+            "table": "drivers",
+            "column": "driverId"
+          }
+        },
+        "constructorId": {
+          "type": "number",
+          "source_label": "constructor id",
+          "foreign_key": {
+            "table": "constructors",
+            "column": "constructorId"
+          }
+        },
+        "number": {
+          "type": "number",
+          "source_label": "number"
+        },
+        "position": {
+          "type": "number",
+          "source_label": "position"
+        },
+        "q1": {
+          "type": "text",
+          "source_label": "q1"
+        },
+        "q2": {
+          "type": "text",
+          "source_label": "q2"
+        },
+        "q3": {
+          "type": "text",
+          "source_label": "q3"
+        }
+      },
+      "observed_row_count": 7516
+    },
+    "pitStops": {
+      "source_label": "pit stops",
+      "meaning": "Table labeled 'pit stops' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key raceId",
+      "primary_key_columns": [
+        "raceId"
+      ],
+      "columns": {
+        "raceId": {
+          "type": "number",
+          "source_label": "race id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "races",
+            "column": "raceId"
+          }
+        },
+        "driverId": {
+          "type": "number",
+          "source_label": "driver id",
+          "foreign_key": {
+            "table": "drivers",
+            "column": "driverId"
+          }
+        },
+        "stop": {
+          "type": "number",
+          "source_label": "stop"
+        },
+        "lap": {
+          "type": "number",
+          "source_label": "lap"
+        },
+        "time": {
+          "type": "text",
+          "source_label": "time"
+        },
+        "duration": {
+          "type": "text",
+          "source_label": "duration"
+        },
+        "milliseconds": {
+          "type": "number",
+          "source_label": "milliseconds"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "lapTimes": {
+      "source_label": "lap times",
+      "meaning": "Table labeled 'lap times' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key raceId",
+      "primary_key_columns": [
+        "raceId"
+      ],
+      "columns": {
+        "raceId": {
+          "type": "number",
+          "source_label": "race id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "races",
+            "column": "raceId"
+          }
+        },
+        "driverId": {
+          "type": "number",
+          "source_label": "driver id",
+          "foreign_key": {
+            "table": "drivers",
+            "column": "driverId"
+          }
+        },
+        "lap": {
+          "type": "number",
+          "source_label": "lap"
+        },
+        "position": {
+          "type": "number",
+          "source_label": "position"
+        },
+        "time": {
+          "type": "text",
+          "source_label": "time"
+        },
+        "milliseconds": {
+          "type": "number",
+          "source_label": "milliseconds"
+        }
+      },
+      "observed_row_count": 0
+    }
+  },
+  "terms": {
+    "constructor standings": {
+      "maps_to": "constructorStandings",
+      "source": "Spider normalized table name"
+    },
+    "driver standings": {
+      "maps_to": "driverStandings",
+      "source": "Spider normalized table name"
+    },
+    "constructor results": {
+      "maps_to": "constructorResults",
+      "source": "Spider normalized table name"
+    },
+    "pit stops": {
+      "maps_to": "pitStops",
+      "source": "Spider normalized table name"
+    },
+    "lap times": {
+      "maps_to": "lapTimes",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "circuits__row_count": {
+      "meaning": "Number of rows in circuits.",
+      "base_table": "circuits",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "races__row_count": {
+      "meaning": "Number of rows in races.",
+      "base_table": "races",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "drivers__row_count": {
+      "meaning": "Number of rows in drivers.",
+      "base_table": "drivers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "status__row_count": {
+      "meaning": "Number of rows in status.",
+      "base_table": "status",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "seasons__row_count": {
+      "meaning": "Number of rows in seasons.",
+      "base_table": "seasons",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "constructors__row_count": {
+      "meaning": "Number of rows in constructors.",
+      "base_table": "constructors",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "constructorStandings__row_count": {
+      "meaning": "Number of rows in constructorStandings.",
+      "base_table": "constructorStandings",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "results__row_count": {
+      "meaning": "Number of rows in results.",
+      "base_table": "results",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "driverStandings__row_count": {
+      "meaning": "Number of rows in driverStandings.",
+      "base_table": "driverStandings",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "constructorResults__row_count": {
+      "meaning": "Number of rows in constructorResults.",
+      "base_table": "constructorResults",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "qualifying__row_count": {
+      "meaning": "Number of rows in qualifying.",
+      "base_table": "qualifying",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "pitStops__row_count": {
+      "meaning": "Number of rows in pitStops.",
+      "base_table": "pitStops",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "lapTimes__row_count": {
+      "meaning": "Number of rows in lapTimes.",
+      "base_table": "lapTimes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

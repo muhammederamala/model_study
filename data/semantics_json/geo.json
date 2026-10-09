@@ -1,0 +1,290 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "geo",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "state": {
+      "source_label": "state",
+      "meaning": "Table labeled 'state' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key state_name",
+      "primary_key_columns": [
+        "state_name"
+      ],
+      "columns": {
+        "state_name": {
+          "type": "text",
+          "source_label": "state name",
+          "primary_key": true
+        },
+        "population": {
+          "type": "number",
+          "source_label": "population"
+        },
+        "area": {
+          "type": "number",
+          "source_label": "area"
+        },
+        "country_name": {
+          "type": "text",
+          "source_label": "country name"
+        },
+        "capital": {
+          "type": "text",
+          "source_label": "capital"
+        },
+        "density": {
+          "type": "number",
+          "source_label": "density"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "city": {
+      "source_label": "city",
+      "meaning": "Table labeled 'city' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key city_name",
+      "primary_key_columns": [
+        "city_name"
+      ],
+      "columns": {
+        "city_name": {
+          "type": "text",
+          "source_label": "city name",
+          "primary_key": true
+        },
+        "population": {
+          "type": "number",
+          "source_label": "population"
+        },
+        "country_name": {
+          "type": "text",
+          "source_label": "country name"
+        },
+        "state_name": {
+          "type": "text",
+          "source_label": "state name",
+          "foreign_key": {
+            "table": "state",
+            "column": "state_name"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "border_info": {
+      "source_label": "border info",
+      "meaning": "Table labeled 'border info' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key border",
+      "primary_key_columns": [
+        "border"
+      ],
+      "columns": {
+        "state_name": {
+          "type": "text",
+          "source_label": "state name",
+          "foreign_key": {
+            "table": "state",
+            "column": "state_name"
+          }
+        },
+        "border": {
+          "type": "text",
+          "source_label": "border",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "state",
+            "column": "state_name"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "highlow": {
+      "source_label": "highlow",
+      "meaning": "Table labeled 'highlow' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key state_name",
+      "primary_key_columns": [
+        "state_name"
+      ],
+      "columns": {
+        "state_name": {
+          "type": "text",
+          "source_label": "state name",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "state",
+            "column": "state_name"
+          }
+        },
+        "highest_elevation": {
+          "type": "text",
+          "source_label": "highest elevation"
+        },
+        "lowest_point": {
+          "type": "text",
+          "source_label": "lowest point"
+        },
+        "highest_point": {
+          "type": "text",
+          "source_label": "highest point"
+        },
+        "lowest_elevation": {
+          "type": "text",
+          "source_label": "lowest elevation"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "lake": {
+      "source_label": "lake",
+      "meaning": "Table labeled 'lake' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "lake_name": {
+          "type": "text",
+          "source_label": "lake name"
+        },
+        "area": {
+          "type": "number",
+          "source_label": "area"
+        },
+        "country_name": {
+          "type": "text",
+          "source_label": "country name"
+        },
+        "state_name": {
+          "type": "text",
+          "source_label": "state name"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "mountain": {
+      "source_label": "mountain",
+      "meaning": "Table labeled 'mountain' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key mountain_name",
+      "primary_key_columns": [
+        "mountain_name"
+      ],
+      "columns": {
+        "mountain_name": {
+          "type": "text",
+          "source_label": "mountain name",
+          "primary_key": true
+        },
+        "mountain_altitude": {
+          "type": "number",
+          "source_label": "mountain altitude"
+        },
+        "country_name": {
+          "type": "text",
+          "source_label": "country name"
+        },
+        "state_name": {
+          "type": "text",
+          "source_label": "state name",
+          "foreign_key": {
+            "table": "state",
+            "column": "state_name"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "river": {
+      "source_label": "river",
+      "meaning": "Table labeled 'river' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key river_name",
+      "primary_key_columns": [
+        "river_name"
+      ],
+      "columns": {
+        "river_name": {
+          "type": "text",
+          "source_label": "river name",
+          "primary_key": true
+        },
+        "length": {
+          "type": "number",
+          "source_label": "length"
+        },
+        "country_name": {
+          "type": "text",
+          "source_label": "country name"
+        },
+        "traverse": {
+          "type": "text",
+          "source_label": "traverse",
+          "foreign_key": {
+            "table": "state",
+            "column": "state_name"
+          }
+        }
+      },
+      "observed_row_count": 0
+    }
+  },
+  "terms": {
+    "border info": {
+      "maps_to": "border_info",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "state__row_count": {
+      "meaning": "Number of rows in state.",
+      "base_table": "state",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "city__row_count": {
+      "meaning": "Number of rows in city.",
+      "base_table": "city",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "border_info__row_count": {
+      "meaning": "Number of rows in border_info.",
+      "base_table": "border_info",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "highlow__row_count": {
+      "meaning": "Number of rows in highlow.",
+      "base_table": "highlow",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "lake__row_count": {
+      "meaning": "Number of rows in lake.",
+      "base_table": "lake",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "mountain__row_count": {
+      "meaning": "Number of rows in mountain.",
+      "base_table": "mountain",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "river__row_count": {
+      "meaning": "Number of rows in river.",
+      "base_table": "river",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

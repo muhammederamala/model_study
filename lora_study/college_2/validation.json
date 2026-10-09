@@ -1,0 +1,210 @@
+[
+  {
+    "id": 1324,
+    "db_id": "college_2",
+    "question": "Count the number of rooms that are not in the Lamberton building.",
+    "gold_sql": "SELECT count(*) FROM classroom WHERE building != 'Lamberton'",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1325,
+    "db_id": "college_2",
+    "question": "How many classrooms are not in Lamberton?",
+    "gold_sql": "SELECT count(*) FROM classroom WHERE building != 'Lamberton'",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1358,
+    "db_id": "college_2",
+    "question": "Find the name and budget of departments whose budgets are more than the average budget.",
+    "gold_sql": "SELECT dept_name ,  budget FROM department WHERE budget  >  (SELECT avg(budget) FROM department)",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1359,
+    "db_id": "college_2",
+    "question": "What are the names and budgets of departments with budgets greater than the average?",
+    "gold_sql": "SELECT dept_name ,  budget FROM department WHERE budget  >  (SELECT avg(budget) FROM department)",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1368,
+    "db_id": "college_2",
+    "question": "Find the name of students who took any class in the years of 2009 and 2010.",
+    "gold_sql": "SELECT DISTINCT T1.name FROM student AS T1 JOIN takes AS T2 ON T1.id  =  T2.id WHERE YEAR  =  2009 OR YEAR  =  2010",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1369,
+    "db_id": "college_2",
+    "question": "What are the names of the students who took classes in 2009 or 2010?",
+    "gold_sql": "SELECT DISTINCT T1.name FROM student AS T1 JOIN takes AS T2 ON T1.id  =  T2.id WHERE YEAR  =  2009 OR YEAR  =  2010",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1388,
+    "db_id": "college_2",
+    "question": "Find the name of instructors who are advising more than one student.",
+    "gold_sql": "SELECT T1.name FROM instructor AS T1 JOIN advisor AS T2 ON T1.id  =  T2.i_id GROUP BY T2.i_id HAVING count(*)  >  1",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "complex"
+  },
+  {
+    "id": 1389,
+    "db_id": "college_2",
+    "question": "What are the names of instructors who advise more than one student?",
+    "gold_sql": "SELECT T1.name FROM instructor AS T1 JOIN advisor AS T2 ON T1.id  =  T2.i_id GROUP BY T2.i_id HAVING count(*)  >  1",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "complex"
+  },
+  {
+    "id": 1394,
+    "db_id": "college_2",
+    "question": "Find the maximum and average capacity among rooms in each building.",
+    "gold_sql": "SELECT max(capacity) ,  avg(capacity) ,  building FROM classroom GROUP BY building",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1395,
+    "db_id": "college_2",
+    "question": "What are the greatest and average capacity for rooms in each building?",
+    "gold_sql": "SELECT max(capacity) ,  avg(capacity) ,  building FROM classroom GROUP BY building",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1400,
+    "db_id": "college_2",
+    "question": "Find the minimum salary for the departments whose average salary is above the average payment of all instructors.",
+    "gold_sql": "SELECT min(salary) ,  dept_name FROM instructor GROUP BY dept_name HAVING avg(salary)  >  (SELECT avg(salary) FROM instructor)",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "complex"
+  },
+  {
+    "id": 1401,
+    "db_id": "college_2",
+    "question": "What is the lowest salary in departments with average salary greater than the overall average.",
+    "gold_sql": "SELECT min(salary) ,  dept_name FROM instructor GROUP BY dept_name HAVING avg(salary)  >  (SELECT avg(salary) FROM instructor)",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "complex"
+  },
+  {
+    "id": 1408,
+    "db_id": "college_2",
+    "question": "Find the name of department has the highest amount of students?",
+    "gold_sql": "SELECT dept_name FROM student GROUP BY dept_name ORDER BY count(*) DESC LIMIT 1",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1409,
+    "db_id": "college_2",
+    "question": "What is the name of the deparment with the highest enrollment?",
+    "gold_sql": "SELECT dept_name FROM student GROUP BY dept_name ORDER BY count(*) DESC LIMIT 1",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1438,
+    "db_id": "college_2",
+    "question": "Find the name of instructor who is the advisor of the student who has the highest number of total credits.",
+    "gold_sql": "SELECT T2.name FROM advisor AS T1 JOIN instructor AS T2 ON T1.i_id  =  T2.id JOIN student AS T3 ON T1.s_id  =  T3.id ORDER BY T3.tot_cred DESC LIMIT 1",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1439,
+    "db_id": "college_2",
+    "question": "What is the name of the instructor who advises the student with the greatest number of total credits?",
+    "gold_sql": "SELECT T2.name FROM advisor AS T1 JOIN instructor AS T2 ON T1.i_id  =  T2.id JOIN student AS T3 ON T1.s_id  =  T3.id ORDER BY T3.tot_cred DESC LIMIT 1",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1440,
+    "db_id": "college_2",
+    "question": "Find the name of instructors who didn't teach any courses?",
+    "gold_sql": "SELECT name FROM instructor WHERE id NOT IN (SELECT id FROM teaches)",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1441,
+    "db_id": "college_2",
+    "question": "What are the names of instructors who didn't teach?",
+    "gold_sql": "SELECT name FROM instructor WHERE id NOT IN (SELECT id FROM teaches)",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1446,
+    "db_id": "college_2",
+    "question": "Find the name of the department which has the highest average salary of professors.",
+    "gold_sql": "SELECT dept_name FROM instructor GROUP BY dept_name ORDER BY avg(salary) DESC LIMIT 1",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1447,
+    "db_id": "college_2",
+    "question": "Which department has the highest average instructor salary?",
+    "gold_sql": "SELECT dept_name FROM instructor GROUP BY dept_name ORDER BY avg(salary) DESC LIMIT 1",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1458,
+    "db_id": "college_2",
+    "question": "Find the name and salary of instructors whose salary is below the average salary of the instructors in the Physics department.",
+    "gold_sql": "SELECT name ,  salary FROM instructor WHERE salary  <  (SELECT avg(salary) FROM instructor WHERE dept_name  =  'Physics')",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1459,
+    "db_id": "college_2",
+    "question": "What are the names and salaries for instructors who earn less than the average salary of instructors in the Physics department?",
+    "gold_sql": "SELECT name ,  salary FROM instructor WHERE salary  <  (SELECT avg(salary) FROM instructor WHERE dept_name  =  'Physics')",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "moderate"
+  },
+  {
+    "id": 1468,
+    "db_id": "college_2",
+    "question": "Find the names of all instructors who have taught some course and the course_id.",
+    "gold_sql": "SELECT name ,  course_id FROM instructor AS T1 JOIN teaches AS T2 ON T1.ID  =  T2.ID",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1469,
+    "db_id": "college_2",
+    "question": "What are the names of all instructors who have taught a course, as well as the corresponding course id?",
+    "gold_sql": "SELECT name ,  course_id FROM instructor AS T1 JOIN teaches AS T2 ON T1.ID  =  T2.ID",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1484,
+    "db_id": "college_2",
+    "question": "Find the total number of instructors who teach a course in the Spring 2010 semester.",
+    "gold_sql": "SELECT COUNT (DISTINCT ID) FROM teaches WHERE semester  =  'Spring' AND YEAR  =  2010",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  },
+  {
+    "id": 1485,
+    "db_id": "college_2",
+    "question": "How many instructors teach a course in the Spring of 2010?",
+    "gold_sql": "SELECT COUNT (DISTINCT ID) FROM teaches WHERE semester  =  'Spring' AND YEAR  =  2010",
+    "sqlite_path": "/home/lenovo/Documents/model_study/data/spider_data/database/college_2/college_2.sqlite",
+    "complexity_bucket": "simple"
+  }
+]

@@ -1,0 +1,172 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "club_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Student": {
+      "source_label": "student",
+      "meaning": "Table labeled 'student' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key StuID",
+      "primary_key_columns": [
+        "StuID"
+      ],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true
+        },
+        "LName": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "Fname": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Sex": {
+          "type": "text",
+          "source_label": "sex",
+          "observed_values": [
+            "F",
+            "M"
+          ]
+        },
+        "Major": {
+          "type": "number",
+          "source_label": "major"
+        },
+        "Advisor": {
+          "type": "number",
+          "source_label": "advisor"
+        },
+        "city_code": {
+          "type": "text",
+          "source_label": "city code"
+        }
+      },
+      "observed_row_count": 34
+    },
+    "Club": {
+      "source_label": "club",
+      "meaning": "Table labeled 'club' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key ClubID",
+      "primary_key_columns": [
+        "ClubID"
+      ],
+      "columns": {
+        "ClubID": {
+          "type": "number",
+          "source_label": "club id",
+          "primary_key": true
+        },
+        "ClubName": {
+          "type": "text",
+          "source_label": "club name",
+          "observed_values": [
+            "Bootup Baltimore",
+            "Hopkins Student Enterprises",
+            "Pen and Paper Gaming",
+            "Tennis Club"
+          ]
+        },
+        "ClubDesc": {
+          "type": "text",
+          "source_label": "club description",
+          "observed_values": [
+            "Refurbish computers; teach kids and adults about computer basics.",
+            "Venture capital fund for student business.",
+            "Play pen and paper games on campus.",
+            "A competitive tennis club."
+          ]
+        },
+        "ClubLocation": {
+          "type": "text",
+          "source_label": "club location",
+          "observed_values": [
+            "AKW",
+            "HHH"
+          ]
+        }
+      },
+      "observed_row_count": 4
+    },
+    "Member_of_club": {
+      "source_label": "member of club",
+      "meaning": "Table labeled 'member of club' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Student",
+            "column": "StuID"
+          }
+        },
+        "ClubID": {
+          "type": "number",
+          "source_label": "club id",
+          "foreign_key": {
+            "table": "Club",
+            "column": "ClubID"
+          }
+        },
+        "Position": {
+          "type": "text",
+          "source_label": "position",
+          "observed_values": [
+            "President",
+            "Vice-President",
+            "CTO",
+            "Teaching Coordinator"
+          ]
+        }
+      },
+      "observed_row_count": 4
+    }
+  },
+  "terms": {
+    "member of club": {
+      "maps_to": "Member_of_club",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Student__row_count": {
+      "meaning": "Number of rows in Student.",
+      "base_table": "Student",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Club__row_count": {
+      "meaning": "Number of rows in Club.",
+      "base_table": "Club",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Member_of_club__row_count": {
+      "meaning": "Number of rows in Member_of_club.",
+      "base_table": "Member_of_club",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

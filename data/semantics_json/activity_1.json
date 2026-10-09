@@ -1,0 +1,238 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "activity_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Activity": {
+      "source_label": "activity",
+      "meaning": "Table labeled 'activity' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key actid",
+      "primary_key_columns": [
+        "actid"
+      ],
+      "columns": {
+        "actid": {
+          "type": "number",
+          "source_label": "activity id",
+          "primary_key": true
+        },
+        "activity_name": {
+          "type": "text",
+          "source_label": "activity name"
+        }
+      },
+      "observed_row_count": 16
+    },
+    "Participates_in": {
+      "source_label": "participates in",
+      "meaning": "Table labeled 'participates in' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "stuid": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Student",
+            "column": "StuID"
+          }
+        },
+        "actid": {
+          "type": "number",
+          "source_label": "activity id",
+          "foreign_key": {
+            "table": "Activity",
+            "column": "actid"
+          }
+        }
+      },
+      "observed_row_count": 70
+    },
+    "Faculty_Participates_in": {
+      "source_label": "faculty participates in",
+      "meaning": "Table labeled 'faculty participates in' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "FacID": {
+          "type": "number",
+          "source_label": "faculty id",
+          "foreign_key": {
+            "table": "Faculty",
+            "column": "FacID"
+          }
+        },
+        "actid": {
+          "type": "number",
+          "source_label": "activity id",
+          "foreign_key": {
+            "table": "Activity",
+            "column": "actid"
+          }
+        }
+      },
+      "observed_row_count": 40
+    },
+    "Student": {
+      "source_label": "student",
+      "meaning": "Table labeled 'student' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key StuID",
+      "primary_key_columns": [
+        "StuID"
+      ],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true
+        },
+        "LName": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "Fname": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Sex": {
+          "type": "text",
+          "source_label": "sex",
+          "observed_values": [
+            "F",
+            "M"
+          ]
+        },
+        "Major": {
+          "type": "number",
+          "source_label": "major"
+        },
+        "Advisor": {
+          "type": "number",
+          "source_label": "advisor"
+        },
+        "city_code": {
+          "type": "text",
+          "source_label": "city code"
+        }
+      },
+      "observed_row_count": 34
+    },
+    "Faculty": {
+      "source_label": "faculty",
+      "meaning": "Table labeled 'faculty' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key FacID",
+      "primary_key_columns": [
+        "FacID"
+      ],
+      "columns": {
+        "FacID": {
+          "type": "number",
+          "source_label": "faculty id",
+          "primary_key": true
+        },
+        "Lname": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "Fname": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "Rank": {
+          "type": "text",
+          "source_label": "rank",
+          "observed_values": [
+            "Instructor",
+            "Professor",
+            "AssocProf",
+            "AsstProf"
+          ]
+        },
+        "Sex": {
+          "type": "text",
+          "source_label": "sex",
+          "observed_values": [
+            "M",
+            "F"
+          ]
+        },
+        "Phone": {
+          "type": "number",
+          "source_label": "phone"
+        },
+        "Room": {
+          "type": "text",
+          "source_label": "room"
+        },
+        "Building": {
+          "type": "text",
+          "source_label": "building",
+          "observed_values": [
+            "NEB",
+            "Barton",
+            "Krieger"
+          ]
+        }
+      },
+      "observed_row_count": 58
+    }
+  },
+  "terms": {
+    "participates in": {
+      "maps_to": "Participates_in",
+      "source": "Spider normalized table name"
+    },
+    "faculty participates in": {
+      "maps_to": "Faculty_Participates_in",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Activity__row_count": {
+      "meaning": "Number of rows in Activity.",
+      "base_table": "Activity",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Participates_in__row_count": {
+      "meaning": "Number of rows in Participates_in.",
+      "base_table": "Participates_in",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Faculty_Participates_in__row_count": {
+      "meaning": "Number of rows in Faculty_Participates_in.",
+      "base_table": "Faculty_Participates_in",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Student__row_count": {
+      "meaning": "Number of rows in Student.",
+      "base_table": "Student",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Faculty__row_count": {
+      "meaning": "Number of rows in Faculty.",
+      "base_table": "Faculty",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

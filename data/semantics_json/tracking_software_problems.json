@@ -1,0 +1,387 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "tracking_software_problems",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Problem_Category_Codes": {
+      "source_label": "problem category codes",
+      "meaning": "Table labeled 'problem category codes' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key problem_category_code",
+      "primary_key_columns": [
+        "problem_category_code"
+      ],
+      "columns": {
+        "problem_category_code": {
+          "type": "text",
+          "source_label": "problem category code",
+          "primary_key": true,
+          "observed_values": [
+            "Datatabase",
+            "GUI",
+            "Middleware"
+          ]
+        },
+        "problem_category_description": {
+          "type": "text",
+          "source_label": "problem category description",
+          "observed_values": [
+            "Database design or contents.",
+            "User Interface.",
+            "Infrastructrure and Architecture"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Problem_Log": {
+      "source_label": "problem log",
+      "meaning": "Table labeled 'problem log' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key problem_log_id",
+      "primary_key_columns": [
+        "problem_log_id"
+      ],
+      "columns": {
+        "problem_log_id": {
+          "type": "number",
+          "source_label": "problem log id",
+          "primary_key": true
+        },
+        "assigned_to_staff_id": {
+          "type": "number",
+          "source_label": "assigned to staff id",
+          "foreign_key": {
+            "table": "Staff",
+            "column": "staff_id"
+          }
+        },
+        "problem_id": {
+          "type": "number",
+          "source_label": "problem id",
+          "foreign_key": {
+            "table": "Problems",
+            "column": "problem_id"
+          }
+        },
+        "problem_category_code": {
+          "type": "text",
+          "source_label": "problem category code",
+          "foreign_key": {
+            "table": "Problem_Category_Codes",
+            "column": "problem_category_code"
+          },
+          "observed_values": [
+            "Middleware",
+            "GUI",
+            "Datatabase"
+          ]
+        },
+        "problem_status_code": {
+          "type": "text",
+          "source_label": "problem status code",
+          "foreign_key": {
+            "table": "Problem_Status_Codes",
+            "column": "problem_status_code"
+          },
+          "observed_values": [
+            "Solved",
+            "Reported"
+          ]
+        },
+        "log_entry_date": {
+          "type": "time",
+          "source_label": "log entry date"
+        },
+        "log_entry_description": {
+          "type": "text",
+          "source_label": "log entry description",
+          "observed_values": [
+            "t",
+            "a",
+            "b",
+            "c",
+            "h",
+            "s",
+            "j",
+            "p",
+            "d",
+            "w",
+            "q",
+            "v"
+          ]
+        },
+        "log_entry_fix": {
+          "type": "text",
+          "source_label": "log entry fix",
+          "observed_values": [
+            "k",
+            "j",
+            "t",
+            "n",
+            "g",
+            "c",
+            "h",
+            "i",
+            "x",
+            "y",
+            "s",
+            "o"
+          ]
+        },
+        "other_log_details": {
+          "type": "text",
+          "source_label": "other log details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Problem_Status_Codes": {
+      "source_label": "problem status codes",
+      "meaning": "Table labeled 'problem status codes' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key problem_status_code",
+      "primary_key_columns": [
+        "problem_status_code"
+      ],
+      "columns": {
+        "problem_status_code": {
+          "type": "text",
+          "source_label": "problem status code",
+          "primary_key": true,
+          "observed_values": [
+            "Reported",
+            "Solved"
+          ]
+        },
+        "problem_status_description": {
+          "type": "text",
+          "source_label": "problem status description",
+          "observed_values": [
+            "Reported",
+            "Solved"
+          ]
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Product": {
+      "source_label": "product",
+      "meaning": "Table labeled 'product' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key product_id",
+      "primary_key_columns": [
+        "product_id"
+      ],
+      "columns": {
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "primary_key": true
+        },
+        "product_name": {
+          "type": "text",
+          "source_label": "product name"
+        },
+        "product_details": {
+          "type": "text",
+          "source_label": "product details",
+          "observed_values": [
+            "k",
+            "q",
+            "e",
+            "r",
+            "d",
+            "m",
+            "u",
+            "z",
+            "h",
+            "n",
+            "j"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Staff": {
+      "source_label": "staff",
+      "meaning": "Table labeled 'staff' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key staff_id",
+      "primary_key_columns": [
+        "staff_id"
+      ],
+      "columns": {
+        "staff_id": {
+          "type": "number",
+          "source_label": "staff id",
+          "primary_key": true
+        },
+        "staff_first_name": {
+          "type": "text",
+          "source_label": "staff first name"
+        },
+        "staff_last_name": {
+          "type": "text",
+          "source_label": "staff last name"
+        },
+        "other_staff_details": {
+          "type": "text",
+          "source_label": "other staff details",
+          "observed_values": [
+            "m",
+            "x",
+            "w",
+            "p",
+            "q",
+            "b",
+            "d",
+            "j",
+            "i",
+            "e"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Problems": {
+      "source_label": "problems",
+      "meaning": "Table labeled 'problems' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key problem_id",
+      "primary_key_columns": [
+        "problem_id"
+      ],
+      "columns": {
+        "problem_id": {
+          "type": "number",
+          "source_label": "problem id",
+          "primary_key": true
+        },
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "foreign_key": {
+            "table": "Product",
+            "column": "product_id"
+          }
+        },
+        "closure_authorised_by_staff_id": {
+          "type": "number",
+          "source_label": "closure authorised by staff id",
+          "foreign_key": {
+            "table": "Staff",
+            "column": "staff_id"
+          }
+        },
+        "reported_by_staff_id": {
+          "type": "number",
+          "source_label": "reported by staff id",
+          "foreign_key": {
+            "table": "Staff",
+            "column": "staff_id"
+          }
+        },
+        "date_problem_reported": {
+          "type": "time",
+          "source_label": "date problem reported"
+        },
+        "date_problem_closed": {
+          "type": "time",
+          "source_label": "date problem closed"
+        },
+        "problem_description": {
+          "type": "text",
+          "source_label": "problem description",
+          "observed_values": [
+            "x",
+            "w",
+            "r",
+            "y",
+            "a",
+            "p",
+            "i",
+            "d",
+            "j",
+            "c",
+            "s"
+          ]
+        },
+        "other_problem_details": {
+          "type": "text",
+          "source_label": "other problem details",
+          "observed_values": [
+            "p",
+            "i",
+            "c",
+            "k",
+            "l",
+            "f",
+            "v",
+            "s",
+            "m"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "problem category codes": {
+      "maps_to": "Problem_Category_Codes",
+      "source": "Spider normalized table name"
+    },
+    "problem log": {
+      "maps_to": "Problem_Log",
+      "source": "Spider normalized table name"
+    },
+    "problem status codes": {
+      "maps_to": "Problem_Status_Codes",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Problem_Category_Codes__row_count": {
+      "meaning": "Number of rows in Problem_Category_Codes.",
+      "base_table": "Problem_Category_Codes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Problem_Log__row_count": {
+      "meaning": "Number of rows in Problem_Log.",
+      "base_table": "Problem_Log",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Problem_Status_Codes__row_count": {
+      "meaning": "Number of rows in Problem_Status_Codes.",
+      "base_table": "Problem_Status_Codes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Product__row_count": {
+      "meaning": "Number of rows in Product.",
+      "base_table": "Product",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Staff__row_count": {
+      "meaning": "Number of rows in Staff.",
+      "base_table": "Staff",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Problems__row_count": {
+      "meaning": "Number of rows in Problems.",
+      "base_table": "Problems",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

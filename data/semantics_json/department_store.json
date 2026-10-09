@@ -1,0 +1,636 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "department_store",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Addresses": {
+      "source_label": "addresses",
+      "meaning": "Table labeled 'addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key address_id",
+      "primary_key_columns": [
+        "address_id"
+      ],
+      "columns": {
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "primary_key": true
+        },
+        "address_details": {
+          "type": "text",
+          "source_label": "address details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Staff": {
+      "source_label": "staff",
+      "meaning": "Table labeled 'staff' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key staff_id",
+      "primary_key_columns": [
+        "staff_id"
+      ],
+      "columns": {
+        "staff_id": {
+          "type": "number",
+          "source_label": "staff id",
+          "primary_key": true
+        },
+        "staff_gender": {
+          "type": "text",
+          "source_label": "staff gender",
+          "observed_values": [
+            "1",
+            "0"
+          ]
+        },
+        "staff_name": {
+          "type": "text",
+          "source_label": "staff name"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Suppliers": {
+      "source_label": "suppliers",
+      "meaning": "Table labeled 'suppliers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key supplier_id",
+      "primary_key_columns": [
+        "supplier_id"
+      ],
+      "columns": {
+        "supplier_id": {
+          "type": "number",
+          "source_label": "supplier id",
+          "primary_key": true
+        },
+        "supplier_name": {
+          "type": "text",
+          "source_label": "supplier name",
+          "observed_values": [
+            "Lidl",
+            "AB Store",
+            "Tesco",
+            "Audi"
+          ]
+        },
+        "supplier_phone": {
+          "type": "text",
+          "source_label": "supplier phone",
+          "observed_values": [
+            "(692)009-5928",
+            "1-483-283-4742",
+            "287-071-1153x254",
+            "1-432-960-2402x1734"
+          ]
+        }
+      },
+      "observed_row_count": 4
+    },
+    "Department_Store_Chain": {
+      "source_label": "department store chain",
+      "meaning": "Table labeled 'department store chain' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key dept_store_chain_id",
+      "primary_key_columns": [
+        "dept_store_chain_id"
+      ],
+      "columns": {
+        "dept_store_chain_id": {
+          "type": "number",
+          "source_label": "department store chain id",
+          "primary_key": true
+        },
+        "dept_store_chain_name": {
+          "type": "text",
+          "source_label": "department store chain name",
+          "observed_values": [
+            "South",
+            "West",
+            "East",
+            "North"
+          ]
+        }
+      },
+      "observed_row_count": 4
+    },
+    "Customers": {
+      "source_label": "customers",
+      "meaning": "Table labeled 'customers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key customer_id",
+      "primary_key_columns": [
+        "customer_id"
+      ],
+      "columns": {
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true
+        },
+        "payment_method_code": {
+          "type": "text",
+          "source_label": "payment method code",
+          "observed_values": [
+            "Credit Card",
+            "Direct Debit"
+          ]
+        },
+        "customer_code": {
+          "type": "text",
+          "source_label": "customer code"
+        },
+        "customer_name": {
+          "type": "text",
+          "source_label": "customer name"
+        },
+        "customer_address": {
+          "type": "text",
+          "source_label": "customer address"
+        },
+        "customer_phone": {
+          "type": "text",
+          "source_label": "customer phone"
+        },
+        "customer_email": {
+          "type": "text",
+          "source_label": "customer email"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Products": {
+      "source_label": "products",
+      "meaning": "Table labeled 'products' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key product_id",
+      "primary_key_columns": [
+        "product_id"
+      ],
+      "columns": {
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "primary_key": true
+        },
+        "product_type_code": {
+          "type": "text",
+          "source_label": "product type code",
+          "observed_values": [
+            "Clothes",
+            "Hardware"
+          ]
+        },
+        "product_name": {
+          "type": "text",
+          "source_label": "product name"
+        },
+        "product_price": {
+          "type": "number",
+          "source_label": "product price"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Supplier_Addresses": {
+      "source_label": "supplier addresses",
+      "meaning": "Table labeled 'supplier addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key supplier_id",
+      "primary_key_columns": [
+        "supplier_id"
+      ],
+      "columns": {
+        "supplier_id": {
+          "type": "number",
+          "source_label": "supplier id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Suppliers",
+            "column": "supplier_id"
+          }
+        },
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "address_id"
+          }
+        },
+        "date_from": {
+          "type": "time",
+          "source_label": "date from"
+        },
+        "date_to": {
+          "type": "time",
+          "source_label": "date to"
+        }
+      },
+      "observed_row_count": 4
+    },
+    "Customer_Addresses": {
+      "source_label": "customer addresses",
+      "meaning": "Table labeled 'customer addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key customer_id",
+      "primary_key_columns": [
+        "customer_id"
+      ],
+      "columns": {
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Customers",
+            "column": "customer_id"
+          }
+        },
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "address_id"
+          }
+        },
+        "date_from": {
+          "type": "time",
+          "source_label": "date from"
+        },
+        "date_to": {
+          "type": "time",
+          "source_label": "date to"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Customer_Orders": {
+      "source_label": "customer orders",
+      "meaning": "Table labeled 'customer orders' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key order_id",
+      "primary_key_columns": [
+        "order_id"
+      ],
+      "columns": {
+        "order_id": {
+          "type": "number",
+          "source_label": "order id",
+          "primary_key": true
+        },
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers",
+            "column": "customer_id"
+          }
+        },
+        "order_status_code": {
+          "type": "text",
+          "source_label": "order status code",
+          "observed_values": [
+            "Completed",
+            "New",
+            "PartFilled",
+            "Pending",
+            "Cancelled"
+          ]
+        },
+        "order_date": {
+          "type": "time",
+          "source_label": "order date"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Department_Stores": {
+      "source_label": "department stores",
+      "meaning": "Table labeled 'department stores' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key dept_store_id",
+      "primary_key_columns": [
+        "dept_store_id"
+      ],
+      "columns": {
+        "dept_store_id": {
+          "type": "number",
+          "source_label": "department store id",
+          "primary_key": true
+        },
+        "dept_store_chain_id": {
+          "type": "number",
+          "source_label": "department store chain id",
+          "foreign_key": {
+            "table": "Department_Store_Chain",
+            "column": "dept_store_chain_id"
+          }
+        },
+        "store_name": {
+          "type": "text",
+          "source_label": "store name",
+          "observed_values": [
+            "store_name"
+          ]
+        },
+        "store_address": {
+          "type": "text",
+          "source_label": "store address"
+        },
+        "store_phone": {
+          "type": "text",
+          "source_label": "store phone"
+        },
+        "store_email": {
+          "type": "text",
+          "source_label": "store email"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Departments": {
+      "source_label": "departments",
+      "meaning": "Table labeled 'departments' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key department_id",
+      "primary_key_columns": [
+        "department_id"
+      ],
+      "columns": {
+        "department_id": {
+          "type": "number",
+          "source_label": "department id",
+          "primary_key": true
+        },
+        "dept_store_id": {
+          "type": "number",
+          "source_label": "department store id",
+          "foreign_key": {
+            "table": "Department_Stores",
+            "column": "dept_store_id"
+          }
+        },
+        "department_name": {
+          "type": "text",
+          "source_label": "department name",
+          "observed_values": [
+            "human resource",
+            "purchasing",
+            "marketing",
+            "advertising",
+            "managing"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "Order_Items": {
+      "source_label": "order items",
+      "meaning": "Table labeled 'order items' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key order_item_id",
+      "primary_key_columns": [
+        "order_item_id"
+      ],
+      "columns": {
+        "order_item_id": {
+          "type": "number",
+          "source_label": "order item id",
+          "primary_key": true
+        },
+        "order_id": {
+          "type": "number",
+          "source_label": "order id",
+          "foreign_key": {
+            "table": "Customer_Orders",
+            "column": "order_id"
+          }
+        },
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "foreign_key": {
+            "table": "Products",
+            "column": "product_id"
+          }
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Product_Suppliers": {
+      "source_label": "product suppliers",
+      "meaning": "Table labeled 'product suppliers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key product_id",
+      "primary_key_columns": [
+        "product_id"
+      ],
+      "columns": {
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Products",
+            "column": "product_id"
+          }
+        },
+        "supplier_id": {
+          "type": "number",
+          "source_label": "supplier id",
+          "foreign_key": {
+            "table": "Suppliers",
+            "column": "supplier_id"
+          }
+        },
+        "date_supplied_from": {
+          "type": "time",
+          "source_label": "date supplied from"
+        },
+        "date_supplied_to": {
+          "type": "time",
+          "source_label": "date supplied to"
+        },
+        "total_amount_purchased": {
+          "type": "text",
+          "source_label": "total amount purchased"
+        },
+        "total_value_purchased": {
+          "type": "number",
+          "source_label": "total value purchased"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Staff_Department_Assignments": {
+      "source_label": "staff department assignments",
+      "meaning": "Table labeled 'staff department assignments' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key staff_id",
+      "primary_key_columns": [
+        "staff_id"
+      ],
+      "columns": {
+        "staff_id": {
+          "type": "number",
+          "source_label": "staff id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Staff",
+            "column": "staff_id"
+          }
+        },
+        "department_id": {
+          "type": "number",
+          "source_label": "department id",
+          "foreign_key": {
+            "table": "Departments",
+            "column": "department_id"
+          }
+        },
+        "date_assigned_from": {
+          "type": "time",
+          "source_label": "date assigned from"
+        },
+        "job_title_code": {
+          "type": "text",
+          "source_label": "job title code",
+          "observed_values": [
+            "Department Manager",
+            "Sales Person",
+            "Clerical Staff",
+            "Administration"
+          ]
+        },
+        "date_assigned_to": {
+          "type": "time",
+          "source_label": "date assigned to"
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "department store chain": {
+      "maps_to": "Department_Store_Chain",
+      "source": "Spider normalized table name"
+    },
+    "supplier addresses": {
+      "maps_to": "Supplier_Addresses",
+      "source": "Spider normalized table name"
+    },
+    "customer addresses": {
+      "maps_to": "Customer_Addresses",
+      "source": "Spider normalized table name"
+    },
+    "customer orders": {
+      "maps_to": "Customer_Orders",
+      "source": "Spider normalized table name"
+    },
+    "department stores": {
+      "maps_to": "Department_Stores",
+      "source": "Spider normalized table name"
+    },
+    "order items": {
+      "maps_to": "Order_Items",
+      "source": "Spider normalized table name"
+    },
+    "product suppliers": {
+      "maps_to": "Product_Suppliers",
+      "source": "Spider normalized table name"
+    },
+    "staff department assignments": {
+      "maps_to": "Staff_Department_Assignments",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Addresses__row_count": {
+      "meaning": "Number of rows in Addresses.",
+      "base_table": "Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Staff__row_count": {
+      "meaning": "Number of rows in Staff.",
+      "base_table": "Staff",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Suppliers__row_count": {
+      "meaning": "Number of rows in Suppliers.",
+      "base_table": "Suppliers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Department_Store_Chain__row_count": {
+      "meaning": "Number of rows in Department_Store_Chain.",
+      "base_table": "Department_Store_Chain",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customers__row_count": {
+      "meaning": "Number of rows in Customers.",
+      "base_table": "Customers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Products__row_count": {
+      "meaning": "Number of rows in Products.",
+      "base_table": "Products",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Supplier_Addresses__row_count": {
+      "meaning": "Number of rows in Supplier_Addresses.",
+      "base_table": "Supplier_Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customer_Addresses__row_count": {
+      "meaning": "Number of rows in Customer_Addresses.",
+      "base_table": "Customer_Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customer_Orders__row_count": {
+      "meaning": "Number of rows in Customer_Orders.",
+      "base_table": "Customer_Orders",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Department_Stores__row_count": {
+      "meaning": "Number of rows in Department_Stores.",
+      "base_table": "Department_Stores",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Departments__row_count": {
+      "meaning": "Number of rows in Departments.",
+      "base_table": "Departments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Order_Items__row_count": {
+      "meaning": "Number of rows in Order_Items.",
+      "base_table": "Order_Items",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Product_Suppliers__row_count": {
+      "meaning": "Number of rows in Product_Suppliers.",
+      "base_table": "Product_Suppliers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Staff_Department_Assignments__row_count": {
+      "meaning": "Number of rows in Staff_Department_Assignments.",
+      "base_table": "Staff_Department_Assignments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

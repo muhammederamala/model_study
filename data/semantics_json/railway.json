@@ -1,0 +1,336 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "railway",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "railway": {
+      "source_label": "railway",
+      "meaning": "Table labeled 'railway' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Railway_ID",
+      "primary_key_columns": [
+        "Railway_ID"
+      ],
+      "columns": {
+        "Railway_ID": {
+          "type": "number",
+          "source_label": "railway id",
+          "primary_key": true
+        },
+        "Railway": {
+          "type": "text",
+          "source_label": "railway",
+          "observed_values": [
+            "SECR",
+            "MR",
+            "GNRD",
+            "GWRS",
+            "GERSt",
+            "GERHt",
+            "GWRSn",
+            "GWRWk",
+            "LTSR",
+            "Longmoor"
+          ]
+        },
+        "Builder": {
+          "type": "text",
+          "source_label": "builder",
+          "observed_values": [
+            "SECR Ashford",
+            "MR Derby",
+            "GNR Doncaster",
+            "GWR Swindon",
+            "GER Stratford",
+            "GER Hartford",
+            "Swindon Works",
+            "Stephenson",
+            "Avonside"
+          ]
+        },
+        "Built": {
+          "type": "text",
+          "source_label": "built",
+          "observed_values": [
+            "1901",
+            "1902 Midland Railway 1000 was rebuilt in 1914.",
+            "1902",
+            "1903",
+            "1904",
+            "1905",
+            "1907",
+            "1909",
+            "1910"
+          ]
+        },
+        "Wheels": {
+          "type": "text",
+          "source_label": "wheels",
+          "observed_values": [
+            "4-4-0",
+            "4-4-2",
+            "0-6-0T",
+            "0-6-0",
+            "2-8-0",
+            "4-6-0",
+            "4-4-2T",
+            "0-6-0ST"
+          ]
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "York",
+            "Bo'ness",
+            "Barrow Hill",
+            "Toddington",
+            "Bressingham",
+            "Shildon",
+            "Swindon",
+            "Basingstoke"
+          ]
+        },
+        "ObjectNumber": {
+          "type": "text",
+          "source_label": "objectnumber",
+          "observed_values": [
+            "1975-7006",
+            "1975-7018",
+            "1975-7005",
+            "1978-7025",
+            "1975-7003",
+            "1978-7026",
+            "1976-7001",
+            "1978-7027",
+            "1978-7028",
+            "2008-7159"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    },
+    "train": {
+      "source_label": "train",
+      "meaning": "Table labeled 'train' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Train_ID",
+      "primary_key_columns": [
+        "Train_ID"
+      ],
+      "columns": {
+        "Train_ID": {
+          "type": "number",
+          "source_label": "train id",
+          "primary_key": true
+        },
+        "Train_Num": {
+          "type": "text",
+          "source_label": "train num",
+          "observed_values": [
+            "51195",
+            "12139",
+            "12140",
+            "57135",
+            "57136",
+            "16094",
+            "16032",
+            "16031",
+            "11401"
+          ]
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Wardha-Ballarshah Pass",
+            "Sewagram Exp",
+            "Ballarshah-Mumbai Pass",
+            "Nagpur-Kazipet Pass",
+            "Kazipet-Nagpur Pass",
+            "Lucknow-Chennai Exp",
+            "Andaman Exp",
+            "Nandigram Exp"
+          ]
+        },
+        "From": {
+          "type": "text",
+          "source_label": "from",
+          "observed_values": [
+            "Wardha",
+            "Mumbai CST",
+            "Ballarshah",
+            "Nagpur",
+            "Kazipet",
+            "Lucknow",
+            "Jammu Tawi",
+            "Chennai"
+          ]
+        },
+        "Arrival": {
+          "type": "text",
+          "source_label": "arrival",
+          "observed_values": [
+            "08:54",
+            "09:08",
+            "09:48",
+            "23:44",
+            "05:09",
+            "13:04",
+            "23:39",
+            "13:28"
+          ]
+        },
+        "Railway_ID": {
+          "type": "number",
+          "source_label": "railway id",
+          "foreign_key": {
+            "table": "railway",
+            "column": "Railway_ID"
+          }
+        }
+      },
+      "observed_row_count": 9
+    },
+    "manager": {
+      "source_label": "manager",
+      "meaning": "Table labeled 'manager' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Manager_ID",
+      "primary_key_columns": [
+        "Manager_ID"
+      ],
+      "columns": {
+        "Manager_ID": {
+          "type": "number",
+          "source_label": "manager id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Ben Curtis",
+            "Todd Hamilton",
+            "Tiger Woods",
+            "David Duval",
+            "Sandy Lyle",
+            "Nick Faldo",
+            "Greg Norman"
+          ]
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "United States",
+            "Scotland",
+            "England",
+            "Australia"
+          ]
+        },
+        "Working_year_starts": {
+          "type": "text",
+          "source_label": "working year starts",
+          "observed_values": [
+            "2003",
+            "2004",
+            "2006",
+            "2001",
+            "1985",
+            "1999",
+            "1993"
+          ]
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Level": {
+          "type": "number",
+          "source_label": "level"
+        }
+      },
+      "observed_row_count": 7
+    },
+    "railway_manage": {
+      "source_label": "railway manage",
+      "meaning": "Table labeled 'railway manage' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Railway_ID",
+      "primary_key_columns": [
+        "Railway_ID"
+      ],
+      "columns": {
+        "Railway_ID": {
+          "type": "number",
+          "source_label": "railway id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "railway",
+            "column": "Railway_ID"
+          }
+        },
+        "Manager_ID": {
+          "type": "number",
+          "source_label": "manager id",
+          "foreign_key": {
+            "table": "manager",
+            "column": "Manager_ID"
+          }
+        },
+        "From_Year": {
+          "type": "text",
+          "source_label": "from year",
+          "observed_values": [
+            "2010",
+            "2011",
+            "2012",
+            "2013"
+          ]
+        }
+      },
+      "observed_row_count": 4
+    }
+  },
+  "terms": {
+    "railway manage": {
+      "maps_to": "railway_manage",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "railway__row_count": {
+      "meaning": "Number of rows in railway.",
+      "base_table": "railway",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "train__row_count": {
+      "meaning": "Number of rows in train.",
+      "base_table": "train",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "manager__row_count": {
+      "meaning": "Number of rows in manager.",
+      "base_table": "manager",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "railway_manage__row_count": {
+      "meaning": "Number of rows in railway_manage.",
+      "base_table": "railway_manage",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

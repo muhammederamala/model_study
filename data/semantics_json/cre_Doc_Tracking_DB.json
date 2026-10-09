@@ -1,0 +1,441 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "cre_Doc_Tracking_DB",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Ref_Document_Types": {
+      "source_label": "reference document types",
+      "meaning": "Table labeled 'reference document types' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Document_Type_Code",
+      "primary_key_columns": [
+        "Document_Type_Code"
+      ],
+      "columns": {
+        "Document_Type_Code": {
+          "type": "text",
+          "source_label": "document type code",
+          "primary_key": true,
+          "observed_values": [
+            "BK",
+            "CV",
+            "PR",
+            "RV"
+          ]
+        },
+        "Document_Type_Name": {
+          "type": "text",
+          "source_label": "document type name",
+          "observed_values": [
+            "CV",
+            "Book",
+            "Paper",
+            "Review"
+          ]
+        },
+        "Document_Type_Description": {
+          "type": "text",
+          "source_label": "document type description"
+        }
+      },
+      "observed_row_count": 4
+    },
+    "Ref_Calendar": {
+      "source_label": "reference calendar",
+      "meaning": "Table labeled 'reference calendar' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Calendar_Date",
+      "primary_key_columns": [
+        "Calendar_Date"
+      ],
+      "columns": {
+        "Calendar_Date": {
+          "type": "time",
+          "source_label": "calendar date",
+          "primary_key": true
+        },
+        "Day_Number": {
+          "type": "number",
+          "source_label": "day number"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Ref_Locations": {
+      "source_label": "reference locations",
+      "meaning": "Table labeled 'reference locations' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Location_Code",
+      "primary_key_columns": [
+        "Location_Code"
+      ],
+      "columns": {
+        "Location_Code": {
+          "type": "text",
+          "source_label": "location code",
+          "primary_key": true,
+          "observed_values": [
+            "b",
+            "c",
+            "e",
+            "n",
+            "x"
+          ]
+        },
+        "Location_Name": {
+          "type": "text",
+          "source_label": "location name",
+          "observed_values": [
+            "Brazil",
+            "Canada",
+            "Edinburgh",
+            "Nanjing",
+            "Xiamen"
+          ]
+        },
+        "Location_Description": {
+          "type": "text",
+          "source_label": "location description"
+        }
+      },
+      "observed_row_count": 5
+    },
+    "Roles": {
+      "source_label": "roles",
+      "meaning": "Table labeled 'roles' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Role_Code",
+      "primary_key_columns": [
+        "Role_Code"
+      ],
+      "columns": {
+        "Role_Code": {
+          "type": "text",
+          "source_label": "role code",
+          "primary_key": true,
+          "observed_values": [
+            "ED",
+            "HR",
+            "MG",
+            "PR",
+            "PT"
+          ]
+        },
+        "Role_Name": {
+          "type": "text",
+          "source_label": "role name",
+          "observed_values": [
+            "Manager",
+            "Editor",
+            "Photo",
+            "Proof Reader",
+            "Human Resource"
+          ]
+        },
+        "Role_Description": {
+          "type": "text",
+          "source_label": "role description",
+          "observed_values": [
+            "Vero harum corrupti odit ipsa vero et odio. Iste et recusandae temporibus maxime. Magni aspernatur fugit quis explicabo totam esse corrupti.",
+            "Itaque dolor ut nemo rerum vitae provident. Vel laborum ipsum velit sint. Et est omnis dignissimos.",
+            "Aut modi nihil molestias temporibus sit rerum. Sit neque eaque odio omnis incidunt.",
+            "Ut sed quae eaque mollitia qui hic. Natus ea expedita et odio illum fugiat qui natus. Consequatur velit ut dolorem cum ullam esse deserunt dignissimos. Enim non non rem officiis quis.",
+            "Et totam est quibusdam aspernatur ut. Vitae perferendis eligendi voluptatem molestiae rem ut enim. Ipsum expedita quae earum unde est. Repellendus ut ipsam nihil accusantium sit. Magni accusantium numquam quod et."
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "All_Documents": {
+      "source_label": "all documents",
+      "meaning": "Table labeled 'all documents' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Document_ID",
+      "primary_key_columns": [
+        "Document_ID"
+      ],
+      "columns": {
+        "Document_ID": {
+          "type": "number",
+          "source_label": "document id",
+          "primary_key": true
+        },
+        "Date_Stored": {
+          "type": "time",
+          "source_label": "date stored",
+          "foreign_key": {
+            "table": "Ref_Calendar",
+            "column": "Calendar_Date"
+          }
+        },
+        "Document_Type_Code": {
+          "type": "text",
+          "source_label": "document type code",
+          "foreign_key": {
+            "table": "Ref_Document_Types",
+            "column": "Document_Type_Code"
+          },
+          "observed_values": [
+            "CV",
+            "BK",
+            "PR",
+            "RV"
+          ]
+        },
+        "Document_Name": {
+          "type": "text",
+          "source_label": "document name"
+        },
+        "Document_Description": {
+          "type": "text",
+          "source_label": "document description"
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Employees": {
+      "source_label": "employees",
+      "meaning": "Table labeled 'employees' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Employee_ID",
+      "primary_key_columns": [
+        "Employee_ID"
+      ],
+      "columns": {
+        "Employee_ID": {
+          "type": "number",
+          "source_label": "employee id",
+          "primary_key": true
+        },
+        "Role_Code": {
+          "type": "text",
+          "source_label": "role code",
+          "foreign_key": {
+            "table": "Roles",
+            "column": "Role_Code"
+          },
+          "observed_values": [
+            "HR",
+            "MG",
+            "ED",
+            "PT",
+            "PR"
+          ]
+        },
+        "Employee_Name": {
+          "type": "text",
+          "source_label": "employee name"
+        },
+        "Gender_MFU": {
+          "type": "text",
+          "source_label": "gender mfu",
+          "observed_values": [
+            "1"
+          ]
+        },
+        "Date_of_Birth": {
+          "type": "time",
+          "source_label": "date of birth"
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Document_Locations": {
+      "source_label": "document locations",
+      "meaning": "Table labeled 'document locations' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Document_ID",
+      "primary_key_columns": [
+        "Document_ID"
+      ],
+      "columns": {
+        "Document_ID": {
+          "type": "number",
+          "source_label": "document id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "All_Documents",
+            "column": "Document_ID"
+          }
+        },
+        "Location_Code": {
+          "type": "text",
+          "source_label": "location code",
+          "foreign_key": {
+            "table": "Ref_Locations",
+            "column": "Location_Code"
+          },
+          "observed_values": [
+            "e",
+            "x",
+            "c",
+            "b",
+            "n"
+          ]
+        },
+        "Date_in_Location_From": {
+          "type": "time",
+          "source_label": "date in location from",
+          "foreign_key": {
+            "table": "Ref_Calendar",
+            "column": "Calendar_Date"
+          }
+        },
+        "Date_in_Locaton_To": {
+          "type": "time",
+          "source_label": "date in locaton to",
+          "foreign_key": {
+            "table": "Ref_Calendar",
+            "column": "Calendar_Date"
+          }
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Documents_to_be_Destroyed": {
+      "source_label": "documents to be destroyed",
+      "meaning": "Table labeled 'documents to be destroyed' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Document_ID",
+      "primary_key_columns": [
+        "Document_ID"
+      ],
+      "columns": {
+        "Document_ID": {
+          "type": "number",
+          "source_label": "document id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "All_Documents",
+            "column": "Document_ID"
+          }
+        },
+        "Destruction_Authorised_by_Employee_ID": {
+          "type": "number",
+          "source_label": "destruction authorised by employee id",
+          "foreign_key": {
+            "table": "Employees",
+            "column": "Employee_ID"
+          }
+        },
+        "Destroyed_by_Employee_ID": {
+          "type": "number",
+          "source_label": "destroyed by employee id",
+          "foreign_key": {
+            "table": "Employees",
+            "column": "Employee_ID"
+          }
+        },
+        "Planned_Destruction_Date": {
+          "type": "time",
+          "source_label": "planned destruction date",
+          "foreign_key": {
+            "table": "Ref_Calendar",
+            "column": "Calendar_Date"
+          }
+        },
+        "Actual_Destruction_Date": {
+          "type": "time",
+          "source_label": "actual destruction date",
+          "foreign_key": {
+            "table": "Ref_Calendar",
+            "column": "Calendar_Date"
+          }
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 11
+    }
+  },
+  "terms": {
+    "reference document types": {
+      "maps_to": "Ref_Document_Types",
+      "source": "Spider normalized table name"
+    },
+    "reference calendar": {
+      "maps_to": "Ref_Calendar",
+      "source": "Spider normalized table name"
+    },
+    "reference locations": {
+      "maps_to": "Ref_Locations",
+      "source": "Spider normalized table name"
+    },
+    "all documents": {
+      "maps_to": "All_Documents",
+      "source": "Spider normalized table name"
+    },
+    "document locations": {
+      "maps_to": "Document_Locations",
+      "source": "Spider normalized table name"
+    },
+    "documents to be destroyed": {
+      "maps_to": "Documents_to_be_Destroyed",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Ref_Document_Types__row_count": {
+      "meaning": "Number of rows in Ref_Document_Types.",
+      "base_table": "Ref_Document_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Ref_Calendar__row_count": {
+      "meaning": "Number of rows in Ref_Calendar.",
+      "base_table": "Ref_Calendar",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Ref_Locations__row_count": {
+      "meaning": "Number of rows in Ref_Locations.",
+      "base_table": "Ref_Locations",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Roles__row_count": {
+      "meaning": "Number of rows in Roles.",
+      "base_table": "Roles",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "All_Documents__row_count": {
+      "meaning": "Number of rows in All_Documents.",
+      "base_table": "All_Documents",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Employees__row_count": {
+      "meaning": "Number of rows in Employees.",
+      "base_table": "Employees",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Document_Locations__row_count": {
+      "meaning": "Number of rows in Document_Locations.",
+      "base_table": "Document_Locations",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Documents_to_be_Destroyed__row_count": {
+      "meaning": "Number of rows in Documents_to_be_Destroyed.",
+      "base_table": "Documents_to_be_Destroyed",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

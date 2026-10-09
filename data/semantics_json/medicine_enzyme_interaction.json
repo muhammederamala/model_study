@@ -1,0 +1,197 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "medicine_enzyme_interaction",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "medicine": {
+      "source_label": "medicine",
+      "meaning": "Table labeled 'medicine' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "Trade_Name": {
+          "type": "text",
+          "source_label": "trade name"
+        },
+        "FDA_approved": {
+          "type": "text",
+          "source_label": "fda approved",
+          "observed_values": [
+            "No",
+            "Yes"
+          ]
+        }
+      },
+      "observed_row_count": 21
+    },
+    "enzyme": {
+      "source_label": "enzyme",
+      "meaning": "Table labeled 'enzyme' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "ALA synthase",
+            "ALA dehydratase",
+            "PBG deaminase",
+            "Uroporphyrinogen III synthase",
+            "Uroporphyrinogen III decarboxylase",
+            "Coproporphyrinogen III oxidase",
+            "Protoporphyrinogen oxidase",
+            "Ferrochelatase"
+          ]
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "Mitochondrion",
+            "Cytosol"
+          ]
+        },
+        "Product": {
+          "type": "text",
+          "source_label": "product",
+          "observed_values": [
+            "δ-Aminolevulinic acid",
+            "Porphobilinogen",
+            "Hydroxymethyl bilane",
+            "Uroporphyrinogen III",
+            "Coproporphyrinogen III",
+            "Protoporphyrinogen IX",
+            "Protoporphyrin IX",
+            "Heme"
+          ]
+        },
+        "Chromosome": {
+          "type": "text",
+          "source_label": "chromosome",
+          "observed_values": [
+            "3p21.1",
+            "9q34",
+            "11q23.3",
+            "10q25.2-q26.3",
+            "1p34",
+            "3q12",
+            "1q22",
+            "18q21.3"
+          ]
+        },
+        "OMIM": {
+          "type": "number",
+          "source_label": "omim"
+        },
+        "Porphyria": {
+          "type": "text",
+          "source_label": "porphyria",
+          "observed_values": [
+            "none",
+            "ALA-Dehydratase deficiency",
+            "acute intermittent porphyria",
+            "congenital erythropoietic porphyria",
+            "porphyria cutanea tarda",
+            "coproporphyria",
+            "variegate porphyria",
+            "erythropoietic protoporphyria"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "medicine_enzyme_interaction": {
+      "source_label": "medicine enzyme interaction",
+      "meaning": "Table labeled 'medicine enzyme interaction' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key enzyme_id",
+      "primary_key_columns": [
+        "enzyme_id"
+      ],
+      "columns": {
+        "enzyme_id": {
+          "type": "number",
+          "source_label": "enzyme id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "enzyme",
+            "column": "id"
+          }
+        },
+        "medicine_id": {
+          "type": "number",
+          "source_label": "medicine id",
+          "foreign_key": {
+            "table": "medicine",
+            "column": "id"
+          }
+        },
+        "interaction_type": {
+          "type": "text",
+          "source_label": "interaction type",
+          "observed_values": [
+            "inhibitor",
+            "activitor"
+          ]
+        }
+      },
+      "observed_row_count": 19
+    }
+  },
+  "terms": {
+    "medicine enzyme interaction": {
+      "maps_to": "medicine_enzyme_interaction",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "medicine__row_count": {
+      "meaning": "Number of rows in medicine.",
+      "base_table": "medicine",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "enzyme__row_count": {
+      "meaning": "Number of rows in enzyme.",
+      "base_table": "enzyme",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "medicine_enzyme_interaction__row_count": {
+      "meaning": "Number of rows in medicine_enzyme_interaction.",
+      "base_table": "medicine_enzyme_interaction",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

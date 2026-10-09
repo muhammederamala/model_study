@@ -1,0 +1,540 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "college_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "CLASS": {
+      "source_label": "class",
+      "meaning": "Table labeled 'class' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key CLASS_CODE",
+      "primary_key_columns": [
+        "CLASS_CODE"
+      ],
+      "columns": {
+        "CLASS_CODE": {
+          "type": "text",
+          "source_label": "class code",
+          "primary_key": true
+        },
+        "CRS_CODE": {
+          "type": "text",
+          "source_label": "course code",
+          "foreign_key": {
+            "table": "COURSE",
+            "column": "CRS_CODE"
+          },
+          "observed_values": [
+            "ACCT-211",
+            "ACCT-212",
+            "CIS-220",
+            "CIS-420",
+            "QM-261",
+            "QM-362"
+          ]
+        },
+        "CLASS_SECTION": {
+          "type": "text",
+          "source_label": "class section",
+          "observed_values": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        "CLASS_TIME": {
+          "type": "text",
+          "source_label": "class time",
+          "observed_values": [
+            "MWF 8:00-8:50 a.m.",
+            "MWF 9:00-9:50 a.m.",
+            "TTh 2:30-3:45 p.m.",
+            "MWF 10:00-10:50 a.m.",
+            "Th 6:00-8:40 p.m.",
+            "W 6:00-8:40 p.m.",
+            "TTh 1:00-2:15 p.m.",
+            "MWF 11:00-11:50 a.m."
+          ]
+        },
+        "CLASS_ROOM": {
+          "type": "text",
+          "source_label": "class room",
+          "observed_values": [
+            "BUS311",
+            "BUS200",
+            "BUS252",
+            "KLR209",
+            "KLR211",
+            "KLR200"
+          ]
+        },
+        "PROF_NUM": {
+          "type": "number",
+          "source_label": "professor employee number",
+          "foreign_key": {
+            "table": "EMPLOYEE",
+            "column": "EMP_NUM"
+          }
+        }
+      },
+      "observed_row_count": 13
+    },
+    "COURSE": {
+      "source_label": "course",
+      "meaning": "Table labeled 'course' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key CRS_CODE",
+      "primary_key_columns": [
+        "CRS_CODE"
+      ],
+      "columns": {
+        "CRS_CODE": {
+          "type": "text",
+          "source_label": "course code",
+          "primary_key": true,
+          "observed_values": [
+            "ACCT-211",
+            "ACCT-212",
+            "CIS-220",
+            "CIS-420",
+            "QM-261",
+            "QM-362"
+          ]
+        },
+        "DEPT_CODE": {
+          "type": "text",
+          "source_label": "department code",
+          "foreign_key": {
+            "table": "DEPARTMENT",
+            "column": "DEPT_CODE"
+          },
+          "observed_values": [
+            "ACCT",
+            "CIS"
+          ]
+        },
+        "CRS_DESCRIPTION": {
+          "type": "text",
+          "source_label": "course description",
+          "observed_values": [
+            "Accounting I",
+            "Accounting II",
+            "Intro. to Microcomputing",
+            "Database Design and Implementation",
+            "Intro. to Statistics",
+            "Statistical Applications"
+          ]
+        },
+        "CRS_CREDIT": {
+          "type": "number",
+          "source_label": "course credit"
+        }
+      },
+      "observed_row_count": 6
+    },
+    "DEPARTMENT": {
+      "source_label": "department",
+      "meaning": "Table labeled 'department' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key DEPT_CODE",
+      "primary_key_columns": [
+        "DEPT_CODE"
+      ],
+      "columns": {
+        "DEPT_CODE": {
+          "type": "text",
+          "source_label": "department code",
+          "primary_key": true,
+          "observed_values": [
+            "ACCT",
+            "ART",
+            "BIOL",
+            "CIS",
+            "ECON/FIN",
+            "ENG",
+            "HIST",
+            "MATH",
+            "MKT/MGT",
+            "PSYCH",
+            "SOC"
+          ]
+        },
+        "DEPT_NAME": {
+          "type": "text",
+          "source_label": "department name",
+          "observed_values": [
+            "Accounting",
+            "Fine Arts",
+            "Biology",
+            "Computer Info. Systems",
+            "Economics/Finance",
+            "English",
+            "History",
+            "Mathematics",
+            "Marketing/Management",
+            "Psychology",
+            "Sociology"
+          ]
+        },
+        "SCHOOL_CODE": {
+          "type": "text",
+          "source_label": "school code",
+          "observed_values": [
+            "BUS",
+            "A&SCI"
+          ]
+        },
+        "EMP_NUM": {
+          "type": "number",
+          "source_label": "employee number",
+          "foreign_key": {
+            "table": "EMPLOYEE",
+            "column": "EMP_NUM"
+          }
+        },
+        "DEPT_ADDRESS": {
+          "type": "text",
+          "source_label": "department address",
+          "observed_values": [
+            "KLR 211, Box 52",
+            "BBG 185, Box 128",
+            "AAK 230, Box 415",
+            "KLR 333, Box 56",
+            "KLR 284, Box 63",
+            "DRE 102, Box 223",
+            "DRE 156, Box 284",
+            "AAK 194, Box 422",
+            "KLR 126, Box 55",
+            "AAK 297, Box 438",
+            "BBG 208, Box 132"
+          ]
+        },
+        "DEPT_EXTENSION": {
+          "type": "text",
+          "source_label": "department extension",
+          "observed_values": [
+            "3119",
+            "2278",
+            "4117",
+            "3245",
+            "3126",
+            "1004",
+            "1867",
+            "4234",
+            "3342",
+            "4110",
+            "2008"
+          ]
+        }
+      },
+      "observed_row_count": 11
+    },
+    "EMPLOYEE": {
+      "source_label": "employee",
+      "meaning": "Table labeled 'employee' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key EMP_NUM",
+      "primary_key_columns": [
+        "EMP_NUM"
+      ],
+      "columns": {
+        "EMP_NUM": {
+          "type": "number",
+          "source_label": "employee number",
+          "primary_key": true
+        },
+        "EMP_LNAME": {
+          "type": "text",
+          "source_label": "employee last name"
+        },
+        "EMP_FNAME": {
+          "type": "text",
+          "source_label": "employee first name"
+        },
+        "EMP_INITIAL": {
+          "type": "text",
+          "source_label": "employee initial"
+        },
+        "EMP_JOBCODE": {
+          "type": "text",
+          "source_label": "employee job code",
+          "observed_values": [
+            "CUST",
+            "TECH",
+            "PROF",
+            "CLRK"
+          ]
+        },
+        "EMP_HIREDATE": {
+          "type": "time",
+          "source_label": "employee hire date"
+        },
+        "EMP_DOB": {
+          "type": "time",
+          "source_label": "employee date of birth"
+        }
+      },
+      "observed_row_count": 37
+    },
+    "ENROLL": {
+      "source_label": "enroll",
+      "meaning": "Table labeled 'enroll' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "CLASS_CODE": {
+          "type": "text",
+          "source_label": "class code",
+          "foreign_key": {
+            "table": "CLASS",
+            "column": "CLASS_CODE"
+          },
+          "observed_values": [
+            "10014",
+            "10018",
+            "10021"
+          ]
+        },
+        "STU_NUM": {
+          "type": "number",
+          "source_label": "student number",
+          "foreign_key": {
+            "table": "STUDENT",
+            "column": "STU_NUM"
+          }
+        },
+        "ENROLL_GRADE": {
+          "type": "text",
+          "source_label": "enroll grade",
+          "observed_values": [
+            "C",
+            "B",
+            "A"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "PROFESSOR": {
+      "source_label": "professor",
+      "meaning": "Table labeled 'professor' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "EMP_NUM": {
+          "type": "number",
+          "source_label": "employee number",
+          "foreign_key": {
+            "table": "EMPLOYEE",
+            "column": "EMP_NUM"
+          }
+        },
+        "DEPT_CODE": {
+          "type": "text",
+          "source_label": "department code",
+          "foreign_key": {
+            "table": "DEPARTMENT",
+            "column": "DEPT_CODE"
+          },
+          "observed_values": [
+            "HIST",
+            "ENG",
+            "ACCT",
+            "MKT/MGT",
+            "BIOL",
+            "MATH",
+            "CIS",
+            "PSYCH",
+            "ECON/FIN",
+            "SOC",
+            "ART"
+          ]
+        },
+        "PROF_OFFICE": {
+          "type": "text",
+          "source_label": "professor office"
+        },
+        "PROF_EXTENSION": {
+          "type": "text",
+          "source_label": "professor extension"
+        },
+        "PROF_HIGH_DEGREE": {
+          "type": "text",
+          "source_label": "professor high degree",
+          "observed_values": [
+            "Ph.D.",
+            "MA",
+            "DBA",
+            "MBA"
+          ]
+        }
+      },
+      "observed_row_count": 22
+    },
+    "STUDENT": {
+      "source_label": "student",
+      "meaning": "Table labeled 'student' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key STU_NUM",
+      "primary_key_columns": [
+        "STU_NUM"
+      ],
+      "columns": {
+        "STU_NUM": {
+          "type": "number",
+          "source_label": "student num",
+          "primary_key": true
+        },
+        "STU_LNAME": {
+          "type": "text",
+          "source_label": "student last name",
+          "observed_values": [
+            "Bowser",
+            "Smithson",
+            "Brewer",
+            "Oblonski",
+            "Smith",
+            "Katinga",
+            "Robertson"
+          ]
+        },
+        "STU_FNAME": {
+          "type": "text",
+          "source_label": "student first name",
+          "observed_values": [
+            "William",
+            "Anne",
+            "Juliette",
+            "Walter",
+            "John",
+            "Raphael",
+            "Gerald"
+          ]
+        },
+        "STU_INIT": {
+          "type": "text",
+          "source_label": "student init",
+          "observed_values": [
+            "C",
+            "K",
+            "H",
+            "D",
+            "P",
+            "T",
+            "B"
+          ]
+        },
+        "STU_DOB": {
+          "type": "time",
+          "source_label": "student date of birth"
+        },
+        "STU_HRS": {
+          "type": "number",
+          "source_label": "student class hours took"
+        },
+        "STU_CLASS": {
+          "type": "text",
+          "source_label": "student class",
+          "observed_values": [
+            "So",
+            "Jr",
+            "Sr",
+            "Fr"
+          ]
+        },
+        "STU_GPA": {
+          "type": "number",
+          "source_label": "student gpa"
+        },
+        "STU_TRANSFER": {
+          "type": "number",
+          "source_label": "student transfer"
+        },
+        "DEPT_CODE": {
+          "type": "text",
+          "source_label": "department code",
+          "foreign_key": {
+            "table": "DEPARTMENT",
+            "column": "DEPT_CODE"
+          },
+          "observed_values": [
+            "BIOL",
+            "CIS",
+            "ACCT",
+            "ENGL",
+            "EDU"
+          ]
+        },
+        "STU_PHONE": {
+          "type": "text",
+          "source_label": "student phone",
+          "observed_values": [
+            "2134",
+            "2256",
+            "2114",
+            "2231",
+            "2267",
+            "2315"
+          ]
+        },
+        "PROF_NUM": {
+          "type": "number",
+          "source_label": "professor number"
+        }
+      },
+      "observed_row_count": 8
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "CLASS__row_count": {
+      "meaning": "Number of rows in CLASS.",
+      "base_table": "CLASS",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "COURSE__row_count": {
+      "meaning": "Number of rows in COURSE.",
+      "base_table": "COURSE",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "DEPARTMENT__row_count": {
+      "meaning": "Number of rows in DEPARTMENT.",
+      "base_table": "DEPARTMENT",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "EMPLOYEE__row_count": {
+      "meaning": "Number of rows in EMPLOYEE.",
+      "base_table": "EMPLOYEE",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "ENROLL__row_count": {
+      "meaning": "Number of rows in ENROLL.",
+      "base_table": "ENROLL",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "PROFESSOR__row_count": {
+      "meaning": "Number of rows in PROFESSOR.",
+      "base_table": "PROFESSOR",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "STUDENT__row_count": {
+      "meaning": "Number of rows in STUDENT.",
+      "base_table": "STUDENT",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

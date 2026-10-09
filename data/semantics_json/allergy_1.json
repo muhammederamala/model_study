@@ -1,0 +1,161 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "allergy_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Allergy_Type": {
+      "source_label": "allergy type",
+      "meaning": "Table labeled 'allergy type' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Allergy",
+      "primary_key_columns": [
+        "Allergy"
+      ],
+      "columns": {
+        "Allergy": {
+          "type": "text",
+          "source_label": "allergy name",
+          "primary_key": true
+        },
+        "AllergyType": {
+          "type": "text",
+          "source_label": "allergy type",
+          "observed_values": [
+            "food",
+            "environmental",
+            "animal"
+          ]
+        }
+      },
+      "observed_row_count": 14
+    },
+    "Has_Allergy": {
+      "source_label": "has allergy",
+      "meaning": "Table labeled 'has allergy' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "stuid",
+          "foreign_key": {
+            "table": "Student",
+            "column": "StuID"
+          }
+        },
+        "Allergy": {
+          "type": "text",
+          "source_label": "allergy",
+          "foreign_key": {
+            "table": "Allergy_Type",
+            "column": "Allergy"
+          },
+          "observed_values": [
+            "Cat",
+            "Shellfish",
+            "Tree Pollen",
+            "Dog",
+            "Nuts",
+            "Ragweed",
+            "Grass Pollen",
+            "Eggs",
+            "Milk",
+            "Anchovies",
+            "Soy",
+            "Rodent"
+          ]
+        }
+      },
+      "observed_row_count": 59
+    },
+    "Student": {
+      "source_label": "student",
+      "meaning": "Table labeled 'student' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key StuID",
+      "primary_key_columns": [
+        "StuID"
+      ],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "stuid",
+          "primary_key": true
+        },
+        "LName": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "Fname": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Sex": {
+          "type": "text",
+          "source_label": "sex",
+          "observed_values": [
+            "F",
+            "M"
+          ]
+        },
+        "Major": {
+          "type": "number",
+          "source_label": "major"
+        },
+        "Advisor": {
+          "type": "number",
+          "source_label": "advisor"
+        },
+        "city_code": {
+          "type": "text",
+          "source_label": "city code"
+        }
+      },
+      "observed_row_count": 34
+    }
+  },
+  "terms": {
+    "allergy type": {
+      "maps_to": "Allergy_Type",
+      "source": "Spider normalized table name"
+    },
+    "has allergy": {
+      "maps_to": "Has_Allergy",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Allergy_Type__row_count": {
+      "meaning": "Number of rows in Allergy_Type.",
+      "base_table": "Allergy_Type",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Has_Allergy__row_count": {
+      "meaning": "Number of rows in Has_Allergy.",
+      "base_table": "Has_Allergy",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Student__row_count": {
+      "meaning": "Number of rows in Student.",
+      "base_table": "Student",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

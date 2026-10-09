@@ -1,0 +1,206 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "cinema",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "film": {
+      "source_label": "film",
+      "meaning": "Table labeled 'film' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Film_ID",
+      "primary_key_columns": [
+        "Film_ID"
+      ],
+      "columns": {
+        "Film_ID": {
+          "type": "number",
+          "source_label": "film id",
+          "primary_key": true
+        },
+        "Rank_in_series": {
+          "type": "number",
+          "source_label": "rank in series"
+        },
+        "Number_in_season": {
+          "type": "number",
+          "source_label": "number in season"
+        },
+        "Title": {
+          "type": "text",
+          "source_label": "title",
+          "observed_values": [
+            "The Case of the Mystery Weekend",
+            "The Case of the Smart Dummy",
+            "The Case: Off the Record",
+            "The Case of the Bermuda Triangle",
+            "The Case of the Piggy Banker"
+          ]
+        },
+        "Directed_by": {
+          "type": "text",
+          "source_label": "directed by",
+          "observed_values": [
+            "Bill Schreiner",
+            "Jesus Salvador Treviño"
+          ]
+        },
+        "Original_air_date": {
+          "type": "text",
+          "source_label": "original air date",
+          "observed_values": [
+            "September 21–25, 1992",
+            "September 28–October 2, 1992",
+            "October 5–9, 1992",
+            "October 12–16, 1992",
+            "October 19–23, 1992"
+          ]
+        },
+        "Production_code": {
+          "type": "text",
+          "source_label": "production code",
+          "observed_values": [
+            "50021–50025",
+            "50231–50235",
+            "50011–50015",
+            "50251–50255",
+            "50241–50245"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "cinema": {
+      "source_label": "cinema",
+      "meaning": "Table labeled 'cinema' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Cinema_ID",
+      "primary_key_columns": [
+        "Cinema_ID"
+      ],
+      "columns": {
+        "Cinema_ID": {
+          "type": "number",
+          "source_label": "cinema id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Codling",
+            "Carrowleagh",
+            "Dublin Array",
+            "Glenmore",
+            "Glenough",
+            "Gortahile",
+            "Grouse Lodge",
+            "Moneypoint",
+            "Mount Callan",
+            "Oriel"
+          ]
+        },
+        "Openning_year": {
+          "type": "number",
+          "source_label": "openning year"
+        },
+        "Capacity": {
+          "type": "number",
+          "source_label": "capacity"
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "County Wicklow",
+            "County Cork",
+            "County Dublin",
+            "County Clare",
+            "County Tipperary",
+            "County Laois",
+            "County Louth"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    },
+    "schedule": {
+      "source_label": "schedule",
+      "meaning": "Table labeled 'schedule' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Cinema_ID",
+      "primary_key_columns": [
+        "Cinema_ID"
+      ],
+      "columns": {
+        "Cinema_ID": {
+          "type": "number",
+          "source_label": "cinema id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "cinema",
+            "column": "Cinema_ID"
+          }
+        },
+        "Film_ID": {
+          "type": "number",
+          "source_label": "film id",
+          "foreign_key": {
+            "table": "film",
+            "column": "Film_ID"
+          }
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "21 May",
+            "21 Jun",
+            "11 July",
+            "2 Aug",
+            "20 May",
+            "19 May"
+          ]
+        },
+        "Show_times_per_day": {
+          "type": "number",
+          "source_label": "show times per day"
+        },
+        "Price": {
+          "type": "number",
+          "source_label": "price"
+        }
+      },
+      "observed_row_count": 7
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "film__row_count": {
+      "meaning": "Number of rows in film.",
+      "base_table": "film",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "cinema__row_count": {
+      "meaning": "Number of rows in cinema.",
+      "base_table": "cinema",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "schedule__row_count": {
+      "meaning": "Number of rows in schedule.",
+      "base_table": "schedule",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

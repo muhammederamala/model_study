@@ -1,0 +1,195 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "mountain_photos",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "mountain": {
+      "source_label": "mountain",
+      "meaning": "Table labeled 'mountain' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "Height": {
+          "type": "number",
+          "source_label": "height"
+        },
+        "Prominence": {
+          "type": "number",
+          "source_label": "prominence"
+        },
+        "Range": {
+          "type": "text",
+          "source_label": "range"
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "Ethiopia",
+            "Morocco",
+            "Rwanda Uganda",
+            "Cameroon",
+            "Kenya"
+          ]
+        }
+      },
+      "observed_row_count": 23
+    },
+    "camera_lens": {
+      "source_label": "camera lens",
+      "meaning": "Table labeled 'camera lens' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "brand": {
+          "type": "text",
+          "source_label": "brand",
+          "observed_values": [
+            "Olympus",
+            "Panasonic",
+            "Schneider Kreuznach",
+            "Sigma"
+          ]
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Olympus 15mm f/8.0 Body Cap",
+            "Olympus M.Zuiko Digital ED 45mm f/1.8",
+            "Olympus M.Zuiko Digital ED 75mm f/1.8",
+            "Panasonic Leica DG Summilux 25mm f /1.4 Asph.",
+            "Panasonic Leica DG Nocticron 42.5mm f /1.2",
+            "Panasonic Lumix G 150mm f /2.8",
+            "Schneider Kreuznach Super Angulon 14mm f /2.0",
+            "Schneider Kreuznach Xenon 30mm f /1.4",
+            "Sigma 19mm f2.8 DN",
+            "Sigma 19mm f2.8 EX DN",
+            "Sigma 30mm f2.8 DN"
+          ]
+        },
+        "focal_length_mm": {
+          "type": "number",
+          "source_label": "focal length mm"
+        },
+        "max_aperture": {
+          "type": "number",
+          "source_label": "max aperture"
+        }
+      },
+      "observed_row_count": 11
+    },
+    "photos": {
+      "source_label": "photos",
+      "meaning": "Table labeled 'photos' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "camera_lens_id": {
+          "type": "number",
+          "source_label": "camera lens id",
+          "foreign_key": {
+            "table": "camera_lens",
+            "column": "id"
+          }
+        },
+        "mountain_id": {
+          "type": "number",
+          "source_label": "mountain id",
+          "foreign_key": {
+            "table": "mountain",
+            "column": "id"
+          }
+        },
+        "color": {
+          "type": "text",
+          "source_label": "color",
+          "observed_values": [
+            "RBG",
+            "Black/White"
+          ]
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "monkey",
+            "rabbits",
+            "deers",
+            "grass",
+            "cloud",
+            "sunset",
+            "river",
+            "wolfs",
+            "the mountain",
+            "life"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    }
+  },
+  "terms": {
+    "camera lens": {
+      "maps_to": "camera_lens",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "mountain__row_count": {
+      "meaning": "Number of rows in mountain.",
+      "base_table": "mountain",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "camera_lens__row_count": {
+      "meaning": "Number of rows in camera_lens.",
+      "base_table": "camera_lens",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "photos__row_count": {
+      "meaning": "Number of rows in photos.",
+      "base_table": "photos",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

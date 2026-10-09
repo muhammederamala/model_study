@@ -1,0 +1,266 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "phone_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "chip_model": {
+      "source_label": "chip model",
+      "meaning": "Table labeled 'chip model' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Model_name",
+      "primary_key_columns": [
+        "Model_name"
+      ],
+      "columns": {
+        "Model_name": {
+          "type": "text",
+          "source_label": "model name",
+          "primary_key": true
+        },
+        "Launch_year": {
+          "type": "number",
+          "source_label": "launch year"
+        },
+        "RAM_MiB": {
+          "type": "number",
+          "source_label": "ram mib"
+        },
+        "ROM_MiB": {
+          "type": "number",
+          "source_label": "rom mib"
+        },
+        "Slots": {
+          "type": "text",
+          "source_label": "slots",
+          "observed_values": [
+            "1CFII,1SD",
+            "1SD"
+          ]
+        },
+        "WiFi": {
+          "type": "text",
+          "source_label": "wifi",
+          "observed_values": [
+            "No",
+            "802.11b"
+          ]
+        },
+        "Bluetooth": {
+          "type": "text",
+          "source_label": "bluetooth",
+          "observed_values": [
+            "No",
+            "1.1",
+            "Yes",
+            "1.2"
+          ]
+        }
+      },
+      "observed_row_count": 14
+    },
+    "screen_mode": {
+      "source_label": "screen mode",
+      "meaning": "Table labeled 'screen mode' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Graphics_mode",
+      "primary_key_columns": [
+        "Graphics_mode"
+      ],
+      "columns": {
+        "Graphics_mode": {
+          "type": "number",
+          "source_label": "graphics mode",
+          "primary_key": true
+        },
+        "Char_cells": {
+          "type": "text",
+          "source_label": "char cells",
+          "observed_values": [
+            "80 × 32",
+            "40 × 32",
+            "20 × 32",
+            "80 × 25",
+            "40 × 25"
+          ]
+        },
+        "Pixels": {
+          "type": "text",
+          "source_label": "pixels",
+          "observed_values": [
+            "640 × 256",
+            "320 × 256",
+            "160 × 256",
+            "640 × 200",
+            "320 × 200"
+          ]
+        },
+        "Hardware_colours": {
+          "type": "number",
+          "source_label": "hardware colours"
+        },
+        "used_kb": {
+          "type": "number",
+          "source_label": "used kb"
+        },
+        "map": {
+          "type": "text",
+          "source_label": "map",
+          "observed_values": [
+            "3000–7FFF",
+            "4000–7FFF",
+            "5800–7FFF",
+            "6000–7FFF"
+          ]
+        },
+        "Type": {
+          "type": "text",
+          "source_label": "type",
+          "observed_values": [
+            "Graphics",
+            "Text"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "phone": {
+      "source_label": "phone",
+      "meaning": "Table labeled 'phone' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Hardware_Model_name",
+      "primary_key_columns": [
+        "Hardware_Model_name"
+      ],
+      "columns": {
+        "Company_name": {
+          "type": "text",
+          "source_label": "company name",
+          "observed_values": [
+            "Sony Mobile Communications",
+            "LG Electronics",
+            "Nokia Corporation",
+            "Samsung Electronics Co Ltd",
+            "HTC Corporation",
+            "Huawei Technologies Co.Ltd."
+          ]
+        },
+        "Hardware_Model_name": {
+          "type": "text",
+          "source_label": "hardware model name",
+          "primary_key": true,
+          "observed_values": [
+            "GT-I9100",
+            "GT-I9300",
+            "LG-P760",
+            "Lumia 920, Lumia 820, Lumia 620",
+            "Nokia 700",
+            "U8815 Asura",
+            "XPERIA T, XPERIA J",
+            "Z520e"
+          ]
+        },
+        "Accreditation_type": {
+          "type": "text",
+          "source_label": "accreditation type",
+          "observed_values": [
+            "Full",
+            "Provisional"
+          ]
+        },
+        "Accreditation_level": {
+          "type": "text",
+          "source_label": "accreditation level",
+          "observed_values": [
+            "joyn Hot Fixes",
+            "joyn"
+          ]
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "Approved (awarded 15.11.12)",
+            "Approved (awarded 19.11.12)",
+            "Approved (awarded 05.12.12)",
+            "Approved (awarded 23.10.12)",
+            "Approved (valid until 14.09.13)",
+            "Approved (valid until 06.04.13)",
+            "Approved (valid until 03.05.13)"
+          ]
+        },
+        "chip_model": {
+          "type": "text",
+          "source_label": "chip model",
+          "foreign_key": {
+            "table": "chip_model",
+            "column": "Model_name"
+          },
+          "observed_values": [
+            "X5",
+            "X51v",
+            "X30 low-end",
+            "X3i",
+            "X50 Advanced",
+            "X50 Standard"
+          ]
+        },
+        "screen_mode": {
+          "type": "text",
+          "source_label": "screen mode",
+          "foreign_key": {
+            "table": "screen_mode",
+            "column": "Graphics_mode"
+          },
+          "observed_values": [
+            "1",
+            "3",
+            "4",
+            "5",
+            "6",
+            "2"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    }
+  },
+  "terms": {
+    "chip model": {
+      "maps_to": "chip_model",
+      "source": "Spider normalized table name"
+    },
+    "screen mode": {
+      "maps_to": "screen_mode",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "chip_model__row_count": {
+      "meaning": "Number of rows in chip_model.",
+      "base_table": "chip_model",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "screen_mode__row_count": {
+      "meaning": "Number of rows in screen_mode.",
+      "base_table": "screen_mode",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "phone__row_count": {
+      "meaning": "Number of rows in phone.",
+      "base_table": "phone",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

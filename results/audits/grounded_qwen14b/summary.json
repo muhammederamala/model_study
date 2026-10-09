@@ -1,0 +1,38 @@
+{
+  "paired_ids": 1032,
+  "total_ids": 1032,
+  "baseline_strict_correct": 808,
+  "grounded_strict_correct": 788,
+  "baseline_audited_correct": 802,
+  "grounded_audited_correct": 820,
+  "baseline_strict_to_audited_gains": 7,
+  "baseline_strict_to_audited_losses": 13,
+  "grounded_strict_to_audited_gains": 34,
+  "grounded_strict_to_audited_losses": 2,
+  "audit_rules": {
+    "corrected_reference": 2,
+    "flight_2_whitespace_normalized": 80,
+    "strict_unchanged": 949,
+    "unspecified_column_order": 1
+  },
+  "inputs_sha256": {
+    "data/eval_sample.json": "6336ee598649b54c5f695acf603d17ca7c33c243b1fb3db12232f033069ced2b",
+    "results/runs/spider_baseline/results_qwen25coder_14b.csv": "25340add2268ba988d5781b1f4cfd8e0a0d8e4dc4855a3fe7856f8ff3efec1df",
+    "results/runs/question_grounding/results_qwen25coder_14b.csv": "d72be59733d921aeedf42210b89ded43be0b7dda24de9af72f9b669722247c7a",
+    "data/spider_data/database/flight_2/flight_2.sqlite": "db777ba6488ae2b515cb138d71ff23c4533e5fd0355854648a1102faff3fb7af",
+    "scripts/audit_grounded_results.py": "fc278400fa8b950cdf9620713d3671799705f9e641d6f90b0330c509c0fe3014"
+  },
+  "reference_corrections": {
+    "454": {
+      "sql": "SELECT name, date, result FROM battle",
+      "reason": "Question requests three columns; Spider reference omits result."
+    },
+    "997": {
+      "sql": "SELECT s.id, s.name FROM death d JOIN ship s ON d.caused_by_ship_id = s.id GROUP BY s.id, s.name ORDER BY SUM(d.injured) DESC LIMIT 1",
+      "reason": "Most total injuries means SUM(injured), not count of death rows."
+    }
+  },
+  "order_insensitive_cases": {
+    "63": "Question does not specify whether cylinder count or maximum acceleration comes first."
+  }
+}

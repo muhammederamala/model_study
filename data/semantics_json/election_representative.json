@@ -1,0 +1,146 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "election_representative",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "election": {
+      "source_label": "election",
+      "meaning": "Table labeled 'election' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Election_ID",
+      "primary_key_columns": [
+        "Election_ID"
+      ],
+      "columns": {
+        "Election_ID": {
+          "type": "number",
+          "source_label": "election id",
+          "primary_key": true
+        },
+        "Representative_ID": {
+          "type": "number",
+          "source_label": "representative id",
+          "foreign_key": {
+            "table": "representative",
+            "column": "Representative_ID"
+          }
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "July 1942",
+            "October 1942",
+            "1946",
+            "1949",
+            "1953"
+          ]
+        },
+        "Votes": {
+          "type": "number",
+          "source_label": "votes"
+        },
+        "Vote_Percent": {
+          "type": "number",
+          "source_label": "vote percent"
+        },
+        "Seats": {
+          "type": "number",
+          "source_label": "seats"
+        },
+        "Place": {
+          "type": "number",
+          "source_label": "place"
+        }
+      },
+      "observed_row_count": 5
+    },
+    "representative": {
+      "source_label": "representative",
+      "meaning": "Table labeled 'representative' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Representative_ID",
+      "primary_key_columns": [
+        "Representative_ID"
+      ],
+      "columns": {
+        "Representative_ID": {
+          "type": "number",
+          "source_label": "representative id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Dan Quayle",
+            "John Quayle",
+            "Al Quie",
+            "James M. Quigley",
+            "Jimmy Quillen",
+            "Jack Quinn",
+            "James L. Quinn"
+          ]
+        },
+        "State": {
+          "type": "text",
+          "source_label": "state",
+          "observed_values": [
+            "Indiana",
+            "New York",
+            "Minnesota",
+            "Pennsylvania",
+            "Tennessee"
+          ]
+        },
+        "Party": {
+          "type": "text",
+          "source_label": "party",
+          "observed_values": [
+            "Republican",
+            "Democratic"
+          ]
+        },
+        "Lifespan": {
+          "type": "text",
+          "source_label": "lifespan",
+          "observed_values": [
+            "1947–",
+            "1868–1930",
+            "1923–",
+            "1918–",
+            "1916–2003",
+            "1951–",
+            "1875–1960"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "election__row_count": {
+      "meaning": "Number of rows in election.",
+      "base_table": "election",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "representative__row_count": {
+      "meaning": "Number of rows in representative.",
+      "base_table": "representative",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

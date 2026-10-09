@@ -1,0 +1,148 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "movie_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Movie": {
+      "source_label": "movie",
+      "meaning": "Table labeled 'movie' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key mID",
+      "primary_key_columns": [
+        "mID"
+      ],
+      "columns": {
+        "mID": {
+          "type": "number",
+          "source_label": "movie id",
+          "primary_key": true
+        },
+        "title": {
+          "type": "text",
+          "source_label": "title",
+          "observed_values": [
+            "Gone with the Wind",
+            "Star Wars",
+            "The Sound of Music",
+            "E.T.",
+            "Titanic",
+            "Snow White",
+            "Avatar",
+            "Raiders of the Lost Ark"
+          ]
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "director": {
+          "type": "text",
+          "source_label": "director",
+          "observed_values": [
+            "Victor Fleming",
+            "George Lucas",
+            "Robert Wise",
+            "Steven Spielberg",
+            "James Cameron"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "Reviewer": {
+      "source_label": "reviewer",
+      "meaning": "Table labeled 'reviewer' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key rID",
+      "primary_key_columns": [
+        "rID"
+      ],
+      "columns": {
+        "rID": {
+          "type": "number",
+          "source_label": "reviewer id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Sarah Martinez",
+            "Daniel Lewis",
+            "Brittany Harris",
+            "Mike Anderson",
+            "Chris Jackson",
+            "Elizabeth Thomas",
+            "James Cameron",
+            "Ashley White"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "Rating": {
+      "source_label": "rating",
+      "meaning": "Table labeled 'rating' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "rID": {
+          "type": "number",
+          "source_label": "reviewer id",
+          "foreign_key": {
+            "table": "Reviewer",
+            "column": "rID"
+          }
+        },
+        "mID": {
+          "type": "number",
+          "source_label": "movie id",
+          "foreign_key": {
+            "table": "Movie",
+            "column": "mID"
+          }
+        },
+        "stars": {
+          "type": "number",
+          "source_label": "rating stars"
+        },
+        "ratingDate": {
+          "type": "time",
+          "source_label": "rating date"
+        }
+      },
+      "observed_row_count": 14
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "Movie__row_count": {
+      "meaning": "Number of rows in Movie.",
+      "base_table": "Movie",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Reviewer__row_count": {
+      "meaning": "Number of rows in Reviewer.",
+      "base_table": "Reviewer",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Rating__row_count": {
+      "meaning": "Number of rows in Rating.",
+      "base_table": "Rating",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

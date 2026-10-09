@@ -1,0 +1,166 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "phone_market",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "phone": {
+      "source_label": "phone",
+      "meaning": "Table labeled 'phone' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Phone_ID",
+      "primary_key_columns": [
+        "Phone_ID"
+      ],
+      "columns": {
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "IPhone 5s",
+            "IPhone 6",
+            "IPhone 6s",
+            "IPhone 7",
+            "IPhone X"
+          ]
+        },
+        "Phone_ID": {
+          "type": "number",
+          "source_label": "phone id",
+          "primary_key": true
+        },
+        "Memory_in_G": {
+          "type": "number",
+          "source_label": "memory in g"
+        },
+        "Carrier": {
+          "type": "text",
+          "source_label": "carrier",
+          "observed_values": [
+            "Sprint",
+            "TMobile"
+          ]
+        },
+        "Price": {
+          "type": "number",
+          "source_label": "price"
+        }
+      },
+      "observed_row_count": 5
+    },
+    "market": {
+      "source_label": "market",
+      "meaning": "Table labeled 'market' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Market_ID",
+      "primary_key_columns": [
+        "Market_ID"
+      ],
+      "columns": {
+        "Market_ID": {
+          "type": "number",
+          "source_label": "market id",
+          "primary_key": true
+        },
+        "District": {
+          "type": "text",
+          "source_label": "district",
+          "observed_values": [
+            "Alberta",
+            "British Columbia",
+            "New Brunswick",
+            "Nova Scotia",
+            "Ontario",
+            "Quebec"
+          ]
+        },
+        "Num_of_employees": {
+          "type": "number",
+          "source_label": "num of employees"
+        },
+        "Num_of_shops": {
+          "type": "number",
+          "source_label": "num of shops"
+        },
+        "Ranking": {
+          "type": "number",
+          "source_label": "ranking"
+        }
+      },
+      "observed_row_count": 6
+    },
+    "phone_market": {
+      "source_label": "phone market",
+      "meaning": "Table labeled 'phone market' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Market_ID",
+      "primary_key_columns": [
+        "Market_ID"
+      ],
+      "columns": {
+        "Market_ID": {
+          "type": "number",
+          "source_label": "market id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "market",
+            "column": "Market_ID"
+          }
+        },
+        "Phone_ID": {
+          "type": "text",
+          "source_label": "phone id",
+          "foreign_key": {
+            "table": "phone",
+            "column": "Phone_ID"
+          },
+          "observed_values": [
+            "1",
+            "4",
+            "2",
+            "3"
+          ]
+        },
+        "Num_of_stock": {
+          "type": "number",
+          "source_label": "num of stock"
+        }
+      },
+      "observed_row_count": 6
+    }
+  },
+  "terms": {
+    "phone market": {
+      "maps_to": "phone_market",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "phone__row_count": {
+      "meaning": "Number of rows in phone.",
+      "base_table": "phone",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "market__row_count": {
+      "meaning": "Number of rows in market.",
+      "base_table": "market",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "phone_market__row_count": {
+      "meaning": "Number of rows in phone_market.",
+      "base_table": "phone_market",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

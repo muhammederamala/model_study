@@ -1,0 +1,107 @@
+{
+  "db_id": "poker_player",
+  "n_questions": 40,
+  "n_questions_with_join": 14,
+  "join_pairs": [
+    {
+      "left": "people.people_id",
+      "right": "poker_player.people_id",
+      "n": 14
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 8
+    },
+    {
+      "fn": "AVG",
+      "target": "earnings",
+      "n": 2
+    },
+    {
+      "fn": "MAX",
+      "target": "final_table_made",
+      "n": 2
+    },
+    {
+      "fn": "AVG",
+      "target": "poker_player.earnings",
+      "n": 2
+    },
+    {
+      "fn": "COUNT",
+      "target": "nationality",
+      "n": 2
+    }
+  ],
+  "column_clause_usage": {
+    "earnings": {
+      "order by": 8,
+      "where": 4
+    },
+    "final_table_made": {
+      "order by": 2
+    },
+    "height": {
+      "order by": 2,
+      "where": 2
+    },
+    "name": {
+      "order by": 2
+    },
+    "nationality": {
+      "group by": 6,
+      "where": 2
+    },
+    "people_id": {
+      "where": 2
+    }
+  },
+  "question_openers": {
+    "what is the": {
+      "LIMIT 1": 4,
+      "ORDER BY ... DESC": 3,
+      "AVG": 2,
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "what are the": {
+      "ORDER BY ... DESC": 2,
+      "GROUP BY": 1,
+      "COUNT": 1,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "return the money": {
+      "ORDER BY ... DESC": 2,
+      "LIMIT 1": 2
+    },
+    "give the nationality": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "count the number": {
+      "COUNT": 2
+    },
+    "what are different": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "how many people": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "return the nationalities": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "list the names": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    }
+  }
+}

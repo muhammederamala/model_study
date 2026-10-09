@@ -1,0 +1,248 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "csu_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Campuses": {
+      "source_label": "campuses",
+      "meaning": "Table labeled 'campuses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Id",
+      "primary_key_columns": [
+        "Id"
+      ],
+      "columns": {
+        "Id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "Campus": {
+          "type": "text",
+          "source_label": "campus"
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location"
+        },
+        "County": {
+          "type": "text",
+          "source_label": "county"
+        },
+        "Year": {
+          "type": "number",
+          "source_label": "year"
+        }
+      },
+      "observed_row_count": 23
+    },
+    "csu_fees": {
+      "source_label": "csu fees",
+      "meaning": "Table labeled 'csu fees' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Campus",
+      "primary_key_columns": [
+        "Campus"
+      ],
+      "columns": {
+        "Campus": {
+          "type": "number",
+          "source_label": "campus",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Campuses",
+            "column": "Id"
+          }
+        },
+        "Year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "CampusFee": {
+          "type": "number",
+          "source_label": "campus fee"
+        }
+      },
+      "observed_row_count": 23
+    },
+    "degrees": {
+      "source_label": "degrees",
+      "meaning": "Table labeled 'degrees' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Year",
+      "primary_key_columns": [
+        "Year"
+      ],
+      "columns": {
+        "Year": {
+          "type": "number",
+          "source_label": "year",
+          "primary_key": true
+        },
+        "Campus": {
+          "type": "number",
+          "source_label": "campus",
+          "foreign_key": {
+            "table": "Campuses",
+            "column": "Id"
+          }
+        },
+        "Degrees": {
+          "type": "number",
+          "source_label": "degrees"
+        }
+      },
+      "observed_row_count": 320
+    },
+    "discipline_enrollments": {
+      "source_label": "discipline enrollments",
+      "meaning": "Table labeled 'discipline enrollments' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Campus",
+      "primary_key_columns": [
+        "Campus"
+      ],
+      "columns": {
+        "Campus": {
+          "type": "number",
+          "source_label": "campus",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Campuses",
+            "column": "Id"
+          }
+        },
+        "Discipline": {
+          "type": "number",
+          "source_label": "discipline"
+        },
+        "Year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "Undergraduate": {
+          "type": "number",
+          "source_label": "undergraduate"
+        },
+        "Graduate": {
+          "type": "number",
+          "source_label": "graduate"
+        }
+      },
+      "observed_row_count": 395
+    },
+    "enrollments": {
+      "source_label": "enrollments",
+      "meaning": "Table labeled 'enrollments' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Campus",
+      "primary_key_columns": [
+        "Campus"
+      ],
+      "columns": {
+        "Campus": {
+          "type": "number",
+          "source_label": "campus",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Campuses",
+            "column": "Id"
+          }
+        },
+        "Year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "TotalEnrollment_AY": {
+          "type": "number",
+          "source_label": "totalenrollment ay"
+        },
+        "FTE_AY": {
+          "type": "number",
+          "source_label": "fte ay"
+        }
+      },
+      "observed_row_count": 1113
+    },
+    "faculty": {
+      "source_label": "faculty",
+      "meaning": "Table labeled 'faculty' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "Campus": {
+          "type": "number",
+          "source_label": "campus",
+          "foreign_key": {
+            "table": "Campuses",
+            "column": "Id"
+          }
+        },
+        "Year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "Faculty": {
+          "type": "number",
+          "source_label": "faculty"
+        }
+      },
+      "observed_row_count": 69
+    }
+  },
+  "terms": {
+    "csu fees": {
+      "maps_to": "csu_fees",
+      "source": "Spider normalized table name"
+    },
+    "discipline enrollments": {
+      "maps_to": "discipline_enrollments",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Campuses__row_count": {
+      "meaning": "Number of rows in Campuses.",
+      "base_table": "Campuses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "csu_fees__row_count": {
+      "meaning": "Number of rows in csu_fees.",
+      "base_table": "csu_fees",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "degrees__row_count": {
+      "meaning": "Number of rows in degrees.",
+      "base_table": "degrees",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "discipline_enrollments__row_count": {
+      "meaning": "Number of rows in discipline_enrollments.",
+      "base_table": "discipline_enrollments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "enrollments__row_count": {
+      "meaning": "Number of rows in enrollments.",
+      "base_table": "enrollments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "faculty__row_count": {
+      "meaning": "Number of rows in faculty.",
+      "base_table": "faculty",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

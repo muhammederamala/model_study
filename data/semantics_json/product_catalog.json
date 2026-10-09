@@ -1,0 +1,331 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "product_catalog",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Attribute_Definitions": {
+      "source_label": "attribute definitions",
+      "meaning": "Table labeled 'attribute definitions' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key attribute_id",
+      "primary_key_columns": [
+        "attribute_id"
+      ],
+      "columns": {
+        "attribute_id": {
+          "type": "number",
+          "source_label": "attribute id",
+          "primary_key": true
+        },
+        "attribute_name": {
+          "type": "text",
+          "source_label": "attribute name",
+          "observed_values": [
+            "Green",
+            "Black",
+            "Yellow",
+            "Sweet"
+          ]
+        },
+        "attribute_data_type": {
+          "type": "text",
+          "source_label": "attribute data type",
+          "observed_values": [
+            "Bool"
+          ]
+        }
+      },
+      "observed_row_count": 4
+    },
+    "Catalogs": {
+      "source_label": "catalogs",
+      "meaning": "Table labeled 'catalogs' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key catalog_id",
+      "primary_key_columns": [
+        "catalog_id"
+      ],
+      "columns": {
+        "catalog_id": {
+          "type": "number",
+          "source_label": "catalog id",
+          "primary_key": true
+        },
+        "catalog_name": {
+          "type": "text",
+          "source_label": "catalog name",
+          "observed_values": [
+            "Chocolate",
+            "Coffee Bean",
+            "Lemonade",
+            "Breakfast Tea",
+            "Coco powder",
+            "Latte",
+            "Sparkling Water",
+            "Jam"
+          ]
+        },
+        "catalog_publisher": {
+          "type": "text",
+          "source_label": "catalog publisher",
+          "observed_values": [
+            "Koepp-Rutherford handmade chocolate store",
+            "Murray Coffee shop",
+            "Russel-Gislason Lemon shop",
+            "Grady & Kautzer",
+            "Lidl"
+          ]
+        },
+        "date_of_publication": {
+          "type": "time",
+          "source_label": "date of publication"
+        },
+        "date_of_latest_revision": {
+          "type": "time",
+          "source_label": "date of latest revision"
+        }
+      },
+      "observed_row_count": 8
+    },
+    "Catalog_Structure": {
+      "source_label": "catalog structure",
+      "meaning": "Table labeled 'catalog structure' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key catalog_level_number",
+      "primary_key_columns": [
+        "catalog_level_number"
+      ],
+      "columns": {
+        "catalog_level_number": {
+          "type": "number",
+          "source_label": "catalog level number",
+          "primary_key": true
+        },
+        "catalog_id": {
+          "type": "number",
+          "source_label": "catalog id",
+          "foreign_key": {
+            "table": "Catalogs",
+            "column": "catalog_id"
+          }
+        },
+        "catalog_level_name": {
+          "type": "text",
+          "source_label": "catalog level name",
+          "observed_values": [
+            "Category",
+            "Sub-Category",
+            "Product"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Catalog_Contents": {
+      "source_label": "catalog contents",
+      "meaning": "Table labeled 'catalog contents' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key catalog_entry_id",
+      "primary_key_columns": [
+        "catalog_entry_id"
+      ],
+      "columns": {
+        "catalog_entry_id": {
+          "type": "number",
+          "source_label": "catalog entry id",
+          "primary_key": true
+        },
+        "catalog_level_number": {
+          "type": "number",
+          "source_label": "catalog level number",
+          "foreign_key": {
+            "table": "Catalog_Structure",
+            "column": "catalog_level_number"
+          }
+        },
+        "parent_entry_id": {
+          "type": "number",
+          "source_label": "parent entry id"
+        },
+        "previous_entry_id": {
+          "type": "number",
+          "source_label": "previous entry id"
+        },
+        "next_entry_id": {
+          "type": "number",
+          "source_label": "next entry id"
+        },
+        "catalog_entry_name": {
+          "type": "text",
+          "source_label": "catalog entry name"
+        },
+        "product_stock_number": {
+          "type": "text",
+          "source_label": "product stock number"
+        },
+        "price_in_dollars": {
+          "type": "number",
+          "source_label": "price in dollars"
+        },
+        "price_in_euros": {
+          "type": "number",
+          "source_label": "price in euros"
+        },
+        "price_in_pounds": {
+          "type": "number",
+          "source_label": "price in pounds"
+        },
+        "capacity": {
+          "type": "text",
+          "source_label": "capacity",
+          "observed_values": [
+            "1",
+            "8",
+            "5",
+            "6",
+            "4",
+            "9",
+            "7"
+          ]
+        },
+        "length": {
+          "type": "text",
+          "source_label": "length",
+          "observed_values": [
+            "3",
+            "6",
+            "9",
+            "5",
+            "4",
+            "7",
+            "8"
+          ]
+        },
+        "height": {
+          "type": "text",
+          "source_label": "height",
+          "observed_values": [
+            "9",
+            "5",
+            "7",
+            "2",
+            "6",
+            "1",
+            "3",
+            "4",
+            "8"
+          ]
+        },
+        "width": {
+          "type": "text",
+          "source_label": "width",
+          "observed_values": [
+            "5",
+            "6",
+            "8",
+            "1",
+            "9",
+            "3",
+            "7"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Catalog_Contents_Additional_Attributes": {
+      "source_label": "catalog contents additional attributes",
+      "meaning": "Table labeled 'catalog contents additional attributes' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "catalog_entry_id": {
+          "type": "number",
+          "source_label": "catalog entry id",
+          "foreign_key": {
+            "table": "Catalog_Contents",
+            "column": "catalog_entry_id"
+          }
+        },
+        "catalog_level_number": {
+          "type": "number",
+          "source_label": "catalog level number",
+          "foreign_key": {
+            "table": "Catalog_Structure",
+            "column": "catalog_level_number"
+          }
+        },
+        "attribute_id": {
+          "type": "number",
+          "source_label": "attribute id"
+        },
+        "attribute_value": {
+          "type": "text",
+          "source_label": "attribute value",
+          "observed_values": [
+            "1",
+            "0"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "attribute definitions": {
+      "maps_to": "Attribute_Definitions",
+      "source": "Spider normalized table name"
+    },
+    "catalog structure": {
+      "maps_to": "Catalog_Structure",
+      "source": "Spider normalized table name"
+    },
+    "catalog contents": {
+      "maps_to": "Catalog_Contents",
+      "source": "Spider normalized table name"
+    },
+    "catalog contents additional attributes": {
+      "maps_to": "Catalog_Contents_Additional_Attributes",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Attribute_Definitions__row_count": {
+      "meaning": "Number of rows in Attribute_Definitions.",
+      "base_table": "Attribute_Definitions",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Catalogs__row_count": {
+      "meaning": "Number of rows in Catalogs.",
+      "base_table": "Catalogs",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Catalog_Structure__row_count": {
+      "meaning": "Number of rows in Catalog_Structure.",
+      "base_table": "Catalog_Structure",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Catalog_Contents__row_count": {
+      "meaning": "Number of rows in Catalog_Contents.",
+      "base_table": "Catalog_Contents",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Catalog_Contents_Additional_Attributes__row_count": {
+      "meaning": "Number of rows in Catalog_Contents_Additional_Attributes.",
+      "base_table": "Catalog_Contents_Additional_Attributes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

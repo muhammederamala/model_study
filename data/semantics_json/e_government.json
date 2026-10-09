@@ -1,0 +1,529 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "e_government",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Addresses": {
+      "source_label": "addresses",
+      "meaning": "Table labeled 'addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key address_id",
+      "primary_key_columns": [
+        "address_id"
+      ],
+      "columns": {
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "primary_key": true
+        },
+        "line_1_number_building": {
+          "type": "text",
+          "source_label": "line 1 number building"
+        },
+        "town_city": {
+          "type": "text",
+          "source_label": "town city"
+        },
+        "zip_postcode": {
+          "type": "text",
+          "source_label": "zip postcode"
+        },
+        "state_province_county": {
+          "type": "text",
+          "source_label": "state province county"
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "USA"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Services": {
+      "source_label": "services",
+      "meaning": "Table labeled 'services' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key service_id",
+      "primary_key_columns": [
+        "service_id"
+      ],
+      "columns": {
+        "service_id": {
+          "type": "number",
+          "source_label": "service id",
+          "primary_key": true
+        },
+        "service_type_code": {
+          "type": "text",
+          "source_label": "service type code",
+          "observed_values": [
+            "Education",
+            "Welfare",
+            "Health"
+          ]
+        },
+        "service_name": {
+          "type": "text",
+          "source_label": "service name",
+          "observed_values": [
+            "Education",
+            "Health",
+            "Welfare"
+          ]
+        },
+        "service_descriptio": {
+          "type": "text",
+          "source_label": "service descriptio",
+          "observed_values": [
+            "Education",
+            "Welfare",
+            "Health"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Forms": {
+      "source_label": "forms",
+      "meaning": "Table labeled 'forms' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key form_id",
+      "primary_key_columns": [
+        "form_id"
+      ],
+      "columns": {
+        "form_id": {
+          "type": "number",
+          "source_label": "form id",
+          "primary_key": true
+        },
+        "form_type_code": {
+          "type": "text",
+          "source_label": "form type code",
+          "observed_values": [
+            "Basic",
+            "Complex"
+          ]
+        },
+        "service_id": {
+          "type": "number",
+          "source_label": "service id",
+          "foreign_key": {
+            "table": "Services",
+            "column": "service_id"
+          }
+        },
+        "form_number": {
+          "type": "text",
+          "source_label": "form number",
+          "observed_values": [
+            "8069",
+            "2675",
+            "9837",
+            "9173",
+            "6673",
+            "9130"
+          ]
+        },
+        "form_name": {
+          "type": "text",
+          "source_label": "form name",
+          "observed_values": [
+            "SSN Application",
+            "Marriage Certificate",
+            "Divorce  Certificate",
+            "Moving Form",
+            "Account Application",
+            "Property Change"
+          ]
+        },
+        "form_description": {
+          "type": "text",
+          "source_label": "form description",
+          "observed_values": [
+            "Form for SSN Application",
+            "Marriage Certificate",
+            "Divorce  Certificate",
+            "Form for moving house",
+            "Form for Account Application",
+            "Form for Property Change"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "Individuals": {
+      "source_label": "individuals",
+      "meaning": "Table labeled 'individuals' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key individual_id",
+      "primary_key_columns": [
+        "individual_id"
+      ],
+      "columns": {
+        "individual_id": {
+          "type": "number",
+          "source_label": "individual id",
+          "primary_key": true
+        },
+        "individual_first_name": {
+          "type": "text",
+          "source_label": "individual first name"
+        },
+        "individual_middle_name": {
+          "type": "text",
+          "source_label": "individual middle name"
+        },
+        "inidividual_phone": {
+          "type": "text",
+          "source_label": "inidividual phone"
+        },
+        "individual_email": {
+          "type": "text",
+          "source_label": "individual email"
+        },
+        "individual_address": {
+          "type": "text",
+          "source_label": "individual address"
+        },
+        "individual_last_name": {
+          "type": "text",
+          "source_label": "individual last name"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Organizations": {
+      "source_label": "organizations",
+      "meaning": "Table labeled 'organizations' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key organization_id",
+      "primary_key_columns": [
+        "organization_id"
+      ],
+      "columns": {
+        "organization_id": {
+          "type": "number",
+          "source_label": "organization id",
+          "primary_key": true
+        },
+        "date_formed": {
+          "type": "time",
+          "source_label": "date formed"
+        },
+        "organization_name": {
+          "type": "text",
+          "source_label": "organization name",
+          "observed_values": [
+            "Labour Party",
+            "Plaid Cymru",
+            "Conservative",
+            "Liberal Democrats",
+            "Green Party"
+          ]
+        },
+        "uk_vat_number": {
+          "type": "text",
+          "source_label": "uk vat number",
+          "observed_values": [
+            "2157",
+            "7459",
+            "1211",
+            "7237",
+            "4271"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "Parties": {
+      "source_label": "parties",
+      "meaning": "Table labeled 'parties' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key party_id",
+      "primary_key_columns": [
+        "party_id"
+      ],
+      "columns": {
+        "party_id": {
+          "type": "number",
+          "source_label": "party id",
+          "primary_key": true
+        },
+        "payment_method_code": {
+          "type": "text",
+          "source_label": "payment method code",
+          "observed_values": [
+            "Cheque",
+            "Credit Card",
+            "Cash",
+            "Direct Debit"
+          ]
+        },
+        "party_phone": {
+          "type": "text",
+          "source_label": "party phone"
+        },
+        "party_email": {
+          "type": "text",
+          "source_label": "party email"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Organization_Contact_Individuals": {
+      "source_label": "organization contact individuals",
+      "meaning": "Table labeled 'organization contact individuals' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key individual_id",
+      "primary_key_columns": [
+        "individual_id"
+      ],
+      "columns": {
+        "individual_id": {
+          "type": "number",
+          "source_label": "individual id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Individuals",
+            "column": "individual_id"
+          }
+        },
+        "organization_id": {
+          "type": "number",
+          "source_label": "organization id",
+          "foreign_key": {
+            "table": "Organizations",
+            "column": "organization_id"
+          }
+        },
+        "date_contact_from": {
+          "type": "time",
+          "source_label": "date contact from"
+        },
+        "date_contact_to": {
+          "type": "time",
+          "source_label": "date contact to"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Party_Addresses": {
+      "source_label": "party addresses",
+      "meaning": "Table labeled 'party addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key party_id",
+      "primary_key_columns": [
+        "party_id"
+      ],
+      "columns": {
+        "party_id": {
+          "type": "number",
+          "source_label": "party id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Parties",
+            "column": "party_id"
+          }
+        },
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "address_id"
+          }
+        },
+        "date_address_from": {
+          "type": "time",
+          "source_label": "date address from"
+        },
+        "address_type_code": {
+          "type": "text",
+          "source_label": "address type code",
+          "observed_values": [
+            "Residence",
+            "Billing",
+            "Delivery"
+          ]
+        },
+        "date_address_to": {
+          "type": "time",
+          "source_label": "date address to"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Party_Forms": {
+      "source_label": "party forms",
+      "meaning": "Table labeled 'party forms' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key party_id",
+      "primary_key_columns": [
+        "party_id"
+      ],
+      "columns": {
+        "party_id": {
+          "type": "number",
+          "source_label": "party id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Parties",
+            "column": "party_id"
+          }
+        },
+        "form_id": {
+          "type": "number",
+          "source_label": "form id",
+          "foreign_key": {
+            "table": "Forms",
+            "column": "form_id"
+          }
+        },
+        "date_completion_started": {
+          "type": "time",
+          "source_label": "date completion started"
+        },
+        "form_status_code": {
+          "type": "text",
+          "source_label": "form status code",
+          "observed_values": [
+            "Completed",
+            "Partially Completed",
+            "Not Started",
+            "Work In Progress"
+          ]
+        },
+        "date_fully_completed": {
+          "type": "time",
+          "source_label": "date fully completed"
+        }
+      },
+      "observed_row_count": 13
+    },
+    "Party_Services": {
+      "source_label": "party services",
+      "meaning": "Table labeled 'party services' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "booking_id": {
+          "type": "number",
+          "source_label": "booking id"
+        },
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Parties",
+            "column": "party_id"
+          }
+        },
+        "service_id": {
+          "type": "number",
+          "source_label": "service id",
+          "foreign_key": {
+            "table": "Services",
+            "column": "service_id"
+          }
+        },
+        "service_datetime": {
+          "type": "time",
+          "source_label": "service datetime"
+        },
+        "booking_made_date": {
+          "type": "time",
+          "source_label": "booking made date"
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "organization contact individuals": {
+      "maps_to": "Organization_Contact_Individuals",
+      "source": "Spider normalized table name"
+    },
+    "party addresses": {
+      "maps_to": "Party_Addresses",
+      "source": "Spider normalized table name"
+    },
+    "party forms": {
+      "maps_to": "Party_Forms",
+      "source": "Spider normalized table name"
+    },
+    "party services": {
+      "maps_to": "Party_Services",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Addresses__row_count": {
+      "meaning": "Number of rows in Addresses.",
+      "base_table": "Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Services__row_count": {
+      "meaning": "Number of rows in Services.",
+      "base_table": "Services",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Forms__row_count": {
+      "meaning": "Number of rows in Forms.",
+      "base_table": "Forms",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Individuals__row_count": {
+      "meaning": "Number of rows in Individuals.",
+      "base_table": "Individuals",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Organizations__row_count": {
+      "meaning": "Number of rows in Organizations.",
+      "base_table": "Organizations",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Parties__row_count": {
+      "meaning": "Number of rows in Parties.",
+      "base_table": "Parties",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Organization_Contact_Individuals__row_count": {
+      "meaning": "Number of rows in Organization_Contact_Individuals.",
+      "base_table": "Organization_Contact_Individuals",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Party_Addresses__row_count": {
+      "meaning": "Number of rows in Party_Addresses.",
+      "base_table": "Party_Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Party_Forms__row_count": {
+      "meaning": "Number of rows in Party_Forms.",
+      "base_table": "Party_Forms",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Party_Services__row_count": {
+      "meaning": "Number of rows in Party_Services.",
+      "base_table": "Party_Services",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

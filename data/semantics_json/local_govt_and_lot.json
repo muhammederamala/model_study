@@ -1,0 +1,542 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "local_govt_and_lot",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Customers": {
+      "source_label": "customers",
+      "meaning": "Table labeled 'customers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key customer_id",
+      "primary_key_columns": [
+        "customer_id"
+      ],
+      "columns": {
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true
+        },
+        "customer_details": {
+          "type": "text",
+          "source_label": "customer details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Properties": {
+      "source_label": "properties",
+      "meaning": "Table labeled 'properties' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key property_id",
+      "primary_key_columns": [
+        "property_id"
+      ],
+      "columns": {
+        "property_id": {
+          "type": "number",
+          "source_label": "property id",
+          "primary_key": true
+        },
+        "property_type_code": {
+          "type": "text",
+          "source_label": "property type code",
+          "observed_values": [
+            "apartment",
+            "house",
+            "flat"
+          ]
+        },
+        "property_address": {
+          "type": "text",
+          "source_label": "property address"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details",
+          "observed_values": [
+            "USA"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Residents": {
+      "source_label": "residents",
+      "meaning": "Table labeled 'residents' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key resident_id",
+      "primary_key_columns": [
+        "resident_id"
+      ],
+      "columns": {
+        "resident_id": {
+          "type": "number",
+          "source_label": "resident id",
+          "primary_key": true
+        },
+        "property_id": {
+          "type": "number",
+          "source_label": "property id",
+          "foreign_key": {
+            "table": "Properties",
+            "column": "property_id"
+          }
+        },
+        "date_moved_in": {
+          "type": "time",
+          "source_label": "date moved in"
+        },
+        "date_moved_out": {
+          "type": "time",
+          "source_label": "date moved out"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Organizations": {
+      "source_label": "organizations",
+      "meaning": "Table labeled 'organizations' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key organization_id",
+      "primary_key_columns": [
+        "organization_id"
+      ],
+      "columns": {
+        "organization_id": {
+          "type": "number",
+          "source_label": "organization id",
+          "primary_key": true
+        },
+        "parent_organization_id": {
+          "type": "number",
+          "source_label": "parent organization id"
+        },
+        "organization_details": {
+          "type": "text",
+          "source_label": "organization details",
+          "observed_values": [
+            "Reinger, Hudson and Nolan Group",
+            "Denesik and Sons Party",
+            "Robel-Schulist Group"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Services": {
+      "source_label": "services",
+      "meaning": "Table labeled 'services' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key service_id",
+      "primary_key_columns": [
+        "service_id"
+      ],
+      "columns": {
+        "service_id": {
+          "type": "number",
+          "source_label": "service id",
+          "primary_key": true
+        },
+        "organization_id": {
+          "type": "number",
+          "source_label": "organization id",
+          "foreign_key": {
+            "table": "Organizations",
+            "column": "organization_id"
+          }
+        },
+        "service_type_code": {
+          "type": "text",
+          "source_label": "service type code",
+          "observed_values": [
+            "Cleanning",
+            "Check",
+            "Moving Out",
+            "Pay bills"
+          ]
+        },
+        "service_details": {
+          "type": "text",
+          "source_label": "service details",
+          "observed_values": [
+            "Satisfied",
+            "Unsatisfied"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Residents_Services": {
+      "source_label": "residents services",
+      "meaning": "Table labeled 'residents services' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key resident_id",
+      "primary_key_columns": [
+        "resident_id"
+      ],
+      "columns": {
+        "resident_id": {
+          "type": "number",
+          "source_label": "resident id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Residents",
+            "column": "resident_id"
+          }
+        },
+        "service_id": {
+          "type": "number",
+          "source_label": "service id",
+          "foreign_key": {
+            "table": "Services",
+            "column": "service_id"
+          }
+        },
+        "date_moved_in": {
+          "type": "time",
+          "source_label": "date moved in",
+          "foreign_key": {
+            "table": "Residents",
+            "column": "date_moved_in"
+          }
+        },
+        "property_id": {
+          "type": "number",
+          "source_label": "property id",
+          "foreign_key": {
+            "table": "Residents",
+            "column": "property_id"
+          }
+        },
+        "date_requested": {
+          "type": "time",
+          "source_label": "date requested"
+        },
+        "date_provided": {
+          "type": "time",
+          "source_label": "date provided"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details",
+          "observed_values": [
+            "Satisfied",
+            "Unsatisfied"
+          ]
+        }
+      },
+      "observed_row_count": 11
+    },
+    "Things": {
+      "source_label": "things",
+      "meaning": "Table labeled 'things' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key thing_id",
+      "primary_key_columns": [
+        "thing_id"
+      ],
+      "columns": {
+        "thing_id": {
+          "type": "number",
+          "source_label": "thing id",
+          "primary_key": true
+        },
+        "organization_id": {
+          "type": "number",
+          "source_label": "organization id",
+          "foreign_key": {
+            "table": "Organizations",
+            "column": "organization_id"
+          }
+        },
+        "Type_of_Thing_Code": {
+          "type": "text",
+          "source_label": "type of thing code",
+          "observed_values": [
+            "Electronics",
+            "Commen",
+            "Furniture"
+          ]
+        },
+        "service_type_code": {
+          "type": "text",
+          "source_label": "service type code",
+          "observed_values": [
+            "Check",
+            "Cleanning"
+          ]
+        },
+        "service_details": {
+          "type": "text",
+          "source_label": "service details",
+          "observed_values": [
+            "Unsatisfied",
+            "Satisfied"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Customer_Events": {
+      "source_label": "customer events",
+      "meaning": "Table labeled 'customer events' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Customer_Event_ID",
+      "primary_key_columns": [
+        "Customer_Event_ID"
+      ],
+      "columns": {
+        "Customer_Event_ID": {
+          "type": "number",
+          "source_label": "customer event id",
+          "primary_key": true
+        },
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers",
+            "column": "customer_id"
+          }
+        },
+        "date_moved_in": {
+          "type": "time",
+          "source_label": "date moved in",
+          "foreign_key": {
+            "table": "Residents",
+            "column": "date_moved_in"
+          }
+        },
+        "property_id": {
+          "type": "number",
+          "source_label": "property id",
+          "foreign_key": {
+            "table": "Residents",
+            "column": "property_id"
+          }
+        },
+        "resident_id": {
+          "type": "number",
+          "source_label": "resident id",
+          "foreign_key": {
+            "table": "Residents",
+            "column": "resident_id"
+          }
+        },
+        "thing_id": {
+          "type": "number",
+          "source_label": "thing id",
+          "foreign_key": {
+            "table": "Things",
+            "column": "thing_id"
+          }
+        }
+      },
+      "observed_row_count": 13
+    },
+    "Customer_Event_Notes": {
+      "source_label": "customer event notes",
+      "meaning": "Table labeled 'customer event notes' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Customer_Event_Note_ID",
+      "primary_key_columns": [
+        "Customer_Event_Note_ID"
+      ],
+      "columns": {
+        "Customer_Event_Note_ID": {
+          "type": "number",
+          "source_label": "customer event note id",
+          "primary_key": true
+        },
+        "Customer_Event_ID": {
+          "type": "number",
+          "source_label": "customer event id",
+          "foreign_key": {
+            "table": "Customer_Events",
+            "column": "Customer_Event_ID"
+          }
+        },
+        "service_type_code": {
+          "type": "text",
+          "source_label": "service type code",
+          "observed_values": [
+            "Cleanning",
+            "Check"
+          ]
+        },
+        "resident_id": {
+          "type": "number",
+          "source_label": "resident id"
+        },
+        "property_id": {
+          "type": "number",
+          "source_label": "property id"
+        },
+        "date_moved_in": {
+          "type": "time",
+          "source_label": "date moved in"
+        }
+      },
+      "observed_row_count": 13
+    },
+    "Timed_Status_of_Things": {
+      "source_label": "timed status of things",
+      "meaning": "Table labeled 'timed status of things' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key thing_id",
+      "primary_key_columns": [
+        "thing_id"
+      ],
+      "columns": {
+        "thing_id": {
+          "type": "number",
+          "source_label": "thing id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Things",
+            "column": "thing_id"
+          }
+        },
+        "Date_and_Date": {
+          "type": "time",
+          "source_label": "date and date"
+        },
+        "Status_of_Thing_Code": {
+          "type": "text",
+          "source_label": "status of thing code",
+          "observed_values": [
+            "Open",
+            "Close",
+            "In Progress"
+          ]
+        }
+      },
+      "observed_row_count": 18
+    },
+    "Timed_Locations_of_Things": {
+      "source_label": "timed locations of things",
+      "meaning": "Table labeled 'timed locations of things' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key thing_id",
+      "primary_key_columns": [
+        "thing_id"
+      ],
+      "columns": {
+        "thing_id": {
+          "type": "number",
+          "source_label": "thing id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Things",
+            "column": "thing_id"
+          }
+        },
+        "Date_and_Time": {
+          "type": "time",
+          "source_label": "date and time"
+        },
+        "Location_Code": {
+          "type": "text",
+          "source_label": "location code"
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "residents services": {
+      "maps_to": "Residents_Services",
+      "source": "Spider normalized table name"
+    },
+    "customer events": {
+      "maps_to": "Customer_Events",
+      "source": "Spider normalized table name"
+    },
+    "customer event notes": {
+      "maps_to": "Customer_Event_Notes",
+      "source": "Spider normalized table name"
+    },
+    "timed status of things": {
+      "maps_to": "Timed_Status_of_Things",
+      "source": "Spider normalized table name"
+    },
+    "timed locations of things": {
+      "maps_to": "Timed_Locations_of_Things",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Customers__row_count": {
+      "meaning": "Number of rows in Customers.",
+      "base_table": "Customers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Properties__row_count": {
+      "meaning": "Number of rows in Properties.",
+      "base_table": "Properties",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Residents__row_count": {
+      "meaning": "Number of rows in Residents.",
+      "base_table": "Residents",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Organizations__row_count": {
+      "meaning": "Number of rows in Organizations.",
+      "base_table": "Organizations",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Services__row_count": {
+      "meaning": "Number of rows in Services.",
+      "base_table": "Services",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Residents_Services__row_count": {
+      "meaning": "Number of rows in Residents_Services.",
+      "base_table": "Residents_Services",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Things__row_count": {
+      "meaning": "Number of rows in Things.",
+      "base_table": "Things",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customer_Events__row_count": {
+      "meaning": "Number of rows in Customer_Events.",
+      "base_table": "Customer_Events",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customer_Event_Notes__row_count": {
+      "meaning": "Number of rows in Customer_Event_Notes.",
+      "base_table": "Customer_Event_Notes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Timed_Status_of_Things__row_count": {
+      "meaning": "Number of rows in Timed_Status_of_Things.",
+      "base_table": "Timed_Status_of_Things",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Timed_Locations_of_Things__row_count": {
+      "meaning": "Number of rows in Timed_Locations_of_Things.",
+      "base_table": "Timed_Locations_of_Things",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

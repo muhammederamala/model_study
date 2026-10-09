@@ -1,0 +1,159 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "department_management",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "department": {
+      "source_label": "department",
+      "meaning": "Table labeled 'department' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Department_ID",
+      "primary_key_columns": [
+        "Department_ID"
+      ],
+      "columns": {
+        "Department_ID": {
+          "type": "number",
+          "source_label": "department id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "Creation": {
+          "type": "text",
+          "source_label": "creation"
+        },
+        "Ranking": {
+          "type": "number",
+          "source_label": "ranking"
+        },
+        "Budget_in_Billions": {
+          "type": "number",
+          "source_label": "budget in billions"
+        },
+        "Num_Employees": {
+          "type": "number",
+          "source_label": "num employees"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "head": {
+      "source_label": "head",
+      "meaning": "Table labeled 'head' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key head_ID",
+      "primary_key_columns": [
+        "head_ID"
+      ],
+      "columns": {
+        "head_ID": {
+          "type": "number",
+          "source_label": "head id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Tiger Woods",
+            "Sergio García",
+            "K. J. Choi",
+            "Dudley Hart",
+            "Jeff Maggert",
+            "Billy Mayfair",
+            "Stewart Cink",
+            "Nick Faldo",
+            "Pádraig Harrington",
+            "Franklin Langham"
+          ]
+        },
+        "born_state": {
+          "type": "text",
+          "source_label": "born state",
+          "observed_values": [
+            "Alabama",
+            "California",
+            "Delaware",
+            "Florida",
+            "Connecticut"
+          ]
+        },
+        "age": {
+          "type": "number",
+          "source_label": "age"
+        }
+      },
+      "observed_row_count": 10
+    },
+    "management": {
+      "source_label": "management",
+      "meaning": "Table labeled 'management' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key department_ID",
+      "primary_key_columns": [
+        "department_ID"
+      ],
+      "columns": {
+        "department_ID": {
+          "type": "number",
+          "source_label": "department id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "department",
+            "column": "Department_ID"
+          }
+        },
+        "head_ID": {
+          "type": "number",
+          "source_label": "head id",
+          "foreign_key": {
+            "table": "head",
+            "column": "head_ID"
+          }
+        },
+        "temporary_acting": {
+          "type": "text",
+          "source_label": "temporary acting",
+          "observed_values": [
+            "Yes",
+            "No"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "department__row_count": {
+      "meaning": "Number of rows in department.",
+      "base_table": "department",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "head__row_count": {
+      "meaning": "Number of rows in head.",
+      "base_table": "head",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "management__row_count": {
+      "meaning": "Number of rows in management.",
+      "base_table": "management",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

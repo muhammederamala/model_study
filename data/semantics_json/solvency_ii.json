@@ -1,0 +1,462 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "solvency_ii",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Addresses": {
+      "source_label": "addresses",
+      "meaning": "Table labeled 'addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Address_ID",
+      "primary_key_columns": [
+        "Address_ID"
+      ],
+      "columns": {
+        "Address_ID": {
+          "type": "number",
+          "source_label": "address id",
+          "primary_key": true
+        },
+        "address_details": {
+          "type": "text",
+          "source_label": "address details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Locations": {
+      "source_label": "locations",
+      "meaning": "Table labeled 'locations' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Location_ID",
+      "primary_key_columns": [
+        "Location_ID"
+      ],
+      "columns": {
+        "Location_ID": {
+          "type": "number",
+          "source_label": "location id",
+          "primary_key": true
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Products": {
+      "source_label": "products",
+      "meaning": "Table labeled 'products' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Product_ID",
+      "primary_key_columns": [
+        "Product_ID"
+      ],
+      "columns": {
+        "Product_ID": {
+          "type": "number",
+          "source_label": "product id",
+          "primary_key": true
+        },
+        "Product_Type_Code": {
+          "type": "text",
+          "source_label": "product type code",
+          "observed_values": [
+            "Books",
+            "Food",
+            "Clothes",
+            "Electronics"
+          ]
+        },
+        "Product_Name": {
+          "type": "text",
+          "source_label": "product name",
+          "observed_values": [
+            "Business Policy",
+            "Special Dinning",
+            "Men suits",
+            "TV Equipments",
+            "Business Policy B",
+            "Conference Equipments",
+            "Trading Policy",
+            "Trading Policy B",
+            "Dinning"
+          ]
+        },
+        "Product_Price": {
+          "type": "number",
+          "source_label": "product price"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Parties": {
+      "source_label": "parties",
+      "meaning": "Table labeled 'parties' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Party_ID",
+      "primary_key_columns": [
+        "Party_ID"
+      ],
+      "columns": {
+        "Party_ID": {
+          "type": "number",
+          "source_label": "party id",
+          "primary_key": true
+        },
+        "Party_Details": {
+          "type": "text",
+          "source_label": "party details",
+          "observed_values": [
+            "European People's Party",
+            "European Free Alliance",
+            "European Alliance for Freedom",
+            "European Christian Political Movement",
+            "Movement for a Europe of Nations and Freedom",
+            "Alliance of Liberals and Democrats for Europe",
+            "EUDemocrats"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "Assets": {
+      "source_label": "assets",
+      "meaning": "Table labeled 'assets' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Asset_ID",
+      "primary_key_columns": [
+        "Asset_ID"
+      ],
+      "columns": {
+        "Asset_ID": {
+          "type": "number",
+          "source_label": "asset id",
+          "primary_key": true
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details",
+          "observed_values": [
+            "Transportation Cars",
+            "Meeting Rooms",
+            "Dinning Tables"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Channels": {
+      "source_label": "channels",
+      "meaning": "Table labeled 'channels' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Channel_ID",
+      "primary_key_columns": [
+        "Channel_ID"
+      ],
+      "columns": {
+        "Channel_ID": {
+          "type": "number",
+          "source_label": "channel id",
+          "primary_key": true
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Finances": {
+      "source_label": "finances",
+      "meaning": "Table labeled 'finances' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Finance_ID",
+      "primary_key_columns": [
+        "Finance_ID"
+      ],
+      "columns": {
+        "Finance_ID": {
+          "type": "number",
+          "source_label": "finance id",
+          "primary_key": true
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details",
+          "observed_values": [
+            "Mutual",
+            "Good",
+            "Bad"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Events": {
+      "source_label": "events",
+      "meaning": "Table labeled 'events' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Event_ID",
+      "primary_key_columns": [
+        "Event_ID"
+      ],
+      "columns": {
+        "Event_ID": {
+          "type": "number",
+          "source_label": "event id",
+          "primary_key": true
+        },
+        "Address_ID": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "Address_ID"
+          }
+        },
+        "Channel_ID": {
+          "type": "number",
+          "source_label": "channel id"
+        },
+        "Event_Type_Code": {
+          "type": "text",
+          "source_label": "event type code",
+          "observed_values": [
+            "Trade Show",
+            "Press Conferenc",
+            "Ceremonies",
+            "Seminar",
+            "Conference"
+          ]
+        },
+        "Finance_ID": {
+          "type": "number",
+          "source_label": "finance id",
+          "foreign_key": {
+            "table": "Finances",
+            "column": "Finance_ID"
+          }
+        },
+        "Location_ID": {
+          "type": "number",
+          "source_label": "location id",
+          "foreign_key": {
+            "table": "Locations",
+            "column": "Location_ID"
+          }
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Products_in_Events": {
+      "source_label": "products in events",
+      "meaning": "Table labeled 'products in events' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Product_in_Event_ID",
+      "primary_key_columns": [
+        "Product_in_Event_ID"
+      ],
+      "columns": {
+        "Product_in_Event_ID": {
+          "type": "number",
+          "source_label": "product in event id",
+          "primary_key": true
+        },
+        "Event_ID": {
+          "type": "number",
+          "source_label": "event id",
+          "foreign_key": {
+            "table": "Events",
+            "column": "Event_ID"
+          }
+        },
+        "Product_ID": {
+          "type": "number",
+          "source_label": "product id",
+          "foreign_key": {
+            "table": "Products",
+            "column": "Product_ID"
+          }
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Parties_in_Events": {
+      "source_label": "parties in events",
+      "meaning": "Table labeled 'parties in events' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Party_ID",
+      "primary_key_columns": [
+        "Party_ID"
+      ],
+      "columns": {
+        "Party_ID": {
+          "type": "number",
+          "source_label": "party id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Parties",
+            "column": "Party_ID"
+          }
+        },
+        "Event_ID": {
+          "type": "number",
+          "source_label": "event id",
+          "foreign_key": {
+            "table": "Events",
+            "column": "Event_ID"
+          }
+        },
+        "Role_Code": {
+          "type": "text",
+          "source_label": "role code",
+          "observed_values": [
+            "Organizer",
+            "Participant"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Agreements": {
+      "source_label": "agreements",
+      "meaning": "Table labeled 'agreements' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Document_ID",
+      "primary_key_columns": [
+        "Document_ID"
+      ],
+      "columns": {
+        "Document_ID": {
+          "type": "number",
+          "source_label": "document id",
+          "primary_key": true
+        },
+        "Event_ID": {
+          "type": "number",
+          "source_label": "event id",
+          "foreign_key": {
+            "table": "Events",
+            "column": "Event_ID"
+          }
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Assets_in_Events": {
+      "source_label": "assets in events",
+      "meaning": "Table labeled 'assets in events' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Asset_ID",
+      "primary_key_columns": [
+        "Asset_ID"
+      ],
+      "columns": {
+        "Asset_ID": {
+          "type": "number",
+          "source_label": "asset id",
+          "primary_key": true
+        },
+        "Event_ID": {
+          "type": "number",
+          "source_label": "event id",
+          "foreign_key": {
+            "table": "Events",
+            "column": "Event_ID"
+          }
+        }
+      },
+      "observed_row_count": 12
+    }
+  },
+  "terms": {
+    "products in events": {
+      "maps_to": "Products_in_Events",
+      "source": "Spider normalized table name"
+    },
+    "parties in events": {
+      "maps_to": "Parties_in_Events",
+      "source": "Spider normalized table name"
+    },
+    "assets in events": {
+      "maps_to": "Assets_in_Events",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Addresses__row_count": {
+      "meaning": "Number of rows in Addresses.",
+      "base_table": "Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Locations__row_count": {
+      "meaning": "Number of rows in Locations.",
+      "base_table": "Locations",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Products__row_count": {
+      "meaning": "Number of rows in Products.",
+      "base_table": "Products",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Parties__row_count": {
+      "meaning": "Number of rows in Parties.",
+      "base_table": "Parties",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Assets__row_count": {
+      "meaning": "Number of rows in Assets.",
+      "base_table": "Assets",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Channels__row_count": {
+      "meaning": "Number of rows in Channels.",
+      "base_table": "Channels",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Finances__row_count": {
+      "meaning": "Number of rows in Finances.",
+      "base_table": "Finances",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Events__row_count": {
+      "meaning": "Number of rows in Events.",
+      "base_table": "Events",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Products_in_Events__row_count": {
+      "meaning": "Number of rows in Products_in_Events.",
+      "base_table": "Products_in_Events",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Parties_in_Events__row_count": {
+      "meaning": "Number of rows in Parties_in_Events.",
+      "base_table": "Parties_in_Events",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Agreements__row_count": {
+      "meaning": "Number of rows in Agreements.",
+      "base_table": "Agreements",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Assets_in_Events__row_count": {
+      "meaning": "Number of rows in Assets_in_Events.",
+      "base_table": "Assets_in_Events",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

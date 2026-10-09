@@ -1,0 +1,3196 @@
+{
+  "format_version": "1.0",
+  "db_id": "flight_2",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "airlines": {
+      "source_label": "airlines",
+      "meaning": "Table labeled 'airlines' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "uid"
+      ],
+      "columns": {
+        "uid": {
+          "type": "number",
+          "source_label": "airline id",
+          "primary_key": true
+        },
+        "Airline": {
+          "type": "text",
+          "source_label": "airline name",
+          "observed_values": [
+            "United Airlines",
+            "US Airways",
+            "Delta Airlines",
+            "Southwest Airlines",
+            "American Airlines",
+            "Northwest Airlines",
+            "Continental Airlines",
+            "JetBlue Airways",
+            "Frontier Airlines",
+            "AirTran Airways",
+            "Allegiant Air",
+            "Virgin America"
+          ]
+        },
+        "Abbreviation": {
+          "type": "text",
+          "source_label": "abbreviation",
+          "observed_values": [
+            "UAL",
+            "USAir",
+            "Delta",
+            "Southwest",
+            "American",
+            "Northwest",
+            "Continental",
+            "JetBlue",
+            "Frontier",
+            "AirTran",
+            "Allegiant",
+            "Virgin"
+          ]
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "USA"
+          ]
+        }
+      },
+      "observed_row_count": 12
+    },
+    "airports": {
+      "source_label": "airports",
+      "meaning": "Table labeled 'airports' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "AirportCode"
+      ],
+      "columns": {
+        "City": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "AirportCode": {
+          "type": "text",
+          "source_label": "airport code",
+          "primary_key": true
+        },
+        "AirportName": {
+          "type": "text",
+          "source_label": "airport name"
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "United States "
+          ]
+        },
+        "CountryAbbrev": {
+          "type": "text",
+          "source_label": "country abbrev",
+          "observed_values": [
+            "US ",
+            "US"
+          ]
+        }
+      },
+      "observed_row_count": 100
+    },
+    "flights": {
+      "source_label": "flights",
+      "meaning": "Table labeled 'flights' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Airline"
+      ],
+      "columns": {
+        "Airline": {
+          "type": "number",
+          "source_label": "airline",
+          "primary_key": true
+        },
+        "FlightNo": {
+          "type": "number",
+          "source_label": "flight number"
+        },
+        "SourceAirport": {
+          "type": "text",
+          "source_label": "source airport",
+          "foreign_key": {
+            "table": "airports",
+            "column": "AirportCode"
+          }
+        },
+        "DestAirport": {
+          "type": "text",
+          "source_label": "destination airport",
+          "foreign_key": {
+            "table": "airports",
+            "column": "AirportCode"
+          }
+        }
+      },
+      "observed_row_count": 1200
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "flights",
+      "from_column": "DestAirport",
+      "to_table": "airports",
+      "to_column": "AirportCode",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "flights",
+      "from_column": "SourceAirport",
+      "to_table": "airports",
+      "to_column": "AirportCode",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {},
+  "metrics": {
+    "airlines__row_count": {
+      "meaning": "Number of rows in airlines.",
+      "base_table": "airlines",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "airports__row_count": {
+      "meaning": "Number of rows in airports.",
+      "base_table": "airports",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "flights__row_count": {
+      "meaning": "Number of rows in flights.",
+      "base_table": "flights",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AAF",
+      "key": "aaf"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AAF",
+      "key": "aaf"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AAF",
+      "key": "aaf"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Aberdeen ",
+      "key": "aberdeen"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ABI",
+      "key": "abi"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ABI",
+      "key": "abi"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ABI",
+      "key": "abi"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Abilene ",
+      "key": "abilene"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Abingdon ",
+      "key": "abingdon"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ABL",
+      "key": "abl"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ABL",
+      "key": "abl"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ABL",
+      "key": "abl"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ABQ",
+      "key": "abq"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ABQ",
+      "key": "abq"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ABQ",
+      "key": "abq"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ABR",
+      "key": "abr"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ABR",
+      "key": "abr"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ABR",
+      "key": "abr"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ABY",
+      "key": "aby"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ABY",
+      "key": "aby"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ABY",
+      "key": "aby"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ACV",
+      "key": "acv"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ACV",
+      "key": "acv"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ACV",
+      "key": "acv"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Ada ",
+      "key": "ada"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Ada ",
+      "key": "ada"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Adak Island ",
+      "key": "adak island"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Adak Island Ns ",
+      "key": "adak island ns"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ADG",
+      "key": "adg"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ADG",
+      "key": "adg"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ADG",
+      "key": "adg"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ADK",
+      "key": "adk"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ADK",
+      "key": "adk"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ADK",
+      "key": "adk"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ADM",
+      "key": "adm"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ADM",
+      "key": "adm"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ADM",
+      "key": "adm"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ADR",
+      "key": "adr"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ADR",
+      "key": "adr"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ADR",
+      "key": "adr"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Adrian ",
+      "key": "adrian"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ADT",
+      "key": "adt"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ADT",
+      "key": "adt"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ADT",
+      "key": "adt"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AED",
+      "key": "aed"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AED",
+      "key": "aed"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AED",
+      "key": "aed"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AEL",
+      "key": "ael"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AEL",
+      "key": "ael"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AEL",
+      "key": "ael"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AET",
+      "key": "aet"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AET",
+      "key": "aet"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AET",
+      "key": "aet"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AEX",
+      "key": "aex"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AEX",
+      "key": "aex"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AEX",
+      "key": "aex"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AFO",
+      "key": "afo"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AFO",
+      "key": "afo"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AFO",
+      "key": "afo"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Afton ",
+      "key": "afton"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AGN",
+      "key": "agn"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AGN",
+      "key": "agn"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AGN",
+      "key": "agn"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AHD",
+      "key": "ahd"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AHD",
+      "key": "ahd"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AHD",
+      "key": "ahd"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AHF",
+      "key": "ahf"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AHF",
+      "key": "ahf"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AHF",
+      "key": "ahf"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AHH",
+      "key": "ahh"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AHH",
+      "key": "ahh"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AHH",
+      "key": "ahh"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AHN",
+      "key": "ahn"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AHN",
+      "key": "ahn"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AHN",
+      "key": "ahn"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AHT",
+      "key": "aht"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AHT",
+      "key": "aht"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AHT",
+      "key": "aht"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AIA",
+      "key": "aia"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AIA",
+      "key": "aia"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AIA",
+      "key": "aia"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AIB",
+      "key": "aib"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AIB",
+      "key": "aib"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AIB",
+      "key": "aib"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AID",
+      "key": "aid"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AID",
+      "key": "aid"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AID",
+      "key": "aid"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AIK",
+      "key": "aik"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AIK",
+      "key": "aik"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AIK",
+      "key": "aik"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Aiken ",
+      "key": "aiken"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Ainsworth ",
+      "key": "ainsworth"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Ainsworth ",
+      "key": "ainsworth"
+    },
+    {
+      "table": "airlines",
+      "column": "Abbreviation",
+      "value": "AirTran",
+      "key": "air tran"
+    },
+    {
+      "table": "airlines",
+      "column": "Airline",
+      "value": "AirTran Airways",
+      "key": "air tran airways"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AIV",
+      "key": "aiv"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AIV",
+      "key": "aiv"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AIV",
+      "key": "aiv"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AKC",
+      "key": "akc"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AKC",
+      "key": "akc"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AKC",
+      "key": "akc"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Akhiok ",
+      "key": "akhiok"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Akhiok SPB ",
+      "key": "akhiok spb"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AKI",
+      "key": "aki"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AKI",
+      "key": "aki"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AKI",
+      "key": "aki"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Akiachak ",
+      "key": "akiachak"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Akiak ",
+      "key": "akiak"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Akiak ",
+      "key": "akiak"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AKK",
+      "key": "akk"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AKK",
+      "key": "akk"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AKK",
+      "key": "akk"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AKO",
+      "key": "ako"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AKO",
+      "key": "ako"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AKO",
+      "key": "ako"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AKP",
+      "key": "akp"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AKP",
+      "key": "akp"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AKP",
+      "key": "akp"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Akron/Canton ",
+      "key": "akron canton"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Akron/Canton OH  ",
+      "key": "akron canton oh"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Akron/canton Regional ",
+      "key": "akron canton regional"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Akron CO  ",
+      "key": "akron co"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Akutan ",
+      "key": "akutan"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Akutan ",
+      "key": "akutan"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Alakanuk ",
+      "key": "alakanuk"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Alakanuk ",
+      "key": "alakanuk"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Alameda ",
+      "key": "alameda"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Alamogordo ",
+      "key": "alamogordo"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Alamosa ",
+      "key": "alamosa"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ALB",
+      "key": "alb"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ALB",
+      "key": "alb"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ALB",
+      "key": "alb"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Albany ",
+      "key": "albany"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Albany ",
+      "key": "albany"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Albany International ",
+      "key": "albany international"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Albany NAS ",
+      "key": "albany nas"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Albert Lea ",
+      "key": "albert lea"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Albert Lea ",
+      "key": "albert lea"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Albuquerque ",
+      "key": "albuquerque"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Albuquerque International ",
+      "key": "albuquerque international"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ALE",
+      "key": "ale"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ALE",
+      "key": "ale"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ALE",
+      "key": "ale"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Aleknagik ",
+      "key": "aleknagik"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Aleknagik ",
+      "key": "aleknagik"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Aleneva ",
+      "key": "aleneva"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Aleneva ",
+      "key": "aleneva"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": " Alexander City AL  ",
+      "key": "alexander city al"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Alexandria ",
+      "key": "alexandria"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Alexandria ",
+      "key": "alexandria"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Alexandria Bay ",
+      "key": "alexandria bay"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Alexandria Bay ",
+      "key": "alexandria bay"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Alexandria International ",
+      "key": "alexandria international"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": " Alexandria LA  ",
+      "key": "alexandria la"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Algona ",
+      "key": "algona"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Algona ",
+      "key": "algona"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ALI",
+      "key": "ali"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ALI",
+      "key": "ali"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ALI",
+      "key": "ali"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Alice ",
+      "key": "alice"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": " Aliceville AL  ",
+      "key": "aliceville al"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Alitak ",
+      "key": "alitak"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Alitak SPB ",
+      "key": "alitak spb"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Allakaket ",
+      "key": "allakaket"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Allakaket ",
+      "key": "allakaket"
+    },
+    {
+      "table": "airlines",
+      "column": "Abbreviation",
+      "value": "Allegiant",
+      "key": "allegiant"
+    },
+    {
+      "table": "airlines",
+      "column": "Airline",
+      "value": "Allegiant Air",
+      "key": "allegiant air"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Alliance ",
+      "key": "alliance"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Alliance ",
+      "key": "alliance"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ALM",
+      "key": "alm"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ALM",
+      "key": "alm"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ALM",
+      "key": "alm"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Alma ",
+      "key": "alma"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ALN",
+      "key": "aln"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ALN",
+      "key": "aln"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ALN",
+      "key": "aln"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Alpena ",
+      "key": "alpena"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Alpena County Regional ",
+      "key": "alpena county regional"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Alpine ",
+      "key": "alpine"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Alpine ",
+      "key": "alpine"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ALS",
+      "key": "als"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ALS",
+      "key": "als"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ALS",
+      "key": "als"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Alton ",
+      "key": "alton"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Alton ",
+      "key": "alton"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Altus ",
+      "key": "altus"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Altus AFB ",
+      "key": "altus afb"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ALX",
+      "key": "alx"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ALX",
+      "key": "alx"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ALX",
+      "key": "alx"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Alyeska ",
+      "key": "alyeska"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Alyeska ",
+      "key": "alyeska"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ALZ",
+      "key": "alz"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ALZ",
+      "key": "alz"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ALZ",
+      "key": "alz"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AMA",
+      "key": "ama"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AMA",
+      "key": "ama"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AMA",
+      "key": "ama"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": " Amarillo   ",
+      "key": "amarillo"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Amarillo ",
+      "key": "amarillo"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Ambler ",
+      "key": "ambler"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Ambler ",
+      "key": "ambler"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Amchitka ",
+      "key": "amchitka"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Amchitka ",
+      "key": "amchitka"
+    },
+    {
+      "table": "airlines",
+      "column": "Abbreviation",
+      "value": "American",
+      "key": "american"
+    },
+    {
+      "table": "airlines",
+      "column": "Airline",
+      "value": "American Airlines",
+      "key": "american airlines"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Amery ",
+      "key": "amery"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Ames ",
+      "key": "ames"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Ames ",
+      "key": "ames"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Amityville ",
+      "key": "amityville"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AMN",
+      "key": "amn"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AMN",
+      "key": "amn"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AMN",
+      "key": "amn"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Amook ",
+      "key": "amook"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Amook ",
+      "key": "amook"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AMW",
+      "key": "amw"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AMW",
+      "key": "amw"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AMW",
+      "key": "amw"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ANA",
+      "key": "ana"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ANA",
+      "key": "ana"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ANA",
+      "key": "ana"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Anacortes ",
+      "key": "anacortes"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Anacortes ",
+      "key": "anacortes"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Anacostia ",
+      "key": "anacostia"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Anaheim ",
+      "key": "anaheim"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Anaktuvuk ",
+      "key": "anaktuvuk"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Anaktuvuk ",
+      "key": "anaktuvuk"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ANB",
+      "key": "anb"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ANB",
+      "key": "anb"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ANB",
+      "key": "anb"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ANC",
+      "key": "anc"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ANC",
+      "key": "anc"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ANC",
+      "key": "anc"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Anchorage ",
+      "key": "anchorage"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AND",
+      "key": "and"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AND",
+      "key": "and"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AND",
+      "key": "and"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Anderson ",
+      "key": "anderson"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Anderson ",
+      "key": "anderson"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Andrews ",
+      "key": "andrews"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Andrews ",
+      "key": "andrews"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Angel Fire ",
+      "key": "angel fire"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Angel Fire ",
+      "key": "angel fire"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Angola ",
+      "key": "angola"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Angoon ",
+      "key": "angoon"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Angoon ",
+      "key": "angoon"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Anguilla ",
+      "key": "anguilla"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ANI",
+      "key": "ani"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ANI",
+      "key": "ani"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ANI",
+      "key": "ani"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Aniak ",
+      "key": "aniak"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Aniak ",
+      "key": "aniak"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Anita Bay ",
+      "key": "anita bay"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Anita Bay ",
+      "key": "anita bay"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ANN",
+      "key": "ann"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ANN",
+      "key": "ann"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ANN",
+      "key": "ann"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": " Ann Arbor MI  ",
+      "key": "ann arbor mi"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Annapolis ",
+      "key": "annapolis"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Annette Island ",
+      "key": "annette island"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Annette Island ",
+      "key": "annette island"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Anniston ",
+      "key": "anniston"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": " Anniston AL  ",
+      "key": "anniston al"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Anniston Metropolitan ",
+      "key": "anniston metropolitan"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ANP",
+      "key": "anp"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ANP",
+      "key": "anp"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ANP",
+      "key": "anp"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ANQ",
+      "key": "anq"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ANQ",
+      "key": "anq"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ANQ",
+      "key": "anq"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Anthony ",
+      "key": "anthony"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Anthony ",
+      "key": "anthony"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Antlers ",
+      "key": "antlers"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Antlers ",
+      "key": "antlers"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ANV",
+      "key": "anv"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ANV",
+      "key": "anv"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ANV",
+      "key": "anv"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Anvik ",
+      "key": "anvik"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Anvik ",
+      "key": "anvik"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ANW",
+      "key": "anw"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ANW",
+      "key": "anw"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ANW",
+      "key": "anw"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ANY",
+      "key": "any"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ANY",
+      "key": "any"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ANY",
+      "key": "any"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AOS",
+      "key": "aos"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AOS",
+      "key": "aos"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AOS",
+      "key": "aos"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Apalachicola ",
+      "key": "apalachicola"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "APG",
+      "key": "apg"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " APG",
+      "key": "apg"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " APG",
+      "key": "apg"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "APN",
+      "key": "apn"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " APN",
+      "key": "apn"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " APN",
+      "key": "apn"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Apple Valley ",
+      "key": "apple valley"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Apple Valley ",
+      "key": "apple valley"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Appleton ",
+      "key": "appleton"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "APV",
+      "key": "apv"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " APV",
+      "key": "apv"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " APV",
+      "key": "apv"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AQY",
+      "key": "aqy"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AQY",
+      "key": "aqy"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AQY",
+      "key": "aqy"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Arapahoe ",
+      "key": "arapahoe"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ARB",
+      "key": "arb"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ARB",
+      "key": "arb"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ARB",
+      "key": "arb"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ARC",
+      "key": "arc"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ARC",
+      "key": "arc"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ARC",
+      "key": "arc"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Arcata ",
+      "key": "arcata"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Arcata ",
+      "key": "arcata"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Arctic Village ",
+      "key": "arctic village"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Arctic Village ",
+      "key": "arctic village"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Ardmore ",
+      "key": "ardmore"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Ardmore Municipal Arpt ",
+      "key": "ardmore municipal arpt"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Arlington Heights ",
+      "key": "arlington heights"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Artesia ",
+      "key": "artesia"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Artesia ",
+      "key": "artesia"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ARX",
+      "key": "arx"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ARX",
+      "key": "arx"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ARX",
+      "key": "arx"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Asbury Park ",
+      "key": "asbury park"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ASE",
+      "key": "ase"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ASE",
+      "key": "ase"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ASE",
+      "key": "ase"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Ashland ",
+      "key": "ashland"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Ashland ",
+      "key": "ashland"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Ashley ",
+      "key": "ashley"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Ashley ",
+      "key": "ashley"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Aspen ",
+      "key": "aspen"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Aspen ",
+      "key": "aspen"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AST",
+      "key": "ast"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AST",
+      "key": "ast"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AST",
+      "key": "ast"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Astoria ",
+      "key": "astoria"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Astoria ",
+      "key": "astoria"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ASX",
+      "key": "asx"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ASX",
+      "key": "asx"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ASX",
+      "key": "asx"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ASY",
+      "key": "asy"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ASY",
+      "key": "asy"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ASY",
+      "key": "asy"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ATE",
+      "key": "ate"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ATE",
+      "key": "ate"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ATE",
+      "key": "ate"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Athens ",
+      "key": "athens"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": "Athens ",
+      "key": "athens"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ATO",
+      "key": "ato"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ATO",
+      "key": "ato"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ATO",
+      "key": "ato"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ATS",
+      "key": "ats"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ATS",
+      "key": "ats"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ATS",
+      "key": "ats"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ATW",
+      "key": "atw"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ATW",
+      "key": "atw"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ATW",
+      "key": "atw"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AUK",
+      "key": "auk"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AUK",
+      "key": "auk"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AUK",
+      "key": "auk"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AXB",
+      "key": "axb"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AXB",
+      "key": "axb"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AXB",
+      "key": "axb"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AXG",
+      "key": "axg"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AXG",
+      "key": "axg"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AXG",
+      "key": "axg"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AXN",
+      "key": "axn"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AXN",
+      "key": "axn"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AXN",
+      "key": "axn"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AXS",
+      "key": "axs"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AXS",
+      "key": "axs"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AXS",
+      "key": "axs"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AXX",
+      "key": "axx"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AXX",
+      "key": "axx"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AXX",
+      "key": "axx"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "AYZ",
+      "key": "ayz"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " AYZ",
+      "key": "ayz"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " AYZ",
+      "key": "ayz"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "CAK",
+      "key": "cak"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " CAK",
+      "key": "cak"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " CAK",
+      "key": "cak"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Colorado Plains Regional Airport ",
+      "key": "colorado plains regional airport"
+    },
+    {
+      "table": "airlines",
+      "column": "Abbreviation",
+      "value": "Continental",
+      "key": "continental"
+    },
+    {
+      "table": "airlines",
+      "column": "Airline",
+      "value": "Continental Airlines",
+      "key": "continental airlines"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "CVO",
+      "key": "cvo"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " CVO",
+      "key": "cvo"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " CVO",
+      "key": "cvo"
+    },
+    {
+      "table": "airlines",
+      "column": "Abbreviation",
+      "value": "Delta",
+      "key": "delta"
+    },
+    {
+      "table": "airlines",
+      "column": "Airline",
+      "value": "Delta Airlines",
+      "key": "delta airlines"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Dougherty County ",
+      "key": "dougherty county"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Downtown ",
+      "key": "downtown"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Dyess AFB ",
+      "key": "dyess afb"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "DYS",
+      "key": "dys"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " DYS",
+      "key": "dys"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " DYS",
+      "key": "dys"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "EDF",
+      "key": "edf"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " EDF",
+      "key": "edf"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " EDF",
+      "key": "edf"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Elmendorf Afb ",
+      "key": "elmendorf afb"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "ESF",
+      "key": "esf"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " ESF",
+      "key": "esf"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " ESF",
+      "key": "esf"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Esler Field ",
+      "key": "esler field"
+    },
+    {
+      "table": "airlines",
+      "column": "Abbreviation",
+      "value": "Frontier",
+      "key": "frontier"
+    },
+    {
+      "table": "airlines",
+      "column": "Airline",
+      "value": "Frontier Airlines",
+      "key": "frontier airlines"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Ft Mcclellan Bus Trml ",
+      "key": "ft mcclellan bus trml"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Fulton International ",
+      "key": "fulton international"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "George Downer ",
+      "key": "george downer"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Gratiot Community ",
+      "key": "gratiot community"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "HMN",
+      "key": "hmn"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " HMN",
+      "key": "hmn"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " HMN",
+      "key": "hmn"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Holloman AFB ",
+      "key": "holloman afb"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "International ",
+      "key": "international"
+    },
+    {
+      "table": "airlines",
+      "column": "Abbreviation",
+      "value": "JetBlue",
+      "key": "jet blue"
+    },
+    {
+      "table": "airlines",
+      "column": "Airline",
+      "value": "JetBlue Airways",
+      "key": "jet blue airways"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "JLH",
+      "key": "jlh"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " JLH",
+      "key": "jlh"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " JLH",
+      "key": "jlh"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "KKI",
+      "key": "kki"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " KKI",
+      "key": "kki"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " KKI",
+      "key": "kki"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "KQA",
+      "key": "kqa"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " KQA",
+      "key": "kqa"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " KQA",
+      "key": "kqa"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Lee ",
+      "key": "lee"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Lenawee County ",
+      "key": "lenawee county"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "LTS",
+      "key": "lts"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " LTS",
+      "key": "lts"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " LTS",
+      "key": "lts"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "McMinn County ",
+      "key": "mc minn county"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Merrill Field ",
+      "key": "merrill field"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "MMI",
+      "key": "mmi"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " MMI",
+      "key": "mmi"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " MMI",
+      "key": "mmi"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "MRI",
+      "key": "mri"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " MRI",
+      "key": "mri"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " MRI",
+      "key": "mri"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Municipal ",
+      "key": "municipal"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "NAB",
+      "key": "nab"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " NAB",
+      "key": "nab"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " NAB",
+      "key": "nab"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "NAS ",
+      "key": "nas"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "NDV",
+      "key": "ndv"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " NDV",
+      "key": "ndv"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " NDV",
+      "key": "ndv"
+    },
+    {
+      "table": "airports",
+      "column": "City",
+      "value": " Neptune  ",
+      "key": "neptune"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "NGZ",
+      "key": "ngz"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " NGZ",
+      "key": "ngz"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " NGZ",
+      "key": "ngz"
+    },
+    {
+      "table": "airlines",
+      "column": "Abbreviation",
+      "value": "Northwest",
+      "key": "northwest"
+    },
+    {
+      "table": "airlines",
+      "column": "Airline",
+      "value": "Northwest Airlines",
+      "key": "northwest airlines"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Ohio University ",
+      "key": "ohio university"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Orange County Steel Salvage Heliport ",
+      "key": "orange county steel salvage heliport"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "OTS",
+      "key": "ots"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " OTS",
+      "key": "ots"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " OTS",
+      "key": "ots"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Outagamie County ",
+      "key": "outagamie county"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Phillips AAF ",
+      "key": "phillips aaf"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "QAW",
+      "key": "qaw"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " QAW",
+      "key": "qaw"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " QAW",
+      "key": "qaw"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Reilly AHP ",
+      "key": "reilly ahp"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "RFK",
+      "key": "rfk"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " RFK",
+      "key": "rfk"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " RFK",
+      "key": "rfk"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Rick Husband Amarillo International ",
+      "key": "rick husband amarillo international"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "RLI",
+      "key": "rli"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " RLI",
+      "key": "rli"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " RLI",
+      "key": "rli"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Rollang Field ",
+      "key": "rollang field"
+    },
+    {
+      "table": "airlines",
+      "column": "Abbreviation",
+      "value": "Southwest",
+      "key": "southwest"
+    },
+    {
+      "table": "airlines",
+      "column": "Airline",
+      "value": "Southwest Airlines",
+      "key": "southwest airlines"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Spb ",
+      "key": "spb"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "TDW",
+      "key": "tdw"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " TDW",
+      "key": "tdw"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " TDW",
+      "key": "tdw"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Ted Stevens Anchorage International Airport ",
+      "key": "ted stevens anchorage international airport"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Thomas C Russell Fld ",
+      "key": "thomas c russell fld"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Tradewind ",
+      "key": "tradewind"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Tri-State Steuben Cty ",
+      "key": "tri state steuben cty"
+    },
+    {
+      "table": "airlines",
+      "column": "Abbreviation",
+      "value": "UAL",
+      "key": "ual"
+    },
+    {
+      "table": "airlines",
+      "column": "Airline",
+      "value": "United Airlines",
+      "key": "united airlines"
+    },
+    {
+      "table": "airports",
+      "column": "Country",
+      "value": "United States ",
+      "key": "united states"
+    },
+    {
+      "table": "airports",
+      "column": "CountryAbbrev",
+      "value": "US",
+      "key": "us"
+    },
+    {
+      "table": "airports",
+      "column": "CountryAbbrev",
+      "value": "US ",
+      "key": "us"
+    },
+    {
+      "table": "airlines",
+      "column": "Airline",
+      "value": "US Airways",
+      "key": "us airways"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "US Army Heliport ",
+      "key": "us army heliport"
+    },
+    {
+      "table": "airlines",
+      "column": "Country",
+      "value": "USA",
+      "key": "usa"
+    },
+    {
+      "table": "airlines",
+      "column": "Abbreviation",
+      "value": "USAir",
+      "key": "usair"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "USN Heliport ",
+      "key": "usn heliport"
+    },
+    {
+      "table": "airlines",
+      "column": "Abbreviation",
+      "value": "Virgin",
+      "key": "virgin"
+    },
+    {
+      "table": "airlines",
+      "column": "Airline",
+      "value": "Virgin America",
+      "key": "virgin america"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Virginia Highlands ",
+      "key": "virginia highlands"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "VJI",
+      "key": "vji"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " VJI",
+      "key": "vji"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " VJI",
+      "key": "vji"
+    },
+    {
+      "table": "airports",
+      "column": "AirportCode",
+      "value": "WKK",
+      "key": "wkk"
+    },
+    {
+      "table": "flights",
+      "column": "DestAirport",
+      "value": " WKK",
+      "key": "wkk"
+    },
+    {
+      "table": "flights",
+      "column": "SourceAirport",
+      "value": " WKK",
+      "key": "wkk"
+    },
+    {
+      "table": "airports",
+      "column": "AirportName",
+      "value": "Zahns ",
+      "key": "zahns"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

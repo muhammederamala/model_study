@@ -1,0 +1,150 @@
+complexity,id,db_id,question,why_this_complexity
+simple,2,flight_2,"What are flight numbers of flights departing from Airport ""APG""?",plain SELECT with filters only
+simple,8,singer,What are the names of the singers who are not French citizens?,plain SELECT with filters only
+simple,10,world_1,What are the region and population of Angola?,plain SELECT with filters only
+simple,12,world_1,Which continent is Anguilla in?,plain SELECT with filters only
+simple,14,battle_death,What is the average number of injuries caused each time?,1 aggregate function
+simple,17,poker_player,List the names of people that are not poker players.,1 nested subquery
+simple,18,flight_2,Give the city and country for the Alton airport.,plain SELECT with filters only
+simple,23,flight_2,"What are flight numbers of flights departing from City ""Aberdeen ""?",1 join
+simple,25,concert_singer,What are the names of the stadiums without any concerts?,1 nested subquery
+simple,28,museum_visit,How many visitors below age 30 are there?,1 aggregate function
+simple,31,concert_singer,What is the total number of singers?,1 aggregate function
+simple,33,cre_Doc_Template_Mgt,Count the number of documents.,1 aggregate function
+simple,37,student_transcripts_tracking,What are the names and descriptions of all the sections?,plain SELECT with filters only
+simple,38,voter_1,What are the names of the contestants whose names are not 'Jessie Alloway',plain SELECT with filters only
+simple,42,world_1,"What are the population, name and leader of the country with the largest area?",1 ORDER BY
+simple,44,course_teach,What are the age and hometown of teachers?,plain SELECT with filters only
+simple,45,employee_hire_evaluation,Find the names of employees who never won any award in the evaluation.,1 nested subquery
+simple,48,world_1,What are the names of all the countries that became independent after 1950?,plain SELECT with filters only
+simple,49,dog_kennels,"List each owner's first name, last name, and the size of his for her dog.",1 join
+simple,54,dog_kennels,What is the charge amount of the most expensive charge type?,1 aggregate function
+simple,57,orchestra,"Find the number of orchestras whose record format is ""CD"" or ""DVD"".",1 aggregate function
+simple,58,flight_2,How many airports do we have?,1 aggregate function
+simple,59,tvshow,"What is the title of all the cartools that are on the TV Channel with the series name ""Sky Radio""?",1 join
+simple,60,tvshow,What are the titles of all cartoons directed by Ben Jones or Brandon Vietti?,plain SELECT with filters only
+simple,66,poker_player,List the final tables made and the best finishes of poker players.,plain SELECT with filters only
+simple,69,flight_2,Return the number of flights.,1 aggregate function
+simple,70,employee_hire_evaluation,List the names of employees and sort in ascending order of age.,1 ORDER BY
+simple,72,cre_Doc_Template_Mgt,How many documents do we have?,1 aggregate function
+simple,73,tvshow,List top 3 highest Rating  TV series. List the TV series's Episode and Rating.,1 ORDER BY
+simple,74,world_1,What are the names and areas of countries with the top 5 largest area?,1 ORDER BY
+simple,79,cre_Doc_Template_Mgt,Count the number of templates.,1 aggregate function
+simple,80,wta_1,Find the highest rank of losers in all matches.,1 aggregate function
+simple,88,car_1,How many countries are listed?,1 aggregate function
+simple,94,cre_Doc_Template_Mgt,What is the document name and template id for document with description with the letter 'w' in it?,plain SELECT with filters only
+simple,98,concert_singer,What is the name and capacity for the stadium with highest average attendance?,1 ORDER BY
+simple,100,cre_Doc_Template_Mgt,How many templates have template type code CV?,1 aggregate function
+simple,101,poker_player,Count the number of poker players.,1 aggregate function
+simple,104,flight_2,What are the airline names and abbreviations for airlines in the USA?,plain SELECT with filters only
+simple,108,cre_Doc_Template_Mgt,"Show all paragraph texts for the document ""Customer reviews"".",1 join
+simple,110,wta_1,List the number of all matches who played in years of 2013 or 2016.,1 aggregate function
+simple,117,cre_Doc_Template_Mgt,"What is the template type descriptions for template type code ""AD"".",plain SELECT with filters only
+simple,119,tvshow,find the pixel aspect ratio and nation of the tv channels that do not use English.,plain SELECT with filters only
+simple,120,world_1,Return the names of cities that have a population between 160000 and 900000 .,plain SELECT with filters only
+simple,124,poker_player,"What are the names and birth dates of people, ordered by their names in alphabetical order?",1 ORDER BY
+simple,128,flight_2,How many airlines are from USA?,1 aggregate function
+simple,132,concert_singer,What is the maximum capacity and the average of all stadiums ?,1 aggregate function
+simple,135,cre_Doc_Template_Mgt,What is the version number and template type code for the template with version number later than 5?,plain SELECT with filters only
+simple,137,student_transcripts_tracking,What is the description for the section named h?,plain SELECT with filters only
+simple,138,voter_1,What are the distinct states and create time of all votes?,plain SELECT with filters only
+simple,142,battle_death,What are the death and injury situations caused by the ship with tonnage 't'?,1 join
+simple,143,flight_2,Which airline has abbreviation 'UAL'?,plain SELECT with filters only
+moderate,0,dog_kennels,Find the number of professionals who have not treated any dogs.,"1 nested subquery, 1 aggregate function"
+moderate,4,employee_hire_evaluation,What are the minimum and maximum number of products across all the shops?,2 aggregate functions
+moderate,5,wta_1,Find the codes of countries that have more than 50 players.,"1 GROUP BY, 1 HAVING, 1 aggregate function"
+moderate,11,course_teach,Show the hometowns shared by at least two teachers.,"1 GROUP BY, 1 HAVING, 1 aggregate function"
+moderate,16,student_transcripts_tracking,"What are the first, middle, and last names for everybody enrolled in a Bachelors program?",2 joins
+moderate,20,cre_Doc_Template_Mgt,Show all template type codes and number of templates for each.,"1 GROUP BY, 1 aggregate function"
+moderate,21,poker_player,Give average earnings of poker players who are taller than 200.,"1 join, 1 aggregate function"
+moderate,22,car_1,How many car makers are there in france?,"1 join, 1 aggregate function"
+moderate,24,poker_player,Give the nationality that is most common across all people.,"1 GROUP BY, 1 ORDER BY, 1 aggregate function"
+moderate,27,tvshow,which countries' tv channels are not playing any cartoon written by Todd Casey?,"1 join, 1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+moderate,29,network_1,"Show the names of high schoolers who have likes, and numbers of likes for each.","1 join, 1 GROUP BY, 1 aggregate function"
+moderate,30,network_1,How many likes correspond to each student id?,"1 GROUP BY, 1 aggregate function"
+moderate,34,car_1,What are the names of the countries with no car makers?,"1 join, 1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+moderate,35,museum_visit,Find the number of visitors who did not visit any museum opened after 2010.,"1 join, 1 nested subquery, 1 aggregate function"
+moderate,36,world_1,Return the country codes for countries that do not speak English.,"1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+moderate,39,car_1,What is the average edispl for all volvos?,"1 join, 1 aggregate function"
+moderate,40,world_1,Which language is spoken by the largest number of countries?,"1 GROUP BY, 1 ORDER BY, 1 aggregate function"
+moderate,41,voter_1,What are the maximum and minimum values of area codes?,2 aggregate functions
+moderate,43,cre_Doc_Template_Mgt,Show all template type codes with less than three templates.,"1 GROUP BY, 1 HAVING, 1 aggregate function"
+moderate,46,wta_1,"What are the first names of all players, and their total ranking points?","1 join, 1 GROUP BY, 1 aggregate function"
+moderate,52,network_1,What is the average grade of students who have friends?,"1 join, 1 nested subquery, 1 aggregate function"
+moderate,53,world_1,Count the number of countries for which Spanish is the predominantly spoken language.,"1 GROUP BY, 2 aggregate functions"
+moderate,55,flight_2,How many flights land in Aberdeen or Abilene?,"1 join, 1 aggregate function"
+moderate,56,course_teach,Show names of teachers and the courses they are arranged to teach in ascending alphabetical order of the teacher's name.,"2 joins, 1 ORDER BY"
+moderate,61,dog_kennels,Find the states where both owners and professionals live.,"1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+moderate,62,cre_Doc_Template_Mgt,Count the number of paragraphs in the document named 'Summer Show'.,"1 join, 1 aggregate function"
+moderate,63,pets_1,Find the number of dog pets that are raised by female students (with sex F).,"2 joins, 1 aggregate function"
+moderate,64,dog_kennels,Which states have both owners and professionals living there?,"1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+moderate,65,poker_player,Return the nationalities for which there are two or more people.,"1 GROUP BY, 1 HAVING, 1 aggregate function"
+moderate,67,car_1,What is the count of the car models produced in the United States?,"2 joins, 1 aggregate function"
+moderate,68,concert_singer,What are the names of the singers who performed in a concert in 2014?,2 joins
+moderate,75,cre_Doc_Template_Mgt,What are the ids of documents that have 2 or more paragraphs?,"1 GROUP BY, 1 HAVING, 1 aggregate function"
+moderate,76,tvshow,What are the countries that are not playing cartoons written by Todd Casey?,"1 join, 1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+moderate,78,concert_singer,"What is the average, minimum, and maximum age of all singers from France?",3 aggregate functions
+moderate,81,concert_singer,"What is the average, minimum, and maximum age for all French singers?",3 aggregate functions
+moderate,82,employee_hire_evaluation,Which district has both stores with less than 3000 products and stores with more than 10000 products?,"1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+moderate,83,poker_player,Return the names of poker players sorted by their earnings descending.,"1 join, 1 ORDER BY"
+moderate,85,wta_1,How many total tours were there for each ranking date?,"1 GROUP BY, 1 aggregate function"
+moderate,87,world_1,How many people live in countries that do not speak English?,"1 join, 1 nested subquery, 1 aggregate function"
+moderate,91,orchestra,"What are the maximum and minimum share of performances whose type is not ""Live final"".",2 aggregate functions
+moderate,95,student_transcripts_tracking,How many degrees does the engineering department have?,"1 join, 1 aggregate function"
+moderate,97,poker_player,Return the money rank of the poker player with the greatest height.,"1 join, 1 ORDER BY"
+moderate,105,course_teach,List the most common hometown of teachers.,"1 GROUP BY, 1 ORDER BY, 1 aggregate function"
+moderate,106,pets_1,Find the maximum weight for each type of pet. List the maximum weight and pet type.,"1 GROUP BY, 1 aggregate function"
+moderate,107,wta_1,How many matches were played in each year?,"1 GROUP BY, 1 aggregate function"
+moderate,109,voter_1,How many contestants did not get voted?,"1 nested subquery, 1 aggregate function"
+moderate,111,concert_singer,"What are the names , themes , and number of singers for every concert ?","1 join, 1 GROUP BY, 1 aggregate function"
+moderate,112,wta_1,Find the name and rank points of the winner who won the most times.,"1 GROUP BY, 1 ORDER BY, 1 aggregate function"
+moderate,116,wta_1,List the names of all winners who played in both 2013 and 2016.,"1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+moderate,118,tvshow,How many cartoons did each director create?,"1 GROUP BY, 1 aggregate function"
+moderate,121,world_1,Which language is the most popular on the Asian continent?,"1 join, 1 GROUP BY, 1 ORDER BY"
+moderate,123,concert_singer,Show the name and theme for all concerts and the number of singers in each concert.,"1 join, 1 GROUP BY, 1 aggregate function"
+moderate,127,world_1,What is the total number of unique official languages spoken in the countries that are founded before 1930?,"1 join, 1 aggregate function"
+moderate,129,flight_2,How many flights does airline 'JetBlue Airways' have?,"1 join, 1 aggregate function"
+moderate,134,employee_hire_evaluation,Find the number of employees hired in each shop; show the shop name as well.,"1 join, 1 GROUP BY, 1 aggregate function"
+moderate,136,world_1,What is the total population and average area of countries in the continent of North America whose area is bigger than 3000 ?,2 aggregate functions
+moderate,139,network_1,What are the ids of students who both have friends and are liked?,"1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+moderate,140,dog_kennels,How many dogs have not gone through any treatment?,"1 nested subquery, 1 aggregate function"
+moderate,141,flight_2,How many flights depart from City 'Aberdeen' and have destination City 'Ashley'?,"2 joins, 1 aggregate function"
+moderate,148,world_1,What are the names of cities in Europe for which English is not the official language?,"2 joins, 1 nested subquery"
+complex,1,dog_kennels,Which breed do the most dogs have? Give me the breed name.,"1 join, 1 GROUP BY, 1 ORDER BY, 1 aggregate function"
+complex,3,car_1,What are the id and names of the countries which have more than 3 car makers or produce the 'fiat' model?,"3 joins, 1 GROUP BY, 1 HAVING, 1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery, 1 aggregate function"
+complex,6,world_1,Give the name of the nation that uses the greatest amount of languages.,"1 join, 1 GROUP BY, 1 ORDER BY, 1 aggregate function"
+complex,7,tvshow,Which country has the most of TV Channels? List the country and number of TV Channels it has.,"1 GROUP BY, 1 ORDER BY, 2 aggregate functions"
+complex,9,flight_2,Which city has most number of arriving flights?,"1 join, 1 GROUP BY, 1 ORDER BY, 1 aggregate function"
+complex,13,world_1,What languages are only used by a single country with a republic government?,"1 join, 1 GROUP BY, 1 HAVING, 1 aggregate function"
+complex,15,world_1,What is the number of nations that use English and Dutch?,"2 joins, 1 set operation (UNION/INTERSECT/EXCEPT), 2 nested subqueries, 1 aggregate function"
+complex,19,student_transcripts_tracking,"Show the date of the transcript which shows the least number of results, also list the id.","1 join, 1 GROUP BY, 1 ORDER BY, 1 aggregate function"
+complex,26,student_transcripts_tracking,Find the semester when both Master students and Bachelor students got enrolled in.,"2 joins, 1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+complex,32,voter_1,List the area codes in which voters voted both for the contestant 'Tabatha Gehling' and the contestant 'Kelly Clauss'.,"4 joins, 1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+complex,47,pets_1,What is the first name of every student who has a dog but does not have a cat?,"4 joins, 1 nested subquery"
+complex,50,dog_kennels,Which owner has paid for the most treatments on his or her dogs? List the owner id and last name.,"2 joins, 1 GROUP BY, 1 ORDER BY, 1 aggregate function"
+complex,51,network_1,Give the name of the student with the most likes.,"1 join, 1 GROUP BY, 1 ORDER BY, 1 aggregate function"
+complex,71,dog_kennels,Which dogs have not cost their owner more than 1000 for treatment ? List the dog names .,"1 GROUP BY, 1 HAVING, 1 nested subquery, 1 aggregate function"
+complex,77,network_1,What are the names of high schoolers who have 3 or more friends?,"1 join, 1 GROUP BY, 1 HAVING, 1 aggregate function"
+complex,84,world_1,"What are the names of countries that speak more than 2 languages, as well as how many languages they speak?","1 join, 1 GROUP BY, 1 HAVING, 2 aggregate functions"
+complex,86,voter_1,What are the contestant numbers and names of the contestants who had at least two votes?,"1 join, 1 GROUP BY, 1 HAVING, 1 aggregate function"
+complex,89,network_1,Show the names of students who have at least 2 likes.,"1 join, 1 GROUP BY, 1 HAVING, 1 aggregate function"
+complex,90,dog_kennels,"Which professionals live in the state of Indiana or have done treatment on more than 2 treatments? List his or her id, last name and cell phone.","1 join, 1 GROUP BY, 1 HAVING, 1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery, 1 aggregate function"
+complex,92,world_1,How many countries speak both English and Dutch?,"2 joins, 1 set operation (UNION/INTERSECT/EXCEPT), 2 nested subqueries, 1 aggregate function"
+complex,93,singer,What are the names of the singers that have more than one songs?,"1 join, 1 GROUP BY, 1 HAVING, 1 aggregate function"
+complex,96,tvshow,What is the series name and country of all TV channels that are playing cartoons directed by Ben Jones and cartoons directed by Michael Chang?,"2 joins, 1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+complex,99,wta_1,What are the country code and first name of the players who won in both tourney WTA Championships and Australian Open?,"2 joins, 1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+complex,102,world_1,Which countries have either English or Dutch as an official language?,"2 joins, 1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+complex,103,car_1,Which makers designed more than 3 car models? List full name and the id.,"1 join, 1 GROUP BY, 1 HAVING, 1 aggregate function"
+complex,113,tvshow,List the language used least number of TV Channel. List language and number of TV Channel.,"1 GROUP BY, 1 ORDER BY, 2 aggregate functions"
+complex,114,network_1,Show name of all students who have some friends and also are liked by someone else.,"2 joins, 1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+complex,115,student_transcripts_tracking,"What are the first, middle, and last names, along with the ids, of all students who enrolled in 2 degree programs in one semester?","1 join, 1 GROUP BY, 1 HAVING, 1 aggregate function"
+complex,122,orchestra,What are the names of conductors who have conducted at more than one orchestra?,"1 join, 1 GROUP BY, 1 HAVING, 1 aggregate function"
+complex,125,cre_Doc_Template_Mgt,Return the id and name of the document with the most paragraphs.,"1 join, 1 GROUP BY, 1 ORDER BY, 1 aggregate function"
+complex,126,flight_2,Which airline has most number of flights?,"1 join, 1 GROUP BY, 1 ORDER BY, 1 aggregate function"
+complex,130,cre_Doc_Template_Mgt,What is the id and type code for the template used by the most documents?,"1 join, 1 GROUP BY, 1 ORDER BY, 1 aggregate function"
+complex,131,world_1,Return the country name and the numbers of languages spoken for each country that speaks at least 3 languages.,"1 join, 1 GROUP BY, 1 HAVING, 2 aggregate functions"
+complex,133,dog_kennels,List the names of the dogs of the rarest breed and the treatment dates of them.,"1 join, 1 GROUP BY, 1 ORDER BY, 1 nested subquery, 1 aggregate function"
+complex,144,flight_2,Find the abbreviation and country of the airline that has fewest number of flights?,"1 join, 1 GROUP BY, 1 ORDER BY, 1 aggregate function"
+complex,145,student_transcripts_tracking,What are the names and id of courses having at most 2 sections?,"1 join, 1 GROUP BY, 1 HAVING, 1 aggregate function"
+complex,146,tvshow,Find the series name and country of the tv channel that is playing some cartoons directed by Ben Jones and Michael Chang?,"2 joins, 1 set operation (UNION/INTERSECT/EXCEPT), 1 nested subquery"
+complex,147,car_1,What are the names and ids of all makers with more than 3 models?,"1 join, 1 GROUP BY, 1 HAVING, 1 aggregate function"

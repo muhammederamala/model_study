@@ -1,0 +1,191 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "flight_4",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "routes": {
+      "source_label": "routes",
+      "meaning": "Table labeled 'routes' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key rid",
+      "primary_key_columns": [
+        "rid"
+      ],
+      "columns": {
+        "rid": {
+          "type": "number",
+          "source_label": "route id",
+          "primary_key": true
+        },
+        "dst_apid": {
+          "type": "number",
+          "source_label": "destination airport id",
+          "foreign_key": {
+            "table": "airports",
+            "column": "apid"
+          }
+        },
+        "dst_ap": {
+          "type": "text",
+          "source_label": "destination airport"
+        },
+        "src_apid": {
+          "type": "number",
+          "source_label": "source airport id",
+          "foreign_key": {
+            "table": "airports",
+            "column": "apid"
+          }
+        },
+        "src_ap": {
+          "type": "text",
+          "source_label": "source airport"
+        },
+        "alid": {
+          "type": "number",
+          "source_label": "airline id",
+          "foreign_key": {
+            "table": "airlines",
+            "column": "alid"
+          }
+        },
+        "airline": {
+          "type": "text",
+          "source_label": "airline"
+        },
+        "codeshare": {
+          "type": "text",
+          "source_label": "code share",
+          "observed_values": [
+            "Y"
+          ]
+        }
+      },
+      "observed_row_count": 67240
+    },
+    "airports": {
+      "source_label": "airports",
+      "meaning": "Table labeled 'airports' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key apid",
+      "primary_key_columns": [
+        "apid"
+      ],
+      "columns": {
+        "apid": {
+          "type": "number",
+          "source_label": "airport id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country"
+        },
+        "x": {
+          "type": "number",
+          "source_label": "x"
+        },
+        "y": {
+          "type": "number",
+          "source_label": "y"
+        },
+        "elevation": {
+          "type": "number",
+          "source_label": "elevation"
+        },
+        "iata": {
+          "type": "text",
+          "source_label": "iata"
+        },
+        "icao": {
+          "type": "text",
+          "source_label": "icao"
+        }
+      },
+      "observed_row_count": 7184
+    },
+    "airlines": {
+      "source_label": "airlines",
+      "meaning": "Table labeled 'airlines' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key alid",
+      "primary_key_columns": [
+        "alid"
+      ],
+      "columns": {
+        "alid": {
+          "type": "number",
+          "source_label": "airline id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "iata": {
+          "type": "text",
+          "source_label": "iata"
+        },
+        "icao": {
+          "type": "text",
+          "source_label": "icao"
+        },
+        "callsign": {
+          "type": "text",
+          "source_label": "call sign"
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country"
+        },
+        "active": {
+          "type": "text",
+          "source_label": "active",
+          "observed_values": [
+            "Y",
+            "N"
+          ]
+        }
+      },
+      "observed_row_count": 6162
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "routes__row_count": {
+      "meaning": "Number of rows in routes.",
+      "base_table": "routes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "airports__row_count": {
+      "meaning": "Number of rows in airports.",
+      "base_table": "airports",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "airlines__row_count": {
+      "meaning": "Number of rows in airlines.",
+      "base_table": "airlines",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

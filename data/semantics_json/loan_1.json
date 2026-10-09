@@ -1,0 +1,210 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "loan_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "bank": {
+      "source_label": "bank",
+      "meaning": "Table labeled 'bank' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key branch_ID",
+      "primary_key_columns": [
+        "branch_ID"
+      ],
+      "columns": {
+        "branch_ID": {
+          "type": "number",
+          "source_label": "branch id",
+          "primary_key": true
+        },
+        "bname": {
+          "type": "text",
+          "source_label": "bname",
+          "observed_values": [
+            "morningside",
+            "downtown",
+            "broadway",
+            "high"
+          ]
+        },
+        "no_of_customers": {
+          "type": "number",
+          "source_label": "no of customers"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city",
+          "observed_values": [
+            "New York City",
+            "Salt Lake City",
+            "Austin"
+          ]
+        },
+        "state": {
+          "type": "text",
+          "source_label": "state",
+          "observed_values": [
+            "New York",
+            "Utah",
+            "Texas"
+          ]
+        }
+      },
+      "observed_row_count": 4
+    },
+    "customer": {
+      "source_label": "customer",
+      "meaning": "Table labeled 'customer' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key cust_ID",
+      "primary_key_columns": [
+        "cust_ID"
+      ],
+      "columns": {
+        "cust_ID": {
+          "type": "text",
+          "source_label": "customer id",
+          "primary_key": true,
+          "observed_values": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        "cust_name": {
+          "type": "text",
+          "source_label": "customer name",
+          "observed_values": [
+            "Mary",
+            "Jack",
+            "Owen"
+          ]
+        },
+        "acc_type": {
+          "type": "text",
+          "source_label": "account type",
+          "observed_values": [
+            "saving",
+            "checking"
+          ]
+        },
+        "acc_bal": {
+          "type": "number",
+          "source_label": "account balance"
+        },
+        "no_of_loans": {
+          "type": "number",
+          "source_label": "number of loans"
+        },
+        "credit_score": {
+          "type": "number",
+          "source_label": "credit score"
+        },
+        "branch_ID": {
+          "type": "number",
+          "source_label": "branch id",
+          "foreign_key": {
+            "table": "bank",
+            "column": "branch_ID"
+          }
+        },
+        "state": {
+          "type": "text",
+          "source_label": "state",
+          "observed_values": [
+            "Utah",
+            "Texas",
+            "New York"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "loan": {
+      "source_label": "loan",
+      "meaning": "Table labeled 'loan' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key loan_ID",
+      "primary_key_columns": [
+        "loan_ID"
+      ],
+      "columns": {
+        "loan_ID": {
+          "type": "text",
+          "source_label": "loan id",
+          "primary_key": true,
+          "observed_values": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        "loan_type": {
+          "type": "text",
+          "source_label": "loan type",
+          "observed_values": [
+            "Mortgages",
+            "Auto",
+            "Business"
+          ]
+        },
+        "cust_ID": {
+          "type": "text",
+          "source_label": "customer id",
+          "observed_values": [
+            "1",
+            "3"
+          ]
+        },
+        "branch_ID": {
+          "type": "text",
+          "source_label": "branch id",
+          "foreign_key": {
+            "table": "bank",
+            "column": "branch_ID"
+          },
+          "observed_values": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        "amount": {
+          "type": "number",
+          "source_label": "amount"
+        }
+      },
+      "observed_row_count": 3
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "bank__row_count": {
+      "meaning": "Number of rows in bank.",
+      "base_table": "bank",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "customer__row_count": {
+      "meaning": "Number of rows in customer.",
+      "base_table": "customer",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "loan__row_count": {
+      "meaning": "Number of rows in loan.",
+      "base_table": "loan",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

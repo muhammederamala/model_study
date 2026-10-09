@@ -1,0 +1,436 @@
+{
+  "format_version": "1.0",
+  "db_id": "course_teach",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "course": {
+      "source_label": "course",
+      "meaning": "Table labeled 'course' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Course_ID"
+      ],
+      "columns": {
+        "Course_ID": {
+          "type": "number",
+          "source_label": "course id",
+          "primary_key": true
+        },
+        "Staring_Date": {
+          "type": "text",
+          "source_label": "staring date",
+          "observed_values": [
+            "5 May",
+            "6 May",
+            "7 May",
+            "9 May",
+            "10 May",
+            "11 May",
+            "13 May",
+            "14 May",
+            "15 May",
+            "17 May"
+          ]
+        },
+        "Course": {
+          "type": "text",
+          "source_label": "course",
+          "observed_values": [
+            "Language Arts",
+            "Math",
+            "Science",
+            "History",
+            "Bible",
+            "Geography",
+            "Sports",
+            "French",
+            "Health",
+            "Music"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    },
+    "teacher": {
+      "source_label": "teacher",
+      "meaning": "Table labeled 'teacher' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Teacher_ID"
+      ],
+      "columns": {
+        "Teacher_ID": {
+          "type": "number",
+          "source_label": "teacher id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Joseph Huts",
+            "Gustaaf Deloor",
+            "Vicente Carretero",
+            "John Deloor",
+            "Kearsley Brown",
+            "Anne Walker",
+            "Lucy Wong"
+          ]
+        },
+        "Age": {
+          "type": "text",
+          "source_label": "age",
+          "observed_values": [
+            "32",
+            "29",
+            "26",
+            "33",
+            "45",
+            "41",
+            "39"
+          ]
+        },
+        "Hometown": {
+          "type": "text",
+          "source_label": "hometown",
+          "observed_values": [
+            "Blackrod Urban District",
+            "Bolton County Borough",
+            "Farnworth Municipal Borough",
+            "Horwich Urban District",
+            "Kearsley Urban District",
+            "Little Lever Urban District",
+            "Turton Urban District"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "course_arrange": {
+      "source_label": "course arrange",
+      "meaning": "Table labeled 'course arrange' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Course_ID"
+      ],
+      "columns": {
+        "Course_ID": {
+          "type": "number",
+          "source_label": "course id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "course",
+            "column": "Course_ID"
+          }
+        },
+        "Teacher_ID": {
+          "type": "number",
+          "source_label": "teacher id",
+          "foreign_key": {
+            "table": "teacher",
+            "column": "Teacher_ID"
+          }
+        },
+        "Grade": {
+          "type": "number",
+          "source_label": "grade"
+        }
+      },
+      "observed_row_count": 6
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "course_arrange",
+      "from_column": "Course_ID",
+      "to_table": "course",
+      "to_column": "Course_ID",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "course_arrange",
+      "from_column": "Teacher_ID",
+      "to_table": "teacher",
+      "to_column": "Teacher_ID",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {
+    "course arrange": {
+      "maps_to": "course_arrange",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "course__row_count": {
+      "meaning": "Number of rows in course.",
+      "base_table": "course",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "teacher__row_count": {
+      "meaning": "Number of rows in teacher.",
+      "base_table": "teacher",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "course_arrange__row_count": {
+      "meaning": "Number of rows in course_arrange.",
+      "base_table": "course_arrange",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "course",
+      "column": "Staring_Date",
+      "value": "10 May",
+      "key": "10 may"
+    },
+    {
+      "table": "course",
+      "column": "Staring_Date",
+      "value": "11 May",
+      "key": "11 may"
+    },
+    {
+      "table": "course",
+      "column": "Staring_Date",
+      "value": "13 May",
+      "key": "13 may"
+    },
+    {
+      "table": "course",
+      "column": "Staring_Date",
+      "value": "14 May",
+      "key": "14 may"
+    },
+    {
+      "table": "course",
+      "column": "Staring_Date",
+      "value": "15 May",
+      "key": "15 may"
+    },
+    {
+      "table": "course",
+      "column": "Staring_Date",
+      "value": "17 May",
+      "key": "17 may"
+    },
+    {
+      "table": "teacher",
+      "column": "Age",
+      "value": "26",
+      "key": "26"
+    },
+    {
+      "table": "teacher",
+      "column": "Age",
+      "value": "29",
+      "key": "29"
+    },
+    {
+      "table": "teacher",
+      "column": "Age",
+      "value": "32",
+      "key": "32"
+    },
+    {
+      "table": "teacher",
+      "column": "Age",
+      "value": "33",
+      "key": "33"
+    },
+    {
+      "table": "teacher",
+      "column": "Age",
+      "value": "39",
+      "key": "39"
+    },
+    {
+      "table": "teacher",
+      "column": "Age",
+      "value": "41",
+      "key": "41"
+    },
+    {
+      "table": "teacher",
+      "column": "Age",
+      "value": "45",
+      "key": "45"
+    },
+    {
+      "table": "course",
+      "column": "Staring_Date",
+      "value": "5 May",
+      "key": "5 may"
+    },
+    {
+      "table": "course",
+      "column": "Staring_Date",
+      "value": "6 May",
+      "key": "6 may"
+    },
+    {
+      "table": "course",
+      "column": "Staring_Date",
+      "value": "7 May",
+      "key": "7 may"
+    },
+    {
+      "table": "course",
+      "column": "Staring_Date",
+      "value": "9 May",
+      "key": "9 may"
+    },
+    {
+      "table": "teacher",
+      "column": "Name",
+      "value": "Anne Walker",
+      "key": "anne walker"
+    },
+    {
+      "table": "course",
+      "column": "Course",
+      "value": "Bible",
+      "key": "bible"
+    },
+    {
+      "table": "teacher",
+      "column": "Hometown",
+      "value": "Blackrod Urban District",
+      "key": "blackrod urban district"
+    },
+    {
+      "table": "teacher",
+      "column": "Hometown",
+      "value": "Bolton County Borough",
+      "key": "bolton county borough"
+    },
+    {
+      "table": "teacher",
+      "column": "Hometown",
+      "value": "Farnworth Municipal Borough",
+      "key": "farnworth municipal borough"
+    },
+    {
+      "table": "course",
+      "column": "Course",
+      "value": "French",
+      "key": "french"
+    },
+    {
+      "table": "course",
+      "column": "Course",
+      "value": "Geography",
+      "key": "geography"
+    },
+    {
+      "table": "teacher",
+      "column": "Name",
+      "value": "Gustaaf Deloor",
+      "key": "gustaaf deloor"
+    },
+    {
+      "table": "course",
+      "column": "Course",
+      "value": "Health",
+      "key": "health"
+    },
+    {
+      "table": "course",
+      "column": "Course",
+      "value": "History",
+      "key": "history"
+    },
+    {
+      "table": "teacher",
+      "column": "Hometown",
+      "value": "Horwich Urban District",
+      "key": "horwich urban district"
+    },
+    {
+      "table": "teacher",
+      "column": "Name",
+      "value": "John Deloor",
+      "key": "john deloor"
+    },
+    {
+      "table": "teacher",
+      "column": "Name",
+      "value": "Joseph Huts",
+      "key": "joseph huts"
+    },
+    {
+      "table": "teacher",
+      "column": "Name",
+      "value": "Kearsley Brown",
+      "key": "kearsley brown"
+    },
+    {
+      "table": "teacher",
+      "column": "Hometown",
+      "value": "Kearsley Urban District",
+      "key": "kearsley urban district"
+    },
+    {
+      "table": "course",
+      "column": "Course",
+      "value": "Language Arts",
+      "key": "language arts"
+    },
+    {
+      "table": "teacher",
+      "column": "Hometown",
+      "value": "Little Lever Urban District",
+      "key": "little lever urban district"
+    },
+    {
+      "table": "teacher",
+      "column": "Name",
+      "value": "Lucy Wong",
+      "key": "lucy wong"
+    },
+    {
+      "table": "course",
+      "column": "Course",
+      "value": "Math",
+      "key": "math"
+    },
+    {
+      "table": "course",
+      "column": "Course",
+      "value": "Music",
+      "key": "music"
+    },
+    {
+      "table": "course",
+      "column": "Course",
+      "value": "Science",
+      "key": "science"
+    },
+    {
+      "table": "course",
+      "column": "Course",
+      "value": "Sports",
+      "key": "sports"
+    },
+    {
+      "table": "teacher",
+      "column": "Hometown",
+      "value": "Turton Urban District",
+      "key": "turton urban district"
+    },
+    {
+      "table": "teacher",
+      "column": "Name",
+      "value": "Vicente Carretero",
+      "key": "vicente carretero"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

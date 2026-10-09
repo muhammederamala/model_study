@@ -1,0 +1,154 @@
+{
+  "db_id": "cre_Doc_Template_Mgt",
+  "n_questions": 84,
+  "n_questions_with_join": 28,
+  "join_pairs": [
+    {
+      "left": "documents.template_id",
+      "right": "templates.template_id",
+      "n": 16
+    },
+    {
+      "left": "documents.document_id",
+      "right": "paragraphs.document_id",
+      "n": 10
+    },
+    {
+      "left": "ref_template_types.template_type_code",
+      "right": "templates.template_type_code",
+      "n": 4
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 40
+    },
+    {
+      "fn": "COUNT",
+      "target": "template_id",
+      "n": 2
+    },
+    {
+      "fn": "MIN",
+      "target": "version_number",
+      "n": 2
+    }
+  ],
+  "column_clause_usage": {
+    "document_description": {
+      "where": 2
+    },
+    "document_id": {
+      "group by": 12,
+      "order by": 2
+    },
+    "document_name": {
+      "where": 10
+    },
+    "paragraph_text": {
+      "where": 4
+    },
+    "template_id": {
+      "group by": 6
+    },
+    "template_type_code": {
+      "where": 10,
+      "group by": 10
+    },
+    "template_type_description": {
+      "where": 4
+    },
+    "version_number": {
+      "where": 2
+    }
+  },
+  "question_openers": {
+    "what are the": {
+      "GROUP BY": 6,
+      "COUNT": 6,
+      "subquery": 3,
+      "negation (NOT IN / EXCEPT)": 2,
+      "INTERSECT": 1
+    },
+    "what is the": {
+      "GROUP BY": 4,
+      "COUNT": 4,
+      "LIMIT 1": 3,
+      "ORDER BY ... DESC": 2
+    },
+    "return the id": {
+      "GROUP BY": 3,
+      "LIMIT 1": 3,
+      "COUNT": 3,
+      "ORDER BY ... DESC": 2
+    },
+    "show all template": {
+      "GROUP BY": 4,
+      "COUNT": 4,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "which template type": {
+      "GROUP BY": 2,
+      "ORDER BY ... DESC": 2,
+      "LIMIT 1": 2,
+      "COUNT": 2
+    },
+    "count the number": {
+      "COUNT": 7
+    },
+    "show ids for": {
+      "GROUP BY": 1,
+      "COUNT": 1,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "return the type": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "return the code": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "show all document": {
+      "GROUP BY": 2,
+      "COUNT": 2
+    },
+    "how many documents": {
+      "COUNT": 2
+    },
+    "what are all": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "how many templates": {
+      "COUNT": 2
+    },
+    "how many paragraphs": {
+      "COUNT": 2
+    },
+    "return the different": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "list all document": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "give the ids": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "show the document": {
+      "INTERSECT": 1,
+      "subquery": 1
+    }
+  }
+}

@@ -1,0 +1,274 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "party_people",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "region": {
+      "source_label": "region",
+      "meaning": "Table labeled 'region' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Region_ID",
+      "primary_key_columns": [
+        "Region_ID"
+      ],
+      "columns": {
+        "Region_ID": {
+          "type": "number",
+          "source_label": "region id",
+          "primary_key": true
+        },
+        "Region_name": {
+          "type": "text",
+          "source_label": "region name",
+          "observed_values": [
+            "United Kingdom",
+            "Japan",
+            "United States"
+          ]
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "1 July 2002",
+            "3 July 2002",
+            "16 July 2002"
+          ]
+        },
+        "Label": {
+          "type": "text",
+          "source_label": "label",
+          "observed_values": [
+            "Parlophone",
+            "Toshiba-EMI",
+            "Astralwerks"
+          ]
+        },
+        "Format": {
+          "type": "text",
+          "source_label": "format",
+          "observed_values": [
+            "CD",
+            "2× LP",
+            "CD digipak"
+          ]
+        },
+        "Catalogue": {
+          "type": "text",
+          "source_label": "catalogue",
+          "observed_values": [
+            "540 3622",
+            "539 9821",
+            "TOCP-66045",
+            "ASW 40362",
+            "ASW 40522"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "party": {
+      "source_label": "party",
+      "meaning": "Table labeled 'party' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Party_ID",
+      "primary_key_columns": [
+        "Party_ID"
+      ],
+      "columns": {
+        "Party_ID": {
+          "type": "number",
+          "source_label": "party id",
+          "primary_key": true
+        },
+        "Minister": {
+          "type": "text",
+          "source_label": "minister",
+          "observed_values": [
+            "Dr. Kwame Nkrumah (MP)",
+            "Kojo Botsio (MP)",
+            "Ebenezer Ako-Adjei (MP)",
+            "Imoru Egala (MP)"
+          ]
+        },
+        "Took_office": {
+          "type": "text",
+          "source_label": "took office",
+          "observed_values": [
+            "1957",
+            "1958",
+            "1959",
+            "1960",
+            "1961"
+          ]
+        },
+        "Left_office": {
+          "type": "text",
+          "source_label": "left office",
+          "observed_values": [
+            "1958",
+            "1959",
+            "1960",
+            "1961",
+            "1962"
+          ]
+        },
+        "Region_ID": {
+          "type": "number",
+          "source_label": "region id",
+          "foreign_key": {
+            "table": "region",
+            "column": "Region_ID"
+          }
+        },
+        "Party_name": {
+          "type": "text",
+          "source_label": "party name",
+          "observed_values": [
+            "Convention Peoples Party",
+            "Progress Party",
+            "3",
+            "Convention Union Party",
+            "Sinefine Party"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "member": {
+      "source_label": "member",
+      "meaning": "Table labeled 'member' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Member_ID",
+      "primary_key_columns": [
+        "Member_ID"
+      ],
+      "columns": {
+        "Member_ID": {
+          "type": "number",
+          "source_label": "member id",
+          "primary_key": true
+        },
+        "Member_Name": {
+          "type": "text",
+          "source_label": "member name"
+        },
+        "Party_ID": {
+          "type": "text",
+          "source_label": "party id",
+          "foreign_key": {
+            "table": "party",
+            "column": "Party_ID"
+          },
+          "observed_values": [
+            "3",
+            "2",
+            "1"
+          ]
+        },
+        "In_office": {
+          "type": "text",
+          "source_label": "in office",
+          "observed_values": [
+            "1994–present",
+            "1993–2013",
+            "1996–present",
+            "1989–2007",
+            "1996–2007",
+            "1991–present",
+            "1990–1993, 1996–2010",
+            "2001–2007",
+            "2004–2007",
+            "2001–present",
+            "1980–2007",
+            "1990–2010"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "party_events": {
+      "source_label": "party events",
+      "meaning": "Table labeled 'party events' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Event_ID",
+      "primary_key_columns": [
+        "Event_ID"
+      ],
+      "columns": {
+        "Event_ID": {
+          "type": "number",
+          "source_label": "event id",
+          "primary_key": true
+        },
+        "Event_Name": {
+          "type": "text",
+          "source_label": "event name",
+          "observed_values": [
+            "Annaual Meeting",
+            "Conference",
+            "Budget Meeting",
+            "Election Meeting"
+          ]
+        },
+        "Party_ID": {
+          "type": "number",
+          "source_label": "party id",
+          "foreign_key": {
+            "table": "party",
+            "column": "Party_ID"
+          }
+        },
+        "Member_in_charge_ID": {
+          "type": "number",
+          "source_label": "member in charge id",
+          "foreign_key": {
+            "table": "member",
+            "column": "Member_ID"
+          }
+        }
+      },
+      "observed_row_count": 8
+    }
+  },
+  "terms": {
+    "party events": {
+      "maps_to": "party_events",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "region__row_count": {
+      "meaning": "Number of rows in region.",
+      "base_table": "region",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "party__row_count": {
+      "meaning": "Number of rows in party.",
+      "base_table": "party",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "member__row_count": {
+      "meaning": "Number of rows in member.",
+      "base_table": "member",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "party_events__row_count": {
+      "meaning": "Number of rows in party_events.",
+      "base_table": "party_events",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

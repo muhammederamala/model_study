@@ -1,0 +1,212 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "cre_Doc_Template_Mgt",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Ref_Template_Types": {
+      "source_label": "reference template types",
+      "meaning": "Table labeled 'reference template types' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Template_Type_Code",
+      "primary_key_columns": [
+        "Template_Type_Code"
+      ],
+      "columns": {
+        "Template_Type_Code": {
+          "type": "text",
+          "source_label": "template type code",
+          "primary_key": true,
+          "observed_values": [
+            "AD",
+            "BK",
+            "CV",
+            "PP",
+            "PPT"
+          ]
+        },
+        "Template_Type_Description": {
+          "type": "text",
+          "source_label": "template type description",
+          "observed_values": [
+            "Presentation",
+            "CV",
+            "Advertisement",
+            "Paper",
+            "Book"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "Templates": {
+      "source_label": "templates",
+      "meaning": "Table labeled 'templates' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Template_ID",
+      "primary_key_columns": [
+        "Template_ID"
+      ],
+      "columns": {
+        "Template_ID": {
+          "type": "number",
+          "source_label": "template id",
+          "primary_key": true
+        },
+        "Version_Number": {
+          "type": "number",
+          "source_label": "version number"
+        },
+        "Template_Type_Code": {
+          "type": "text",
+          "source_label": "template type code",
+          "foreign_key": {
+            "table": "Ref_Template_Types",
+            "column": "Template_Type_Code"
+          },
+          "observed_values": [
+            "PP",
+            "BK",
+            "PPT",
+            "AD",
+            "CV"
+          ]
+        },
+        "Date_Effective_From": {
+          "type": "time",
+          "source_label": "date effective from"
+        },
+        "Date_Effective_To": {
+          "type": "time",
+          "source_label": "date effective to"
+        },
+        "Template_Details": {
+          "type": "text",
+          "source_label": "template details"
+        }
+      },
+      "observed_row_count": 20
+    },
+    "Documents": {
+      "source_label": "documents",
+      "meaning": "Table labeled 'documents' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Document_ID",
+      "primary_key_columns": [
+        "Document_ID"
+      ],
+      "columns": {
+        "Document_ID": {
+          "type": "number",
+          "source_label": "document id",
+          "primary_key": true
+        },
+        "Template_ID": {
+          "type": "number",
+          "source_label": "template id",
+          "foreign_key": {
+            "table": "Templates",
+            "column": "Template_ID"
+          }
+        },
+        "Document_Name": {
+          "type": "text",
+          "source_label": "document name"
+        },
+        "Document_Description": {
+          "type": "text",
+          "source_label": "document description",
+          "observed_values": [
+            "n",
+            "y",
+            "u",
+            "h",
+            "w",
+            "k",
+            "z",
+            "r",
+            "f",
+            "b"
+          ]
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Paragraphs": {
+      "source_label": "paragraphs",
+      "meaning": "Table labeled 'paragraphs' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Paragraph_ID",
+      "primary_key_columns": [
+        "Paragraph_ID"
+      ],
+      "columns": {
+        "Paragraph_ID": {
+          "type": "number",
+          "source_label": "paragraph id",
+          "primary_key": true
+        },
+        "Document_ID": {
+          "type": "number",
+          "source_label": "document id",
+          "foreign_key": {
+            "table": "Documents",
+            "column": "Document_ID"
+          }
+        },
+        "Paragraph_Text": {
+          "type": "text",
+          "source_label": "paragraph text"
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "reference template types": {
+      "maps_to": "Ref_Template_Types",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Ref_Template_Types__row_count": {
+      "meaning": "Number of rows in Ref_Template_Types.",
+      "base_table": "Ref_Template_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Templates__row_count": {
+      "meaning": "Number of rows in Templates.",
+      "base_table": "Templates",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Documents__row_count": {
+      "meaning": "Number of rows in Documents.",
+      "base_table": "Documents",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Paragraphs__row_count": {
+      "meaning": "Number of rows in Paragraphs.",
+      "base_table": "Paragraphs",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

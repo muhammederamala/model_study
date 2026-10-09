@@ -1,0 +1,979 @@
+id,db_id,complexity_bucket,question,gold_sql,pred_sql,plan_json,raw_response,params_json,compile_error,exec_error,exec_match,latency_sec,eval_duration_ns,prompt_eval_count,eval_count
+23,battle_death,moderate,How many battles did not lose any ship with tonnage '225'?,SELECT count(*) FROM battle WHERE id NOT IN ( SELECT lost_in_battle FROM ship WHERE tonnage  =  '225' );,"SELECT COUNT(*) FROM ""battle"" AS ""b"" LEFT JOIN ""ship"" AS ""s"" ON (""s"".""lost_in_battle"" = ""b"".""id"") WHERE ((""s"".""id"" IS NULL) AND (""s"".""tonnage"" != ?))","{""select"":[{""func"":""count"",""args"":[{""star"":true}]}],""from"":{""table"":""battle"",""as"":""b""},""joins"":[{""table"":""ship"",""as"":""s"",""kind"":""left"",""on"":{""op"":""eq"",""args"":[{""col"":""s.lost_in_battle""},{""col"":""b.id""}]}}],""where"":{""op"":""and"",""args"":[{""op"":""is_null"",""args"":[{""col"":""s.id""}]},{""op"":""ne"",""args"":[{""col"":""s.tonnage""},{""literal"":""225""}]}]}}","{
+  ""select"": [
+    {
+      ""func"": ""count"",
+      ""args"": [
+        {
+          ""star"": true
+        }
+      ]
+    }
+  ],
+  ""from"": {
+    ""table"": ""battle"",
+    ""as"": ""b""
+  },
+  ""joins"": [
+    {
+      ""table"": ""ship"",
+      ""as"": ""s"",
+      ""kind"": ""left"",
+      ""on"": {
+        ""op"": ""eq"",
+        ""args"": [
+          {
+            ""col"": ""s.lost_in_battle""
+          },
+          {
+            ""col"": ""b.id""
+          }
+        ]
+      }
+    }
+  ],
+  ""where"": {
+    ""op"": ""and"",
+    ""args"": [
+      {
+        ""op"": ""is_null"",
+        ""args"": [
+          {
+            ""col"": ""s.id""
+          }
+        ]
+      },
+      {
+        ""op"": ""ne"",
+        ""args"": [
+          {
+            ""col"": ""s.tonnage""
+          },
+          {
+            ""literal"": ""225""
+          }
+        ]
+      }
+    ]
+  }
+}","[""225""]",,,False,279.1,107157492000,1058,238
+51,battle_death,simple,What are the distinct battle names which are between bulgarian commander 'Kaloyan' and latin commander 'Baldwin I'?,SELECT name FROM battle WHERE bulgarian_commander  =  'Kaloyan' AND latin_commander  =  'Baldwin I',"SELECT DISTINCT ""b"".""name"" FROM ""battle"" AS ""b"" WHERE ((""b"".""bulgarian_commander"" = ?) AND (""b"".""latin_commander"" = ?))","{""select"":[{""col"":""name""}],""from"":{""table"":""battle"",""as"":""b""},""where"":{""op"":""and"",""args"":[{""op"":""eq"",""args"":[{""col"":""bulgarian_commander""},{""literal"":""Kaloyan""}]},{""op"":""eq"",""args"":[{""col"":""latin_commander""},{""literal"":""Baldwin I""}]}]},""distinct"":true}","{
+  ""select"": [{""col"": ""name""}],
+  ""from"": {""table"": ""battle"", ""as"": ""b""},
+  ""where"": {
+    ""op"": ""and"",
+    ""args"": [
+      {""op"": ""eq"", ""args"": [{""col"": ""bulgarian_commander""}, {""literal"": ""Kaloyan""}]},
+      {""op"": ""eq"", ""args"": [{""col"": ""latin_commander""}, {""literal"": ""Baldwin I""}]}
+    ]
+  },
+  ""distinct"": true
+}","[""Kaloyan"", ""Baldwin I""]",,,True,58.04,51239370000,1069,114
+80,battle_death,simple,What are the different ids and names of the battles that lost any 'Brig' type shipes?,"SELECT DISTINCT T1.id ,  T1.name FROM battle AS T1 JOIN ship AS T2 ON T1.id  =  T2.lost_in_battle WHERE T2.ship_type  =  'Brig'","SELECT DISTINCT ""battle"".""id"", ""battle"".""name"" FROM ""battle"" AS ""battle"" INNER JOIN ""ship"" AS ""ship"" ON (""ship"".""lost_in_battle"" = ""battle"".""id"") WHERE (""ship"".""ship_type"" = ?)","{""select"":[{""col"":""battle.id""},{""col"":""battle.name""}],""from"":{""table"":""battle"",""as"":""battle""},""joins"":[{""table"":""ship"",""as"":""ship"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""ship.lost_in_battle""},{""col"":""battle.id""}]}}],""where"":{""op"":""eq"",""args"":[{""col"":""ship.ship_type""},{""literal"":""Brig""}]},""distinct"":true}","{
+  ""select"": [
+    {""col"": ""battle.id""},
+    {""col"": ""battle.name""}
+  ],
+  ""from"": {
+    ""table"": ""battle"",
+    ""as"": ""battle""
+  },
+  ""joins"": [
+    {
+      ""table"": ""ship"",
+      ""as"": ""ship"",
+      ""kind"": ""inner"",
+      ""on"": {
+        ""op"": ""eq"",
+        ""args"": [
+          {""col"": ""ship.lost_in_battle""},
+          {""col"": ""battle.id""}
+        ]
+      }
+    }
+  ],
+  ""where"": {
+    ""op"": ""eq"",
+    ""args"": [
+      {""col"": ""ship.ship_type""},
+      {""literal"": ""Brig""}
+    ]
+  },
+  ""distinct"": true
+}","[""Brig""]",,,True,80.34,74937273000,1062,165
+153,battle_death,complex,List the name and date the battle that has lost the ship named 'Lettice' and the ship named 'HMS Atalanta',"SELECT T1.name ,  T1.date FROM battle AS T1 JOIN ship AS T2 ON T1.id  =  T2.lost_in_battle WHERE T2.name  =  'Lettice' INTERSECT SELECT T1.name ,  T1.date FROM battle AS T1 JOIN ship AS T2 ON T1.id  =  T2.lost_in_battle WHERE T2.name  =  'HMS Atalanta'","SELECT ""battle"".""name"", ""battle"".""date"" FROM ""battle"" AS ""battle"" INNER JOIN ""ship"" AS ""ship1"" ON (""ship1"".""lost_in_battle"" = ""battle"".""id"") INNER JOIN ""ship"" AS ""ship2"" ON (""ship2"".""lost_in_battle"" = ""battle"".""id"") WHERE ((""ship1"".""name"" = ?) AND (""ship2"".""name"" = ?))","{""select"":[{""col"":""battle.name""},{""col"":""battle.date""}],""from"":{""table"":""battle"",""as"":""battle""},""joins"":[{""table"":""ship"",""as"":""ship1"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""ship1.lost_in_battle""},{""col"":""battle.id""}]}},{""table"":""ship"",""as"":""ship2"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""ship2.lost_in_battle""},{""col"":""battle.id""}]}}],""where"":{""op"":""and"",""args"":[{""op"":""eq"",""args"":[{""col"":""ship1.name""},{""literal"":""Lettice""}]},{""op"":""eq"",""args"":[{""col"":""ship2.name""},{""literal"":""HMS Atalanta""}]}]}}","{
+  ""select"": [
+    {""col"": ""battle.name""},
+    {""col"": ""battle.date""}
+  ],
+  ""from"": {
+    ""table"": ""battle"",
+    ""as"": ""battle""
+  },
+  ""joins"": [
+    {
+      ""table"": ""ship"",
+      ""as"": ""ship1"",
+      ""kind"": ""inner"",
+      ""on"": {""op"": ""eq"", ""args"": [{""col"": ""ship1.lost_in_battle""}, {""col"": ""battle.id""}]}
+    },
+    {
+      ""table"": ""ship"",
+      ""as"": ""ship2"",
+      ""kind"": ""inner"",
+      ""on"": {""op"": ""eq"", ""args"": [{""col"": ""ship2.lost_in_battle""}, {""col"": ""battle.id""}]}
+    }
+  ],
+  ""where"": {
+    ""op"": ""and"",
+    ""args"": [
+      {""op"": ""eq"", ""args"": [{""col"": ""ship1.name""}, {""literal"": ""Lettice""}]},
+      {""op"": ""eq"", ""args"": [{""col"": ""ship2.name""}, {""literal"": ""HMS Atalanta""}]}
+    ]
+  }
+}","[""Lettice"", ""HMS Atalanta""]",,,True,123.08,115426107000,1070,250
+326,battle_death,simple,What is the average number of injuries caused each time?,SELECT avg(injured) FROM death,"SELECT AVG(""t1"".""injured"") FROM ""death"" AS ""T1""","{""select"":[{""func"":""avg"",""args"":[{""col"":""injured""}]}],""from"":{""table"":""death"",""as"":""T1""}}","{
+  ""select"": [
+    {
+      ""func"": ""avg"",
+      ""args"": [
+        {
+          ""col"": ""injured""
+        }
+      ]
+    }
+  ],
+  ""from"": {
+    ""table"": ""death"",
+    ""as"": ""T1""
+  }
+}",[],,,True,31.79,27820880000,1052,62
+389,battle_death,simple,List the name and tonnage ordered by in descending alphaetical order for the names.,"SELECT name ,  tonnage FROM ship ORDER BY name DESC","SELECT ""ship"".""name"", ""ship"".""tonnage"" FROM ""ship"" AS ""ship"" ORDER BY ""ship"".""name"" DESC","{""select"":[{""col"":""name""},{""col"":""tonnage""}],""from"":{""table"":""ship"",""as"":""ship""},""order_by"":[{""expr"":{""col"":""name""},""direction"":""desc""}]}","{
+  ""select"": [
+    {""col"": ""name""},
+    {""col"": ""tonnage""}
+  ],
+  ""from"": {
+    ""table"": ""ship"",
+    ""as"": ""ship""
+  },
+  ""order_by"": [
+    {
+      ""expr"": {""col"": ""name""},
+      ""direction"": ""desc""
+    }
+  ]
+}",[],,,True,39.02,33863343000,1058,75
+395,battle_death,moderate,"Show names, results and bulgarian commanders of the battles with no ships lost in the 'English Channel'.","SELECT name ,  RESULT ,  bulgarian_commander FROM battle EXCEPT SELECT T1.name ,  T1.result ,  T1.bulgarian_commander FROM battle AS T1 JOIN ship AS T2 ON T1.id  =  T2.lost_in_battle WHERE T2.location  =  'English Channel'","SELECT ""b"".""name"", ""b"".""result"", ""b"".""bulgarian_commander"" FROM ""battle"" AS ""b"" WHERE (""b"".""id"" NOT IN (SELECT ""s"".""lost_in_battle"" FROM ""ship"" AS ""s"" WHERE (""s"".""location"" = ?)))","{""select"":[{""col"":""name""},{""col"":""result""},{""col"":""bulgarian_commander""}],""from"":{""table"":""battle"",""as"":""b""},""where"":{""op"":""not_in"",""args"":[{""col"":""id""},{""subquery"":{""select"":[{""col"":""lost_in_battle""}],""from"":{""table"":""ship"",""as"":""s""},""where"":{""op"":""eq"",""args"":[{""col"":""location""},{""literal"":""English Channel""}]}}}]}}","{
+  ""select"": [
+    {""col"": ""name""},
+    {""col"": ""result""},
+    {""col"": ""bulgarian_commander""}
+  ],
+  ""from"": {
+    ""table"": ""battle"",
+    ""as"": ""b""
+  },
+  ""where"": {
+    ""op"": ""not_in"",
+    ""args"": [
+      {""col"": ""id""},
+      {
+        ""subquery"": {
+          ""select"": [{""col"": ""lost_in_battle""}],
+          ""from"": {
+            ""table"": ""ship"",
+            ""as"": ""s""
+          },
+          ""where"": {
+            ""op"": ""eq"",
+            ""args"": [
+              {""col"": ""location""},
+              {""literal"": ""English Channel""}
+            ]
+          }
+        }
+      }
+    ]
+  }
+}","[""English Channel""]",,,True,81.27,75721881000,1063,168
+425,battle_death,simple,What are the name and results of the battles when the bulgarian commander is not 'Boril',"SELECT name ,  RESULT FROM battle WHERE bulgarian_commander != 'Boril'","SELECT ""battle"".""name"", ""battle"".""result"" FROM ""battle"" AS ""battle"" WHERE (""battle"".""bulgarian_commander"" != ?)","{""select"":[{""col"":""name""},{""col"":""result""}],""from"":{""table"":""battle"",""as"":""battle""},""where"":{""op"":""ne"",""args"":[{""col"":""bulgarian_commander""},{""literal"":""Boril""}]}}","{
+  ""select"": [
+    {""col"": ""name""},
+    {""col"": ""result""}
+  ],
+  ""from"": {
+    ""table"": ""battle"",
+    ""as"": ""battle""
+  },
+  ""where"": {
+    ""op"": ""ne"",
+    ""args"": [
+      {""col"": ""bulgarian_commander""},
+      {""literal"": ""Boril""}
+    ]
+  }
+}","[""Boril""]",,,True,44.33,38695506000,1063,86
+454,battle_death,simple,"List the name, date and result of each battle.","SELECT name ,  date FROM battle","SELECT ""battle"".""name"", ""battle"".""date"", ""battle"".""result"" FROM ""battle"" AS ""battle""","{""select"":[{""col"":""name""},{""col"":""date""},{""col"":""result""}],""from"":{""table"":""battle"",""as"":""battle""}}","{
+  ""select"": [
+    {""col"": ""name""},
+    {""col"": ""date""},
+    {""col"": ""result""}
+  ],
+  ""from"": {
+    ""table"": ""battle"",
+    ""as"": ""battle""
+  }
+}",[],,,False,27.1,23147415000,1052,52
+465,battle_death,simple,What are the notes of the death events which has substring 'East'?,SELECT note FROM death WHERE note LIKE '%East%',"SELECT ""t1"".""note"" FROM ""death"" AS ""T1"" WHERE (""t1"".""note"" LIKE ?)","{""select"":[{""col"":""note""}],""from"":{""table"":""death"",""as"":""T1""},""where"":{""op"":""like"",""args"":[{""col"":""note""},{""literal"":""%East%""}]}}","{
+  ""select"": [{""col"": ""note""}],
+  ""from"": {""table"": ""death"", ""as"": ""T1""},
+  ""where"": {""op"": ""like"", ""args"": [{""col"": ""note""}, {""literal"": ""%East%""}]}
+}","[""%East%""]",,,True,30.54,25824593000,1056,58
+466,battle_death,simple,What are the death and injury situations caused by the ship with tonnage 't'?,"SELECT T1.killed ,  T1.injured FROM death AS T1 JOIN ship AS t2 ON T1.caused_by_ship_id  =  T2.id WHERE T2.tonnage  =  't'","SELECT ""death"".""killed"", ""death"".""injured"" FROM ""death"" AS ""death"" INNER JOIN ""ship"" AS ""ship"" ON (""death"".""caused_by_ship_id"" = ""ship"".""id"") WHERE (""ship"".""tonnage"" = ?)","{""select"":[{""col"":""death.killed""},{""col"":""death.injured""}],""from"":{""table"":""death"",""as"":""death""},""joins"":[{""table"":""ship"",""as"":""ship"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""death.caused_by_ship_id""},{""col"":""ship.id""}]}}],""where"":{""op"":""eq"",""args"":[{""col"":""ship.tonnage""},{""literal"":""t""}]}}","{
+  ""select"": [
+    {""col"": ""death.killed""},
+    {""col"": ""death.injured""}
+  ],
+  ""from"": {
+    ""table"": ""death"",
+    ""as"": ""death""
+  },
+  ""joins"": [
+    {
+      ""table"": ""ship"",
+      ""as"": ""ship"",
+      ""kind"": ""inner"",
+      ""on"": {
+        ""op"": ""eq"",
+        ""args"": [
+          {""col"": ""death.caused_by_ship_id""},
+          {""col"": ""ship.id""}
+        ]
+      }
+    }
+  ],
+  ""where"": {
+    ""op"": ""eq"",
+    ""args"": [
+      {""col"": ""ship.tonnage""},
+      {""literal"": ""t""}
+    ]
+  }
+}","[""t""]",,,True,77.54,72781409000,1059,161
+659,battle_death,moderate,What is maximum and minimum death toll caused each time?,"SELECT max(killed) ,  min(killed) FROM death","SELECT MAX(""death"".""killed""), MIN(""death"".""killed"") FROM ""death"" AS ""death""","{""select"":[{""func"":""max"",""args"":[{""col"":""killed""}]},{""func"":""min"",""args"":[{""col"":""killed""}]}],""from"":{""table"":""death"",""as"":""death""}}","{
+  ""select"": [
+    {""func"": ""max"", ""args"": [{""col"": ""killed""}]},
+    {""func"": ""min"", ""args"": [{""col"": ""killed""}]}
+  ],
+  ""from"": {
+    ""table"": ""death"",
+    ""as"": ""death""
+  }
+}",[],,,True,33.8,30102240000,1052,67
+693,battle_death,simple,How many ships ended up being 'Captured'?,SELECT count(*) FROM ship WHERE disposition_of_ship  =  'Captured',"SELECT COUNT(*) FROM ""ship"" AS ""ship"" WHERE (""ship"".""disposition_of_ship"" = ?)","{""select"":[{""func"":""count"",""args"":[{""star"":true}]}],""from"":{""table"":""ship"",""as"":""ship""},""where"":{""op"":""eq"",""args"":[{""col"":""disposition_of_ship""},{""literal"":""Captured""}]}}","{
+  ""select"": [
+    {
+      ""func"": ""count"",
+      ""args"": [
+        {
+          ""star"": true
+        }
+      ]
+    }
+  ],
+  ""from"": {
+    ""table"": ""ship"",
+    ""as"": ""ship""
+  },
+  ""where"": {
+    ""op"": ""eq"",
+    ""args"": [
+      {
+        ""col"": ""disposition_of_ship""
+      },
+      {
+        ""literal"": ""Captured""
+      }
+    ]
+  }
+}","[""Captured""]",,,True,51.61,47692339000,1052,106
+798,battle_death,simple,How many different results are there for the battles?,SELECT count(DISTINCT RESULT) FROM battle,"SELECT COUNT(DISTINCT ""battle"".""result"") FROM ""battle"" AS ""battle""","{""select"":[{""func"":""count"",""distinct"":true,""args"":[{""col"":""result""}]}],""from"":{""table"":""battle"",""as"":""battle""}}","{
+  ""select"": [
+    {
+      ""func"": ""count"",
+      ""distinct"": true,
+      ""args"": [
+        {
+          ""col"": ""result""
+        }
+      ]
+    }
+  ],
+  ""from"": {
+    ""table"": ""battle"",
+    ""as"": ""battle""
+  }
+}",[],,,True,32.92,29518241000,1051,66
+950,battle_death,complex,What are the ids and names of the battles that led to more than 10 people killed in total.,"SELECT T1.id ,  T1.name FROM battle AS T1 JOIN ship AS T2 ON T1.id  =  T2.lost_in_battle JOIN death AS T3 ON T2.id  =  T3.caused_by_ship_id GROUP BY T1.id HAVING sum(T3.killed)  >  10",,"{""select"":[{""col"":""battle.id""},{""col"":""battle.name""}],""from"":{""table"":""battle"",""as"":""battle""},""joins"":[{""table"":""death"",""as"":""death"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""death.caused_by_ship_id""},{""col"":""ship.id""}]}},{""table"":""ship"",""as"":""ship"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""ship.lost_in_battle""},{""col"":""battle.id""}]}}],""group_by"":[{""col"":""battle.id""},{""col"":""battle.name""}],""having"":{""op"":""gt"",""args"":[{""func"":""sum"",""args"":[{""col"":""death.killed""}]},{""literal"":10}]}}","{
+  ""select"": [
+    {""col"": ""battle.id""},
+    {""col"": ""battle.name""}
+  ],
+  ""from"": {
+    ""table"": ""battle"",
+    ""as"": ""battle""
+  },
+  ""joins"": [
+    {
+      ""table"": ""death"",
+      ""as"": ""death"",
+      ""kind"": ""inner"",
+      ""on"": {
+        ""op"": ""eq"",
+        ""args"": [
+          {""col"": ""death.caused_by_ship_id""},
+          {""col"": ""ship.id""}
+        ]
+      }
+    },
+    {
+      ""table"": ""ship"",
+      ""as"": ""ship"",
+      ""kind"": ""inner"",
+      ""on"": {
+        ""op"": ""eq"",
+        ""args"": [
+          {""col"": ""ship.lost_in_battle""},
+          {""col"": ""battle.id""}
+        ]
+      }
+    }
+  ],
+  ""group_by"": [
+    {""col"": ""battle.id""},
+    {""col"": ""battle.name""}
+  ],
+  ""having"": {
+    ""op"": ""gt"",
+    ""args"": [
+      {""func"": ""sum"", ""args"": [{""col"": ""death.killed""}]},
+      {""literal"": 10}
+    ]
+  }
+}",[],PlanError: unknown qualified column: 'ship.id',,False,123.86,118248633000,1063,259
+997,battle_death,complex,What is the ship id and name that caused most total injuries?,"SELECT T2.id ,  T2.name FROM death AS T1 JOIN ship AS t2 ON T1.caused_by_ship_id  =  T2.id GROUP BY T2.id ORDER BY count(*) DESC LIMIT 1",,"{""select"":[{""col"":""ship.id""},{""col"":""ship.name""}],""from"":{""table"":""death"",""as"":""death""},""joins"":[{""table"":""ship"",""as"":""ship"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""death.caused_by_ship_id""},{""col"":""ship.id""}]}}],""group_by"":[{""col"":""ship.id""},{""col"":""ship.name""}],""having"":{""op"":""eq"",""args"":[{""col"":""injured_sum""},{""func"":""max"",""args"":[{""col"":""injured_sum""}]}]},""order_by"":[{""expr"":{""func"":""sum"",""args"":[{""col"":""death.injured""}]},""direction"":""desc""}],""limit"":1,""distinct"":true}","{
+  ""select"": [
+    {""col"": ""ship.id""},
+    {""col"": ""ship.name""}
+  ],
+  ""from"": {
+    ""table"": ""death"",
+    ""as"": ""death""
+  },
+  ""joins"": [
+    {
+      ""table"": ""ship"",
+      ""as"": ""ship"",
+      ""kind"": ""inner"",
+      ""on"": {
+        ""op"": ""eq"",
+        ""args"": [
+          {""col"": ""death.caused_by_ship_id""},
+          {""col"": ""ship.id""}
+        ]
+      }
+    }
+  ],
+  ""group_by"": [
+    {""col"": ""ship.id""},
+    {""col"": ""ship.name""}
+  ],
+  ""having"": {
+    ""op"": ""eq"",
+    ""args"": [
+      {""col"": ""injured_sum""},
+      {
+        ""func"": ""max"",
+        ""args"": [
+          {""col"": ""injured_sum""}
+        ]
+      }
+    ]
+  },
+  ""order_by"": [
+    {
+      ""expr"": {
+        ""func"": ""sum"",
+        ""args"": [
+          {""col"": ""death.injured""}
+        ]
+      },
+      ""direction"": ""desc""
+    }
+  ],
+  ""limit"": 1,
+  ""distinct"": true
+}",[],PlanError: unknown column: 'injured_sum',,False,124.7,120520124000,1054,264
+27,car_1,simple,What is the minimum weight of the car with 8 cylinders produced in 1974 ?,select min(weight) from cars_data where cylinders  =  8 and year  =  1974,"SELECT MIN(""t1"".""Weight"") FROM ""cars_data"" AS ""T1"" WHERE ((""t1"".""Cylinders"" = ?) AND (""t1"".""Year"" = ?))","{""select"":[{""func"":""min"",""args"":[{""col"":""Weight""}]}],""from"":{""table"":""cars_data"",""as"":""T1""},""where"":{""op"":""and"",""args"":[{""op"":""eq"",""args"":[{""col"":""Cylinders""},{""literal"":8}]},{""op"":""eq"",""args"":[{""col"":""Year""},{""literal"":1974}]}]}}","{
+  ""select"": [
+    {
+      ""func"": ""min"",
+      ""args"": [
+        {
+          ""col"": ""Weight""
+        }
+      ]
+    }
+  ],
+  ""from"": {
+    ""table"": ""cars_data"",
+    ""as"": ""T1""
+  },
+  ""where"": {
+    ""op"": ""and"",
+    ""args"": [
+      {
+        ""op"": ""eq"",
+        ""args"": [
+          {
+            ""col"": ""Cylinders""
+          },
+          {
+            ""literal"": 8
+          }
+        ]
+      },
+      {
+        ""op"": ""eq"",
+        ""args"": [
+          {
+            ""col"": ""Year""
+          },
+          {
+            ""literal"": 1974
+          }
+        ]
+      }
+    ]
+  }
+}","[8, 1974]",,,True,144.09,75090259000,900,168
+37,car_1,moderate,What is the model for the car with a weight smaller than the average?,SELECT T1.model FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T2.Weight  <  (SELECT avg(Weight) FROM CARS_DATA),,"{""select"":[{""col"":""model_list.Model""}],""from"":{""table"":""car_names"",""as"":""T1""},""joins"":[{""table"":""model_list"",""as"":""T2"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""T1.Model""},{""col"":""T2.Model""}]}}],""where"":{""op"":""lt"",""args"":[{""col"":""cars_data.Weight""},{""func"":""avg"",""args"":[{""col"":""cars_data.Weight""}]}]},""distinct"":true}","{
+  ""select"": [{""col"": ""model_list.Model""}],
+  ""from"": {""table"": ""car_names"", ""as"": ""T1""},
+  ""joins"": [
+    {
+      ""table"": ""model_list"",
+      ""as"": ""T2"",
+      ""kind"": ""inner"",
+      ""on"": {""op"": ""eq"", ""args"": [{""col"": ""T1.Model""}, {""col"": ""T2.Model""}]}
+    }
+  ],
+  ""where"": {
+    ""op"": ""lt"",
+    ""args"": [
+      {""col"": ""cars_data.Weight""},
+      {
+        ""func"": ""avg"",
+        ""args"": [{""col"": ""cars_data.Weight""}]
+      }
+    ]
+  },
+  ""distinct"": true
+}",[],PlanError: unknown qualified column: 'model_list.Model',,False,74.67,70496344000,895,159
+52,car_1,simple,What is the average miles per gallon of all the cards with 4 cylinders?,SELECT avg(mpg) FROM CARS_DATA WHERE Cylinders  =  4;,"SELECT AVG(""cars_data"".""MPG"") FROM ""cars_data"" AS ""cars_data"" WHERE (""cars_data"".""Cylinders"" = ?)","{""select"":[{""func"":""avg"",""args"":[{""col"":""MPG""}]}],""from"":{""table"":""cars_data"",""as"":""cars_data""},""where"":{""op"":""eq"",""args"":[{""col"":""Cylinders""},{""literal"":4}]}}","{
+  ""select"": [
+    {
+      ""func"": ""avg"",
+      ""args"": [
+        {
+          ""col"": ""MPG""
+        }
+      ]
+    }
+  ],
+  ""from"": {
+    ""table"": ""cars_data"",
+    ""as"": ""cars_data""
+  },
+  ""where"": {
+    ""op"": ""eq"",
+    ""args"": [
+      {
+        ""col"": ""Cylinders""
+      },
+      {
+        ""literal"": 4
+      }
+    ]
+  }
+}",[4],,,True,51.83,47480021000,896,108
+55,car_1,complex,What are the countries having at least one car maker? List name and id.,"SELECT T1.CountryName ,  T1.CountryId FROM COUNTRIES AS T1 JOIN CAR_MAKERS AS T2 ON T1.CountryId  =  T2.Country GROUP BY T1.CountryId HAVING count(*)  >=  1;","SELECT ""t1"".""CountryName"", ""t1"".""CountryId"" FROM ""countries"" AS ""T1"" INNER JOIN ""car_makers"" AS ""T2"" ON (""t2"".""Country"" = ""t1"".""CountryId"") GROUP BY ""t1"".""CountryName"", ""t1"".""CountryId"" HAVING (COUNT(*) >= ?)","{""select"":[{""col"":""CountryName""},{""col"":""CountryId""}],""from"":{""table"":""countries"",""as"":""T1""},""joins"":[{""table"":""car_makers"",""as"":""T2"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""Country""},{""col"":""CountryId""}]}}],""group_by"":[{""col"":""CountryName""},{""col"":""CountryId""}],""having"":{""op"":""gte"",""args"":[{""func"":""count"",""args"":[{""star"":true}]},{""literal"":1}]}}","{
+  ""select"": [
+    {""col"": ""CountryName""},
+    {""col"": ""CountryId""}
+  ],
+  ""from"": {
+    ""table"": ""countries"",
+    ""as"": ""T1""
+  },
+  ""joins"": [
+    {
+      ""table"": ""car_makers"",
+      ""as"": ""T2"",
+      ""kind"": ""inner"",
+      ""on"": {
+        ""op"": ""eq"",
+        ""args"": [
+          {""col"": ""Country""},
+          {""col"": ""CountryId""}
+        ]
+      }
+    }
+  ],
+  ""group_by"": [
+    {""col"": ""CountryName""},
+    {""col"": ""CountryId""}
+  ],
+  ""having"": {
+    ""op"": ""gte"",
+    ""args"": [
+      {""func"": ""count"", ""args"": [{""star"": true}]},
+      {""literal"": 1}
+    ]
+  }
+}",[1],,,True,90.0,85348902000,896,188
+56,car_1,simple,How many cars has over 6 cylinders?,SELECT COUNT(*) FROM CARS_DATA WHERE Cylinders  >  6;,"SELECT COUNT(*) FROM ""cars_data"" AS ""cars_data"" WHERE (""cars_data"".""Cylinders"" > ?)","{""select"":[{""func"":""count"",""args"":[{""star"":true}]}],""from"":{""table"":""cars_data"",""as"":""cars_data""},""where"":{""op"":""gt"",""args"":[{""col"":""cars_data.Cylinders""},{""literal"":6}]}}","{
+  ""select"": [
+    {
+      ""func"": ""count"",
+      ""args"": [
+        {
+          ""star"": true
+        }
+      ]
+    }
+  ],
+  ""from"": {
+    ""table"": ""cars_data"",
+    ""as"": ""cars_data""
+  },
+  ""where"": {
+    ""op"": ""gt"",
+    ""args"": [
+      {
+        ""col"": ""cars_data.Cylinders""
+      },
+      {
+        ""literal"": 6
+      }
+    ]
+  }
+}",[6],,,True,50.83,47280778000,889,108
+63,car_1,moderate,What is the maximum accelerate for different number of cylinders?,"SELECT max(Accelerate) ,  Cylinders FROM CARS_DATA GROUP BY Cylinders;","SELECT ""cars"".""Cylinders"", MAX(""cars"".""Accelerate"") FROM ""cars_data"" AS ""cars"" GROUP BY ""cars"".""Cylinders""","{""select"":[{""col"":""Cylinders""},{""func"":""max"",""args"":[{""col"":""Accelerate""}]}],""from"":{""table"":""cars_data"",""as"":""cars""},""group_by"":[{""col"":""Cylinders""}]}","{
+  ""select"": [
+    {""col"": ""Cylinders""},
+    {""func"": ""max"", ""args"": [{""col"": ""Accelerate""}]}
+  ],
+  ""from"": {
+    ""table"": ""cars_data"",
+    ""as"": ""cars""
+  },
+  ""group_by"": [
+    {""col"": ""Cylinders""}
+  ]
+}",[],,,False,37.82,33465750999,891,76
+67,car_1,simple,How many countries exist?,SELECT count(*) FROM COUNTRIES;,"SELECT COUNT(*) FROM ""countries"" AS ""countries""","{""select"":[{""func"":""count"",""args"":[{""star"":true}]}],""from"":{""table"":""countries"",""as"":""countries""}}","{
+  ""select"": [
+    {
+      ""func"": ""count"",
+      ""args"": [
+        {
+          ""star"": true
+        }
+      ]
+    }
+  ],
+  ""from"": {
+    ""table"": ""countries"",
+    ""as"": ""countries""
+  }
+}",[],,,True,28.5,25318872000,885,59
+87,car_1,complex,What is the name of each continent and how many car makers are there in each one?,"SELECT T1.Continent ,  count(*) FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId  =  T2.continent JOIN car_makers AS T3 ON T2.CountryId  =  T3.Country GROUP BY T1.Continent;",,"{""select"":[{""col"":""T1.Continent""},{""func"":""count"",""args"":[{""col"":""T2.Id""}]}],""from"":{""table"":""continents"",""as"":""T1""},""joins"":[{""table"":""countries"",""as"":""T2"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""T1.ContId""},{""col"":""T2.Continent""}]}},{""table"":""car_makers"",""as"":""T3"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""T2.CountryId""},{""col"":""T3.Country""}]}}],""group_by"":[{""col"":""T1.Continent""}]}","{
+  ""select"": [
+    {""col"": ""T1.Continent""},
+    {""func"": ""count"", ""args"": [{""col"": ""T2.Id""}]}
+  ],
+  ""from"": {
+    ""table"": ""continents"",
+    ""as"": ""T1""
+  },
+  ""joins"": [
+    {
+      ""table"": ""countries"",
+      ""as"": ""T2"",
+      ""kind"": ""inner"",
+      ""on"": {""op"": ""eq"", ""args"": [{""col"": ""T1.ContId""}, {""col"": ""T2.Continent""}]}
+    },
+    {
+      ""table"": ""car_makers"",
+      ""as"": ""T3"",
+      ""kind"": ""inner"",
+      ""on"": {""op"": ""eq"", ""args"": [{""col"": ""T2.CountryId""}, {""col"": ""T3.Country""}]}
+    }
+  ],
+  ""group_by"": [
+    {""col"": ""T1.Continent""}
+  ]
+}",[],PlanError: unknown qualified column: 'T2.Id',,False,96.21,90342857000,898,205
+89,car_1,simple,How many countries are listed?,SELECT count(*) FROM COUNTRIES;,"SELECT COUNT(*) FROM ""countries"" AS ""countries""","{""select"":[{""func"":""count"",""args"":[{""star"":true}]}],""from"":{""table"":""countries"",""as"":""countries""}}","{
+  ""select"": [
+    {
+      ""func"": ""count"",
+      ""args"": [
+        {
+          ""star"": true
+        }
+      ]
+    }
+  ],
+  ""from"": {
+    ""table"": ""countries"",
+    ""as"": ""countries""
+  }
+}",[],,,True,28.05,25018715000,886,59
+110,car_1,simple,What is the number of continents?,SELECT count(*) FROM CONTINENTS;,"SELECT COUNT(*) FROM ""continents"" AS ""continents""","{""select"":[{""func"":""count"",""args"":[{""star"":true}]}],""from"":{""table"":""continents"",""as"":""continents""}}","{
+  ""select"": [
+    {
+      ""func"": ""count"",
+      ""args"": [
+        {
+          ""star"": true
+        }
+      ]
+    }
+  ],
+  ""from"": {
+    ""table"": ""continents"",
+    ""as"": ""continents""
+  }
+}",[],,,True,29.25,25898132000,887,61
+116,car_1,moderate,"What is the full name of each car maker, along with its id and how many models it produces?","SELECT T1.FullName ,  T1.Id ,  count(*) FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker GROUP BY T1.Id;","SELECT ""car_makers"".""FullName"", ""car_makers"".""Id"", COUNT(""model_list"".""ModelId"") FROM ""car_makers"" AS ""car_makers"" LEFT JOIN ""model_list"" AS ""model_list"" ON (""car_makers"".""Id"" = ""model_list"".""Maker"") GROUP BY ""car_makers"".""FullName"", ""car_makers"".""Id""","{""select"":[{""col"":""car_makers.FullName""},{""col"":""car_makers.Id""},{""func"":""count"",""args"":[{""col"":""model_list.ModelId""}]}],""from"":{""table"":""car_makers"",""as"":""car_makers""},""joins"":[{""table"":""model_list"",""as"":""model_list"",""kind"":""left"",""on"":{""op"":""eq"",""args"":[{""col"":""car_makers.Id""},{""col"":""model_list.Maker""}]}}],""group_by"":[{""col"":""car_makers.FullName""},{""col"":""car_makers.Id""}]}","{
+  ""select"": [
+    {""col"": ""car_makers.FullName""},
+    {""col"": ""car_makers.Id""},
+    {""func"": ""count"", ""args"": [{""col"": ""model_list.ModelId""}]}
+  ],
+  ""from"": {
+    ""table"": ""car_makers"",
+    ""as"": ""car_makers""
+  },
+  ""joins"": [
+    {
+      ""table"": ""model_list"",
+      ""as"": ""model_list"",
+      ""kind"": ""left"",
+      ""on"": {""op"": ""eq"", ""args"": [{""col"": ""car_makers.Id""}, {""col"": ""model_list.Maker""}]}
+    }
+  ],
+  ""group_by"": [
+    {""col"": ""car_makers.FullName""},
+    {""col"": ""car_makers.Id""}
+  ]
+}",[],,,True,79.24,74087282000,901,170
+119,car_1,moderate,Which distinctive models are produced by maker with the full name General Motors or weighing more than 3500?,SELECT DISTINCT T2.Model FROM CAR_NAMES AS T1 JOIN MODEL_LIST AS T2 ON T1.Model  =  T2.Model JOIN CAR_MAKERS AS T3 ON T2.Maker  =  T3.Id JOIN CARS_DATA AS T4 ON T1.MakeId  =  T4.Id WHERE T3.FullName  =  'General Motors' OR T4.weight  >  3500;,,"{""select"":[{""col"":""model_list.Model"",""distinct"":true}],""from"":{""table"":""model_list"",""as"":""T1""},""joins"":[{""table"":""car_makers"",""as"":""T2"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""T1.Maker""},{""col"":""T2.Id""}]}},{""table"":""cars_data"",""as"":""T3"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""T1.ModelId""},{""col"":""T3.Id""}]}}],""where"":{""op"":""or"",""args"":[{""op"":""eq"",""args"":[{""col"":""T2.FullName""},{""literal"":""General Motors""}]},{""op"":""gt"",""args"":[{""col"":""T3.Weight""},{""literal"":3500}]}]}}","{
+  ""select"": [
+    {""col"": ""model_list.Model"", ""distinct"": true}
+  ],
+  ""from"": {
+    ""table"": ""model_list"",
+    ""as"": ""T1""
+  },
+  ""joins"": [
+    {
+      ""table"": ""car_makers"",
+      ""as"": ""T2"",
+      ""kind"": ""inner"",
+      ""on"": {""op"": ""eq"", ""args"": [{""col"": ""T1.Maker""}, {""col"": ""T2.Id""}]}
+    },
+    {
+      ""table"": ""cars_data"",
+      ""as"": ""T3"",
+      ""kind"": ""inner"",
+      ""on"": {""op"": ""eq"", ""args"": [{""col"": ""T1.ModelId""}, {""col"": ""T3.Id""}]}
+    }
+  ],
+  ""where"": {
+    ""op"": ""or"",
+    ""args"": [
+      {""op"": ""eq"", ""args"": [{""col"": ""T2.FullName""}, {""literal"": ""General Motors""}]},
+      {""op"": ""gt"", ""args"": [{""col"": ""T3.Weight""}, {""literal"": 3500}]}
+    ]
+  }
+}",[],PlanError: unknown qualified column: 'model_list.Model',,False,114.46,108746792000,903,247
+128,car_1,complex,Which of the countries has the most car makers? List the country name.,SELECT T2.CountryName FROM CAR_MAKERS AS T1 JOIN COUNTRIES AS T2 ON T1.Country  =  T2.CountryId GROUP BY T1.Country ORDER BY Count(*) DESC LIMIT 1;,"SELECT ""T2"".""CountryName"" FROM ""car_makers"" AS ""T1"" INNER JOIN ""countries"" AS ""T2"" ON (""T1"".""Country"" = ""T2"".""CountryId"") GROUP BY ""T2"".""CountryName"" ORDER BY COUNT(*) DESC LIMIT 1","{""select"":[{""col"":""T2.CountryName""}],""from"":{""table"":""car_makers"",""as"":""T1""},""joins"":[{""table"":""countries"",""as"":""T2"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""T1.Country""},{""col"":""T2.CountryId""}]}}],""group_by"":[{""col"":""T2.CountryName""}],""order_by"":[{""expr"":{""func"":""count"",""args"":[{""star"":true}]},""direction"":""desc""}],""limit"":1}","{
+  ""select"": [{""col"": ""T2.CountryName""}],
+  ""from"": {""table"": ""car_makers"", ""as"": ""T1""},
+  ""joins"": [
+    {
+      ""table"": ""countries"",
+      ""as"": ""T2"",
+      ""kind"": ""inner"",
+      ""on"": {""op"": ""eq"", ""args"": [{""col"": ""T1.Country""}, {""col"": ""T2.CountryId""}]}
+    }
+  ],
+  ""group_by"": [{""col"": ""T2.CountryName""}],
+  ""order_by"": [{""expr"": {""func"": ""count"", ""args"": [{""star"": true}]}, ""direction"": ""desc""}],
+  ""limit"": 1
+}",[],,,True,70.75,66372488000,895,153
+138,car_1,moderate,"How many countries does each continent have? List the continent id, continent name and the number of countries.","SELECT T1.ContId ,  T1.Continent ,  count(*) FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId  =  T2.Continent GROUP BY T1.ContId;",,"{""select"":[{""col"":""ContId""},{""col"":""Continent""},{""func"":""count"",""args"":[{""col"":""CountryId""}]}],""from"":{""table"":""continents"",""as"":""c""},""joins"":[{""table"":""countries"",""as"":""co"",""kind"":""left"",""on"":{""op"":""eq"",""args"":[{""col"":""Continent""},{""col"":""co.Continent""}]}}],""group_by"":[{""col"":""ContId""},{""col"":""Continent""}]}","{
+  ""select"": [
+    {""col"": ""ContId""},
+    {""col"": ""Continent""},
+    {""func"": ""count"", ""args"": [{""col"": ""CountryId""}]}
+  ],
+  ""from"": {
+    ""table"": ""continents"",
+    ""as"": ""c""
+  },
+  ""joins"": [
+    {
+      ""table"": ""countries"",
+      ""as"": ""co"",
+      ""kind"": ""left"",
+      ""on"": {""op"": ""eq"", ""args"": [{""col"": ""Continent""}, {""col"": ""co.Continent""}]}
+    }
+  ],
+  ""group_by"": [
+    {""col"": ""ContId""},
+    {""col"": ""Continent""}
+  ]
+}",[],PlanError: ambiguous column: 'Continent',,False,73.64,67739346999,901,152
+148,car_1,simple,What is the average miles per gallon(mpg) of the cars with 4 cylinders?,SELECT avg(mpg) FROM CARS_DATA WHERE Cylinders  =  4;,"SELECT AVG(""cars_data"".""MPG"") FROM ""cars_data"" AS ""cars_data"" WHERE (""cars_data"".""Cylinders"" = ?)","{""select"":[{""func"":""avg"",""args"":[{""col"":""MPG""}]}],""from"":{""table"":""cars_data"",""as"":""cars_data""},""where"":{""op"":""eq"",""args"":[{""col"":""Cylinders""},{""literal"":4}]}}","{
+  ""select"": [
+    {
+      ""func"": ""avg"",
+      ""args"": [
+        {
+          ""col"": ""MPG""
+        }
+      ]
+    }
+  ],
+  ""from"": {
+    ""table"": ""cars_data"",
+    ""as"": ""cars_data""
+  },
+  ""where"": {
+    ""op"": ""eq"",
+    ""args"": [
+      {
+        ""col"": ""Cylinders""
+      },
+      {
+        ""literal"": 4
+      }
+    ]
+  }
+}",[4],,,True,52.72,47147106000,898,108
+150,car_1,simple,What are the makers and models?,"SELECT Maker ,  Model FROM MODEL_LIST;","SELECT ""car_makers"".""Maker"", ""model_list"".""Model"" FROM ""car_makers"" AS ""car_makers"" INNER JOIN ""model_list"" AS ""model_list"" ON (""car_makers"".""Id"" = ""model_list"".""Maker"")","{""select"":[{""col"":""car_makers.Maker""},{""col"":""model_list.Model""}],""from"":{""table"":""car_makers"",""as"":""car_makers""},""joins"":[{""table"":""model_list"",""as"":""model_list"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""car_makers.Id""},{""col"":""model_list.Maker""}]}}]}","{
+  ""select"": [
+    {""col"": ""car_makers.Maker""},
+    {""col"": ""model_list.Model""}
+  ],
+  ""from"": {
+    ""table"": ""car_makers"",
+    ""as"": ""car_makers""
+  },
+  ""joins"": [
+    {
+      ""table"": ""model_list"",
+      ""as"": ""model_list"",
+      ""kind"": ""inner"",
+      ""on"": {
+        ""op"": ""eq"",
+        ""args"": [
+          {""col"": ""car_makers.Id""},
+          {""col"": ""model_list.Maker""}
+        ]
+      }
+    }
+  ]
+}",[],,,False,60.25,57485332000,887,131
+154,car_1,moderate,What is the largest amount of horsepower for the models with 3 cylinders and what make is it?,"SELECT T2.horsepower ,  T1.Make FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T2.cylinders  =  3 ORDER BY T2.horsepower DESC LIMIT 1;","SELECT MAX(""cars_data"".""Horsepower""), ""car_names"".""Make"" FROM ""cars_data"" AS ""cars_data"" INNER JOIN ""car_names"" AS ""car_names"" ON (""cars_data"".""Id"" = ""car_names"".""MakeId"") WHERE ((""cars_data"".""Cylinders"" = ?) AND (""cars_data"".""Horsepower"" IS NOT NULL))","{""select"":[{""func"":""max"",""args"":[{""col"":""cars_data.Horsepower""}]},{""col"":""car_names.Make""}],""from"":{""table"":""cars_data"",""as"":""cars_data""},""joins"":[{""table"":""car_names"",""as"":""car_names"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""cars_data.Id""},{""col"":""car_names.MakeId""}]}}],""where"":{""op"":""and"",""args"":[{""op"":""eq"",""args"":[{""col"":""cars_data.Cylinders""},{""literal"":3}]},{""op"":""is_not_null"",""args"":[{""col"":""cars_data.Horsepower""}]}]}}","{
+  ""select"": [
+    {""func"": ""max"", ""args"": [{""col"": ""cars_data.Horsepower""}]},
+    {""col"": ""car_names.Make""}
+  ],
+  ""from"": {
+    ""table"": ""cars_data"",
+    ""as"": ""cars_data""
+  },
+  ""joins"": [
+    {
+      ""table"": ""car_names"",
+      ""as"": ""car_names"",
+      ""kind"": ""inner"",
+      ""on"": {""op"": ""eq"", ""args"": [{""col"": ""cars_data.Id""}, {""col"": ""car_names.MakeId""}]}
+    }
+  ],
+  ""where"": {
+    ""op"": ""and"",
+    ""args"": [
+      {""op"": ""eq"", ""args"": [{""col"": ""cars_data.Cylinders""}, {""literal"": 3}]},
+      {""op"": ""is_not_null"", ""args"": [{""col"": ""cars_data.Horsepower""}]}
+    ]
+  }
+}",[3],,,True,93.37,87904173000,900,200
+163,car_1,simple,What is the number of the cars with horsepower more than 150?,SELECT count(*) FROM CARS_DATA WHERE horsepower  >  150;,"SELECT COUNT(*) FROM ""cars_data"" AS ""cars_data"" WHERE (""cars_data"".""Horsepower"" > ?)","{""select"":[{""func"":""count"",""args"":[{""star"":true}]}],""from"":{""table"":""cars_data"",""as"":""cars_data""},""where"":{""op"":""gt"",""args"":[{""col"":""cars_data.Horsepower""},{""literal"":150}]}}","{
+  ""select"": [
+    {
+      ""func"": ""count"",
+      ""args"": [
+        {
+          ""star"": true
+        }
+      ]
+    }
+  ],
+  ""from"": {
+    ""table"": ""cars_data"",
+    ""as"": ""cars_data""
+  },
+  ""where"": {
+    ""op"": ""gt"",
+    ""args"": [
+      {
+        ""col"": ""cars_data.Horsepower""
+      },
+      {
+        ""literal"": 150
+      }
+    ]
+  }
+}",[150],,,True,51.82,47540350000,896,110
+194,car_1,simple,How many continents are there?,SELECT count(*) FROM CONTINENTS;,"SELECT COUNT(*) FROM ""continents"" AS ""continents""","{""select"":[{""func"":""count"",""args"":[{""star"":true}]}],""from"":{""table"":""continents"",""as"":""continents""}}","{
+  ""select"": [
+    {
+      ""func"": ""count"",
+      ""args"": [
+        {
+          ""star"": true
+        }
+      ]
+    }
+  ],
+  ""from"": {
+    ""table"": ""continents"",
+    ""as"": ""continents""
+  }
+}",[],,,True,28.86,26071300000,886,61
+221,car_1,moderate,Which model of the car has the minimum horsepower?,SELECT T1.Model FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id ORDER BY T2.horsepower ASC LIMIT 1;,,"{""select"":[{""col"":""model_list.Model""}],""from"":{""table"":""cars_data"",""as"":""cd""},""joins"":[{""table"":""car_names"",""as"":""cn"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""cd.Id""},{""col"":""cn.MakeId""}]}},{""table"":""model_list"",""as"":""ml"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""cn.Model""},{""col"":""ml.Model""}]}}],""order_by"":[{""expr"":{""col"":""cd.Horsepower""},""direction"":""asc""}],""limit"":1}","{
+  ""select"": [{""col"": ""model_list.Model""}],
+  ""from"": {""table"": ""cars_data"", ""as"": ""cd""},
+  ""joins"": [
+    {
+      ""table"": ""car_names"",
+      ""as"": ""cn"",
+      ""kind"": ""inner"",
+      ""on"": {""op"": ""eq"", ""args"": [{""col"": ""cd.Id""}, {""col"": ""cn.MakeId""}]}
+    },
+    {
+      ""table"": ""model_list"",
+      ""as"": ""ml"",
+      ""kind"": ""inner"",
+      ""on"": {""op"": ""eq"", ""args"": [{""col"": ""cn.Model""}, {""col"": ""ml.Model""}]}
+    }
+  ],
+  ""order_by"": [{""expr"": {""col"": ""cd.Horsepower""}, ""direction"": ""asc""}],
+  ""limit"": 1
+}",[],PlanError: unknown qualified column: 'model_list.Model',,False,83.95,80273706000,890,181
+223,car_1,moderate,Which models are lighter than 3500 but not built by the 'Ford Motor Company'?,SELECT DISTINCT T1.model FROM MODEL_LIST AS T1 JOIN CAR_NAMES AS T2 ON T1.Model  =  T2.Model JOIN CARS_DATA AS T3 ON T2.MakeId  =  T3.Id JOIN CAR_MAKERS AS T4 ON T1.Maker  =  T4.Id WHERE T3.weight  <  3500 AND T4.FullName != 'Ford Motor Company';,,"{""select"":[{""col"":""car_names.Model""}],""from"":{""table"":""car_names"",""as"":""T1""},""joins"":[{""table"":""cars_data"",""as"":""T2"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""T1.MakeId""},{""col"":""T2.Id""}]}}],""where"":{""op"":""and"",""args"":[{""op"":""lt"",""args"":[{""col"":""T2.Weight""},{""literal"":3500}]},{""op"":""ne"",""args"":[{""col"":""T1.Make""},{""literal"":""Ford Motor Company""}]}]}}","{
+  ""select"": [{""col"": ""car_names.Model""}],
+  ""from"": {""table"": ""car_names"", ""as"": ""T1""},
+  ""joins"": [
+    {
+      ""table"": ""cars_data"",
+      ""as"": ""T2"",
+      ""kind"": ""inner"",
+      ""on"": {""op"": ""eq"", ""args"": [{""col"": ""T1.MakeId""}, {""col"": ""T2.Id""}]}
+    }
+  ],
+  ""where"": {
+    ""op"": ""and"",
+    ""args"": [
+      {""op"": ""lt"", ""args"": [{""col"": ""T2.Weight""}, {""literal"": 3500}]},
+      {""op"": ""ne"", ""args"": [{""col"": ""T1.Make""}, {""literal"": ""Ford Motor Company""}]}
+    ]
+  }
+}",[],PlanError: unknown qualified column: 'car_names.Model',,False,84.47,78370884000,901,176
+233,car_1,moderate,How many car makers are there in france?,SELECT count(*) FROM CAR_MAKERS AS T1 JOIN COUNTRIES AS T2 ON T1.Country  =  T2.CountryId WHERE T2.CountryName  =  'france';,"SELECT COUNT(*) FROM ""car_makers"" AS ""cm"" INNER JOIN ""countries"" AS ""c"" ON (""cm"".""Country"" = ""c"".""CountryId"") WHERE (""c"".""CountryName"" = ?)","{""select"":[{""func"":""count"",""args"":[{""star"":true}]}],""from"":{""table"":""car_makers"",""as"":""cm""},""joins"":[{""table"":""countries"",""as"":""c"",""kind"":""inner"",""on"":{""op"":""eq"",""args"":[{""col"":""cm.Country""},{""col"":""c.CountryId""}]}}],""where"":{""op"":""eq"",""args"":[{""col"":""c.CountryName""},{""literal"":""france""}]}}","{
+  ""select"": [{""func"": ""count"", ""args"": [{""star"": true}]}],
+  ""from"": {""table"": ""car_makers"", ""as"": ""cm""},
+  ""joins"": [
+    {
+      ""table"": ""countries"", ""as"": ""c"",
+      ""kind"": ""inner"",
+      ""on"": {""op"": ""eq"", ""args"": [{""col"": ""cm.Country""}, {""col"": ""c.CountryId""}]}
+    }
+  ],
+  ""where"": {""op"": ""eq"", ""args"": [{""col"": ""c.CountryName""}, {""literal"": ""france""}]}
+}","[""france""]",,,True,60.76,57020951000,889,131
+235,car_1,simple,What is the average horsepower of the cars before 1980?,SELECT avg(horsepower) FROM CARS_DATA WHERE YEAR  <  1980;,"SELECT AVG(""cars_data"".""Horsepower"") FROM ""cars_data"" AS ""cars_data"" WHERE (""cars_data"".""Year"" < ?)","{""select"":[{""func"":""avg"",""args"":[{""col"":""Horsepower""}]}],""from"":{""table"":""cars_data"",""as"":""cars_data""},""where"":{""op"":""lt"",""args"":[{""col"":""Year""},{""literal"":1980}]}}","{
+  ""select"": [
+    {
+      ""func"": ""avg"",
+      ""args"": [
+        {
+          ""col"": ""Horsepower""
+        }
+      ]
+    }
+  ],
+  ""from"": {
+    ""table"": ""cars_data"",
+    ""as"": ""cars_data""
+  },
+  ""where"": {
+    ""op"": ""lt"",
+    ""args"": [
+      {
+        ""col"": ""Year""
+      },
+      {
+        ""literal"": 1980
+      }
+    ]
+  }
+}",[1980],,,True,52.68,47284854000,895,110
+238,car_1,moderate,How many cars have a larger accelerate than the car with the largest horsepower?,SELECT COUNT(*) FROM CARS_DATA WHERE Accelerate  >  ( SELECT Accelerate FROM CARS_DATA ORDER BY Horsepower DESC LIMIT 1 );,"SELECT COUNT(*) FROM ""cars_data"" AS ""cd"" WHERE (""cd"".""Accelerate"" > (SELECT ""cars_data"".""Accelerate"" FROM ""cars_data"" AS ""cars_data"" ORDER BY ""cars_data"".""Horsepower"" DESC LIMIT 1))","{""select"":[{""func"":""count"",""args"":[{""star"":true}]}],""from"":{""table"":""cars_data"",""as"":""cd""},""where"":{""op"":""gt"",""args"":[{""col"":""cd.Accelerate""},{""argmax"":{""table"":""cars_data"",""by"":""Horsepower"",""value"":""Accelerate""}}]}}","{
+  ""select"": [
+    {
+      ""func"": ""count"",
+      ""args"": [
+        {
+          ""star"": true
+        }
+      ]
+    }
+  ],
+  ""from"": {
+    ""table"": ""cars_data"",
+    ""as"": ""cd""
+  },
+  ""where"": {
+    ""op"": ""gt"",
+    ""args"": [
+      {
+        ""col"": ""cd.Accelerate""
+      },
+      {
+        ""argmax"": {
+          ""table"": ""cars_data"",
+          ""by"": ""Horsepower"",
+          ""value"": ""Accelerate""
+        }
+      }
+    ]
+  }
+}",[],,,True,61.38,56846025000,895,132

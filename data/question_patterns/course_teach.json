@@ -1,0 +1,84 @@
+{
+  "db_id": "course_teach",
+  "n_questions": 30,
+  "n_questions_with_join": 10,
+  "join_pairs": [
+    {
+      "left": "course_arrange.teacher_id",
+      "right": "teacher.teacher_id",
+      "n": 10
+    },
+    {
+      "left": "course.course_id",
+      "right": "course_arrange.course_id",
+      "n": 6
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 12
+    }
+  ],
+  "column_clause_usage": {
+    "age": {
+      "order by": 4,
+      "where": 2
+    },
+    "course": {
+      "where": 2
+    },
+    "hometown": {
+      "group by": 6,
+      "where": 2
+    },
+    "name": {
+      "group by": 4,
+      "order by": 2
+    },
+    "teacher_id": {
+      "where": 2
+    }
+  },
+  "question_openers": {
+    "what are the": {
+      "GROUP BY": 3,
+      "COUNT": 3,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "what is the": {
+      "COUNT": 2,
+      "LIMIT 1": 2,
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1
+    },
+    "list the most": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "show names of": {
+      "GROUP BY": 2,
+      "COUNT": 2
+    },
+    "show different hometown": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "for each hometown,": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "show the hometowns": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "list the names": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    }
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "inn_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Rooms": {
+      "source_label": "rooms",
+      "meaning": "Table labeled 'rooms' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key RoomId",
+      "primary_key_columns": [
+        "RoomId"
+      ],
+      "columns": {
+        "RoomId": {
+          "type": "text",
+          "source_label": "room id",
+          "primary_key": true,
+          "observed_values": [
+            "AOB",
+            "CAS",
+            "FNA",
+            "HBB",
+            "IBD",
+            "IBS",
+            "MWC",
+            "RND",
+            "RTE",
+            "TAA"
+          ]
+        },
+        "roomName": {
+          "type": "text",
+          "source_label": "room name",
+          "observed_values": [
+            "Recluse and defiance",
+            "Interim but salutary",
+            "Abscond or bolster",
+            "Mendicant with cryptic",
+            "Harbinger but bequest",
+            "Immutable before decorum",
+            "Thrift and accolade",
+            "Convoke and sanguine",
+            "Riddle to exculpate",
+            "Frugal not apropos"
+          ]
+        },
+        "beds": {
+          "type": "number",
+          "source_label": "beds"
+        },
+        "bedType": {
+          "type": "text",
+          "source_label": "bed type",
+          "observed_values": [
+            "King",
+            "Queen",
+            "Double"
+          ]
+        },
+        "maxOccupancy": {
+          "type": "number",
+          "source_label": "max occupancy"
+        },
+        "basePrice": {
+          "type": "number",
+          "source_label": "base price"
+        },
+        "decor": {
+          "type": "text",
+          "source_label": "decor",
+          "observed_values": [
+            "modern",
+            "traditional",
+            "rustic"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    },
+    "Reservations": {
+      "source_label": "reservations",
+      "meaning": "Table labeled 'reservations' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Code",
+      "primary_key_columns": [
+        "Code"
+      ],
+      "columns": {
+        "Code": {
+          "type": "number",
+          "source_label": "code",
+          "primary_key": true
+        },
+        "Room": {
+          "type": "text",
+          "source_label": "room",
+          "foreign_key": {
+            "table": "Rooms",
+            "column": "RoomId"
+          },
+          "observed_values": [
+            "HBB",
+            "IBD",
+            "RND",
+            "AOB",
+            "FNA",
+            "CAS",
+            "IBS",
+            "RTE",
+            "TAA",
+            "MWC"
+          ]
+        },
+        "CheckIn": {
+          "type": "text",
+          "source_label": "check in"
+        },
+        "CheckOut": {
+          "type": "text",
+          "source_label": "check out"
+        },
+        "Rate": {
+          "type": "number",
+          "source_label": "rate"
+        },
+        "LastName": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "FirstName": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "Adults": {
+          "type": "number",
+          "source_label": "adults"
+        },
+        "Kids": {
+          "type": "number",
+          "source_label": "kids"
+        }
+      },
+      "observed_row_count": 600
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "Rooms__row_count": {
+      "meaning": "Number of rows in Rooms.",
+      "base_table": "Rooms",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Reservations__row_count": {
+      "meaning": "Number of rows in Reservations.",
+      "base_table": "Reservations",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

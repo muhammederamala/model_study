@@ -1,0 +1,245 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "farm",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "city": {
+      "source_label": "city",
+      "meaning": "Table labeled 'city' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key City_ID",
+      "primary_key_columns": [
+        "City_ID"
+      ],
+      "columns": {
+        "City_ID": {
+          "type": "number",
+          "source_label": "city id",
+          "primary_key": true
+        },
+        "Official_Name": {
+          "type": "text",
+          "source_label": "official name",
+          "observed_values": [
+            "Grand Falls/Grand-Sault",
+            "Perth-Andover",
+            "Plaster Rock",
+            "Drummond",
+            "Aroostook"
+          ]
+        },
+        "Status": {
+          "type": "text",
+          "source_label": "status",
+          "observed_values": [
+            "Town",
+            "Village"
+          ]
+        },
+        "Area_km_2": {
+          "type": "number",
+          "source_label": "area km 2"
+        },
+        "Population": {
+          "type": "number",
+          "source_label": "population"
+        },
+        "Census_Ranking": {
+          "type": "text",
+          "source_label": "census ranking",
+          "observed_values": [
+            "636 of 5008",
+            "1442 of 5,008",
+            "1936 of 5,008",
+            "2418 of 5008",
+            "3460 of 5008"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "farm": {
+      "source_label": "farm",
+      "meaning": "Table labeled 'farm' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Farm_ID",
+      "primary_key_columns": [
+        "Farm_ID"
+      ],
+      "columns": {
+        "Farm_ID": {
+          "type": "number",
+          "source_label": "farm id",
+          "primary_key": true
+        },
+        "Year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "Total_Horses": {
+          "type": "number",
+          "source_label": "total horses"
+        },
+        "Working_Horses": {
+          "type": "number",
+          "source_label": "working horses"
+        },
+        "Total_Cattle": {
+          "type": "number",
+          "source_label": "total cattle"
+        },
+        "Oxen": {
+          "type": "number",
+          "source_label": "oxen"
+        },
+        "Bulls": {
+          "type": "number",
+          "source_label": "bulls"
+        },
+        "Cows": {
+          "type": "number",
+          "source_label": "cows"
+        },
+        "Pigs": {
+          "type": "number",
+          "source_label": "pigs"
+        },
+        "Sheep_and_Goats": {
+          "type": "number",
+          "source_label": "sheep and goats"
+        }
+      },
+      "observed_row_count": 8
+    },
+    "farm_competition": {
+      "source_label": "farm competition",
+      "meaning": "Table labeled 'farm competition' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Competition_ID",
+      "primary_key_columns": [
+        "Competition_ID"
+      ],
+      "columns": {
+        "Competition_ID": {
+          "type": "number",
+          "source_label": "competition id",
+          "primary_key": true
+        },
+        "Year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "Theme": {
+          "type": "text",
+          "source_label": "theme",
+          "observed_values": [
+            "Carnival M is back!",
+            "Codehunters",
+            "MTV Asia Aid",
+            "Valentine's Day",
+            "MTV Cube",
+            "Aliens"
+          ]
+        },
+        "Host_city_ID": {
+          "type": "number",
+          "source_label": "host city id",
+          "foreign_key": {
+            "table": "city",
+            "column": "City_ID"
+          }
+        },
+        "Hosts": {
+          "type": "text",
+          "source_label": "hosts",
+          "observed_values": [
+            "Miley Cyrus Jared Leto and Karen Mok",
+            "Leehom Wang and Kelly Rowland",
+            "Alicia Keys",
+            "Vanness Wu and Michelle Branch",
+            "Shaggy and Coco Lee",
+            "Mandy Moore and Ronan Keating"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "competition_record": {
+      "source_label": "competition record",
+      "meaning": "Table labeled 'competition record' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Competition_ID",
+      "primary_key_columns": [
+        "Competition_ID"
+      ],
+      "columns": {
+        "Competition_ID": {
+          "type": "number",
+          "source_label": "competition id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "farm_competition",
+            "column": "Competition_ID"
+          }
+        },
+        "Farm_ID": {
+          "type": "number",
+          "source_label": "farm id",
+          "foreign_key": {
+            "table": "farm",
+            "column": "Farm_ID"
+          }
+        },
+        "Rank": {
+          "type": "number",
+          "source_label": "rank"
+        }
+      },
+      "observed_row_count": 12
+    }
+  },
+  "terms": {
+    "farm competition": {
+      "maps_to": "farm_competition",
+      "source": "Spider normalized table name"
+    },
+    "competition record": {
+      "maps_to": "competition_record",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "city__row_count": {
+      "meaning": "Number of rows in city.",
+      "base_table": "city",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "farm__row_count": {
+      "meaning": "Number of rows in farm.",
+      "base_table": "farm",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "farm_competition__row_count": {
+      "meaning": "Number of rows in farm_competition.",
+      "base_table": "farm_competition",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "competition_record__row_count": {
+      "meaning": "Number of rows in competition_record.",
+      "base_table": "competition_record",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

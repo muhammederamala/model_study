@@ -1,0 +1,17 @@
+{
+  "variant": "grounded_plan_repair_v1",
+  "model": "qwen2.5-coder:14b",
+  "baseline_correct": 808,
+  "baseline_failed": 224,
+  "retried": 55,
+  "recovered": 17,
+  "still_wrong": 38,
+  "correct_if_unretried_failures_stay_wrong": 825,
+  "recovered_by_bucket": {
+    "moderate": 15,
+    "simple": 2
+  },
+  "column_permutation_only": 4,
+  "sql_errors_after_retry": 1,
+  "repair_attempts": 4
+}

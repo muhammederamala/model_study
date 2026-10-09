@@ -1,0 +1,19 @@
+{
+  "evaluated_shared_ids": 1032,
+  "total_ids": 1032,
+  "baseline_strict_correct": 808,
+  "catalog_strict_correct": 788,
+  "english_strict_correct": 789,
+  "baseline_audited_correct": 802,
+  "catalog_audited_correct": 820,
+  "english_audited_correct": 811,
+  "audit_rules": {
+    "corrected_reference": 2,
+    "flight_2_whitespace_normalized": 80,
+    "strict_unchanged": 949,
+    "unspecified_column_order": 1
+  },
+  "baseline_audited_accuracy": 0.7771317829457365,
+  "catalog_audited_accuracy": 0.7945736434108527,
+  "english_audited_accuracy": 0.7858527131782945
+}

@@ -1,0 +1,245 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "insurance_policies",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Customers": {
+      "source_label": "customers",
+      "meaning": "Table labeled 'customers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Customer_ID",
+      "primary_key_columns": [
+        "Customer_ID"
+      ],
+      "columns": {
+        "Customer_ID": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true
+        },
+        "Customer_Details": {
+          "type": "text",
+          "source_label": "customer details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Customer_Policies": {
+      "source_label": "customer policies",
+      "meaning": "Table labeled 'customer policies' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Policy_ID",
+      "primary_key_columns": [
+        "Policy_ID"
+      ],
+      "columns": {
+        "Policy_ID": {
+          "type": "number",
+          "source_label": "policy id",
+          "primary_key": true
+        },
+        "Customer_ID": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers",
+            "column": "Customer_ID"
+          }
+        },
+        "Policy_Type_Code": {
+          "type": "text",
+          "source_label": "policy type code",
+          "observed_values": [
+            "Car",
+            "Life",
+            "Property",
+            "Travel"
+          ]
+        },
+        "Start_Date": {
+          "type": "time",
+          "source_label": "start date"
+        },
+        "End_Date": {
+          "type": "time",
+          "source_label": "end date"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Claims": {
+      "source_label": "claims",
+      "meaning": "Table labeled 'claims' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Claim_ID",
+      "primary_key_columns": [
+        "Claim_ID"
+      ],
+      "columns": {
+        "Claim_ID": {
+          "type": "number",
+          "source_label": "claim id",
+          "primary_key": true
+        },
+        "Policy_ID": {
+          "type": "number",
+          "source_label": "policy id",
+          "foreign_key": {
+            "table": "Customer_Policies",
+            "column": "Policy_ID"
+          }
+        },
+        "Date_Claim_Made": {
+          "type": "time",
+          "source_label": "date claim made"
+        },
+        "Date_Claim_Settled": {
+          "type": "time",
+          "source_label": "date claim settled"
+        },
+        "Amount_Claimed": {
+          "type": "number",
+          "source_label": "amount claimed"
+        },
+        "Amount_Settled": {
+          "type": "number",
+          "source_label": "amount settled"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Settlements": {
+      "source_label": "settlements",
+      "meaning": "Table labeled 'settlements' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Settlement_ID",
+      "primary_key_columns": [
+        "Settlement_ID"
+      ],
+      "columns": {
+        "Settlement_ID": {
+          "type": "number",
+          "source_label": "settlement id",
+          "primary_key": true
+        },
+        "Claim_ID": {
+          "type": "number",
+          "source_label": "claim id",
+          "foreign_key": {
+            "table": "Claims",
+            "column": "Claim_ID"
+          }
+        },
+        "Date_Claim_Made": {
+          "type": "time",
+          "source_label": "date claim made"
+        },
+        "Date_Claim_Settled": {
+          "type": "time",
+          "source_label": "date claim settled"
+        },
+        "Amount_Claimed": {
+          "type": "number",
+          "source_label": "amount claimed"
+        },
+        "Amount_Settled": {
+          "type": "number",
+          "source_label": "amount settled"
+        },
+        "Customer_Policy_ID": {
+          "type": "number",
+          "source_label": "customer policy id"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Payments": {
+      "source_label": "payments",
+      "meaning": "Table labeled 'payments' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Payment_ID",
+      "primary_key_columns": [
+        "Payment_ID"
+      ],
+      "columns": {
+        "Payment_ID": {
+          "type": "number",
+          "source_label": "payment id",
+          "primary_key": true
+        },
+        "Settlement_ID": {
+          "type": "number",
+          "source_label": "settlement id",
+          "foreign_key": {
+            "table": "Settlements",
+            "column": "Settlement_ID"
+          }
+        },
+        "Payment_Method_Code": {
+          "type": "text",
+          "source_label": "payment method code",
+          "observed_values": [
+            "MasterCard",
+            "Discover Card",
+            "Visa",
+            "American Express"
+          ]
+        },
+        "Date_Payment_Made": {
+          "type": "time",
+          "source_label": "date payment made"
+        },
+        "Amount_Payment": {
+          "type": "number",
+          "source_label": "amount payment"
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "customer policies": {
+      "maps_to": "Customer_Policies",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Customers__row_count": {
+      "meaning": "Number of rows in Customers.",
+      "base_table": "Customers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customer_Policies__row_count": {
+      "meaning": "Number of rows in Customer_Policies.",
+      "base_table": "Customer_Policies",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Claims__row_count": {
+      "meaning": "Number of rows in Claims.",
+      "base_table": "Claims",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Settlements__row_count": {
+      "meaning": "Number of rows in Settlements.",
+      "base_table": "Settlements",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Payments__row_count": {
+      "meaning": "Number of rows in Payments.",
+      "base_table": "Payments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

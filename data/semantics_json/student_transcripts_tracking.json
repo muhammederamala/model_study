@@ -1,0 +1,532 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "student_transcripts_tracking",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Addresses": {
+      "source_label": "addresses",
+      "meaning": "Table labeled 'addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key address_id",
+      "primary_key_columns": [
+        "address_id"
+      ],
+      "columns": {
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "primary_key": true
+        },
+        "line_1": {
+          "type": "text",
+          "source_label": "line 1"
+        },
+        "line_2": {
+          "type": "text",
+          "source_label": "line 2"
+        },
+        "line_3": {
+          "type": "text",
+          "source_label": "line 3"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "zip_postcode": {
+          "type": "text",
+          "source_label": "zip postcode"
+        },
+        "state_province_county": {
+          "type": "text",
+          "source_label": "state province county"
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country"
+        },
+        "other_address_details": {
+          "type": "text",
+          "source_label": "other address details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Courses": {
+      "source_label": "courses",
+      "meaning": "Table labeled 'courses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key course_id",
+      "primary_key_columns": [
+        "course_id"
+      ],
+      "columns": {
+        "course_id": {
+          "type": "number",
+          "source_label": "course id",
+          "primary_key": true
+        },
+        "course_name": {
+          "type": "text",
+          "source_label": "course name"
+        },
+        "course_description": {
+          "type": "text",
+          "source_label": "course description",
+          "observed_values": [
+            "p",
+            "q",
+            "v",
+            "k",
+            "c",
+            "n",
+            "l",
+            "b",
+            "w",
+            "d"
+          ]
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Departments": {
+      "source_label": "departments",
+      "meaning": "Table labeled 'departments' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key department_id",
+      "primary_key_columns": [
+        "department_id"
+      ],
+      "columns": {
+        "department_id": {
+          "type": "number",
+          "source_label": "department id",
+          "primary_key": true
+        },
+        "department_name": {
+          "type": "text",
+          "source_label": "department name"
+        },
+        "department_description": {
+          "type": "text",
+          "source_label": "department description"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Degree_Programs": {
+      "source_label": "degree programs",
+      "meaning": "Table labeled 'degree programs' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key degree_program_id",
+      "primary_key_columns": [
+        "degree_program_id"
+      ],
+      "columns": {
+        "degree_program_id": {
+          "type": "number",
+          "source_label": "degree program id",
+          "primary_key": true
+        },
+        "department_id": {
+          "type": "number",
+          "source_label": "department id",
+          "foreign_key": {
+            "table": "Departments",
+            "column": "department_id"
+          }
+        },
+        "degree_summary_name": {
+          "type": "text",
+          "source_label": "degree summary name",
+          "observed_values": [
+            "Master",
+            "Bachelor",
+            "PHD"
+          ]
+        },
+        "degree_summary_description": {
+          "type": "text",
+          "source_label": "degree summary description"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Sections": {
+      "source_label": "sections",
+      "meaning": "Table labeled 'sections' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key section_id",
+      "primary_key_columns": [
+        "section_id"
+      ],
+      "columns": {
+        "section_id": {
+          "type": "number",
+          "source_label": "section id",
+          "primary_key": true
+        },
+        "course_id": {
+          "type": "number",
+          "source_label": "course id",
+          "foreign_key": {
+            "table": "Courses",
+            "column": "course_id"
+          }
+        },
+        "section_name": {
+          "type": "text",
+          "source_label": "section name"
+        },
+        "section_description": {
+          "type": "text",
+          "source_label": "section description"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Semesters": {
+      "source_label": "semesters",
+      "meaning": "Table labeled 'semesters' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key semester_id",
+      "primary_key_columns": [
+        "semester_id"
+      ],
+      "columns": {
+        "semester_id": {
+          "type": "number",
+          "source_label": "semester id",
+          "primary_key": true
+        },
+        "semester_name": {
+          "type": "text",
+          "source_label": "semester name"
+        },
+        "semester_description": {
+          "type": "text",
+          "source_label": "semester description",
+          "observed_values": [
+            "x",
+            "g",
+            "w",
+            "c",
+            "l",
+            "y",
+            "f",
+            "m",
+            "q",
+            "t",
+            "o"
+          ]
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Students": {
+      "source_label": "students",
+      "meaning": "Table labeled 'students' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key student_id",
+      "primary_key_columns": [
+        "student_id"
+      ],
+      "columns": {
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true
+        },
+        "current_address_id": {
+          "type": "number",
+          "source_label": "current address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "address_id"
+          }
+        },
+        "permanent_address_id": {
+          "type": "number",
+          "source_label": "permanent address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "address_id"
+          }
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "middle_name": {
+          "type": "text",
+          "source_label": "middle name"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "cell_mobile_number": {
+          "type": "text",
+          "source_label": "cell mobile number"
+        },
+        "email_address": {
+          "type": "text",
+          "source_label": "email address"
+        },
+        "ssn": {
+          "type": "text",
+          "source_label": "ssn"
+        },
+        "date_first_registered": {
+          "type": "time",
+          "source_label": "date first registered"
+        },
+        "date_left": {
+          "type": "time",
+          "source_label": "date left"
+        },
+        "other_student_details": {
+          "type": "text",
+          "source_label": "other student details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Student_Enrolment": {
+      "source_label": "student enrolment",
+      "meaning": "Table labeled 'student enrolment' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key student_enrolment_id",
+      "primary_key_columns": [
+        "student_enrolment_id"
+      ],
+      "columns": {
+        "student_enrolment_id": {
+          "type": "number",
+          "source_label": "student enrolment id",
+          "primary_key": true
+        },
+        "degree_program_id": {
+          "type": "number",
+          "source_label": "degree program id",
+          "foreign_key": {
+            "table": "Degree_Programs",
+            "column": "degree_program_id"
+          }
+        },
+        "semester_id": {
+          "type": "number",
+          "source_label": "semester id",
+          "foreign_key": {
+            "table": "Semesters",
+            "column": "semester_id"
+          }
+        },
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Students",
+            "column": "student_id"
+          }
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Student_Enrolment_Courses": {
+      "source_label": "student enrolment courses",
+      "meaning": "Table labeled 'student enrolment courses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key student_course_id",
+      "primary_key_columns": [
+        "student_course_id"
+      ],
+      "columns": {
+        "student_course_id": {
+          "type": "number",
+          "source_label": "student course id",
+          "primary_key": true
+        },
+        "course_id": {
+          "type": "number",
+          "source_label": "course id",
+          "foreign_key": {
+            "table": "Courses",
+            "column": "course_id"
+          }
+        },
+        "student_enrolment_id": {
+          "type": "number",
+          "source_label": "student enrolment id",
+          "foreign_key": {
+            "table": "Student_Enrolment",
+            "column": "student_enrolment_id"
+          }
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Transcripts": {
+      "source_label": "transcripts",
+      "meaning": "Table labeled 'transcripts' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key transcript_id",
+      "primary_key_columns": [
+        "transcript_id"
+      ],
+      "columns": {
+        "transcript_id": {
+          "type": "number",
+          "source_label": "transcript id",
+          "primary_key": true
+        },
+        "transcript_date": {
+          "type": "time",
+          "source_label": "transcript date"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Transcript_Contents": {
+      "source_label": "transcript contents",
+      "meaning": "Table labeled 'transcript contents' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "student_course_id": {
+          "type": "number",
+          "source_label": "student course id",
+          "foreign_key": {
+            "table": "Student_Enrolment_Courses",
+            "column": "student_course_id"
+          }
+        },
+        "transcript_id": {
+          "type": "number",
+          "source_label": "transcript id",
+          "foreign_key": {
+            "table": "Transcripts",
+            "column": "transcript_id"
+          }
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "degree programs": {
+      "maps_to": "Degree_Programs",
+      "source": "Spider normalized table name"
+    },
+    "student enrolment": {
+      "maps_to": "Student_Enrolment",
+      "source": "Spider normalized table name"
+    },
+    "student enrolment courses": {
+      "maps_to": "Student_Enrolment_Courses",
+      "source": "Spider normalized table name"
+    },
+    "transcript contents": {
+      "maps_to": "Transcript_Contents",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Addresses__row_count": {
+      "meaning": "Number of rows in Addresses.",
+      "base_table": "Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Courses__row_count": {
+      "meaning": "Number of rows in Courses.",
+      "base_table": "Courses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Departments__row_count": {
+      "meaning": "Number of rows in Departments.",
+      "base_table": "Departments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Degree_Programs__row_count": {
+      "meaning": "Number of rows in Degree_Programs.",
+      "base_table": "Degree_Programs",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Sections__row_count": {
+      "meaning": "Number of rows in Sections.",
+      "base_table": "Sections",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Semesters__row_count": {
+      "meaning": "Number of rows in Semesters.",
+      "base_table": "Semesters",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Students__row_count": {
+      "meaning": "Number of rows in Students.",
+      "base_table": "Students",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Student_Enrolment__row_count": {
+      "meaning": "Number of rows in Student_Enrolment.",
+      "base_table": "Student_Enrolment",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Student_Enrolment_Courses__row_count": {
+      "meaning": "Number of rows in Student_Enrolment_Courses.",
+      "base_table": "Student_Enrolment_Courses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Transcripts__row_count": {
+      "meaning": "Number of rows in Transcripts.",
+      "base_table": "Transcripts",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Transcript_Contents__row_count": {
+      "meaning": "Number of rows in Transcript_Contents.",
+      "base_table": "Transcript_Contents",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

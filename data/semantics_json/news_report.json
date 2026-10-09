@@ -1,0 +1,195 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "news_report",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "event": {
+      "source_label": "event",
+      "meaning": "Table labeled 'event' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Event_ID",
+      "primary_key_columns": [
+        "Event_ID"
+      ],
+      "columns": {
+        "Event_ID": {
+          "type": "number",
+          "source_label": "event id",
+          "primary_key": true
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "13 October 2008",
+            "11 October 2007",
+            "7 October 2010",
+            "20 June 2018",
+            "9 April 2014"
+          ]
+        },
+        "Venue": {
+          "type": "text",
+          "source_label": "venue",
+          "observed_values": [
+            "Marathon",
+            "Victoria",
+            "Motagua",
+            "Platense",
+            "Hispano"
+          ]
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Olympia Games Openning",
+            "Government Hearing",
+            "Public Debating",
+            "Global Awarding",
+            "Special Exhibition"
+          ]
+        },
+        "Event_Attendance": {
+          "type": "number",
+          "source_label": "event attendance"
+        }
+      },
+      "observed_row_count": 5
+    },
+    "journalist": {
+      "source_label": "journalist",
+      "meaning": "Table labeled 'journalist' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key journalist_ID",
+      "primary_key_columns": [
+        "journalist_ID"
+      ],
+      "columns": {
+        "journalist_ID": {
+          "type": "number",
+          "source_label": "journalist id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Herbert Swindells",
+            "Fred Keenor",
+            "George Gilchrist",
+            "Jackie Waring",
+            "Fred Chandler",
+            "Ray Ferris",
+            "John Meaney",
+            "Tony Waddington",
+            "Jack Meaney",
+            "Frank Mitcheson",
+            "Tom Briggs"
+          ]
+        },
+        "Nationality": {
+          "type": "text",
+          "source_label": "nationality",
+          "observed_values": [
+            "England",
+            "Wales",
+            "Northern Ireland"
+          ]
+        },
+        "Age": {
+          "type": "text",
+          "source_label": "age",
+          "observed_values": [
+            "37",
+            "27",
+            "28",
+            "43",
+            "34",
+            "29",
+            "33",
+            "25"
+          ]
+        },
+        "Years_working": {
+          "type": "number",
+          "source_label": "years working"
+        }
+      },
+      "observed_row_count": 11
+    },
+    "news_report": {
+      "source_label": "news report",
+      "meaning": "Table labeled 'news report' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key journalist_ID",
+      "primary_key_columns": [
+        "journalist_ID"
+      ],
+      "columns": {
+        "journalist_ID": {
+          "type": "number",
+          "source_label": "journalist id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "journalist",
+            "column": "journalist_ID"
+          }
+        },
+        "Event_ID": {
+          "type": "number",
+          "source_label": "event id",
+          "foreign_key": {
+            "table": "event",
+            "column": "Event_ID"
+          }
+        },
+        "Work_Type": {
+          "type": "text",
+          "source_label": "work type",
+          "observed_values": [
+            "Screening",
+            "Music",
+            "Host"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    }
+  },
+  "terms": {
+    "news report": {
+      "maps_to": "news_report",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "event__row_count": {
+      "meaning": "Number of rows in event.",
+      "base_table": "event",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "journalist__row_count": {
+      "meaning": "Number of rows in journalist.",
+      "base_table": "journalist",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "news_report__row_count": {
+      "meaning": "Number of rows in news_report.",
+      "base_table": "news_report",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

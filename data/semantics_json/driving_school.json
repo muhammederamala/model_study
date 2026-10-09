@@ -1,0 +1,360 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "driving_school",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Addresses": {
+      "source_label": "addresses",
+      "meaning": "Table labeled 'addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key address_id",
+      "primary_key_columns": [
+        "address_id"
+      ],
+      "columns": {
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "primary_key": true
+        },
+        "line_1_number_building": {
+          "type": "text",
+          "source_label": "line 1 number building"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "zip_postcode": {
+          "type": "text",
+          "source_label": "zip postcode"
+        },
+        "state_province_county": {
+          "type": "text",
+          "source_label": "state province county",
+          "observed_values": [
+            "Georgia",
+            "Kentucky",
+            "Oregon",
+            "Ohio",
+            "Connecticut",
+            "Washington",
+            "WestVirginia",
+            "Maine",
+            "Idaho",
+            "Alabama",
+            "Louisiana"
+          ]
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "USA"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Staff": {
+      "source_label": "staff",
+      "meaning": "Table labeled 'staff' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key staff_id",
+      "primary_key_columns": [
+        "staff_id"
+      ],
+      "columns": {
+        "staff_id": {
+          "type": "number",
+          "source_label": "staff id",
+          "primary_key": true
+        },
+        "staff_address_id": {
+          "type": "number",
+          "source_label": "staff address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "address_id"
+          }
+        },
+        "nickname": {
+          "type": "text",
+          "source_label": "nickname"
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "middle_name": {
+          "type": "text",
+          "source_label": "middle name"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "date_of_birth": {
+          "type": "time",
+          "source_label": "date of birth"
+        },
+        "date_joined_staff": {
+          "type": "time",
+          "source_label": "date joined staff"
+        },
+        "date_left_staff": {
+          "type": "time",
+          "source_label": "date left staff"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Vehicles": {
+      "source_label": "vehicles",
+      "meaning": "Table labeled 'vehicles' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key vehicle_id",
+      "primary_key_columns": [
+        "vehicle_id"
+      ],
+      "columns": {
+        "vehicle_id": {
+          "type": "number",
+          "source_label": "vehicle id",
+          "primary_key": true
+        },
+        "vehicle_details": {
+          "type": "text",
+          "source_label": "vehicle details",
+          "observed_values": [
+            "Van",
+            "Truck",
+            "Car"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Customers": {
+      "source_label": "customers",
+      "meaning": "Table labeled 'customers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key customer_id",
+      "primary_key_columns": [
+        "customer_id"
+      ],
+      "columns": {
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true
+        },
+        "customer_address_id": {
+          "type": "number",
+          "source_label": "customer address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "address_id"
+          }
+        },
+        "customer_status_code": {
+          "type": "text",
+          "source_label": "customer status code",
+          "observed_values": [
+            "Bad Customer",
+            "Good Customer"
+          ]
+        },
+        "date_became_customer": {
+          "type": "time",
+          "source_label": "date became customer"
+        },
+        "date_of_birth": {
+          "type": "time",
+          "source_label": "date of birth"
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "amount_outstanding": {
+          "type": "number",
+          "source_label": "amount outstanding"
+        },
+        "email_address": {
+          "type": "text",
+          "source_label": "email address"
+        },
+        "phone_number": {
+          "type": "text",
+          "source_label": "phone number"
+        },
+        "cell_mobile_phone_number": {
+          "type": "text",
+          "source_label": "cell mobile phone number"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Customer_Payments": {
+      "source_label": "customer payments",
+      "meaning": "Table labeled 'customer payments' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key customer_id",
+      "primary_key_columns": [
+        "customer_id"
+      ],
+      "columns": {
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Customers",
+            "column": "customer_id"
+          }
+        },
+        "datetime_payment": {
+          "type": "time",
+          "source_label": "datetime payment"
+        },
+        "payment_method_code": {
+          "type": "text",
+          "source_label": "payment method code",
+          "observed_values": [
+            "Direct Debit",
+            "Credit Card"
+          ]
+        },
+        "amount_payment": {
+          "type": "number",
+          "source_label": "amount payment"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Lessons": {
+      "source_label": "lessons",
+      "meaning": "Table labeled 'lessons' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key lesson_id",
+      "primary_key_columns": [
+        "lesson_id"
+      ],
+      "columns": {
+        "lesson_id": {
+          "type": "number",
+          "source_label": "lesson id",
+          "primary_key": true
+        },
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers",
+            "column": "customer_id"
+          }
+        },
+        "lesson_status_code": {
+          "type": "text",
+          "source_label": "lesson status code",
+          "observed_values": [
+            "Cancelled",
+            "Completed"
+          ]
+        },
+        "staff_id": {
+          "type": "number",
+          "source_label": "staff id",
+          "foreign_key": {
+            "table": "Staff",
+            "column": "staff_id"
+          }
+        },
+        "vehicle_id": {
+          "type": "number",
+          "source_label": "vehicle id",
+          "foreign_key": {
+            "table": "Vehicles",
+            "column": "vehicle_id"
+          }
+        },
+        "lesson_date": {
+          "type": "time",
+          "source_label": "lesson date"
+        },
+        "lesson_time": {
+          "type": "text",
+          "source_label": "lesson time",
+          "observed_values": [
+            "5",
+            "6",
+            "3",
+            "9",
+            "2",
+            "4"
+          ]
+        },
+        "price": {
+          "type": "number",
+          "source_label": "price"
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "customer payments": {
+      "maps_to": "Customer_Payments",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Addresses__row_count": {
+      "meaning": "Number of rows in Addresses.",
+      "base_table": "Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Staff__row_count": {
+      "meaning": "Number of rows in Staff.",
+      "base_table": "Staff",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Vehicles__row_count": {
+      "meaning": "Number of rows in Vehicles.",
+      "base_table": "Vehicles",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customers__row_count": {
+      "meaning": "Number of rows in Customers.",
+      "base_table": "Customers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customer_Payments__row_count": {
+      "meaning": "Number of rows in Customer_Payments.",
+      "base_table": "Customer_Payments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Lessons__row_count": {
+      "meaning": "Number of rows in Lessons.",
+      "base_table": "Lessons",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

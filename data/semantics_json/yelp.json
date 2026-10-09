@@ -1,0 +1,328 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "yelp",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "business": {
+      "source_label": "business",
+      "meaning": "Table labeled 'business' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key bid",
+      "primary_key_columns": [
+        "bid"
+      ],
+      "columns": {
+        "bid": {
+          "type": "number",
+          "source_label": "bid",
+          "primary_key": true
+        },
+        "business_id": {
+          "type": "text",
+          "source_label": "business id"
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "full_address": {
+          "type": "text",
+          "source_label": "full address"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "latitude": {
+          "type": "text",
+          "source_label": "latitude"
+        },
+        "longitude": {
+          "type": "text",
+          "source_label": "longitude"
+        },
+        "review_count": {
+          "type": "number",
+          "source_label": "review count"
+        },
+        "is_open": {
+          "type": "number",
+          "source_label": "is open"
+        },
+        "rating": {
+          "type": "number",
+          "source_label": "rating"
+        },
+        "state": {
+          "type": "text",
+          "source_label": "state"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "category": {
+      "source_label": "category",
+      "meaning": "Table labeled 'category' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "business_id": {
+          "type": "text",
+          "source_label": "business id",
+          "foreign_key": {
+            "table": "business",
+            "column": "business_id"
+          }
+        },
+        "category_name": {
+          "type": "text",
+          "source_label": "category name"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "user": {
+      "source_label": "user",
+      "meaning": "Table labeled 'user' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key uid",
+      "primary_key_columns": [
+        "uid"
+      ],
+      "columns": {
+        "uid": {
+          "type": "number",
+          "source_label": "uid",
+          "primary_key": true
+        },
+        "user_id": {
+          "type": "text",
+          "source_label": "user id"
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "checkin": {
+      "source_label": "checkin",
+      "meaning": "Table labeled 'checkin' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key cid",
+      "primary_key_columns": [
+        "cid"
+      ],
+      "columns": {
+        "cid": {
+          "type": "number",
+          "source_label": "cid",
+          "primary_key": true
+        },
+        "business_id": {
+          "type": "text",
+          "source_label": "business id",
+          "foreign_key": {
+            "table": "business",
+            "column": "business_id"
+          }
+        },
+        "count": {
+          "type": "number",
+          "source_label": "count"
+        },
+        "day": {
+          "type": "text",
+          "source_label": "day"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "neighbourhood": {
+      "source_label": "neighbourhood",
+      "meaning": "Table labeled 'neighbourhood' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "business_id": {
+          "type": "text",
+          "source_label": "business id",
+          "foreign_key": {
+            "table": "business",
+            "column": "business_id"
+          }
+        },
+        "neighbourhood_name": {
+          "type": "text",
+          "source_label": "neighbourhood name"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "review": {
+      "source_label": "review",
+      "meaning": "Table labeled 'review' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key rid",
+      "primary_key_columns": [
+        "rid"
+      ],
+      "columns": {
+        "rid": {
+          "type": "number",
+          "source_label": "rid",
+          "primary_key": true
+        },
+        "business_id": {
+          "type": "text",
+          "source_label": "business id",
+          "foreign_key": {
+            "table": "business",
+            "column": "business_id"
+          }
+        },
+        "user_id": {
+          "type": "text",
+          "source_label": "user id",
+          "foreign_key": {
+            "table": "user",
+            "column": "user_id"
+          }
+        },
+        "rating": {
+          "type": "number",
+          "source_label": "rating"
+        },
+        "text": {
+          "type": "text",
+          "source_label": "text"
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "month": {
+          "type": "text",
+          "source_label": "month"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "tip": {
+      "source_label": "tip",
+      "meaning": "Table labeled 'tip' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key tip_id",
+      "primary_key_columns": [
+        "tip_id"
+      ],
+      "columns": {
+        "tip_id": {
+          "type": "number",
+          "source_label": "tip id",
+          "primary_key": true
+        },
+        "business_id": {
+          "type": "text",
+          "source_label": "business id",
+          "foreign_key": {
+            "table": "business",
+            "column": "business_id"
+          }
+        },
+        "text": {
+          "type": "text",
+          "source_label": "text"
+        },
+        "user_id": {
+          "type": "text",
+          "source_label": "user id",
+          "foreign_key": {
+            "table": "user",
+            "column": "user_id"
+          }
+        },
+        "likes": {
+          "type": "number",
+          "source_label": "likes"
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "month": {
+          "type": "text",
+          "source_label": "month"
+        }
+      },
+      "observed_row_count": 0
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "business__row_count": {
+      "meaning": "Number of rows in business.",
+      "base_table": "business",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "category__row_count": {
+      "meaning": "Number of rows in category.",
+      "base_table": "category",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "user__row_count": {
+      "meaning": "Number of rows in user.",
+      "base_table": "user",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "checkin__row_count": {
+      "meaning": "Number of rows in checkin.",
+      "base_table": "checkin",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "neighbourhood__row_count": {
+      "meaning": "Number of rows in neighbourhood.",
+      "base_table": "neighbourhood",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "review__row_count": {
+      "meaning": "Number of rows in review.",
+      "base_table": "review",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "tip__row_count": {
+      "meaning": "Number of rows in tip.",
+      "base_table": "tip",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

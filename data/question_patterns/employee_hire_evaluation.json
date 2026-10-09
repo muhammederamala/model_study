@@ -1,0 +1,162 @@
+{
+  "db_id": "employee_hire_evaluation",
+  "n_questions": 38,
+  "n_questions_with_join": 8,
+  "join_pairs": [
+    {
+      "left": "employee.employee_id",
+      "right": "evaluation.employee_id",
+      "n": 4
+    },
+    {
+      "left": "hiring.shop_id",
+      "right": "shop.shop_id",
+      "n": 4
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 14
+    },
+    {
+      "fn": "MIN",
+      "target": "number_products",
+      "n": 2
+    },
+    {
+      "fn": "MAX",
+      "target": "number_products",
+      "n": 2
+    },
+    {
+      "fn": "AVG",
+      "target": "number_products",
+      "n": 2
+    },
+    {
+      "fn": "SUM",
+      "target": "bonus",
+      "n": 2
+    },
+    {
+      "fn": "COUNT",
+      "target": "location",
+      "n": 2
+    }
+  ],
+  "column_clause_usage": {
+    "age": {
+      "order by": 2,
+      "where": 2
+    },
+    "bonus": {
+      "order by": 2
+    },
+    "city": {
+      "group by": 4
+    },
+    "employee_id": {
+      "group by": 2,
+      "where": 2
+    },
+    "location": {
+      "group by": 2
+    },
+    "name": {
+      "group by": 2
+    },
+    "number_products": {
+      "order by": 4,
+      "where": 4
+    },
+    "shop_id": {
+      "group by": 2,
+      "where": 2
+    }
+  },
+  "question_openers": {
+    "find the name": {
+      "ORDER BY ... DESC": 2,
+      "LIMIT 1": 2,
+      "GROUP BY": 1,
+      "COUNT": 1,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "what is the": {
+      "GROUP BY": 2,
+      "COUNT": 2,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1
+    },
+    "which employee received": {
+      "ORDER BY ... DESC": 2,
+      "LIMIT 1": 2,
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "count the number": {
+      "COUNT": 3,
+      "GROUP BY": 1
+    },
+    "find the number": {
+      "GROUP BY": 2,
+      "COUNT": 2
+    },
+    "what are the": {
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "find the names": {
+      "subquery": 2,
+      "AVG": 1,
+      "negation (NOT IN / EXCEPT)": 1
+    },
+    "which shop has": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "which cities do": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "find the cities": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "how many shops": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "find the manager": {
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1
+    },
+    "which shops' number": {
+      "AVG": 1,
+      "subquery": 1
+    },
+    "which shops run": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "for each shop,": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "which district has": {
+      "INTERSECT": 1,
+      "subquery": 1
+    },
+    "find the districts": {
+      "INTERSECT": 1,
+      "subquery": 1
+    }
+  }
+}

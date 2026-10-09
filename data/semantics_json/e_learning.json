@@ -1,0 +1,301 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "e_learning",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Course_Authors_and_Tutors": {
+      "source_label": "course authors and tutors",
+      "meaning": "Table labeled 'course authors and tutors' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key author_id",
+      "primary_key_columns": [
+        "author_id"
+      ],
+      "columns": {
+        "author_id": {
+          "type": "number",
+          "source_label": "author id",
+          "primary_key": true
+        },
+        "author_tutor_ATB": {
+          "type": "text",
+          "source_label": "author tutor atb"
+        },
+        "login_name": {
+          "type": "text",
+          "source_label": "login name"
+        },
+        "password": {
+          "type": "text",
+          "source_label": "password"
+        },
+        "personal_name": {
+          "type": "text",
+          "source_label": "personal name"
+        },
+        "middle_name": {
+          "type": "text",
+          "source_label": "middle name"
+        },
+        "family_name": {
+          "type": "text",
+          "source_label": "family name"
+        },
+        "gender_mf": {
+          "type": "text",
+          "source_label": "gender mf",
+          "observed_values": [
+            "0",
+            "1"
+          ]
+        },
+        "address_line_1": {
+          "type": "text",
+          "source_label": "address line 1"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Students": {
+      "source_label": "students",
+      "meaning": "Table labeled 'students' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key student_id",
+      "primary_key_columns": [
+        "student_id"
+      ],
+      "columns": {
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true
+        },
+        "date_of_registration": {
+          "type": "time",
+          "source_label": "date of registration"
+        },
+        "date_of_latest_logon": {
+          "type": "time",
+          "source_label": "date of latest logon"
+        },
+        "login_name": {
+          "type": "text",
+          "source_label": "login name"
+        },
+        "password": {
+          "type": "text",
+          "source_label": "password"
+        },
+        "personal_name": {
+          "type": "text",
+          "source_label": "personal name"
+        },
+        "middle_name": {
+          "type": "text",
+          "source_label": "middle name"
+        },
+        "family_name": {
+          "type": "text",
+          "source_label": "family name"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Subjects": {
+      "source_label": "subjects",
+      "meaning": "Table labeled 'subjects' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key subject_id",
+      "primary_key_columns": [
+        "subject_id"
+      ],
+      "columns": {
+        "subject_id": {
+          "type": "number",
+          "source_label": "subject id",
+          "primary_key": true
+        },
+        "subject_name": {
+          "type": "text",
+          "source_label": "subject name",
+          "observed_values": [
+            "Computer Science",
+            "Arts",
+            "Language"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Courses": {
+      "source_label": "courses",
+      "meaning": "Table labeled 'courses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key course_id",
+      "primary_key_columns": [
+        "course_id"
+      ],
+      "columns": {
+        "course_id": {
+          "type": "number",
+          "source_label": "course id",
+          "primary_key": true
+        },
+        "author_id": {
+          "type": "number",
+          "source_label": "author id",
+          "foreign_key": {
+            "table": "Course_Authors_and_Tutors",
+            "column": "author_id"
+          }
+        },
+        "subject_id": {
+          "type": "number",
+          "source_label": "subject id",
+          "foreign_key": {
+            "table": "Subjects",
+            "column": "subject_id"
+          }
+        },
+        "course_name": {
+          "type": "text",
+          "source_label": "course name"
+        },
+        "course_description": {
+          "type": "text",
+          "source_label": "course description"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Student_Course_Enrolment": {
+      "source_label": "student course enrolment",
+      "meaning": "Table labeled 'student course enrolment' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key registration_id",
+      "primary_key_columns": [
+        "registration_id"
+      ],
+      "columns": {
+        "registration_id": {
+          "type": "number",
+          "source_label": "registration id",
+          "primary_key": true
+        },
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Students",
+            "column": "student_id"
+          }
+        },
+        "course_id": {
+          "type": "number",
+          "source_label": "course id",
+          "foreign_key": {
+            "table": "Courses",
+            "column": "course_id"
+          }
+        },
+        "date_of_enrolment": {
+          "type": "time",
+          "source_label": "date of enrolment"
+        },
+        "date_of_completion": {
+          "type": "time",
+          "source_label": "date of completion"
+        }
+      },
+      "observed_row_count": 20
+    },
+    "Student_Tests_Taken": {
+      "source_label": "student tests taken",
+      "meaning": "Table labeled 'student tests taken' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "registration_id": {
+          "type": "number",
+          "source_label": "registration id",
+          "foreign_key": {
+            "table": "Student_Course_Enrolment",
+            "column": "registration_id"
+          }
+        },
+        "date_test_taken": {
+          "type": "time",
+          "source_label": "date test taken"
+        },
+        "test_result": {
+          "type": "text",
+          "source_label": "test result",
+          "observed_values": [
+            "Fail",
+            "Pass"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "course authors and tutors": {
+      "maps_to": "Course_Authors_and_Tutors",
+      "source": "Spider normalized table name"
+    },
+    "student course enrolment": {
+      "maps_to": "Student_Course_Enrolment",
+      "source": "Spider normalized table name"
+    },
+    "student tests taken": {
+      "maps_to": "Student_Tests_Taken",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Course_Authors_and_Tutors__row_count": {
+      "meaning": "Number of rows in Course_Authors_and_Tutors.",
+      "base_table": "Course_Authors_and_Tutors",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Students__row_count": {
+      "meaning": "Number of rows in Students.",
+      "base_table": "Students",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Subjects__row_count": {
+      "meaning": "Number of rows in Subjects.",
+      "base_table": "Subjects",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Courses__row_count": {
+      "meaning": "Number of rows in Courses.",
+      "base_table": "Courses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Student_Course_Enrolment__row_count": {
+      "meaning": "Number of rows in Student_Course_Enrolment.",
+      "base_table": "Student_Course_Enrolment",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Student_Tests_Taken__row_count": {
+      "meaning": "Number of rows in Student_Tests_Taken.",
+      "base_table": "Student_Tests_Taken",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

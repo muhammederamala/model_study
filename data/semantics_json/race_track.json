@@ -1,0 +1,154 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "race_track",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "race": {
+      "source_label": "race",
+      "meaning": "Table labeled 'race' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Race_ID",
+      "primary_key_columns": [
+        "Race_ID"
+      ],
+      "columns": {
+        "Race_ID": {
+          "type": "number",
+          "source_label": "race id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Rolex 24 At Daytona",
+            "Gainsco Grand Prix of Miami",
+            "Mexico City 250",
+            "Bosch Engineering 250 at VIR",
+            "RumBum.com 250",
+            "Lime Rock GT Classic 250",
+            "Sahlen's Six Hours of the Glen"
+          ]
+        },
+        "Class": {
+          "type": "text",
+          "source_label": "class",
+          "observed_values": [
+            "DP/GT",
+            "GT"
+          ]
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "January 26 January 27",
+            "March 29",
+            "April 19",
+            "April 27",
+            "May 17",
+            "May 26",
+            "June 7"
+          ]
+        },
+        "Track_ID": {
+          "type": "text",
+          "source_label": "track id",
+          "foreign_key": {
+            "table": "track",
+            "column": "Track_ID"
+          },
+          "observed_values": [
+            "1",
+            "2",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "track": {
+      "source_label": "track",
+      "meaning": "Table labeled 'track' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Track_ID",
+      "primary_key_columns": [
+        "Track_ID"
+      ],
+      "columns": {
+        "Track_ID": {
+          "type": "number",
+          "source_label": "track id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Auto Club Speedway",
+            "Chicagoland Speedway",
+            "Darlington Raceway",
+            "Daytona International Speedway",
+            "Homestead-Miami Speedway",
+            "Kansas Speedway",
+            "Martinsville Speedway",
+            "Michigan International Speedway",
+            "Phoenix International Raceway"
+          ]
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "Fontana, CA",
+            "Joliet, IL",
+            "Darlington, SC",
+            "Daytona Beach, FL",
+            "Homestead, FL",
+            "Kansas City, KS",
+            "Ridgeway, VA",
+            "Brooklyn, MI",
+            "Avondale, AZ"
+          ]
+        },
+        "Seating": {
+          "type": "number",
+          "source_label": "seating"
+        },
+        "Year_Opened": {
+          "type": "number",
+          "source_label": "year opened"
+        }
+      },
+      "observed_row_count": 9
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "race__row_count": {
+      "meaning": "Number of rows in race.",
+      "base_table": "race",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "track__row_count": {
+      "meaning": "Number of rows in track.",
+      "base_table": "track",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

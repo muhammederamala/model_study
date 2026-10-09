@@ -1,0 +1,194 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "wine_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "grapes": {
+      "source_label": "grapes",
+      "meaning": "Table labeled 'grapes' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key ID",
+      "primary_key_columns": [
+        "ID"
+      ],
+      "columns": {
+        "ID": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "Grape": {
+          "type": "text",
+          "source_label": "grape"
+        },
+        "Color": {
+          "type": "text",
+          "source_label": "color",
+          "observed_values": [
+            "Red",
+            "White"
+          ]
+        }
+      },
+      "observed_row_count": 20
+    },
+    "appellations": {
+      "source_label": "appellations",
+      "meaning": "Table labeled 'appellations' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key No",
+      "primary_key_columns": [
+        "No"
+      ],
+      "columns": {
+        "No": {
+          "type": "number",
+          "source_label": "no",
+          "primary_key": true
+        },
+        "Appelation": {
+          "type": "text",
+          "source_label": "appelation"
+        },
+        "County": {
+          "type": "text",
+          "source_label": "county"
+        },
+        "State": {
+          "type": "text",
+          "source_label": "state",
+          "observed_values": [
+            "California"
+          ]
+        },
+        "Area": {
+          "type": "text",
+          "source_label": "area",
+          "observed_values": [
+            "North Coast",
+            "Sierra Foothills",
+            "N/A",
+            "Central Coast",
+            "California",
+            "Santa Cruz Mountains",
+            "Central Valley"
+          ]
+        },
+        "isAVA": {
+          "type": "text",
+          "source_label": "isava",
+          "observed_values": [
+            "Yes",
+            "No"
+          ]
+        }
+      },
+      "observed_row_count": 57
+    },
+    "wine": {
+      "source_label": "wine",
+      "meaning": "Table labeled 'wine' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "No": {
+          "type": "number",
+          "source_label": "no"
+        },
+        "Grape": {
+          "type": "text",
+          "source_label": "grape",
+          "foreign_key": {
+            "table": "grapes",
+            "column": "Grape"
+          }
+        },
+        "Winery": {
+          "type": "text",
+          "source_label": "winery"
+        },
+        "Appelation": {
+          "type": "text",
+          "source_label": "appelation",
+          "foreign_key": {
+            "table": "appellations",
+            "column": "Appelation"
+          }
+        },
+        "State": {
+          "type": "text",
+          "source_label": "state",
+          "observed_values": [
+            "California"
+          ]
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "Year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "Price": {
+          "type": "number",
+          "source_label": "price"
+        },
+        "Score": {
+          "type": "number",
+          "source_label": "score"
+        },
+        "Cases": {
+          "type": "number",
+          "source_label": "cases"
+        },
+        "Drink": {
+          "type": "text",
+          "source_label": "drink",
+          "observed_values": [
+            "now",
+            "2012",
+            "2010",
+            "2001",
+            "2011",
+            "2013",
+            "2008",
+            "2015"
+          ]
+        }
+      },
+      "observed_row_count": 500
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "grapes__row_count": {
+      "meaning": "Number of rows in grapes.",
+      "base_table": "grapes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "appellations__row_count": {
+      "meaning": "Number of rows in appellations.",
+      "base_table": "appellations",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "wine__row_count": {
+      "meaning": "Number of rows in wine.",
+      "base_table": "wine",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

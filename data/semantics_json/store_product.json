@@ -1,0 +1,256 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "store_product",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "product": {
+      "source_label": "product",
+      "meaning": "Table labeled 'product' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key product_id",
+      "primary_key_columns": [
+        "product_id"
+      ],
+      "columns": {
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "primary_key": true
+        },
+        "product": {
+          "type": "text",
+          "source_label": "product",
+          "observed_values": [
+            "Fujitsu fi-6130 A4 Series Scanner",
+            "Plustek MobileOffice D28 Corporate",
+            "Xerox Travel Scanner 100",
+            "ScanShell 3000DN",
+            "Canon imageFORMULA P-150",
+            "Canon DR-2080C"
+          ]
+        },
+        "dimensions": {
+          "type": "text",
+          "source_label": "dimensions",
+          "observed_values": [
+            "301 x 160 x 158",
+            "303 x 94 x 60",
+            "289 x 51 x 38",
+            "300 x 50 x 45",
+            "280 x 95 x 40",
+            "298 x 209 x 99"
+          ]
+        },
+        "dpi": {
+          "type": "number",
+          "source_label": "dpi"
+        },
+        "pages_per_minute_color": {
+          "type": "number",
+          "source_label": "pages per minute color"
+        },
+        "max_page_size": {
+          "type": "text",
+          "source_label": "max page size",
+          "observed_values": [
+            "A4",
+            "216mm x 356mm",
+            "216mm x 355mm"
+          ]
+        },
+        "interface": {
+          "type": "text",
+          "source_label": "interface",
+          "observed_values": [
+            "USB 2.0"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "store": {
+      "source_label": "store",
+      "meaning": "Table labeled 'store' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Store_ID",
+      "primary_key_columns": [
+        "Store_ID"
+      ],
+      "columns": {
+        "Store_ID": {
+          "type": "number",
+          "source_label": "store id",
+          "primary_key": true
+        },
+        "Store_Name": {
+          "type": "text",
+          "source_label": "store name",
+          "observed_values": [
+            "Miramichi",
+            "Neguac",
+            "Rogersville",
+            "Blackville",
+            "Doaktown"
+          ]
+        },
+        "Type": {
+          "type": "text",
+          "source_label": "type",
+          "observed_values": [
+            "City Mall",
+            "Village Store"
+          ]
+        },
+        "Area_size": {
+          "type": "number",
+          "source_label": "area size"
+        },
+        "Number_of_product_category": {
+          "type": "number",
+          "source_label": "number of product category"
+        },
+        "Ranking": {
+          "type": "number",
+          "source_label": "ranking"
+        }
+      },
+      "observed_row_count": 5
+    },
+    "district": {
+      "source_label": "district",
+      "meaning": "Table labeled 'district' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key District_ID",
+      "primary_key_columns": [
+        "District_ID"
+      ],
+      "columns": {
+        "District_ID": {
+          "type": "number",
+          "source_label": "district id",
+          "primary_key": true
+        },
+        "District_name": {
+          "type": "text",
+          "source_label": "district name"
+        },
+        "Headquartered_City": {
+          "type": "text",
+          "source_label": "headquartered city"
+        },
+        "City_Population": {
+          "type": "number",
+          "source_label": "city population"
+        },
+        "City_Area": {
+          "type": "number",
+          "source_label": "city area"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "store_product": {
+      "source_label": "store product",
+      "meaning": "Table labeled 'store product' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Store_ID",
+      "primary_key_columns": [
+        "Store_ID"
+      ],
+      "columns": {
+        "Store_ID": {
+          "type": "number",
+          "source_label": "store id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "store",
+            "column": "Store_ID"
+          }
+        },
+        "Product_ID": {
+          "type": "number",
+          "source_label": "product id"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "store_district": {
+      "source_label": "store district",
+      "meaning": "Table labeled 'store district' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Store_ID",
+      "primary_key_columns": [
+        "Store_ID"
+      ],
+      "columns": {
+        "Store_ID": {
+          "type": "number",
+          "source_label": "store id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "store",
+            "column": "Store_ID"
+          }
+        },
+        "District_ID": {
+          "type": "number",
+          "source_label": "district id",
+          "foreign_key": {
+            "table": "district",
+            "column": "District_ID"
+          }
+        }
+      },
+      "observed_row_count": 5
+    }
+  },
+  "terms": {
+    "store product": {
+      "maps_to": "store_product",
+      "source": "Spider normalized table name"
+    },
+    "store district": {
+      "maps_to": "store_district",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "product__row_count": {
+      "meaning": "Number of rows in product.",
+      "base_table": "product",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "store__row_count": {
+      "meaning": "Number of rows in store.",
+      "base_table": "store",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "district__row_count": {
+      "meaning": "Number of rows in district.",
+      "base_table": "district",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "store_product__row_count": {
+      "meaning": "Number of rows in store_product.",
+      "base_table": "store_product",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "store_district__row_count": {
+      "meaning": "Number of rows in store_district.",
+      "base_table": "store_district",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

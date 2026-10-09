@@ -1,0 +1,155 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "manufacturer",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "manufacturer": {
+      "source_label": "manufacturer",
+      "meaning": "Table labeled 'manufacturer' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Manufacturer_ID",
+      "primary_key_columns": [
+        "Manufacturer_ID"
+      ],
+      "columns": {
+        "Manufacturer_ID": {
+          "type": "number",
+          "source_label": "manufacturer id",
+          "primary_key": true
+        },
+        "Open_Year": {
+          "type": "number",
+          "source_label": "open year"
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Chevrolet House",
+            "IKEA",
+            "Ford Make",
+            "Jiaju",
+            "Chevrolet",
+            "Dodge",
+            "Tomorrow"
+          ]
+        },
+        "Num_of_Factories": {
+          "type": "number",
+          "source_label": "num of factories"
+        },
+        "Num_of_Shops": {
+          "type": "number",
+          "source_label": "num of shops"
+        }
+      },
+      "observed_row_count": 7
+    },
+    "furniture": {
+      "source_label": "furniture",
+      "meaning": "Table labeled 'furniture' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Furniture_ID",
+      "primary_key_columns": [
+        "Furniture_ID"
+      ],
+      "columns": {
+        "Furniture_ID": {
+          "type": "number",
+          "source_label": "furniture id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Billiard table",
+            "Chabudai",
+            "Bookcase",
+            "Hatstand",
+            "Bench",
+            "Four-poster bed",
+            "Dining set"
+          ]
+        },
+        "Num_of_Component": {
+          "type": "number",
+          "source_label": "num of component"
+        },
+        "Market_Rate": {
+          "type": "number",
+          "source_label": "market rate"
+        }
+      },
+      "observed_row_count": 7
+    },
+    "furniture_manufacte": {
+      "source_label": "furniture manufacte",
+      "meaning": "Table labeled 'furniture manufacte' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Manufacturer_ID",
+      "primary_key_columns": [
+        "Manufacturer_ID"
+      ],
+      "columns": {
+        "Manufacturer_ID": {
+          "type": "number",
+          "source_label": "manufacturer id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "manufacturer",
+            "column": "Manufacturer_ID"
+          }
+        },
+        "Furniture_ID": {
+          "type": "number",
+          "source_label": "furniture id",
+          "foreign_key": {
+            "table": "furniture",
+            "column": "Furniture_ID"
+          }
+        },
+        "Price_in_Dollar": {
+          "type": "number",
+          "source_label": "price in dollar"
+        }
+      },
+      "observed_row_count": 5
+    }
+  },
+  "terms": {
+    "furniture manufacte": {
+      "maps_to": "furniture_manufacte",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "manufacturer__row_count": {
+      "meaning": "Number of rows in manufacturer.",
+      "base_table": "manufacturer",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "furniture__row_count": {
+      "meaning": "Number of rows in furniture.",
+      "base_table": "furniture",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "furniture_manufacte__row_count": {
+      "meaning": "Number of rows in furniture_manufacte.",
+      "base_table": "furniture_manufacte",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

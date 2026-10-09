@@ -1,0 +1,48 @@
+-- db_id: museum_visit
+-- Schema annotated with readable column names, real sample values and
+-- value ranges taken from the data, and auto-detected join quirks.
+-- Usage patterns mined from real questions follow at the bottom.
+CREATE TABLE museum (  -- 8 rows
+  Museum_ID NUMBER PRIMARY KEY,  -- museum id
+  Name TEXT,  -- values: 'Plaza Museum', 'Capital Plaza Museum', 'Jefferson Development Museum', 'Willow Grande Museum', 'RiverPark Museum', 'Place Tower Museum', 'Central City District Residential Museum', 'ZirMed Gateway Museum'
+  Num_of_Staff NUMBER,  -- num of staff | range: 12 to 62
+  Open_Year TEXT  -- open year | values: '2000', '2012', '2010', '2011', '2008', '2009'
+);
+CREATE TABLE visitor (  -- 6 rows
+  ID NUMBER PRIMARY KEY,
+  Name TEXT,  -- values: 'Gonzalo Higuaín ', 'Guti Midfielder', 'Arjen Robben', 'Raúl Brown', 'Fernando Gago', 'Rafael van der Vaart'
+  Level_of_membership NUMBER,  -- level of membership | range: 1 to 8
+  Age NUMBER  -- range: 25 to 56
+);
+CREATE TABLE visit (  -- 6 rows
+  Museum_ID NUMBER PRIMARY KEY,  -- museum id | FK -> museum.Museum_ID
+  visitor_ID TEXT,  -- visitor id | FK -> visitor.ID | TYPE MISMATCH: this col is TEXT, target is NUMBER (no CAST needed in SQLite, but be aware) | values: '5', '3', '6'
+  Num_of_Ticket NUMBER,  -- num of ticket | range: 2 to 24
+  Total_spent NUMBER  -- total spent | range: 19.98 to 320.44
+);
+
+-- ============================================================
+-- USAGE PATTERNS for museum_visit
+-- Mined from 18 real analyst questions against this database.
+-- Heuristic (regex-derived, not a SQL parser) — treat as guidance, not rules.
+-- ============================================================
+-- Most common join paths (7 of 18 questions join at least two tables):
+--     5 questions:  visit.visitor_id = visitor.id
+--     3 questions:  museum.museum_id = visit.museum_id
+-- Metrics this database is usually asked for:
+--     5 questions:  COUNT(*)  (plain row counts are the single most common ask)
+--     2 questions:  SUM(visit.total_spent)
+--     1 questions:  AVG(age)
+--     1 questions:  AVG(num_of_staff)
+--     1 questions:  MIN(num_of_staff)
+--     1 questions:  AVG(num_of_ticket)
+--     1 questions:  MAX(num_of_ticket)
+-- Phrasing -> SQL constructs seen in this database's questions:
+--   'how many' / 'number of' -> COUNT
+--   'average' / 'mean' -> AVG
+--   'for each' / 'per <thing>' / 'by <thing>' -> GROUP BY
+--   'most' / 'highest' / 'largest' / 'top' -> ORDER BY ... DESC
+--   'the single most/least ...' -> ORDER BY ... LIMIT 1
+--   'never' / 'without any' / 'that do not' -> NOT IN / EXCEPT
+--   'both X and Y' -> INTERSECT
+--   'more than the average' / comparisons to an aggregate -> subquery

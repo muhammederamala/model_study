@@ -1,0 +1,1062 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "cre_Drama_Workshop_Groups",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Ref_Payment_Methods": {
+      "source_label": "reference payment methods",
+      "meaning": "Table labeled 'reference payment methods' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key payment_method_code",
+      "primary_key_columns": [
+        "payment_method_code"
+      ],
+      "columns": {
+        "payment_method_code": {
+          "type": "text",
+          "source_label": "payment method code",
+          "primary_key": true,
+          "observed_values": [
+            "American E",
+            "MasterCard",
+            "Visa"
+          ]
+        },
+        "payment_method_description": {
+          "type": "text",
+          "source_label": "payment method description",
+          "observed_values": [
+            "credit",
+            "debit",
+            "Visa"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Ref_Service_Types": {
+      "source_label": "reference service types",
+      "meaning": "Table labeled 'reference service types' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Service_Type_Code",
+      "primary_key_columns": [
+        "Service_Type_Code"
+      ],
+      "columns": {
+        "Service_Type_Code": {
+          "type": "text",
+          "source_label": "service type code",
+          "primary_key": true,
+          "observed_values": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        "Parent_Service_Type_Code": {
+          "type": "text",
+          "source_label": "parent service type code",
+          "observed_values": [
+            "1"
+          ]
+        },
+        "Service_Type_Description": {
+          "type": "text",
+          "source_label": "service type description",
+          "observed_values": [
+            "provide photo service",
+            "provide dinning service",
+            "provide filming service",
+            "provide adv promoting service"
+          ]
+        }
+      },
+      "observed_row_count": 4
+    },
+    "Addresses": {
+      "source_label": "addresses",
+      "meaning": "Table labeled 'addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Address_ID",
+      "primary_key_columns": [
+        "Address_ID"
+      ],
+      "columns": {
+        "Address_ID": {
+          "type": "text",
+          "source_label": "address id",
+          "primary_key": true
+        },
+        "Line_1": {
+          "type": "text",
+          "source_label": "line 1"
+        },
+        "Line_2": {
+          "type": "text",
+          "source_label": "line 2"
+        },
+        "City_Town": {
+          "type": "text",
+          "source_label": "city town"
+        },
+        "State_County": {
+          "type": "text",
+          "source_label": "state county"
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 20
+    },
+    "Products": {
+      "source_label": "products",
+      "meaning": "Table labeled 'products' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Product_ID",
+      "primary_key_columns": [
+        "Product_ID"
+      ],
+      "columns": {
+        "Product_ID": {
+          "type": "text",
+          "source_label": "product id",
+          "primary_key": true
+        },
+        "Product_Name": {
+          "type": "text",
+          "source_label": "product name",
+          "observed_values": [
+            "photo",
+            "film",
+            "dinning"
+          ]
+        },
+        "Product_Price": {
+          "type": "number",
+          "source_label": "product price"
+        },
+        "Product_Description": {
+          "type": "text",
+          "source_label": "product description"
+        },
+        "Other_Product_Service_Details": {
+          "type": "text",
+          "source_label": "other product service details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Marketing_Regions": {
+      "source_label": "marketing regions",
+      "meaning": "Table labeled 'marketing regions' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Marketing_Region_Code",
+      "primary_key_columns": [
+        "Marketing_Region_Code"
+      ],
+      "columns": {
+        "Marketing_Region_Code": {
+          "type": "text",
+          "source_label": "marketing region code",
+          "primary_key": true,
+          "observed_values": [
+            "CA",
+            "CN",
+            "ES",
+            "FR",
+            "IN",
+            "MX",
+            "RU",
+            "US"
+          ]
+        },
+        "Marketing_Region_Name": {
+          "type": "text",
+          "source_label": "marketing region name",
+          "observed_values": [
+            "Canada",
+            "China",
+            "Spain",
+            "France",
+            "India",
+            "Mexico",
+            "Russia",
+            "United States"
+          ]
+        },
+        "Marketing_Region_Descriptrion": {
+          "type": "text",
+          "source_label": "marketing region descriptrion",
+          "observed_values": [
+            "Our target market",
+            "Our largest market",
+            "Our main market"
+          ]
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 8
+    },
+    "Clients": {
+      "source_label": "clients",
+      "meaning": "Table labeled 'clients' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Client_ID",
+      "primary_key_columns": [
+        "Client_ID"
+      ],
+      "columns": {
+        "Client_ID": {
+          "type": "number",
+          "source_label": "client id",
+          "primary_key": true
+        },
+        "Address_ID": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "Address_ID"
+          }
+        },
+        "Customer_Email_Address": {
+          "type": "text",
+          "source_label": "customer email address"
+        },
+        "Customer_Name": {
+          "type": "text",
+          "source_label": "customer name"
+        },
+        "Customer_Phone": {
+          "type": "text",
+          "source_label": "customer phone"
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details",
+          "observed_values": [
+            "VIP",
+            "Super VIP"
+          ]
+        }
+      },
+      "observed_row_count": 20
+    },
+    "Drama_Workshop_Groups": {
+      "source_label": "drama workshop groups",
+      "meaning": "Table labeled 'drama workshop groups' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Workshop_Group_ID",
+      "primary_key_columns": [
+        "Workshop_Group_ID"
+      ],
+      "columns": {
+        "Workshop_Group_ID": {
+          "type": "number",
+          "source_label": "workshop group id",
+          "primary_key": true
+        },
+        "Address_ID": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "Address_ID"
+          }
+        },
+        "Currency_Code": {
+          "type": "text",
+          "source_label": "currency code",
+          "observed_values": [
+            "EU",
+            "USD"
+          ]
+        },
+        "Marketing_Region_Code": {
+          "type": "text",
+          "source_label": "marketing region code",
+          "observed_values": [
+            "FR",
+            "DE",
+            "RU",
+            "US",
+            "ES",
+            "MX",
+            "IE",
+            "PT"
+          ]
+        },
+        "Store_Name": {
+          "type": "text",
+          "source_label": "store name"
+        },
+        "Store_Phone": {
+          "type": "text",
+          "source_label": "store phone"
+        },
+        "Store_Email_Address": {
+          "type": "text",
+          "source_label": "store email address"
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details",
+          "observed_values": [
+            "Good",
+            "Bad"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Performers": {
+      "source_label": "performers",
+      "meaning": "Table labeled 'performers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Performer_ID",
+      "primary_key_columns": [
+        "Performer_ID"
+      ],
+      "columns": {
+        "Performer_ID": {
+          "type": "number",
+          "source_label": "performer id",
+          "primary_key": true
+        },
+        "Address_ID": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "Address_ID"
+          }
+        },
+        "Customer_Name": {
+          "type": "text",
+          "source_label": "customer name"
+        },
+        "Customer_Phone": {
+          "type": "text",
+          "source_label": "customer phone"
+        },
+        "Customer_Email_Address": {
+          "type": "text",
+          "source_label": "customer email address"
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details",
+          "observed_values": [
+            "Did not pay",
+            "Pay good tips"
+          ]
+        }
+      },
+      "observed_row_count": 20
+    },
+    "Customers": {
+      "source_label": "customers",
+      "meaning": "Table labeled 'customers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Customer_ID",
+      "primary_key_columns": [
+        "Customer_ID"
+      ],
+      "columns": {
+        "Customer_ID": {
+          "type": "text",
+          "source_label": "customer id",
+          "primary_key": true
+        },
+        "Address_ID": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "Address_ID"
+          }
+        },
+        "Customer_Name": {
+          "type": "text",
+          "source_label": "customer name"
+        },
+        "Customer_Phone": {
+          "type": "text",
+          "source_label": "customer phone"
+        },
+        "Customer_Email_Address": {
+          "type": "text",
+          "source_label": "customer email address"
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details",
+          "observed_values": [
+            "VIP"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Stores": {
+      "source_label": "stores",
+      "meaning": "Table labeled 'stores' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Store_ID",
+      "primary_key_columns": [
+        "Store_ID"
+      ],
+      "columns": {
+        "Store_ID": {
+          "type": "text",
+          "source_label": "store id",
+          "primary_key": true,
+          "observed_values": [
+            "150",
+            "229",
+            "231",
+            "236",
+            "291",
+            "344",
+            "421",
+            "444",
+            "512",
+            "518"
+          ]
+        },
+        "Address_ID": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "Address_ID"
+          }
+        },
+        "Marketing_Region_Code": {
+          "type": "text",
+          "source_label": "marketing region code",
+          "foreign_key": {
+            "table": "Marketing_Regions",
+            "column": "Marketing_Region_Code"
+          },
+          "observed_values": [
+            "IN",
+            "CA",
+            "ES",
+            "RU",
+            "FR",
+            "CN"
+          ]
+        },
+        "Store_Name": {
+          "type": "text",
+          "source_label": "store name",
+          "observed_values": [
+            "FJA Filming",
+            "Rob Dinning",
+            "Adan Dinning",
+            "Fred Dinning",
+            "Ewi Filming",
+            "Shery Photo",
+            "Carmol Photo",
+            "FK Filming",
+            "Adam Photo",
+            "Lur Photo"
+          ]
+        },
+        "Store_Phone": {
+          "type": "text",
+          "source_label": "store phone",
+          "observed_values": [
+            "+65(1)3590790358",
+            "1-327-185-9368",
+            "896-931-9633x869",
+            "893-457-3102x4293",
+            "+46(1)1411714927",
+            "1-678-902-9434x1148",
+            "(941)444-7666x7089",
+            "086-705-8793",
+            "127.870.0753x54565",
+            "605-319-8245"
+          ]
+        },
+        "Store_Email_Address": {
+          "type": "text",
+          "source_label": "store email address",
+          "observed_values": [
+            "fjacobson@example.com",
+            "rborer@example.org",
+            "adan93@example.com",
+            "frederik37@example.org",
+            "ewisoky@example.org",
+            "shirley07@example.net",
+            "carmel04@example.com",
+            "fkuvalis@example.net",
+            "adams.miles@example.net",
+            "lurline24@example.org"
+          ]
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details",
+          "observed_values": [
+            "5 stars",
+            "4 stars",
+            "3 stars"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    },
+    "Bookings": {
+      "source_label": "bookings",
+      "meaning": "Table labeled 'bookings' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Booking_ID",
+      "primary_key_columns": [
+        "Booking_ID"
+      ],
+      "columns": {
+        "Booking_ID": {
+          "type": "number",
+          "source_label": "booking id",
+          "primary_key": true
+        },
+        "Customer_ID": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Clients",
+            "column": "Client_ID"
+          }
+        },
+        "Workshop_Group_ID": {
+          "type": "text",
+          "source_label": "workshop group id",
+          "foreign_key": {
+            "table": "Drama_Workshop_Groups",
+            "column": "Workshop_Group_ID"
+          },
+          "observed_values": [
+            "140",
+            "838",
+            "176",
+            "708",
+            "735",
+            "954",
+            "405",
+            "136",
+            "685"
+          ]
+        },
+        "Status_Code": {
+          "type": "text",
+          "source_label": "status code",
+          "observed_values": [
+            "good",
+            "stop"
+          ]
+        },
+        "Store_ID": {
+          "type": "number",
+          "source_label": "store id"
+        },
+        "Order_Date": {
+          "type": "time",
+          "source_label": "order date"
+        },
+        "Planned_Delivery_Date": {
+          "type": "time",
+          "source_label": "planned delivery date"
+        },
+        "Actual_Delivery_Date": {
+          "type": "time",
+          "source_label": "actual delivery date"
+        },
+        "Other_Order_Details": {
+          "type": "text",
+          "source_label": "other order details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Performers_in_Bookings": {
+      "source_label": "performers in bookings",
+      "meaning": "Table labeled 'performers in bookings' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Order_ID",
+      "primary_key_columns": [
+        "Order_ID"
+      ],
+      "columns": {
+        "Order_ID": {
+          "type": "number",
+          "source_label": "order id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Bookings",
+            "column": "Booking_ID"
+          }
+        },
+        "Performer_ID": {
+          "type": "number",
+          "source_label": "performer id",
+          "foreign_key": {
+            "table": "Performers",
+            "column": "Performer_ID"
+          }
+        }
+      },
+      "observed_row_count": 18
+    },
+    "Customer_Orders": {
+      "source_label": "customer orders",
+      "meaning": "Table labeled 'customer orders' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Order_ID",
+      "primary_key_columns": [
+        "Order_ID"
+      ],
+      "columns": {
+        "Order_ID": {
+          "type": "number",
+          "source_label": "order id",
+          "primary_key": true
+        },
+        "Customer_ID": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers",
+            "column": "Customer_ID"
+          }
+        },
+        "Store_ID": {
+          "type": "number",
+          "source_label": "store id",
+          "foreign_key": {
+            "table": "Stores",
+            "column": "Store_ID"
+          }
+        },
+        "Order_Date": {
+          "type": "time",
+          "source_label": "order date"
+        },
+        "Planned_Delivery_Date": {
+          "type": "time",
+          "source_label": "planned delivery date"
+        },
+        "Actual_Delivery_Date": {
+          "type": "time",
+          "source_label": "actual delivery date"
+        },
+        "Other_Order_Details": {
+          "type": "text",
+          "source_label": "other order details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Order_Items": {
+      "source_label": "order items",
+      "meaning": "Table labeled 'order items' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Order_Item_ID",
+      "primary_key_columns": [
+        "Order_Item_ID"
+      ],
+      "columns": {
+        "Order_Item_ID": {
+          "type": "number",
+          "source_label": "order item id",
+          "primary_key": true
+        },
+        "Order_ID": {
+          "type": "number",
+          "source_label": "order id",
+          "foreign_key": {
+            "table": "Customer_Orders",
+            "column": "Order_ID"
+          }
+        },
+        "Product_ID": {
+          "type": "number",
+          "source_label": "product id",
+          "foreign_key": {
+            "table": "Products",
+            "column": "Product_ID"
+          }
+        },
+        "Order_Quantity": {
+          "type": "text",
+          "source_label": "order quantity",
+          "observed_values": [
+            "1",
+            "2"
+          ]
+        },
+        "Other_Item_Details": {
+          "type": "text",
+          "source_label": "other item details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Invoices": {
+      "source_label": "invoices",
+      "meaning": "Table labeled 'invoices' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Invoice_ID",
+      "primary_key_columns": [
+        "Invoice_ID"
+      ],
+      "columns": {
+        "Invoice_ID": {
+          "type": "number",
+          "source_label": "invoice id",
+          "primary_key": true
+        },
+        "Order_ID": {
+          "type": "number",
+          "source_label": "order id",
+          "foreign_key": {
+            "table": "Customer_Orders",
+            "column": "Order_ID"
+          }
+        },
+        "payment_method_code": {
+          "type": "text",
+          "source_label": "payment method code",
+          "foreign_key": {
+            "table": "Ref_Payment_Methods",
+            "column": "payment_method_code"
+          },
+          "observed_values": [
+            "MasterCard",
+            "Visa",
+            "American E"
+          ]
+        },
+        "Product_ID": {
+          "type": "number",
+          "source_label": "product id"
+        },
+        "Order_Quantity": {
+          "type": "text",
+          "source_label": "order quantity",
+          "observed_values": [
+            "2",
+            "1"
+          ]
+        },
+        "Other_Item_Details": {
+          "type": "text",
+          "source_label": "other item details"
+        },
+        "Order_Item_ID": {
+          "type": "number",
+          "source_label": "order item id"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Services": {
+      "source_label": "services",
+      "meaning": "Table labeled 'services' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Service_ID",
+      "primary_key_columns": [
+        "Service_ID"
+      ],
+      "columns": {
+        "Service_ID": {
+          "type": "number",
+          "source_label": "service id",
+          "primary_key": true
+        },
+        "Service_Type_Code": {
+          "type": "text",
+          "source_label": "service type code",
+          "foreign_key": {
+            "table": "Ref_Service_Types",
+            "column": "Service_Type_Code"
+          },
+          "observed_values": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        "Workshop_Group_ID": {
+          "type": "number",
+          "source_label": "workshop group id",
+          "foreign_key": {
+            "table": "Drama_Workshop_Groups",
+            "column": "Workshop_Group_ID"
+          }
+        },
+        "Product_Description": {
+          "type": "text",
+          "source_label": "product description"
+        },
+        "Product_Name": {
+          "type": "text",
+          "source_label": "product name",
+          "observed_values": [
+            "film",
+            "dinning",
+            "photo"
+          ]
+        },
+        "Product_Price": {
+          "type": "number",
+          "source_label": "product price"
+        },
+        "Other_Product_Service_Details": {
+          "type": "text",
+          "source_label": "other product service details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Bookings_Services": {
+      "source_label": "bookings services",
+      "meaning": "Table labeled 'bookings services' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Order_ID",
+      "primary_key_columns": [
+        "Order_ID"
+      ],
+      "columns": {
+        "Order_ID": {
+          "type": "number",
+          "source_label": "order id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Bookings",
+            "column": "Booking_ID"
+          }
+        },
+        "Product_ID": {
+          "type": "number",
+          "source_label": "product id",
+          "foreign_key": {
+            "table": "Services",
+            "column": "Service_ID"
+          }
+        }
+      },
+      "observed_row_count": 12
+    },
+    "Invoice_Items": {
+      "source_label": "invoice items",
+      "meaning": "Table labeled 'invoice items' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Invoice_Item_ID",
+      "primary_key_columns": [
+        "Invoice_Item_ID"
+      ],
+      "columns": {
+        "Invoice_Item_ID": {
+          "type": "number",
+          "source_label": "invoice item id",
+          "primary_key": true
+        },
+        "Invoice_ID": {
+          "type": "number",
+          "source_label": "invoice id",
+          "foreign_key": {
+            "table": "Invoices",
+            "column": "Invoice_ID"
+          }
+        },
+        "Order_ID": {
+          "type": "number",
+          "source_label": "order id",
+          "foreign_key": {
+            "table": "Bookings_Services",
+            "column": "Order_ID"
+          }
+        },
+        "Order_Item_ID": {
+          "type": "number",
+          "source_label": "order item id",
+          "foreign_key": {
+            "table": "Order_Items",
+            "column": "Order_Item_ID"
+          }
+        },
+        "Product_ID": {
+          "type": "number",
+          "source_label": "product id",
+          "foreign_key": {
+            "table": "Bookings_Services",
+            "column": "Product_ID"
+          }
+        },
+        "Order_Quantity": {
+          "type": "number",
+          "source_label": "order quantity"
+        },
+        "Other_Item_Details": {
+          "type": "text",
+          "source_label": "other item details",
+          "observed_values": [
+            "Good quality"
+          ]
+        }
+      },
+      "observed_row_count": 2
+    }
+  },
+  "terms": {
+    "reference payment methods": {
+      "maps_to": "Ref_Payment_Methods",
+      "source": "Spider normalized table name"
+    },
+    "reference service types": {
+      "maps_to": "Ref_Service_Types",
+      "source": "Spider normalized table name"
+    },
+    "marketing regions": {
+      "maps_to": "Marketing_Regions",
+      "source": "Spider normalized table name"
+    },
+    "drama workshop groups": {
+      "maps_to": "Drama_Workshop_Groups",
+      "source": "Spider normalized table name"
+    },
+    "performers in bookings": {
+      "maps_to": "Performers_in_Bookings",
+      "source": "Spider normalized table name"
+    },
+    "customer orders": {
+      "maps_to": "Customer_Orders",
+      "source": "Spider normalized table name"
+    },
+    "order items": {
+      "maps_to": "Order_Items",
+      "source": "Spider normalized table name"
+    },
+    "bookings services": {
+      "maps_to": "Bookings_Services",
+      "source": "Spider normalized table name"
+    },
+    "invoice items": {
+      "maps_to": "Invoice_Items",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Ref_Payment_Methods__row_count": {
+      "meaning": "Number of rows in Ref_Payment_Methods.",
+      "base_table": "Ref_Payment_Methods",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Ref_Service_Types__row_count": {
+      "meaning": "Number of rows in Ref_Service_Types.",
+      "base_table": "Ref_Service_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Addresses__row_count": {
+      "meaning": "Number of rows in Addresses.",
+      "base_table": "Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Products__row_count": {
+      "meaning": "Number of rows in Products.",
+      "base_table": "Products",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Marketing_Regions__row_count": {
+      "meaning": "Number of rows in Marketing_Regions.",
+      "base_table": "Marketing_Regions",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Clients__row_count": {
+      "meaning": "Number of rows in Clients.",
+      "base_table": "Clients",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Drama_Workshop_Groups__row_count": {
+      "meaning": "Number of rows in Drama_Workshop_Groups.",
+      "base_table": "Drama_Workshop_Groups",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Performers__row_count": {
+      "meaning": "Number of rows in Performers.",
+      "base_table": "Performers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customers__row_count": {
+      "meaning": "Number of rows in Customers.",
+      "base_table": "Customers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Stores__row_count": {
+      "meaning": "Number of rows in Stores.",
+      "base_table": "Stores",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Bookings__row_count": {
+      "meaning": "Number of rows in Bookings.",
+      "base_table": "Bookings",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Performers_in_Bookings__row_count": {
+      "meaning": "Number of rows in Performers_in_Bookings.",
+      "base_table": "Performers_in_Bookings",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customer_Orders__row_count": {
+      "meaning": "Number of rows in Customer_Orders.",
+      "base_table": "Customer_Orders",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Order_Items__row_count": {
+      "meaning": "Number of rows in Order_Items.",
+      "base_table": "Order_Items",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Invoices__row_count": {
+      "meaning": "Number of rows in Invoices.",
+      "base_table": "Invoices",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Services__row_count": {
+      "meaning": "Number of rows in Services.",
+      "base_table": "Services",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Bookings_Services__row_count": {
+      "meaning": "Number of rows in Bookings_Services.",
+      "base_table": "Bookings_Services",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Invoice_Items__row_count": {
+      "meaning": "Number of rows in Invoice_Items.",
+      "base_table": "Invoice_Items",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

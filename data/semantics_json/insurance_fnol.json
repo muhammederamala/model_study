@@ -1,0 +1,289 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "insurance_fnol",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Customers": {
+      "source_label": "customers",
+      "meaning": "Table labeled 'customers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Customer_ID",
+      "primary_key_columns": [
+        "Customer_ID"
+      ],
+      "columns": {
+        "Customer_ID": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true
+        },
+        "Customer_name": {
+          "type": "text",
+          "source_label": "customer name"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Services": {
+      "source_label": "services",
+      "meaning": "Table labeled 'services' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Service_ID",
+      "primary_key_columns": [
+        "Service_ID"
+      ],
+      "columns": {
+        "Service_ID": {
+          "type": "number",
+          "source_label": "service id",
+          "primary_key": true
+        },
+        "Service_name": {
+          "type": "text",
+          "source_label": "service name",
+          "observed_values": [
+            "New policy application",
+            "Close a policy",
+            "Change a policy",
+            "Upgrade a policy"
+          ]
+        }
+      },
+      "observed_row_count": 4
+    },
+    "Available_Policies": {
+      "source_label": "available policies",
+      "meaning": "Table labeled 'available policies' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Policy_ID",
+      "primary_key_columns": [
+        "Policy_ID"
+      ],
+      "columns": {
+        "Policy_ID": {
+          "type": "number",
+          "source_label": "policy id",
+          "primary_key": true
+        },
+        "policy_type_code": {
+          "type": "text",
+          "source_label": "policy type code",
+          "observed_values": [
+            "Life Insurance",
+            "Property Insurance",
+            "Mortgage Insurance",
+            "Travel Insurance"
+          ]
+        },
+        "Customer_Phone": {
+          "type": "text",
+          "source_label": "customer phone"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Customers_Policies": {
+      "source_label": "customers policies",
+      "meaning": "Table labeled 'customers policies' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Customer_ID",
+      "primary_key_columns": [
+        "Customer_ID"
+      ],
+      "columns": {
+        "Customer_ID": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Customers",
+            "column": "Customer_ID"
+          }
+        },
+        "Policy_ID": {
+          "type": "number",
+          "source_label": "policy id",
+          "foreign_key": {
+            "table": "Available_Policies",
+            "column": "Policy_ID"
+          }
+        },
+        "Date_Opened": {
+          "type": "time",
+          "source_label": "date opened"
+        },
+        "Date_Closed": {
+          "type": "time",
+          "source_label": "date closed"
+        }
+      },
+      "observed_row_count": 14
+    },
+    "First_Notification_of_Loss": {
+      "source_label": "first notification of loss",
+      "meaning": "Table labeled 'first notification of loss' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key FNOL_ID",
+      "primary_key_columns": [
+        "FNOL_ID"
+      ],
+      "columns": {
+        "FNOL_ID": {
+          "type": "number",
+          "source_label": "fnol id",
+          "primary_key": true
+        },
+        "Customer_ID": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers_Policies",
+            "column": "Customer_ID"
+          }
+        },
+        "Policy_ID": {
+          "type": "number",
+          "source_label": "policy id",
+          "foreign_key": {
+            "table": "Customers_Policies",
+            "column": "Policy_ID"
+          }
+        },
+        "Service_ID": {
+          "type": "number",
+          "source_label": "service id",
+          "foreign_key": {
+            "table": "Services",
+            "column": "Service_ID"
+          }
+        }
+      },
+      "observed_row_count": 7
+    },
+    "Claims": {
+      "source_label": "claims",
+      "meaning": "Table labeled 'claims' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Claim_ID",
+      "primary_key_columns": [
+        "Claim_ID"
+      ],
+      "columns": {
+        "Claim_ID": {
+          "type": "number",
+          "source_label": "claim id",
+          "primary_key": true
+        },
+        "FNOL_ID": {
+          "type": "number",
+          "source_label": "fnol id",
+          "foreign_key": {
+            "table": "First_Notification_of_Loss",
+            "column": "FNOL_ID"
+          }
+        },
+        "Effective_Date": {
+          "type": "time",
+          "source_label": "effective date"
+        }
+      },
+      "observed_row_count": 10
+    },
+    "Settlements": {
+      "source_label": "settlements",
+      "meaning": "Table labeled 'settlements' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Settlement_ID",
+      "primary_key_columns": [
+        "Settlement_ID"
+      ],
+      "columns": {
+        "Settlement_ID": {
+          "type": "number",
+          "source_label": "settlement id",
+          "primary_key": true
+        },
+        "Claim_ID": {
+          "type": "number",
+          "source_label": "claim id",
+          "foreign_key": {
+            "table": "Claims",
+            "column": "Claim_ID"
+          }
+        },
+        "Effective_Date": {
+          "type": "time",
+          "source_label": "effective date"
+        },
+        "Settlement_Amount": {
+          "type": "number",
+          "source_label": "settlement amount"
+        }
+      },
+      "observed_row_count": 10
+    }
+  },
+  "terms": {
+    "available policies": {
+      "maps_to": "Available_Policies",
+      "source": "Spider normalized table name"
+    },
+    "customers policies": {
+      "maps_to": "Customers_Policies",
+      "source": "Spider normalized table name"
+    },
+    "first notification of loss": {
+      "maps_to": "First_Notification_of_Loss",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Customers__row_count": {
+      "meaning": "Number of rows in Customers.",
+      "base_table": "Customers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Services__row_count": {
+      "meaning": "Number of rows in Services.",
+      "base_table": "Services",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Available_Policies__row_count": {
+      "meaning": "Number of rows in Available_Policies.",
+      "base_table": "Available_Policies",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customers_Policies__row_count": {
+      "meaning": "Number of rows in Customers_Policies.",
+      "base_table": "Customers_Policies",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "First_Notification_of_Loss__row_count": {
+      "meaning": "Number of rows in First_Notification_of_Loss.",
+      "base_table": "First_Notification_of_Loss",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Claims__row_count": {
+      "meaning": "Number of rows in Claims.",
+      "base_table": "Claims",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Settlements__row_count": {
+      "meaning": "Number of rows in Settlements.",
+      "base_table": "Settlements",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

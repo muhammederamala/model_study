@@ -1,0 +1,225 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "game_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Student": {
+      "source_label": "student",
+      "meaning": "Table labeled 'student' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key StuID",
+      "primary_key_columns": [
+        "StuID"
+      ],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true
+        },
+        "LName": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "Fname": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Sex": {
+          "type": "text",
+          "source_label": "sex",
+          "observed_values": [
+            "F",
+            "M"
+          ]
+        },
+        "Major": {
+          "type": "number",
+          "source_label": "major"
+        },
+        "Advisor": {
+          "type": "number",
+          "source_label": "advisor"
+        },
+        "city_code": {
+          "type": "text",
+          "source_label": "city code"
+        }
+      },
+      "observed_row_count": 34
+    },
+    "Video_Games": {
+      "source_label": "video games",
+      "meaning": "Table labeled 'video games' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key GameID",
+      "primary_key_columns": [
+        "GameID"
+      ],
+      "columns": {
+        "GameID": {
+          "type": "number",
+          "source_label": "game id",
+          "primary_key": true
+        },
+        "GName": {
+          "type": "text",
+          "source_label": "game name",
+          "observed_values": [
+            "RNG Stone",
+            "The Vanishing of Eric Calder",
+            "Grand Term Assignment",
+            "Europe is the Universe",
+            "Call of Destiny",
+            "Works of Widenius"
+          ]
+        },
+        "GType": {
+          "type": "text",
+          "source_label": "game type",
+          "observed_values": [
+            "Collectible card game",
+            "Walking Simulator",
+            "Role-playing game",
+            "Grand strategy",
+            "Frist-person shooter",
+            "Massively multiplayer online game"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "Plays_Games": {
+      "source_label": "plays games",
+      "meaning": "Table labeled 'plays games' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Student",
+            "column": "StuID"
+          }
+        },
+        "GameID": {
+          "type": "number",
+          "source_label": "game id",
+          "foreign_key": {
+            "table": "Video_Games",
+            "column": "GameID"
+          }
+        },
+        "Hours_Played": {
+          "type": "number",
+          "source_label": "hours played"
+        }
+      },
+      "observed_row_count": 10
+    },
+    "SportsInfo": {
+      "source_label": "sports info",
+      "meaning": "Table labeled 'sports info' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Student",
+            "column": "StuID"
+          }
+        },
+        "SportName": {
+          "type": "text",
+          "source_label": "sport name",
+          "observed_values": [
+            "Athletics",
+            "Football",
+            "Lacrosse",
+            "Swimming",
+            "Tennis",
+            "Baseball",
+            "Basketball",
+            "Cricket",
+            "Soccer",
+            "Curling"
+          ]
+        },
+        "HoursPerWeek": {
+          "type": "number",
+          "source_label": "hours per week"
+        },
+        "GamesPlayed": {
+          "type": "number",
+          "source_label": "games played"
+        },
+        "OnScholarship": {
+          "type": "text",
+          "source_label": "on scholarship",
+          "observed_values": [
+            "N",
+            "Y"
+          ]
+        }
+      },
+      "observed_row_count": 14
+    }
+  },
+  "terms": {
+    "video games": {
+      "maps_to": "Video_Games",
+      "source": "Spider normalized table name"
+    },
+    "plays games": {
+      "maps_to": "Plays_Games",
+      "source": "Spider normalized table name"
+    },
+    "sports info": {
+      "maps_to": "SportsInfo",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Student__row_count": {
+      "meaning": "Number of rows in Student.",
+      "base_table": "Student",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Video_Games__row_count": {
+      "meaning": "Number of rows in Video_Games.",
+      "base_table": "Video_Games",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Plays_Games__row_count": {
+      "meaning": "Number of rows in Plays_Games.",
+      "base_table": "Plays_Games",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "SportsInfo__row_count": {
+      "meaning": "Number of rows in SportsInfo.",
+      "base_table": "SportsInfo",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

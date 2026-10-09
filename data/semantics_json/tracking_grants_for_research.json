@@ -1,0 +1,538 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "tracking_grants_for_research",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Document_Types": {
+      "source_label": "document types",
+      "meaning": "Table labeled 'document types' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key document_type_code",
+      "primary_key_columns": [
+        "document_type_code"
+      ],
+      "columns": {
+        "document_type_code": {
+          "type": "text",
+          "source_label": "document type code",
+          "primary_key": true,
+          "observed_values": [
+            "APP",
+            "REG"
+          ]
+        },
+        "document_description": {
+          "type": "text",
+          "source_label": "document description",
+          "observed_values": [
+            "Initial Application",
+            "Regular"
+          ]
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Documents": {
+      "source_label": "documents",
+      "meaning": "Table labeled 'documents' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key document_id",
+      "primary_key_columns": [
+        "document_id"
+      ],
+      "columns": {
+        "document_id": {
+          "type": "number",
+          "source_label": "document id",
+          "primary_key": true
+        },
+        "document_type_code": {
+          "type": "text",
+          "source_label": "document type code",
+          "foreign_key": {
+            "table": "Document_Types",
+            "column": "document_type_code"
+          },
+          "observed_values": [
+            "APP",
+            "REG"
+          ]
+        },
+        "grant_id": {
+          "type": "number",
+          "source_label": "grant id",
+          "foreign_key": {
+            "table": "Grants",
+            "column": "grant_id"
+          }
+        },
+        "sent_date": {
+          "type": "time",
+          "source_label": "sent date"
+        },
+        "response_received_date": {
+          "type": "time",
+          "source_label": "response received date"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Grants": {
+      "source_label": "grants",
+      "meaning": "Table labeled 'grants' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key grant_id",
+      "primary_key_columns": [
+        "grant_id"
+      ],
+      "columns": {
+        "grant_id": {
+          "type": "number",
+          "source_label": "grant id",
+          "primary_key": true
+        },
+        "organisation_id": {
+          "type": "number",
+          "source_label": "organisation id",
+          "foreign_key": {
+            "table": "Organisations",
+            "column": "organisation_id"
+          }
+        },
+        "grant_amount": {
+          "type": "number",
+          "source_label": "grant amount"
+        },
+        "grant_start_date": {
+          "type": "time",
+          "source_label": "grant start date"
+        },
+        "grant_end_date": {
+          "type": "time",
+          "source_label": "grant end date"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details",
+          "observed_values": [
+            "et",
+            "occaecati",
+            "corrupti",
+            "dolor",
+            "explicabo",
+            "aliquam",
+            "sapiente",
+            "veniam",
+            "voluptatum",
+            "aut",
+            "qui",
+            "ea"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Organisation_Types": {
+      "source_label": "organisation types",
+      "meaning": "Table labeled 'organisation types' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key organisation_type",
+      "primary_key_columns": [
+        "organisation_type"
+      ],
+      "columns": {
+        "organisation_type": {
+          "type": "text",
+          "source_label": "organisation type",
+          "primary_key": true,
+          "observed_values": [
+            "RES",
+            "SPON"
+          ]
+        },
+        "organisation_type_description": {
+          "type": "text",
+          "source_label": "organisation type description",
+          "observed_values": [
+            "Research",
+            "Sponsor"
+          ]
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Organisations": {
+      "source_label": "organisations",
+      "meaning": "Table labeled 'organisations' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key organisation_id",
+      "primary_key_columns": [
+        "organisation_id"
+      ],
+      "columns": {
+        "organisation_id": {
+          "type": "number",
+          "source_label": "organisation id",
+          "primary_key": true
+        },
+        "organisation_type": {
+          "type": "text",
+          "source_label": "organisation type",
+          "foreign_key": {
+            "table": "Organisation_Types",
+            "column": "organisation_type"
+          },
+          "observed_values": [
+            "RES",
+            "SPON"
+          ]
+        },
+        "organisation_details": {
+          "type": "text",
+          "source_label": "organisation details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Project_Outcomes": {
+      "source_label": "project outcomes",
+      "meaning": "Table labeled 'project outcomes' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "project_id": {
+          "type": "number",
+          "source_label": "project id",
+          "foreign_key": {
+            "table": "Projects",
+            "column": "project_id"
+          }
+        },
+        "outcome_code": {
+          "type": "text",
+          "source_label": "outcome code",
+          "foreign_key": {
+            "table": "Research_Outcomes",
+            "column": "outcome_code"
+          },
+          "observed_values": [
+            "Paper",
+            "Patent"
+          ]
+        },
+        "outcome_details": {
+          "type": "text",
+          "source_label": "outcome details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Project_Staff": {
+      "source_label": "project staff",
+      "meaning": "Table labeled 'project staff' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key staff_id",
+      "primary_key_columns": [
+        "staff_id"
+      ],
+      "columns": {
+        "staff_id": {
+          "type": "number",
+          "source_label": "staff id",
+          "primary_key": true
+        },
+        "project_id": {
+          "type": "number",
+          "source_label": "project id",
+          "foreign_key": {
+            "table": "Projects",
+            "column": "project_id"
+          }
+        },
+        "role_code": {
+          "type": "text",
+          "source_label": "role code",
+          "foreign_key": {
+            "table": "Staff_Roles",
+            "column": "role_code"
+          },
+          "observed_values": [
+            "leader",
+            "researcher"
+          ]
+        },
+        "date_from": {
+          "type": "time",
+          "source_label": "date from"
+        },
+        "date_to": {
+          "type": "time",
+          "source_label": "date to"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Projects": {
+      "source_label": "projects",
+      "meaning": "Table labeled 'projects' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key project_id",
+      "primary_key_columns": [
+        "project_id"
+      ],
+      "columns": {
+        "project_id": {
+          "type": "number",
+          "source_label": "project id",
+          "primary_key": true
+        },
+        "organisation_id": {
+          "type": "number",
+          "source_label": "organisation id",
+          "foreign_key": {
+            "table": "Organisations",
+            "column": "organisation_id"
+          }
+        },
+        "project_details": {
+          "type": "text",
+          "source_label": "project details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Research_Outcomes": {
+      "source_label": "research outcomes",
+      "meaning": "Table labeled 'research outcomes' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key outcome_code",
+      "primary_key_columns": [
+        "outcome_code"
+      ],
+      "columns": {
+        "outcome_code": {
+          "type": "text",
+          "source_label": "outcome code",
+          "primary_key": true,
+          "observed_values": [
+            "Paper",
+            "Patent"
+          ]
+        },
+        "outcome_description": {
+          "type": "text",
+          "source_label": "outcome description",
+          "observed_values": [
+            "Published Research Paper",
+            "Research Patent"
+          ]
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Research_Staff": {
+      "source_label": "research staff",
+      "meaning": "Table labeled 'research staff' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key staff_id",
+      "primary_key_columns": [
+        "staff_id"
+      ],
+      "columns": {
+        "staff_id": {
+          "type": "number",
+          "source_label": "staff id",
+          "primary_key": true
+        },
+        "employer_organisation_id": {
+          "type": "number",
+          "source_label": "employer organisation id",
+          "foreign_key": {
+            "table": "Organisations",
+            "column": "organisation_id"
+          }
+        },
+        "staff_details": {
+          "type": "text",
+          "source_label": "staff details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Staff_Roles": {
+      "source_label": "staff roles",
+      "meaning": "Table labeled 'staff roles' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key role_code",
+      "primary_key_columns": [
+        "role_code"
+      ],
+      "columns": {
+        "role_code": {
+          "type": "text",
+          "source_label": "role code",
+          "primary_key": true,
+          "observed_values": [
+            "leader",
+            "researcher"
+          ]
+        },
+        "role_description": {
+          "type": "text",
+          "source_label": "role description",
+          "observed_values": [
+            "Project Leader",
+            "Project Researcher"
+          ]
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Tasks": {
+      "source_label": "tasks",
+      "meaning": "Table labeled 'tasks' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key task_id",
+      "primary_key_columns": [
+        "task_id"
+      ],
+      "columns": {
+        "task_id": {
+          "type": "number",
+          "source_label": "task id",
+          "primary_key": true
+        },
+        "project_id": {
+          "type": "number",
+          "source_label": "project id",
+          "foreign_key": {
+            "table": "Projects",
+            "column": "project_id"
+          }
+        },
+        "task_details": {
+          "type": "text",
+          "source_label": "task details"
+        },
+        "eg Agree Objectives": {
+          "type": "text",
+          "source_label": "eg agree objectives"
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "document types": {
+      "maps_to": "Document_Types",
+      "source": "Spider normalized table name"
+    },
+    "organisation types": {
+      "maps_to": "Organisation_Types",
+      "source": "Spider normalized table name"
+    },
+    "project outcomes": {
+      "maps_to": "Project_Outcomes",
+      "source": "Spider normalized table name"
+    },
+    "project staff": {
+      "maps_to": "Project_Staff",
+      "source": "Spider normalized table name"
+    },
+    "research outcomes": {
+      "maps_to": "Research_Outcomes",
+      "source": "Spider normalized table name"
+    },
+    "research staff": {
+      "maps_to": "Research_Staff",
+      "source": "Spider normalized table name"
+    },
+    "staff roles": {
+      "maps_to": "Staff_Roles",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Document_Types__row_count": {
+      "meaning": "Number of rows in Document_Types.",
+      "base_table": "Document_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Documents__row_count": {
+      "meaning": "Number of rows in Documents.",
+      "base_table": "Documents",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Grants__row_count": {
+      "meaning": "Number of rows in Grants.",
+      "base_table": "Grants",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Organisation_Types__row_count": {
+      "meaning": "Number of rows in Organisation_Types.",
+      "base_table": "Organisation_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Organisations__row_count": {
+      "meaning": "Number of rows in Organisations.",
+      "base_table": "Organisations",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Project_Outcomes__row_count": {
+      "meaning": "Number of rows in Project_Outcomes.",
+      "base_table": "Project_Outcomes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Project_Staff__row_count": {
+      "meaning": "Number of rows in Project_Staff.",
+      "base_table": "Project_Staff",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Projects__row_count": {
+      "meaning": "Number of rows in Projects.",
+      "base_table": "Projects",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Research_Outcomes__row_count": {
+      "meaning": "Number of rows in Research_Outcomes.",
+      "base_table": "Research_Outcomes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Research_Staff__row_count": {
+      "meaning": "Number of rows in Research_Staff.",
+      "base_table": "Research_Staff",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Staff_Roles__row_count": {
+      "meaning": "Number of rows in Staff_Roles.",
+      "base_table": "Staff_Roles",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Tasks__row_count": {
+      "meaning": "Number of rows in Tasks.",
+      "base_table": "Tasks",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

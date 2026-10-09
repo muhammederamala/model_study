@@ -1,0 +1,359 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "customer_complaints",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Staff": {
+      "source_label": "staff",
+      "meaning": "Table labeled 'staff' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key staff_id",
+      "primary_key_columns": [
+        "staff_id"
+      ],
+      "columns": {
+        "staff_id": {
+          "type": "number",
+          "source_label": "staff id",
+          "primary_key": true
+        },
+        "gender": {
+          "type": "text",
+          "source_label": "gender",
+          "observed_values": [
+            "0",
+            "1"
+          ]
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name",
+          "observed_values": [
+            "Ward",
+            "Lucie",
+            "Dagmar",
+            "Bradly",
+            "Austin",
+            "Dorian",
+            "Mikel"
+          ]
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name",
+          "observed_values": [
+            "Boehm",
+            "Lowe",
+            "Erdman",
+            "Hahn",
+            "Zieme",
+            "Oberbrunner",
+            "Lynch"
+          ]
+        },
+        "email_address": {
+          "type": "text",
+          "source_label": "email address",
+          "observed_values": [
+            "marcelle.ritchie@example.com",
+            "ohintz@example.org",
+            "wrau@example.com",
+            "brett99@example.net",
+            "reichel.armani@example.org",
+            "richard.gutkowski@example.com",
+            "glen.borer@example.com"
+          ]
+        },
+        "phone_number": {
+          "type": "text",
+          "source_label": "phone number",
+          "observed_values": [
+            "(379)551-0838x146",
+            "142-311-6503x206",
+            "345-656-5571",
+            "1-132-839-9409x288",
+            "(383)553-1035x20399",
+            "155-811-6153",
+            "751-262-8424x575"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "Customers": {
+      "source_label": "customers",
+      "meaning": "Table labeled 'customers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key customer_id",
+      "primary_key_columns": [
+        "customer_id"
+      ],
+      "columns": {
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true
+        },
+        "customer_type_code": {
+          "type": "text",
+          "source_label": "customer type code",
+          "observed_values": [
+            "Good Credit Rating",
+            "Defaults on payments"
+          ]
+        },
+        "address_line_1": {
+          "type": "text",
+          "source_label": "address line 1",
+          "observed_values": [
+            "144 Legros Landing",
+            "039 Jedidiah Estate Suite 537",
+            "92189 Gulgowski Ranch Apt. 683",
+            "72144 Katlynn Flat Suite 512",
+            "1566 Ramona Overpass Apt. 464",
+            "425 Roman Tunnel",
+            "05355 Marcelle Radial",
+            "518 Mann Park"
+          ]
+        },
+        "address_line_2": {
+          "type": "text",
+          "source_label": "address line 2",
+          "observed_values": [
+            "Apt. 551",
+            "Apt. 245",
+            "Apt. 828",
+            "Suite 959",
+            "Suite 151",
+            "Apt. 495",
+            "Suite 054",
+            "Suite 035"
+          ]
+        },
+        "town_city": {
+          "type": "text",
+          "source_label": "town city",
+          "observed_values": [
+            "Maryamport",
+            "Sauerberg",
+            "Tyreekhaven",
+            "Hansenbury",
+            "North Alisaville",
+            "Funkstad",
+            "Port Joshuah",
+            "West Annamariestad"
+          ]
+        },
+        "state": {
+          "type": "text",
+          "source_label": "state",
+          "observed_values": [
+            "Kansas",
+            "Hawaii",
+            "Tennessee",
+            "Florida",
+            "Colorado",
+            "Pennsylvania",
+            "Iowa"
+          ]
+        },
+        "email_address": {
+          "type": "text",
+          "source_label": "email address",
+          "observed_values": [
+            "hsteuber@example.org",
+            "cayla.satterfield@example.net",
+            "vida86@example.com",
+            "vbogisich@example.org",
+            "ubeier@example.org",
+            "lavonne.frami@example.com",
+            "paige.hyatt@example.com",
+            "rzulauf@example.org"
+          ]
+        },
+        "phone_number": {
+          "type": "text",
+          "source_label": "phone number",
+          "observed_values": [
+            "06963347450",
+            "470-803-0244",
+            "997.698.4779x882",
+            "548.373.3603x59134",
+            "044-468-4549",
+            "+38(3)9011433816",
+            "1-369-302-7623x576",
+            "578.019.7943x328"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "Products": {
+      "source_label": "products",
+      "meaning": "Table labeled 'products' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key product_id",
+      "primary_key_columns": [
+        "product_id"
+      ],
+      "columns": {
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "primary_key": true
+        },
+        "parent_product_id": {
+          "type": "number",
+          "source_label": "parent product id"
+        },
+        "product_category_code": {
+          "type": "text",
+          "source_label": "product category code",
+          "observed_values": [
+            "Food",
+            "Book",
+            "Hardware"
+          ]
+        },
+        "date_product_first_available": {
+          "type": "time",
+          "source_label": "date product first available"
+        },
+        "date_product_discontinued": {
+          "type": "time",
+          "source_label": "date product discontinued"
+        },
+        "product_name": {
+          "type": "text",
+          "source_label": "product name",
+          "observed_values": [
+            "Chocolate",
+            "The Great Gatsby",
+            "Keyboard",
+            "Mouse"
+          ]
+        },
+        "product_description": {
+          "type": "text",
+          "source_label": "product description",
+          "observed_values": [
+            "Handmade chocolate",
+            "American novel",
+            "Designed for games",
+            "Blue tooth mouse"
+          ]
+        },
+        "product_price": {
+          "type": "number",
+          "source_label": "product price"
+        }
+      },
+      "observed_row_count": 4
+    },
+    "Complaints": {
+      "source_label": "complaints",
+      "meaning": "Table labeled 'complaints' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "complaint_id": {
+          "type": "number",
+          "source_label": "complaint id"
+        },
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "foreign_key": {
+            "table": "Products",
+            "column": "product_id"
+          }
+        },
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers",
+            "column": "customer_id"
+          }
+        },
+        "complaint_outcome_code": {
+          "type": "text",
+          "source_label": "complaint outcome code",
+          "observed_values": [
+            "OK"
+          ]
+        },
+        "complaint_status_code": {
+          "type": "text",
+          "source_label": "complaint status code",
+          "observed_values": [
+            "Closed",
+            "New",
+            "Open"
+          ]
+        },
+        "complaint_type_code": {
+          "type": "text",
+          "source_label": "complaint type code",
+          "observed_values": [
+            "Product Failure",
+            "Product Unusable"
+          ]
+        },
+        "date_complaint_raised": {
+          "type": "time",
+          "source_label": "date complaint raised"
+        },
+        "date_complaint_closed": {
+          "type": "time",
+          "source_label": "date complaint closed"
+        },
+        "staff_id": {
+          "type": "number",
+          "source_label": "staff id",
+          "foreign_key": {
+            "table": "Staff",
+            "column": "staff_id"
+          }
+        }
+      },
+      "observed_row_count": 12
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "Staff__row_count": {
+      "meaning": "Number of rows in Staff.",
+      "base_table": "Staff",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customers__row_count": {
+      "meaning": "Number of rows in Customers.",
+      "base_table": "Customers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Products__row_count": {
+      "meaning": "Number of rows in Products.",
+      "base_table": "Products",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Complaints__row_count": {
+      "meaning": "Number of rows in Complaints.",
+      "base_table": "Complaints",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

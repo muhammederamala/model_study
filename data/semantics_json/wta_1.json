@@ -1,0 +1,287 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "wta_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "players": {
+      "source_label": "players",
+      "meaning": "Table labeled 'players' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key player_id",
+      "primary_key_columns": [
+        "player_id"
+      ],
+      "columns": {
+        "player_id": {
+          "type": "number",
+          "source_label": "player id",
+          "primary_key": true
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "hand": {
+          "type": "text",
+          "source_label": "hand",
+          "observed_values": [
+            "R",
+            "L",
+            "U"
+          ]
+        },
+        "birth_date": {
+          "type": "time",
+          "source_label": "birth date"
+        },
+        "country_code": {
+          "type": "text",
+          "source_label": "country code"
+        }
+      },
+      "observed_row_count": 20662
+    },
+    "matches": {
+      "source_label": "matches",
+      "meaning": "Table labeled 'matches' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "best_of": {
+          "type": "number",
+          "source_label": "best of"
+        },
+        "draw_size": {
+          "type": "number",
+          "source_label": "draw size"
+        },
+        "loser_age": {
+          "type": "number",
+          "source_label": "loser age"
+        },
+        "loser_entry": {
+          "type": "text",
+          "source_label": "loser entry"
+        },
+        "loser_hand": {
+          "type": "text",
+          "source_label": "loser hand",
+          "observed_values": [
+            "R",
+            "L"
+          ]
+        },
+        "loser_ht": {
+          "type": "number",
+          "source_label": "loser ht"
+        },
+        "loser_id": {
+          "type": "number",
+          "source_label": "loser id",
+          "foreign_key": {
+            "table": "players",
+            "column": "player_id"
+          }
+        },
+        "loser_ioc": {
+          "type": "text",
+          "source_label": "loser ioc"
+        },
+        "loser_name": {
+          "type": "text",
+          "source_label": "loser name"
+        },
+        "loser_rank": {
+          "type": "number",
+          "source_label": "loser rank"
+        },
+        "loser_rank_points": {
+          "type": "number",
+          "source_label": "loser rank points"
+        },
+        "loser_seed": {
+          "type": "number",
+          "source_label": "loser seed"
+        },
+        "match_num": {
+          "type": "number",
+          "source_label": "match num"
+        },
+        "minutes": {
+          "type": "number",
+          "source_label": "minutes"
+        },
+        "round": {
+          "type": "text",
+          "source_label": "round",
+          "observed_values": [
+            "RR",
+            "SF",
+            "QF",
+            "R32",
+            "F",
+            "R16",
+            "BR"
+          ]
+        },
+        "score": {
+          "type": "text",
+          "source_label": "score"
+        },
+        "surface": {
+          "type": "text",
+          "source_label": "surface",
+          "observed_values": [
+            "Hard",
+            "Clay",
+            "Grass"
+          ]
+        },
+        "tourney_date": {
+          "type": "time",
+          "source_label": "tourney date"
+        },
+        "tourney_id": {
+          "type": "text",
+          "source_label": "tourney id"
+        },
+        "tourney_level": {
+          "type": "text",
+          "source_label": "tourney level",
+          "observed_values": [
+            "W",
+            "I",
+            "G",
+            "P"
+          ]
+        },
+        "tourney_name": {
+          "type": "text",
+          "source_label": "tourney name"
+        },
+        "winner_age": {
+          "type": "number",
+          "source_label": "winner age"
+        },
+        "winner_entry": {
+          "type": "text",
+          "source_label": "winner entry"
+        },
+        "winner_hand": {
+          "type": "text",
+          "source_label": "winner hand",
+          "observed_values": [
+            "R",
+            "L"
+          ]
+        },
+        "winner_ht": {
+          "type": "number",
+          "source_label": "winner ht"
+        },
+        "winner_id": {
+          "type": "number",
+          "source_label": "winner id",
+          "foreign_key": {
+            "table": "players",
+            "column": "player_id"
+          }
+        },
+        "winner_ioc": {
+          "type": "text",
+          "source_label": "winner ioc"
+        },
+        "winner_name": {
+          "type": "text",
+          "source_label": "winner name"
+        },
+        "winner_rank": {
+          "type": "number",
+          "source_label": "winner rank"
+        },
+        "winner_rank_points": {
+          "type": "number",
+          "source_label": "winner rank points"
+        },
+        "winner_seed": {
+          "type": "number",
+          "source_label": "winner seed"
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        }
+      },
+      "observed_row_count": 278
+    },
+    "rankings": {
+      "source_label": "rankings",
+      "meaning": "Table labeled 'rankings' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "ranking_date": {
+          "type": "time",
+          "source_label": "ranking date"
+        },
+        "ranking": {
+          "type": "number",
+          "source_label": "ranking"
+        },
+        "player_id": {
+          "type": "number",
+          "source_label": "player id",
+          "foreign_key": {
+            "table": "players",
+            "column": "player_id"
+          }
+        },
+        "ranking_points": {
+          "type": "number",
+          "source_label": "ranking points"
+        },
+        "tours": {
+          "type": "number",
+          "source_label": "tours"
+        }
+      },
+      "observed_row_count": 510437
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "players__row_count": {
+      "meaning": "Number of rows in players.",
+      "base_table": "players",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "matches__row_count": {
+      "meaning": "Number of rows in matches.",
+      "base_table": "matches",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "rankings__row_count": {
+      "meaning": "Number of rows in rankings.",
+      "base_table": "rankings",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

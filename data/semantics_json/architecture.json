@@ -1,0 +1,200 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "architecture",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "architect": {
+      "source_label": "architect",
+      "meaning": "Table labeled 'architect' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text",
+          "source_label": "id",
+          "primary_key": true,
+          "observed_values": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Frank Lloyd Wright",
+            "Frank Gehry",
+            "Zaha Hadid",
+            "Mies Van Der Rohe",
+            "Le Corbusier"
+          ]
+        },
+        "nationality": {
+          "type": "text",
+          "source_label": "nationality",
+          "observed_values": [
+            "American",
+            "Canadian",
+            "Iraqi, British",
+            "German, American",
+            "Swiss, French"
+          ]
+        },
+        "gender": {
+          "type": "text",
+          "source_label": "gender",
+          "observed_values": [
+            "male",
+            "female"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "bridge": {
+      "source_label": "bridge",
+      "meaning": "Table labeled 'bridge' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "architect_id": {
+          "type": "number",
+          "source_label": "architect id",
+          "foreign_key": {
+            "table": "architect",
+            "column": "id"
+          }
+        },
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "location": {
+          "type": "text",
+          "source_label": "location"
+        },
+        "length_meters": {
+          "type": "number",
+          "source_label": "length meters"
+        },
+        "length_feet": {
+          "type": "number",
+          "source_label": "length feet"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "mill": {
+      "source_label": "mill",
+      "meaning": "Table labeled 'mill' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "architect_id": {
+          "type": "number",
+          "source_label": "architect id",
+          "foreign_key": {
+            "table": "architect",
+            "column": "id"
+          }
+        },
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "Coswarem",
+            "Donceel",
+            "Fexhe-le-haut-Clocher",
+            "Momalle",
+            "Othée",
+            "Pousset"
+          ]
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Le Vieux Molen",
+            "Moulin Bertrand",
+            "Moulin de Fexhe",
+            "Moulin de Momalle",
+            "Moulin du Château",
+            "Moulin de Pousset"
+          ]
+        },
+        "type": {
+          "type": "text",
+          "source_label": "type",
+          "observed_values": [
+            "Grondzeiler",
+            "Bergmolen"
+          ]
+        },
+        "built_year": {
+          "type": "number",
+          "source_label": "built year"
+        },
+        "notes": {
+          "type": "text",
+          "source_label": "notes",
+          "observed_values": [
+            "Molenechos (Dutch)"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "architect__row_count": {
+      "meaning": "Number of rows in architect.",
+      "base_table": "architect",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "bridge__row_count": {
+      "meaning": "Number of rows in bridge.",
+      "base_table": "bridge",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "mill__row_count": {
+      "meaning": "Number of rows in mill.",
+      "base_table": "mill",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

@@ -1,0 +1,255 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "city_record",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "city": {
+      "source_label": "city",
+      "meaning": "Table labeled 'city' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key City_ID",
+      "primary_key_columns": [
+        "City_ID"
+      ],
+      "columns": {
+        "City_ID": {
+          "type": "number",
+          "source_label": "city id",
+          "primary_key": true
+        },
+        "City": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "Hanzi": {
+          "type": "text",
+          "source_label": "hanzi"
+        },
+        "Hanyu_Pinyin": {
+          "type": "text",
+          "source_label": "hanyu pinyin"
+        },
+        "Regional_Population": {
+          "type": "number",
+          "source_label": "regional population"
+        },
+        "GDP": {
+          "type": "number",
+          "source_label": "gdp"
+        }
+      },
+      "observed_row_count": 13
+    },
+    "match": {
+      "source_label": "match",
+      "meaning": "Table labeled 'match' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Match_ID",
+      "primary_key_columns": [
+        "Match_ID"
+      ],
+      "columns": {
+        "Match_ID": {
+          "type": "number",
+          "source_label": "match id",
+          "primary_key": true
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "18 February 1992",
+            "19 July 1992",
+            "23 July 1992",
+            "4 April 1993",
+            "23 July 2000"
+          ]
+        },
+        "Venue": {
+          "type": "text",
+          "source_label": "venue",
+          "observed_values": [
+            "Estadio Cuscatlán , San Salvador , El Salvador",
+            "Estadio Rigoberto López , Managua , Nicaragua"
+          ]
+        },
+        "Score": {
+          "type": "text",
+          "source_label": "score",
+          "observed_values": [
+            "1-0",
+            "3-0",
+            "1–0",
+            "2–1"
+          ]
+        },
+        "Result": {
+          "type": "text",
+          "source_label": "result",
+          "observed_values": [
+            "2-0",
+            "5-0",
+            "5-1",
+            "2–1",
+            "7–1"
+          ]
+        },
+        "Competition": {
+          "type": "text",
+          "source_label": "competition",
+          "observed_values": [
+            "Friendly match",
+            "1994 FIFA World Cup qualification",
+            "2002 FIFA World Cup qualification"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "temperature": {
+      "source_label": "temperature",
+      "meaning": "Table labeled 'temperature' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key City_ID",
+      "primary_key_columns": [
+        "City_ID"
+      ],
+      "columns": {
+        "City_ID": {
+          "type": "number",
+          "source_label": "city id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "city",
+            "column": "City_ID"
+          }
+        },
+        "Jan": {
+          "type": "number",
+          "source_label": "jan"
+        },
+        "Feb": {
+          "type": "number",
+          "source_label": "feb"
+        },
+        "Mar": {
+          "type": "number",
+          "source_label": "mar"
+        },
+        "Apr": {
+          "type": "number",
+          "source_label": "apr"
+        },
+        "Jun": {
+          "type": "number",
+          "source_label": "jun"
+        },
+        "Jul": {
+          "type": "number",
+          "source_label": "jul"
+        },
+        "Aug": {
+          "type": "number",
+          "source_label": "aug"
+        },
+        "Sep": {
+          "type": "number",
+          "source_label": "sep"
+        },
+        "Oct": {
+          "type": "number",
+          "source_label": "oct"
+        },
+        "Nov": {
+          "type": "number",
+          "source_label": "nov"
+        },
+        "Dec": {
+          "type": "number",
+          "source_label": "dec"
+        }
+      },
+      "observed_row_count": 8
+    },
+    "hosting_city": {
+      "source_label": "hosting city",
+      "meaning": "Table labeled 'hosting city' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Year",
+      "primary_key_columns": [
+        "Year"
+      ],
+      "columns": {
+        "Year": {
+          "type": "number",
+          "source_label": "year",
+          "primary_key": true
+        },
+        "Match_ID": {
+          "type": "number",
+          "source_label": "match id",
+          "foreign_key": {
+            "table": "match",
+            "column": "Match_ID"
+          }
+        },
+        "Host_City": {
+          "type": "text",
+          "source_label": "host city",
+          "foreign_key": {
+            "table": "city",
+            "column": "City_ID"
+          },
+          "observed_values": [
+            "1",
+            "2",
+            "6",
+            "12",
+            "11"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    }
+  },
+  "terms": {
+    "hosting city": {
+      "maps_to": "hosting_city",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "city__row_count": {
+      "meaning": "Number of rows in city.",
+      "base_table": "city",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "match__row_count": {
+      "meaning": "Number of rows in match.",
+      "base_table": "match",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "temperature__row_count": {
+      "meaning": "Number of rows in temperature.",
+      "base_table": "temperature",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "hosting_city__row_count": {
+      "meaning": "Number of rows in hosting_city.",
+      "base_table": "hosting_city",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

@@ -1,0 +1,201 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "party_host",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "party": {
+      "source_label": "party",
+      "meaning": "Table labeled 'party' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Party_ID",
+      "primary_key_columns": [
+        "Party_ID"
+      ],
+      "columns": {
+        "Party_ID": {
+          "type": "number",
+          "source_label": "party id",
+          "primary_key": true
+        },
+        "Party_Theme": {
+          "type": "text",
+          "source_label": "party theme",
+          "observed_values": [
+            "Spring",
+            "Club Q-BASE",
+            "Hardcore Resurrection",
+            "Teqnology",
+            "Qlubtempo",
+            "QrimeTime",
+            "In Qontrol",
+            "Houseqlassics"
+          ]
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "Hemkade 48 Zaandam",
+            "Various locations",
+            "Heineken Music Hall Amsterdam",
+            "Hemkade 48 Zaandam, Heineken Music Hall Amsterdam",
+            "RAI Amsterdam"
+          ]
+        },
+        "First_year": {
+          "type": "text",
+          "source_label": "first year",
+          "observed_values": [
+            "2000",
+            "2002",
+            "2001",
+            "2004",
+            "1999"
+          ]
+        },
+        "Last_year": {
+          "type": "text",
+          "source_label": "last year",
+          "observed_values": [
+            "2001",
+            "2002",
+            "2003",
+            "2004",
+            "2007",
+            "2010"
+          ]
+        },
+        "Number_of_hosts": {
+          "type": "number",
+          "source_label": "number of hosts"
+        }
+      },
+      "observed_row_count": 8
+    },
+    "host": {
+      "source_label": "host",
+      "meaning": "Table labeled 'host' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Host_ID",
+      "primary_key_columns": [
+        "Host_ID"
+      ],
+      "columns": {
+        "Host_ID": {
+          "type": "number",
+          "source_label": "host id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Austin Daye",
+            "Lloyd Daniels",
+            "Kornel David",
+            "Antonio Davis",
+            "Ed Davis",
+            "Hubert Davis",
+            "Carlos Delfino",
+            "Justin Dentmon",
+            "DeMar DeRozan",
+            "Derrick Dial"
+          ]
+        },
+        "Nationality": {
+          "type": "text",
+          "source_label": "nationality",
+          "observed_values": [
+            "United States",
+            "Hungary",
+            "Argentina"
+          ]
+        },
+        "Age": {
+          "type": "text",
+          "source_label": "age",
+          "observed_values": [
+            "43",
+            "37",
+            "31",
+            "26",
+            "45",
+            "47",
+            "30",
+            "40",
+            "60"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    },
+    "party_host": {
+      "source_label": "party host",
+      "meaning": "Table labeled 'party host' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Party_ID",
+      "primary_key_columns": [
+        "Party_ID"
+      ],
+      "columns": {
+        "Party_ID": {
+          "type": "number",
+          "source_label": "party id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "party",
+            "column": "Party_ID"
+          }
+        },
+        "Host_ID": {
+          "type": "number",
+          "source_label": "host id",
+          "foreign_key": {
+            "table": "host",
+            "column": "Host_ID"
+          }
+        },
+        "Is_Main_in_Charge": {
+          "type": "others",
+          "source_label": "is main in charge"
+        }
+      },
+      "observed_row_count": 6
+    }
+  },
+  "terms": {
+    "party host": {
+      "maps_to": "party_host",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "party__row_count": {
+      "meaning": "Number of rows in party.",
+      "base_table": "party",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "host__row_count": {
+      "meaning": "Number of rows in host.",
+      "base_table": "host",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "party_host__row_count": {
+      "meaning": "Number of rows in party_host.",
+      "base_table": "party_host",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

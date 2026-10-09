@@ -1,0 +1,337 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "hr_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "regions": {
+      "source_label": "regions",
+      "meaning": "Table labeled 'regions' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key REGION_ID",
+      "primary_key_columns": [
+        "REGION_ID"
+      ],
+      "columns": {
+        "REGION_ID": {
+          "type": "number",
+          "source_label": "region id",
+          "primary_key": true
+        },
+        "REGION_NAME": {
+          "type": "text",
+          "source_label": "region name",
+          "observed_values": [
+            "Europe\\r",
+            "Americas\\r",
+            "Asia\\r",
+            "Middle East and Africa\\r"
+          ]
+        }
+      },
+      "observed_row_count": 4
+    },
+    "countries": {
+      "source_label": "countries",
+      "meaning": "Table labeled 'countries' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key COUNTRY_ID",
+      "primary_key_columns": [
+        "COUNTRY_ID"
+      ],
+      "columns": {
+        "COUNTRY_ID": {
+          "type": "text",
+          "source_label": "country id",
+          "primary_key": true
+        },
+        "COUNTRY_NAME": {
+          "type": "text",
+          "source_label": "country name"
+        },
+        "REGION_ID": {
+          "type": "number",
+          "source_label": "region id",
+          "foreign_key": {
+            "table": "regions",
+            "column": "REGION_ID"
+          }
+        }
+      },
+      "observed_row_count": 25
+    },
+    "departments": {
+      "source_label": "departments",
+      "meaning": "Table labeled 'departments' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key DEPARTMENT_ID",
+      "primary_key_columns": [
+        "DEPARTMENT_ID"
+      ],
+      "columns": {
+        "DEPARTMENT_ID": {
+          "type": "number",
+          "source_label": "department id",
+          "primary_key": true
+        },
+        "DEPARTMENT_NAME": {
+          "type": "text",
+          "source_label": "department name"
+        },
+        "MANAGER_ID": {
+          "type": "number",
+          "source_label": "manager id"
+        },
+        "LOCATION_ID": {
+          "type": "number",
+          "source_label": "location id"
+        }
+      },
+      "observed_row_count": 27
+    },
+    "jobs": {
+      "source_label": "jobs",
+      "meaning": "Table labeled 'jobs' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key JOB_ID",
+      "primary_key_columns": [
+        "JOB_ID"
+      ],
+      "columns": {
+        "JOB_ID": {
+          "type": "text",
+          "source_label": "job id",
+          "primary_key": true
+        },
+        "JOB_TITLE": {
+          "type": "text",
+          "source_label": "job title"
+        },
+        "MIN_SALARY": {
+          "type": "number",
+          "source_label": "min salary"
+        },
+        "MAX_SALARY": {
+          "type": "number",
+          "source_label": "max salary"
+        }
+      },
+      "observed_row_count": 19
+    },
+    "employees": {
+      "source_label": "employees",
+      "meaning": "Table labeled 'employees' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key EMPLOYEE_ID",
+      "primary_key_columns": [
+        "EMPLOYEE_ID"
+      ],
+      "columns": {
+        "EMPLOYEE_ID": {
+          "type": "number",
+          "source_label": "employee id",
+          "primary_key": true
+        },
+        "FIRST_NAME": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "LAST_NAME": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "EMAIL": {
+          "type": "text",
+          "source_label": "email"
+        },
+        "PHONE_NUMBER": {
+          "type": "text",
+          "source_label": "phone number"
+        },
+        "HIRE_DATE": {
+          "type": "time",
+          "source_label": "hire date"
+        },
+        "JOB_ID": {
+          "type": "text",
+          "source_label": "job id",
+          "foreign_key": {
+            "table": "jobs",
+            "column": "JOB_ID"
+          }
+        },
+        "SALARY": {
+          "type": "number",
+          "source_label": "salary"
+        },
+        "COMMISSION_PCT": {
+          "type": "number",
+          "source_label": "commission pct"
+        },
+        "MANAGER_ID": {
+          "type": "number",
+          "source_label": "manager id"
+        },
+        "DEPARTMENT_ID": {
+          "type": "number",
+          "source_label": "department id",
+          "foreign_key": {
+            "table": "departments",
+            "column": "DEPARTMENT_ID"
+          }
+        }
+      },
+      "observed_row_count": 107
+    },
+    "job_history": {
+      "source_label": "job history",
+      "meaning": "Table labeled 'job history' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key EMPLOYEE_ID",
+      "primary_key_columns": [
+        "EMPLOYEE_ID"
+      ],
+      "columns": {
+        "EMPLOYEE_ID": {
+          "type": "number",
+          "source_label": "employee id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "employees",
+            "column": "EMPLOYEE_ID"
+          }
+        },
+        "START_DATE": {
+          "type": "time",
+          "source_label": "start date"
+        },
+        "END_DATE": {
+          "type": "time",
+          "source_label": "end date"
+        },
+        "JOB_ID": {
+          "type": "text",
+          "source_label": "job id",
+          "foreign_key": {
+            "table": "jobs",
+            "column": "JOB_ID"
+          },
+          "observed_values": [
+            "IT_PROG",
+            "AC_ACCOUNT",
+            "AC_MGR",
+            "MK_REP",
+            "ST_CLERK",
+            "AD_ASST",
+            "SA_REP",
+            "SA_MAN"
+          ]
+        },
+        "DEPARTMENT_ID": {
+          "type": "number",
+          "source_label": "department id",
+          "foreign_key": {
+            "table": "departments",
+            "column": "DEPARTMENT_ID"
+          }
+        }
+      },
+      "observed_row_count": 11
+    },
+    "locations": {
+      "source_label": "locations",
+      "meaning": "Table labeled 'locations' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key LOCATION_ID",
+      "primary_key_columns": [
+        "LOCATION_ID"
+      ],
+      "columns": {
+        "LOCATION_ID": {
+          "type": "number",
+          "source_label": "location id",
+          "primary_key": true
+        },
+        "STREET_ADDRESS": {
+          "type": "text",
+          "source_label": "street address"
+        },
+        "POSTAL_CODE": {
+          "type": "text",
+          "source_label": "postal code"
+        },
+        "CITY": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "STATE_PROVINCE": {
+          "type": "text",
+          "source_label": "state province"
+        },
+        "COUNTRY_ID": {
+          "type": "text",
+          "source_label": "country id",
+          "foreign_key": {
+            "table": "countries",
+            "column": "COUNTRY_ID"
+          }
+        }
+      },
+      "observed_row_count": 23
+    }
+  },
+  "terms": {
+    "job history": {
+      "maps_to": "job_history",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "regions__row_count": {
+      "meaning": "Number of rows in regions.",
+      "base_table": "regions",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "countries__row_count": {
+      "meaning": "Number of rows in countries.",
+      "base_table": "countries",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "departments__row_count": {
+      "meaning": "Number of rows in departments.",
+      "base_table": "departments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "jobs__row_count": {
+      "meaning": "Number of rows in jobs.",
+      "base_table": "jobs",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "employees__row_count": {
+      "meaning": "Number of rows in employees.",
+      "base_table": "employees",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "job_history__row_count": {
+      "meaning": "Number of rows in job_history.",
+      "base_table": "job_history",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "locations__row_count": {
+      "meaning": "Number of rows in locations.",
+      "base_table": "locations",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

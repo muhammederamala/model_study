@@ -1,0 +1,137 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "entrepreneur",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "entrepreneur": {
+      "source_label": "entrepreneur",
+      "meaning": "Table labeled 'entrepreneur' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Entrepreneur_ID",
+      "primary_key_columns": [
+        "Entrepreneur_ID"
+      ],
+      "columns": {
+        "Entrepreneur_ID": {
+          "type": "number",
+          "source_label": "entrepreneur id",
+          "primary_key": true
+        },
+        "People_ID": {
+          "type": "number",
+          "source_label": "people id",
+          "foreign_key": {
+            "table": "people",
+            "column": "People_ID"
+          }
+        },
+        "Company": {
+          "type": "text",
+          "source_label": "company",
+          "observed_values": [
+            "Umbrolly",
+            "Grails Ltd",
+            "Le Beanock",
+            "IV Cam",
+            "Mycorrhizal Systems",
+            "Elizabeth Galton Ltd"
+          ]
+        },
+        "Money_Requested": {
+          "type": "number",
+          "source_label": "money requested"
+        },
+        "Investor": {
+          "type": "text",
+          "source_label": "investor",
+          "observed_values": [
+            "Duncan Bannatyne",
+            "Doug Richard",
+            "Rachel Elnaugh",
+            "Peter Jones",
+            "Simon Woodroffe"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "people": {
+      "source_label": "people",
+      "meaning": "Table labeled 'people' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key People_ID",
+      "primary_key_columns": [
+        "People_ID"
+      ],
+      "columns": {
+        "People_ID": {
+          "type": "number",
+          "source_label": "people id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Francesco Postiglione",
+            "Leonardo Binchi",
+            "Fabrizio Buonocore",
+            "Marco Gerini",
+            "Roberto Calcaterra",
+            "Goran Fiorentini",
+            "Alberto Angelini",
+            "Maurizio Felugo"
+          ]
+        },
+        "Height": {
+          "type": "number",
+          "source_label": "height"
+        },
+        "Weight": {
+          "type": "number",
+          "source_label": "weight"
+        },
+        "Date_of_Birth": {
+          "type": "text",
+          "source_label": "date of birth",
+          "observed_values": [
+            "1972-04-29",
+            "1975-08-27",
+            "1977-04-28",
+            "1971-08-05",
+            "1972-02-06",
+            "1981-11-21",
+            "1974-09-28",
+            "1981-03-04"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "entrepreneur__row_count": {
+      "meaning": "Number of rows in entrepreneur.",
+      "base_table": "entrepreneur",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "people__row_count": {
+      "meaning": "Number of rows in people.",
+      "base_table": "people",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

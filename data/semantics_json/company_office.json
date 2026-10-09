@@ -1,0 +1,197 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "company_office",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "buildings": {
+      "source_label": "buildings",
+      "meaning": "Table labeled 'buildings' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Torre KOI",
+            "Torre Mitikah",
+            "Punto Chapultepec",
+            "Torre Reforma",
+            "Corporativo BBVA Bancomer",
+            "Reforma 432",
+            "Torre New York Life",
+            "LIU East",
+            "Residencial Vidalta Torre Altaire 2",
+            "Residencial Vidalta Torre Altaire 3",
+            "Reforma 90",
+            "Ritz-Carlton Mexico City"
+          ]
+        },
+        "City": {
+          "type": "text",
+          "source_label": "city",
+          "observed_values": [
+            "Monterrey",
+            "Mexico City"
+          ]
+        },
+        "Height": {
+          "type": "number",
+          "source_label": "height"
+        },
+        "Stories": {
+          "type": "number",
+          "source_label": "stories"
+        },
+        "Status": {
+          "type": "text",
+          "source_label": "status",
+          "observed_values": [
+            "under construction",
+            "proposed",
+            "on-hold"
+          ]
+        }
+      },
+      "observed_row_count": 12
+    },
+    "Companies": {
+      "source_label": "companies",
+      "meaning": "Table labeled 'companies' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "Headquarters": {
+          "type": "text",
+          "source_label": "headquarters",
+          "observed_values": [
+            "USA",
+            "UK",
+            "Netherlands",
+            "China",
+            "Brazil",
+            "France",
+            "Spain",
+            "Russia"
+          ]
+        },
+        "Industry": {
+          "type": "text",
+          "source_label": "industry",
+          "observed_values": [
+            "Banking",
+            "Conglomerate",
+            "Oil and gas",
+            "Telecommunications",
+            "Retailing"
+          ]
+        },
+        "Sales_billion": {
+          "type": "number",
+          "source_label": "sales billion"
+        },
+        "Profits_billion": {
+          "type": "number",
+          "source_label": "profits billion"
+        },
+        "Assets_billion": {
+          "type": "number",
+          "source_label": "assets billion"
+        },
+        "Market_Value_billion": {
+          "type": "text",
+          "source_label": "market value billion"
+        }
+      },
+      "observed_row_count": 19
+    },
+    "Office_locations": {
+      "source_label": "office locations",
+      "meaning": "Table labeled 'office locations' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key building_id",
+      "primary_key_columns": [
+        "building_id"
+      ],
+      "columns": {
+        "building_id": {
+          "type": "number",
+          "source_label": "building id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "buildings",
+            "column": "id"
+          }
+        },
+        "company_id": {
+          "type": "number",
+          "source_label": "company id",
+          "foreign_key": {
+            "table": "Companies",
+            "column": "id"
+          }
+        },
+        "move_in_year": {
+          "type": "number",
+          "source_label": "move in year"
+        }
+      },
+      "observed_row_count": 16
+    }
+  },
+  "terms": {
+    "office locations": {
+      "maps_to": "Office_locations",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "buildings__row_count": {
+      "meaning": "Number of rows in buildings.",
+      "base_table": "buildings",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Companies__row_count": {
+      "meaning": "Number of rows in Companies.",
+      "base_table": "Companies",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Office_locations__row_count": {
+      "meaning": "Number of rows in Office_locations.",
+      "base_table": "Office_locations",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

@@ -1,0 +1,330 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "cre_Docs_and_Epenses",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Ref_Document_Types": {
+      "source_label": "reference document types",
+      "meaning": "Table labeled 'reference document types' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Document_Type_Code",
+      "primary_key_columns": [
+        "Document_Type_Code"
+      ],
+      "columns": {
+        "Document_Type_Code": {
+          "type": "text",
+          "source_label": "document type code",
+          "primary_key": true,
+          "observed_values": [
+            "BK",
+            "CV",
+            "FM",
+            "PP",
+            "PT"
+          ]
+        },
+        "Document_Type_Name": {
+          "type": "text",
+          "source_label": "document type name",
+          "observed_values": [
+            "Book",
+            "CV",
+            "Presentation",
+            "Paper",
+            "Film"
+          ]
+        },
+        "Document_Type_Description": {
+          "type": "text",
+          "source_label": "document type description",
+          "observed_values": [
+            "excellent",
+            "very good",
+            "good",
+            "fun"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "Ref_Budget_Codes": {
+      "source_label": "reference budget codes",
+      "meaning": "Table labeled 'reference budget codes' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Budget_Type_Code",
+      "primary_key_columns": [
+        "Budget_Type_Code"
+      ],
+      "columns": {
+        "Budget_Type_Code": {
+          "type": "text",
+          "source_label": "budget type code",
+          "primary_key": true,
+          "observed_values": [
+            "GV",
+            "ORG",
+            "SF"
+          ]
+        },
+        "Budget_Type_Description": {
+          "type": "text",
+          "source_label": "budget type description",
+          "observed_values": [
+            "Government",
+            "Organisation",
+            "Self founded"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Projects": {
+      "source_label": "projects",
+      "meaning": "Table labeled 'projects' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Project_ID",
+      "primary_key_columns": [
+        "Project_ID"
+      ],
+      "columns": {
+        "Project_ID": {
+          "type": "number",
+          "source_label": "project id",
+          "primary_key": true
+        },
+        "Project_Details": {
+          "type": "text",
+          "source_label": "project details",
+          "observed_values": [
+            "Society Research project",
+            "Internet of Things project",
+            "Graph Database project",
+            "Human Resource project",
+            "Population Research project"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "Documents": {
+      "source_label": "documents",
+      "meaning": "Table labeled 'documents' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Document_ID",
+      "primary_key_columns": [
+        "Document_ID"
+      ],
+      "columns": {
+        "Document_ID": {
+          "type": "number",
+          "source_label": "document id",
+          "primary_key": true
+        },
+        "Document_Type_Code": {
+          "type": "text",
+          "source_label": "document type code",
+          "foreign_key": {
+            "table": "Ref_Document_Types",
+            "column": "Document_Type_Code"
+          },
+          "observed_values": [
+            "CV",
+            "BK",
+            "PP",
+            "FM"
+          ]
+        },
+        "Project_ID": {
+          "type": "number",
+          "source_label": "project id",
+          "foreign_key": {
+            "table": "Projects",
+            "column": "Project_ID"
+          }
+        },
+        "Document_Date": {
+          "type": "time",
+          "source_label": "document date"
+        },
+        "Document_Name": {
+          "type": "text",
+          "source_label": "document name"
+        },
+        "Document_Description": {
+          "type": "text",
+          "source_label": "document description"
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Statements": {
+      "source_label": "statements",
+      "meaning": "Table labeled 'statements' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Statement_ID",
+      "primary_key_columns": [
+        "Statement_ID"
+      ],
+      "columns": {
+        "Statement_ID": {
+          "type": "number",
+          "source_label": "statement id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Documents",
+            "column": "Document_ID"
+          }
+        },
+        "Statement_Details": {
+          "type": "text",
+          "source_label": "statement details",
+          "observed_values": [
+            "Open Project",
+            "Private Project"
+          ]
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Documents_with_Expenses": {
+      "source_label": "documents with expenses",
+      "meaning": "Table labeled 'documents with expenses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Document_ID",
+      "primary_key_columns": [
+        "Document_ID"
+      ],
+      "columns": {
+        "Document_ID": {
+          "type": "number",
+          "source_label": "document id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Documents",
+            "column": "Document_ID"
+          }
+        },
+        "Budget_Type_Code": {
+          "type": "text",
+          "source_label": "budget type code",
+          "foreign_key": {
+            "table": "Ref_Budget_Codes",
+            "column": "Budget_Type_Code"
+          },
+          "observed_values": [
+            "GV",
+            "SF",
+            "ORG"
+          ]
+        },
+        "Document_Details": {
+          "type": "text",
+          "source_label": "document details",
+          "observed_values": [
+            "government",
+            "safety",
+            "organization"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    },
+    "Accounts": {
+      "source_label": "accounts",
+      "meaning": "Table labeled 'accounts' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Account_ID",
+      "primary_key_columns": [
+        "Account_ID"
+      ],
+      "columns": {
+        "Account_ID": {
+          "type": "number",
+          "source_label": "account id",
+          "primary_key": true
+        },
+        "Statement_ID": {
+          "type": "number",
+          "source_label": "statement id",
+          "foreign_key": {
+            "table": "Statements",
+            "column": "Statement_ID"
+          }
+        },
+        "Account_Details": {
+          "type": "text",
+          "source_label": "account details"
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "reference document types": {
+      "maps_to": "Ref_Document_Types",
+      "source": "Spider normalized table name"
+    },
+    "reference budget codes": {
+      "maps_to": "Ref_Budget_Codes",
+      "source": "Spider normalized table name"
+    },
+    "documents with expenses": {
+      "maps_to": "Documents_with_Expenses",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Ref_Document_Types__row_count": {
+      "meaning": "Number of rows in Ref_Document_Types.",
+      "base_table": "Ref_Document_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Ref_Budget_Codes__row_count": {
+      "meaning": "Number of rows in Ref_Budget_Codes.",
+      "base_table": "Ref_Budget_Codes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Projects__row_count": {
+      "meaning": "Number of rows in Projects.",
+      "base_table": "Projects",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Documents__row_count": {
+      "meaning": "Number of rows in Documents.",
+      "base_table": "Documents",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Statements__row_count": {
+      "meaning": "Number of rows in Statements.",
+      "base_table": "Statements",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Documents_with_Expenses__row_count": {
+      "meaning": "Number of rows in Documents_with_Expenses.",
+      "base_table": "Documents_with_Expenses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Accounts__row_count": {
+      "meaning": "Number of rows in Accounts.",
+      "base_table": "Accounts",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

@@ -1,0 +1,732 @@
+{
+  "format_version": "1.0",
+  "db_id": "cre_Doc_Template_Mgt",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "Ref_Template_Types": {
+      "source_label": "reference template types",
+      "meaning": "Table labeled 'reference template types' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Template_Type_Code"
+      ],
+      "columns": {
+        "Template_Type_Code": {
+          "type": "text",
+          "source_label": "template type code",
+          "primary_key": true,
+          "observed_values": [
+            "AD",
+            "BK",
+            "CV",
+            "PP",
+            "PPT"
+          ]
+        },
+        "Template_Type_Description": {
+          "type": "text",
+          "source_label": "template type description",
+          "observed_values": [
+            "Presentation",
+            "CV",
+            "Advertisement",
+            "Paper",
+            "Book"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "Templates": {
+      "source_label": "templates",
+      "meaning": "Table labeled 'templates' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Template_ID"
+      ],
+      "columns": {
+        "Template_ID": {
+          "type": "number",
+          "source_label": "template id",
+          "primary_key": true
+        },
+        "Version_Number": {
+          "type": "number",
+          "source_label": "version number"
+        },
+        "Template_Type_Code": {
+          "type": "text",
+          "source_label": "template type code",
+          "foreign_key": {
+            "table": "Ref_Template_Types",
+            "column": "Template_Type_Code"
+          },
+          "observed_values": [
+            "PP",
+            "BK",
+            "PPT",
+            "AD",
+            "CV"
+          ]
+        },
+        "Date_Effective_From": {
+          "type": "time",
+          "source_label": "date effective from"
+        },
+        "Date_Effective_To": {
+          "type": "time",
+          "source_label": "date effective to"
+        },
+        "Template_Details": {
+          "type": "text",
+          "source_label": "template details"
+        }
+      },
+      "observed_row_count": 20
+    },
+    "Documents": {
+      "source_label": "documents",
+      "meaning": "Table labeled 'documents' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Document_ID"
+      ],
+      "columns": {
+        "Document_ID": {
+          "type": "number",
+          "source_label": "document id",
+          "primary_key": true
+        },
+        "Template_ID": {
+          "type": "number",
+          "source_label": "template id",
+          "foreign_key": {
+            "table": "Templates",
+            "column": "Template_ID"
+          }
+        },
+        "Document_Name": {
+          "type": "text",
+          "source_label": "document name"
+        },
+        "Document_Description": {
+          "type": "text",
+          "source_label": "document description",
+          "observed_values": [
+            "n",
+            "y",
+            "u",
+            "h",
+            "w",
+            "k",
+            "z",
+            "r",
+            "f",
+            "b"
+          ]
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Paragraphs": {
+      "source_label": "paragraphs",
+      "meaning": "Table labeled 'paragraphs' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Paragraph_ID"
+      ],
+      "columns": {
+        "Paragraph_ID": {
+          "type": "number",
+          "source_label": "paragraph id",
+          "primary_key": true
+        },
+        "Document_ID": {
+          "type": "number",
+          "source_label": "document id",
+          "foreign_key": {
+            "table": "Documents",
+            "column": "Document_ID"
+          }
+        },
+        "Paragraph_Text": {
+          "type": "text",
+          "source_label": "paragraph text"
+        },
+        "Other_Details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "Documents",
+      "from_column": "Template_ID",
+      "to_table": "Templates",
+      "to_column": "Template_ID",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Paragraphs",
+      "from_column": "Document_ID",
+      "to_table": "Documents",
+      "to_column": "Document_ID",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Templates",
+      "from_column": "Template_Type_Code",
+      "to_table": "Ref_Template_Types",
+      "to_column": "Template_Type_Code",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {
+    "reference template types": {
+      "maps_to": "Ref_Template_Types",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Ref_Template_Types__row_count": {
+      "meaning": "Number of rows in Ref_Template_Types.",
+      "base_table": "Ref_Template_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Templates__row_count": {
+      "meaning": "Number of rows in Templates.",
+      "base_table": "Templates",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Documents__row_count": {
+      "meaning": "Number of rows in Documents.",
+      "base_table": "Documents",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Paragraphs__row_count": {
+      "meaning": "Number of rows in Paragraphs.",
+      "base_table": "Paragraphs",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "1973-01-12 14:13:34",
+      "key": "1973 01 12 14 13 34"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "1974-09-14 06:34:39",
+      "key": "1974 09 14 06 34 39"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "1975-05-20 22:51:19",
+      "key": "1975 05 20 22 51 19"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "1975-07-16 04:52:10",
+      "key": "1975 07 16 04 52 10"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "1975-10-20 02:28:58",
+      "key": "1975 10 20 02 28 58"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "1976-10-28 10:08:50",
+      "key": "1976 10 28 10 08 50"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "1979-10-20 21:23:20",
+      "key": "1979 10 20 21 23 20"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "1979-11-04 08:58:39",
+      "key": "1979 11 04 08 58 39"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "1979-12-24 10:28:16",
+      "key": "1979 12 24 10 28 16"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "1980-05-07 12:15:47",
+      "key": "1980 05 07 12 15 47"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "1983-07-16 21:16:16",
+      "key": "1983 07 16 21 16 16"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "1984-08-07 13:36:26",
+      "key": "1984 08 07 13 36 26"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "1986-11-14 12:20:18",
+      "key": "1986 11 14 12 20 18"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "1986-12-09 14:51:36",
+      "key": "1986 12 09 14 51 36"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "1989-11-24 19:06:06",
+      "key": "1989 11 24 19 06 06"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "1992-05-02 20:06:11",
+      "key": "1992 05 02 20 06 11"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "1993-03-24 14:30:23",
+      "key": "1993 03 24 14 30 23"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "1993-10-07 02:33:04",
+      "key": "1993 10 07 02 33 04"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "1994-12-07 13:26:23",
+      "key": "1994 12 07 13 26 23"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "1995-09-19 22:27:48",
+      "key": "1995 09 19 22 27 48"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "1996-02-04 11:27:24",
+      "key": "1996 02 04 11 27 24"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "1997-04-17 08:29:44",
+      "key": "1997 04 17 08 29 44"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "1998-05-12 12:51:29",
+      "key": "1998 05 12 12 51 29"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "1999-06-21 11:10:30",
+      "key": "1999 06 21 11 10 30"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "1999-07-08 03:31:04",
+      "key": "1999 07 08 03 31 04"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "2000-10-22 11:57:12",
+      "key": "2000 10 22 11 57 12"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "2001-04-18 09:29:52",
+      "key": "2001 04 18 09 29 52"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "2002-03-02 14:39:49",
+      "key": "2002 03 02 14 39 49"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "2002-08-25 13:26:23",
+      "key": "2002 08 25 13 26 23"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "2003-06-05 04:03:45",
+      "key": "2003 06 05 04 03 45"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "2005-02-20 00:31:34",
+      "key": "2005 02 20 00 31 34"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "2005-11-12 07:09:48",
+      "key": "2005 11 12 07 09 48"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "2006-02-06 23:52:04",
+      "key": "2006 02 06 23 52 04"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "2007-06-06 06:18:53",
+      "key": "2007 06 06 06 18 53"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "2008-01-05 14:19:28",
+      "key": "2008 01 05 14 19 28"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "2008-08-01 13:57:26",
+      "key": "2008 08 01 13 57 26"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "2008-08-08 18:36:43",
+      "key": "2008 08 08 18 36 43"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "2010-09-24 01:15:11",
+      "key": "2010 09 24 01 15 11"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_From",
+      "value": "2012-04-05 07:11:42",
+      "key": "2012 04 05 07 11 42"
+    },
+    {
+      "table": "Templates",
+      "column": "Date_Effective_To",
+      "value": "2015-09-06 01:08:44",
+      "key": "2015 09 06 01 08 44"
+    },
+    {
+      "table": "Documents",
+      "column": "Document_Name",
+      "value": "A history of Arts",
+      "key": "a history of arts"
+    },
+    {
+      "table": "Documents",
+      "column": "Document_Name",
+      "value": "About Korea",
+      "key": "about korea"
+    },
+    {
+      "table": "Ref_Template_Types",
+      "column": "Template_Type_Code",
+      "value": "AD",
+      "key": "ad"
+    },
+    {
+      "table": "Templates",
+      "column": "Template_Type_Code",
+      "value": "AD",
+      "key": "ad"
+    },
+    {
+      "table": "Ref_Template_Types",
+      "column": "Template_Type_Description",
+      "value": "Advertisement",
+      "key": "advertisement"
+    },
+    {
+      "table": "Ref_Template_Types",
+      "column": "Template_Type_Code",
+      "value": "BK",
+      "key": "bk"
+    },
+    {
+      "table": "Templates",
+      "column": "Template_Type_Code",
+      "value": "BK",
+      "key": "bk"
+    },
+    {
+      "table": "Ref_Template_Types",
+      "column": "Template_Type_Description",
+      "value": "Book",
+      "key": "book"
+    },
+    {
+      "table": "Paragraphs",
+      "column": "Paragraph_Text",
+      "value": "Brazil",
+      "key": "brazil"
+    },
+    {
+      "table": "Documents",
+      "column": "Document_Name",
+      "value": "Customer reviews",
+      "key": "customer reviews"
+    },
+    {
+      "table": "Ref_Template_Types",
+      "column": "Template_Type_Code",
+      "value": "CV",
+      "key": "cv"
+    },
+    {
+      "table": "Ref_Template_Types",
+      "column": "Template_Type_Description",
+      "value": "CV",
+      "key": "cv"
+    },
+    {
+      "table": "Templates",
+      "column": "Template_Type_Code",
+      "value": "CV",
+      "key": "cv"
+    },
+    {
+      "table": "Documents",
+      "column": "Document_Name",
+      "value": "Data base",
+      "key": "data base"
+    },
+    {
+      "table": "Documents",
+      "column": "Document_Name",
+      "value": "Do not panic",
+      "key": "do not panic"
+    },
+    {
+      "table": "Paragraphs",
+      "column": "Paragraph_Text",
+      "value": "Fiji",
+      "key": "fiji"
+    },
+    {
+      "table": "Documents",
+      "column": "Document_Name",
+      "value": "How Google people work",
+      "key": "how google people work"
+    },
+    {
+      "table": "Documents",
+      "column": "Document_Name",
+      "value": "How to read a book",
+      "key": "how to read a book"
+    },
+    {
+      "table": "Documents",
+      "column": "Document_Name",
+      "value": "How to write a CV",
+      "key": "how to write a cv"
+    },
+    {
+      "table": "Paragraphs",
+      "column": "Paragraph_Text",
+      "value": "Indonesia",
+      "key": "indonesia"
+    },
+    {
+      "table": "Documents",
+      "column": "Document_Name",
+      "value": "Introduction of OS",
+      "key": "introduction of os"
+    },
+    {
+      "table": "Paragraphs",
+      "column": "Paragraph_Text",
+      "value": "Ireland",
+      "key": "ireland"
+    },
+    {
+      "table": "Paragraphs",
+      "column": "Paragraph_Text",
+      "value": "Japan",
+      "key": "japan"
+    },
+    {
+      "table": "Paragraphs",
+      "column": "Paragraph_Text",
+      "value": "Jersey",
+      "key": "jersey"
+    },
+    {
+      "table": "Paragraphs",
+      "column": "Paragraph_Text",
+      "value": "Korea",
+      "key": "korea"
+    },
+    {
+      "table": "Documents",
+      "column": "Document_Name",
+      "value": "Learning French",
+      "key": "learning french"
+    },
+    {
+      "table": "Paragraphs",
+      "column": "Paragraph_Text",
+      "value": "Micronesia",
+      "key": "micronesia"
+    },
+    {
+      "table": "Paragraphs",
+      "column": "Paragraph_Text",
+      "value": "Palestinian Territory",
+      "key": "palestinian territory"
+    },
+    {
+      "table": "Documents",
+      "column": "Document_Name",
+      "value": "Palm reading",
+      "key": "palm reading"
+    },
+    {
+      "table": "Ref_Template_Types",
+      "column": "Template_Type_Description",
+      "value": "Paper",
+      "key": "paper"
+    },
+    {
+      "table": "Paragraphs",
+      "column": "Paragraph_Text",
+      "value": "Papua New Guinea",
+      "key": "papua new guinea"
+    },
+    {
+      "table": "Ref_Template_Types",
+      "column": "Template_Type_Code",
+      "value": "PP",
+      "key": "pp"
+    },
+    {
+      "table": "Templates",
+      "column": "Template_Type_Code",
+      "value": "PP",
+      "key": "pp"
+    },
+    {
+      "table": "Ref_Template_Types",
+      "column": "Template_Type_Code",
+      "value": "PPT",
+      "key": "ppt"
+    },
+    {
+      "table": "Templates",
+      "column": "Template_Type_Code",
+      "value": "PPT",
+      "key": "ppt"
+    },
+    {
+      "table": "Ref_Template_Types",
+      "column": "Template_Type_Description",
+      "value": "Presentation",
+      "key": "presentation"
+    },
+    {
+      "table": "Documents",
+      "column": "Document_Name",
+      "value": "Robbin CV",
+      "key": "robbin cv"
+    },
+    {
+      "table": "Paragraphs",
+      "column": "Paragraph_Text",
+      "value": "Senegal",
+      "key": "senegal"
+    },
+    {
+      "table": "Paragraphs",
+      "column": "Paragraph_Text",
+      "value": "Somalia",
+      "key": "somalia"
+    },
+    {
+      "table": "Documents",
+      "column": "Document_Name",
+      "value": "Summer Show",
+      "key": "summer show"
+    },
+    {
+      "table": "Paragraphs",
+      "column": "Paragraph_Text",
+      "value": "UK",
+      "key": "uk"
+    },
+    {
+      "table": "Paragraphs",
+      "column": "Paragraph_Text",
+      "value": "Ukraine",
+      "key": "ukraine"
+    },
+    {
+      "table": "Documents",
+      "column": "Document_Name",
+      "value": "Understanding DB",
+      "key": "understanding db"
+    },
+    {
+      "table": "Documents",
+      "column": "Document_Name",
+      "value": "Welcome to NY",
+      "key": "welcome to ny"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

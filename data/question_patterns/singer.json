@@ -1,0 +1,92 @@
+{
+  "db_id": "singer",
+  "n_questions": 30,
+  "n_questions_with_join": 8,
+  "join_pairs": [
+    {
+      "left": "singer.singer_id",
+      "right": "song.singer_id",
+      "n": 8
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 8
+    },
+    {
+      "fn": "MAX",
+      "target": "net_worth_millions",
+      "n": 2
+    },
+    {
+      "fn": "SUM",
+      "target": "song.sales",
+      "n": 2
+    }
+  ],
+  "column_clause_usage": {
+    "birth_year": {
+      "where": 4
+    },
+    "citizenship": {
+      "group by": 6,
+      "where": 2
+    },
+    "name": {
+      "group by": 4
+    },
+    "net_worth_millions": {
+      "order by": 4
+    },
+    "sales": {
+      "where": 2
+    },
+    "singer_id": {
+      "where": 2
+    }
+  },
+  "question_openers": {
+    "what is the": {
+      "ORDER BY ... DESC": 3,
+      "LIMIT 1": 3,
+      "COUNT": 2,
+      "GROUP BY": 1,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "please show the": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "what are the": {
+      "GROUP BY": 1,
+      "COUNT": 1,
+      "INTERSECT": 1,
+      "subquery": 1
+    },
+    "for each citizenship,": {
+      "GROUP BY": 2,
+      "COUNT": 1
+    },
+    "show the names": {
+      "GROUP BY": 2,
+      "COUNT": 1
+    },
+    "show different citizenship": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "list the name": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "show the citizenship": {
+      "INTERSECT": 1,
+      "subquery": 1
+    }
+  }
+}

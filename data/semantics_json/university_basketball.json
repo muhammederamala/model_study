@@ -1,0 +1,229 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "university_basketball",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "basketball_match": {
+      "source_label": "basketball match",
+      "meaning": "Table labeled 'basketball match' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Team_ID",
+      "primary_key_columns": [
+        "Team_ID"
+      ],
+      "columns": {
+        "Team_ID": {
+          "type": "number",
+          "source_label": "team id",
+          "primary_key": true
+        },
+        "School_ID": {
+          "type": "number",
+          "source_label": "school id",
+          "foreign_key": {
+            "table": "university",
+            "column": "School_ID"
+          }
+        },
+        "Team_Name": {
+          "type": "text",
+          "source_label": "team name",
+          "observed_values": [
+            "North Carolina",
+            "Duke",
+            "Clemson",
+            "Virginia Tech"
+          ]
+        },
+        "ACC_Regular_Season": {
+          "type": "text",
+          "source_label": "acc regular season",
+          "observed_values": [
+            "14–2",
+            "13–3",
+            "10–6",
+            "9–7"
+          ]
+        },
+        "ACC_Percent": {
+          "type": "text",
+          "source_label": "acc percent",
+          "observed_values": [
+            ".875",
+            ".813",
+            ".625",
+            ".563"
+          ]
+        },
+        "ACC_Home": {
+          "type": "text",
+          "source_label": "acc home",
+          "observed_values": [
+            "6–2",
+            "7–1"
+          ]
+        },
+        "ACC_Road": {
+          "type": "text",
+          "source_label": "acc road",
+          "observed_values": [
+            "8–0",
+            "6–2",
+            "3–5"
+          ]
+        },
+        "All_Games": {
+          "type": "text",
+          "source_label": "all games",
+          "observed_values": [
+            "35–2",
+            "28–6",
+            "24–10",
+            "21–14"
+          ]
+        },
+        "All_Games_Percent": {
+          "type": "number",
+          "source_label": "all games percent"
+        },
+        "All_Home": {
+          "type": "text",
+          "source_label": "all home",
+          "observed_values": [
+            "14–2",
+            "15–1",
+            "14–3"
+          ]
+        },
+        "All_Road": {
+          "type": "text",
+          "source_label": "all road",
+          "observed_values": [
+            "13–0",
+            "8–2",
+            "6–5",
+            "4–8"
+          ]
+        },
+        "All_Neutral": {
+          "type": "text",
+          "source_label": "all neutral",
+          "observed_values": [
+            "9–1",
+            "5–3",
+            "4–3",
+            "3–3"
+          ]
+        }
+      },
+      "observed_row_count": 4
+    },
+    "university": {
+      "source_label": "university",
+      "meaning": "Table labeled 'university' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key School_ID",
+      "primary_key_columns": [
+        "School_ID"
+      ],
+      "columns": {
+        "School_ID": {
+          "type": "number",
+          "source_label": "school id",
+          "primary_key": true
+        },
+        "School": {
+          "type": "text",
+          "source_label": "school",
+          "observed_values": [
+            "University of Delaware",
+            "Lebanon Valley College",
+            "University of Rhode Island",
+            "Rutgers University",
+            "Stony Brook University"
+          ]
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "Newark, DE",
+            "Annville, PA",
+            "Kingston, RI",
+            "New Brunswick, NJ",
+            "Stony Brook, NY"
+          ]
+        },
+        "Founded": {
+          "type": "number",
+          "source_label": "founded"
+        },
+        "Affiliation": {
+          "type": "text",
+          "source_label": "affiliation",
+          "observed_values": [
+            "Public",
+            "Private/Methodist"
+          ]
+        },
+        "Enrollment": {
+          "type": "number",
+          "source_label": "enrollment"
+        },
+        "Nickname": {
+          "type": "text",
+          "source_label": "nickname",
+          "observed_values": [
+            "Fightin' Blue Hens",
+            "Flying Dutchmen",
+            "Rams",
+            "Scarlet Knights",
+            "Seawolves"
+          ]
+        },
+        "Primary_conference": {
+          "type": "text",
+          "source_label": "primary conference",
+          "observed_values": [
+            "Colonial Athletic Association ( D-I )",
+            "MAC Commonwealth Conference ( D-III )",
+            "Atlantic 10 Conference ( D-I )",
+            "American Athletic Conference ( D-I )",
+            "America East Conference ( D-I )"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    }
+  },
+  "terms": {
+    "basketball match": {
+      "maps_to": "basketball_match",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "basketball_match__row_count": {
+      "meaning": "Number of rows in basketball_match.",
+      "base_table": "basketball_match",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "university__row_count": {
+      "meaning": "Number of rows in university.",
+      "base_table": "university",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

@@ -1,0 +1,432 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "products_for_hire",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Discount_Coupons": {
+      "source_label": "discount coupons",
+      "meaning": "Table labeled 'discount coupons' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key coupon_id",
+      "primary_key_columns": [
+        "coupon_id"
+      ],
+      "columns": {
+        "coupon_id": {
+          "type": "number",
+          "source_label": "coupon id",
+          "primary_key": true
+        },
+        "date_issued": {
+          "type": "time",
+          "source_label": "date issued"
+        },
+        "coupon_amount": {
+          "type": "number",
+          "source_label": "coupon amount"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Customers": {
+      "source_label": "customers",
+      "meaning": "Table labeled 'customers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key customer_id",
+      "primary_key_columns": [
+        "customer_id"
+      ],
+      "columns": {
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true
+        },
+        "coupon_id": {
+          "type": "number",
+          "source_label": "coupon id",
+          "foreign_key": {
+            "table": "Discount_Coupons",
+            "column": "coupon_id"
+          }
+        },
+        "good_or_bad_customer": {
+          "type": "text",
+          "source_label": "good or bad customer",
+          "observed_values": [
+            "good",
+            "bad"
+          ]
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "gender_mf": {
+          "type": "text",
+          "source_label": "gender",
+          "observed_values": [
+            "0",
+            "1"
+          ]
+        },
+        "date_became_customer": {
+          "type": "time",
+          "source_label": "date became customer"
+        },
+        "date_last_hire": {
+          "type": "time",
+          "source_label": "date last hire"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Bookings": {
+      "source_label": "bookings",
+      "meaning": "Table labeled 'bookings' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key booking_id",
+      "primary_key_columns": [
+        "booking_id"
+      ],
+      "columns": {
+        "booking_id": {
+          "type": "number",
+          "source_label": "booking id",
+          "primary_key": true
+        },
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers",
+            "column": "customer_id"
+          }
+        },
+        "booking_status_code": {
+          "type": "text",
+          "source_label": "booking status code",
+          "observed_values": [
+            "Provisional",
+            "Confirmed"
+          ]
+        },
+        "returned_damaged_yn": {
+          "type": "text",
+          "source_label": "returned damaged yes or no",
+          "observed_values": [
+            "1",
+            "0"
+          ]
+        },
+        "booking_start_date": {
+          "type": "time",
+          "source_label": "booking start date"
+        },
+        "booking_end_date": {
+          "type": "time",
+          "source_label": "booking end date"
+        },
+        "count_hired": {
+          "type": "text",
+          "source_label": "count hired"
+        },
+        "amount_payable": {
+          "type": "number",
+          "source_label": "amount payable"
+        },
+        "amount_of_discount": {
+          "type": "number",
+          "source_label": "amount of discount"
+        },
+        "amount_outstanding": {
+          "type": "number",
+          "source_label": "amount outstanding"
+        },
+        "amount_of_refund": {
+          "type": "number",
+          "source_label": "amount of refund"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Products_for_Hire": {
+      "source_label": "products for hire",
+      "meaning": "Table labeled 'products for hire' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key product_id",
+      "primary_key_columns": [
+        "product_id"
+      ],
+      "columns": {
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "primary_key": true
+        },
+        "product_type_code": {
+          "type": "text",
+          "source_label": "product type code",
+          "observed_values": [
+            "Cutlery",
+            "Din_Plates"
+          ]
+        },
+        "daily_hire_cost": {
+          "type": "number",
+          "source_label": "daily hire cost"
+        },
+        "product_name": {
+          "type": "text",
+          "source_label": "product name",
+          "observed_values": [
+            "Book collection C",
+            "Book collection B",
+            "Book collection A",
+            "DVD collection A",
+            "DVD collection B"
+          ]
+        },
+        "product_description": {
+          "type": "text",
+          "source_label": "product description",
+          "observed_values": [
+            "Anna Karenina",
+            "War and Peace",
+            "The Great Gatsby",
+            "Twilight",
+            "One Hundred Years of Solitude"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "Payments": {
+      "source_label": "payments",
+      "meaning": "Table labeled 'payments' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key payment_id",
+      "primary_key_columns": [
+        "payment_id"
+      ],
+      "columns": {
+        "payment_id": {
+          "type": "number",
+          "source_label": "payment id",
+          "primary_key": true
+        },
+        "booking_id": {
+          "type": "number",
+          "source_label": "booking id",
+          "foreign_key": {
+            "table": "Bookings",
+            "column": "booking_id"
+          }
+        },
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers",
+            "column": "customer_id"
+          }
+        },
+        "payment_type_code": {
+          "type": "text",
+          "source_label": "payment type code",
+          "observed_values": [
+            "Check",
+            "Cash",
+            "Credit Card",
+            "Direct Debit"
+          ]
+        },
+        "amount_paid_in_full_yn": {
+          "type": "text",
+          "source_label": "amount paid in full yn",
+          "observed_values": [
+            "1",
+            "0"
+          ]
+        },
+        "payment_date": {
+          "type": "time",
+          "source_label": "payment date"
+        },
+        "amount_due": {
+          "type": "number",
+          "source_label": "amount due"
+        },
+        "amount_paid": {
+          "type": "number",
+          "source_label": "amount paid"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Products_Booked": {
+      "source_label": "products booked",
+      "meaning": "Table labeled 'products booked' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key booking_id",
+      "primary_key_columns": [
+        "booking_id"
+      ],
+      "columns": {
+        "booking_id": {
+          "type": "number",
+          "source_label": "booking id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Bookings",
+            "column": "booking_id"
+          }
+        },
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "foreign_key": {
+            "table": "Products_for_Hire",
+            "column": "product_id"
+          }
+        },
+        "returned_yn": {
+          "type": "text",
+          "source_label": "returned yes or no",
+          "observed_values": [
+            "1"
+          ]
+        },
+        "returned_late_yn": {
+          "type": "text",
+          "source_label": "returned late yes or no",
+          "observed_values": [
+            "1",
+            "0"
+          ]
+        },
+        "booked_count": {
+          "type": "number",
+          "source_label": "booked count"
+        },
+        "booked_amount": {
+          "type": "number",
+          "source_label": "booked amount"
+        }
+      },
+      "observed_row_count": 12
+    },
+    "View_Product_Availability": {
+      "source_label": "view product availability",
+      "meaning": "Table labeled 'view product availability' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key status_date",
+      "primary_key_columns": [
+        "status_date"
+      ],
+      "columns": {
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "foreign_key": {
+            "table": "Products_for_Hire",
+            "column": "product_id"
+          }
+        },
+        "booking_id": {
+          "type": "number",
+          "source_label": "booking id",
+          "foreign_key": {
+            "table": "Bookings",
+            "column": "booking_id"
+          }
+        },
+        "status_date": {
+          "type": "time",
+          "source_label": "status date",
+          "primary_key": true
+        },
+        "available_yn": {
+          "type": "text",
+          "source_label": "available yes or no",
+          "observed_values": [
+            "1",
+            "0"
+          ]
+        }
+      },
+      "observed_row_count": 4
+    }
+  },
+  "terms": {
+    "discount coupons": {
+      "maps_to": "Discount_Coupons",
+      "source": "Spider normalized table name"
+    },
+    "products for hire": {
+      "maps_to": "Products_for_Hire",
+      "source": "Spider normalized table name"
+    },
+    "products booked": {
+      "maps_to": "Products_Booked",
+      "source": "Spider normalized table name"
+    },
+    "view product availability": {
+      "maps_to": "View_Product_Availability",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Discount_Coupons__row_count": {
+      "meaning": "Number of rows in Discount_Coupons.",
+      "base_table": "Discount_Coupons",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customers__row_count": {
+      "meaning": "Number of rows in Customers.",
+      "base_table": "Customers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Bookings__row_count": {
+      "meaning": "Number of rows in Bookings.",
+      "base_table": "Bookings",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Products_for_Hire__row_count": {
+      "meaning": "Number of rows in Products_for_Hire.",
+      "base_table": "Products_for_Hire",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Payments__row_count": {
+      "meaning": "Number of rows in Payments.",
+      "base_table": "Payments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Products_Booked__row_count": {
+      "meaning": "Number of rows in Products_Booked.",
+      "base_table": "Products_Booked",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "View_Product_Availability__row_count": {
+      "meaning": "Number of rows in View_Product_Availability.",
+      "base_table": "View_Product_Availability",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

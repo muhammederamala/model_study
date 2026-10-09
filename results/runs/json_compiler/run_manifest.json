@@ -1,0 +1,11 @@
+{
+  "model": "qwen2.5-coder:14b",
+  "dataset_sha256": "6336ee598649b54c5f695acf603d17ca7c33c243b1fb3db12232f033069ced2b",
+  "baseline_sha256": "25340add2268ba988d5781b1f4cfd8e0a0d8e4dc4855a3fe7856f8ff3efec1df",
+  "schema_sha256": "c80ef2aa22235f713f45cfe1d5f7f18d7514892aef694f85036aca5037ec5a15",
+  "compiler_sha256": "3e85d9e89212957495c8e0451099ec9100a8a7a538a1944c1548ec405c2c0250",
+  "prompt_sha256": "6fe218282e27f17fd0fef5fda2e95fe6dd6d752b720bde16440e40f904e07fd5",
+  "num_predict": 1100,
+  "temperature": 0,
+  "format": "json"
+}

@@ -1,0 +1,616 @@
+{
+  "format_version": "1.0",
+  "db_id": "pets_1",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "Student": {
+      "source_label": "student",
+      "meaning": "Table labeled 'student' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "StuID"
+      ],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true
+        },
+        "LName": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "Fname": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Sex": {
+          "type": "text",
+          "source_label": "sex",
+          "observed_values": [
+            "F",
+            "M"
+          ]
+        },
+        "Major": {
+          "type": "number",
+          "source_label": "major"
+        },
+        "Advisor": {
+          "type": "number",
+          "source_label": "advisor"
+        },
+        "city_code": {
+          "type": "text",
+          "source_label": "city code"
+        }
+      },
+      "observed_row_count": 34
+    },
+    "Has_Pet": {
+      "source_label": "has pet",
+      "meaning": "Table labeled 'has pet' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Student",
+            "column": "StuID"
+          }
+        },
+        "PetID": {
+          "type": "number",
+          "source_label": "pet id",
+          "foreign_key": {
+            "table": "Pets",
+            "column": "PetID"
+          }
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Pets": {
+      "source_label": "pets",
+      "meaning": "Table labeled 'pets' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "PetID"
+      ],
+      "columns": {
+        "PetID": {
+          "type": "number",
+          "source_label": "pet id",
+          "primary_key": true
+        },
+        "PetType": {
+          "type": "text",
+          "source_label": "pet type",
+          "observed_values": [
+            "cat",
+            "dog"
+          ]
+        },
+        "pet_age": {
+          "type": "number",
+          "source_label": "pet age"
+        },
+        "weight": {
+          "type": "number",
+          "source_label": "weight"
+        }
+      },
+      "observed_row_count": 3
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "Has_Pet",
+      "from_column": "PetID",
+      "to_table": "Pets",
+      "to_column": "PetID",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Has_Pet",
+      "from_column": "StuID",
+      "to_table": "Student",
+      "to_column": "StuID",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {
+    "has pet": {
+      "maps_to": "Has_Pet",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Student__row_count": {
+      "meaning": "Number of rows in Student.",
+      "base_table": "Student",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Has_Pet__row_count": {
+      "meaning": "Number of rows in Has_Pet.",
+      "base_table": "Has_Pet",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Pets__row_count": {
+      "meaning": "Number of rows in Pets.",
+      "base_table": "Pets",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Adams",
+      "key": "adams"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Andreou",
+      "key": "andreou"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Andy",
+      "key": "andy"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Apap",
+      "key": "apap"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Arthur",
+      "key": "arthur"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "ATL",
+      "key": "atl"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "BAL",
+      "key": "bal"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "BOS",
+      "key": "bos"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Brody",
+      "key": "brody"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Brown",
+      "key": "brown"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Bruce",
+      "key": "bruce"
+    },
+    {
+      "table": "Pets",
+      "column": "PetType",
+      "value": "cat",
+      "key": "cat"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Charles",
+      "key": "charles"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Cheng",
+      "key": "cheng"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "CHI",
+      "key": "chi"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "DAL",
+      "key": "dal"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "David",
+      "key": "david"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Davis",
+      "key": "davis"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Derek",
+      "key": "derek"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "DET",
+      "key": "det"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Dinesh",
+      "key": "dinesh"
+    },
+    {
+      "table": "Pets",
+      "column": "PetType",
+      "value": "dog",
+      "key": "dog"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Epp",
+      "key": "epp"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Eric",
+      "key": "eric"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "George",
+      "key": "george"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Goldman",
+      "key": "goldman"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Gompers",
+      "key": "gompers"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Han",
+      "key": "han"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "HKG",
+      "key": "hkg"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "HOU",
+      "key": "hou"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Ian",
+      "key": "ian"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Jandy",
+      "key": "jandy"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Jones",
+      "key": "jones"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Jun",
+      "key": "jun"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Kim",
+      "key": "kim"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Kumar",
+      "key": "kumar"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Lee",
+      "key": "lee"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Leighton",
+      "key": "leighton"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Linda",
+      "key": "linda"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Lisa",
+      "key": "lisa"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "LON",
+      "key": "lon"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "LOS",
+      "key": "los"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Mark",
+      "key": "mark"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Michael",
+      "key": "michael"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "NAR",
+      "key": "nar"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Nelson",
+      "key": "nelson"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Norris",
+      "key": "norris"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "NYC",
+      "key": "nyc"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Pang",
+      "key": "pang"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Paul",
+      "key": "paul"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "PEK",
+      "key": "pek"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "PHL",
+      "key": "phl"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "PIT",
+      "key": "pit"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Prater",
+      "key": "prater"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "ROC",
+      "key": "roc"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Rugh",
+      "key": "rugh"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Sarah",
+      "key": "sarah"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Schmidt",
+      "key": "schmidt"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Schultz",
+      "key": "schultz"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Schwartz",
+      "key": "schwartz"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "SFO",
+      "key": "sfo"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Shieber",
+      "key": "shieber"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Shiela",
+      "key": "shiela"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Simms",
+      "key": "simms"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Smith",
+      "key": "smith"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Stacy",
+      "key": "stacy"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Steven",
+      "key": "steven"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Susan",
+      "key": "susan"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Tai",
+      "key": "tai"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Thornton",
+      "key": "thornton"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "Tracy",
+      "key": "tracy"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "WAS",
+      "key": "was"
+    },
+    {
+      "table": "Student",
+      "column": "Fname",
+      "value": "William",
+      "key": "william"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Wilson",
+      "key": "wilson"
+    },
+    {
+      "table": "Student",
+      "column": "LName",
+      "value": "Woods",
+      "key": "woods"
+    },
+    {
+      "table": "Student",
+      "column": "city_code",
+      "value": "YYZ",
+      "key": "yyz"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

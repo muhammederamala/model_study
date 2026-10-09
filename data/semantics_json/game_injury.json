@@ -1,0 +1,225 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "game_injury",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "stadium": {
+      "source_label": "stadium",
+      "meaning": "Table labeled 'stadium' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Cowboys Stadium",
+            "FedExField",
+            "New Meadowlands Stadium",
+            "Invesco Field at Mile High",
+            "Bank of America Stadium",
+            "M&T Bank Stadium",
+            "Reliant Stadium",
+            "Lambeau Field",
+            "Louisiana Superdome",
+            "Lincoln Financial Field",
+            "LP Field",
+            "Gillette Stadium"
+          ]
+        },
+        "Home_Games": {
+          "type": "number",
+          "source_label": "home games"
+        },
+        "Average_Attendance": {
+          "type": "number",
+          "source_label": "average attendance"
+        },
+        "Total_Attendance": {
+          "type": "number",
+          "source_label": "total attendance"
+        },
+        "Capacity_Percentage": {
+          "type": "number",
+          "source_label": "capacity percentage"
+        }
+      },
+      "observed_row_count": 13
+    },
+    "game": {
+      "source_label": "game",
+      "meaning": "Table labeled 'game' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "stadium_id": {
+          "type": "number",
+          "source_label": "stadium id",
+          "foreign_key": {
+            "table": "stadium",
+            "column": "id"
+          }
+        },
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "Season": {
+          "type": "number",
+          "source_label": "season"
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date"
+        },
+        "Home_team": {
+          "type": "text",
+          "source_label": "home team",
+          "observed_values": [
+            "Quruvchi",
+            "Pakhtakor",
+            "Bunyodkor"
+          ]
+        },
+        "Away_team": {
+          "type": "text",
+          "source_label": "away team",
+          "observed_values": [
+            "Pakhtakor",
+            "Quruvchi",
+            "Bunyodkor"
+          ]
+        },
+        "Score": {
+          "type": "text",
+          "source_label": "score",
+          "observed_values": [
+            "1–1",
+            "0–0",
+            "0–0 (7:6)",
+            "3–1",
+            "2–1",
+            "1–0",
+            "–",
+            "2–0",
+            "1–3",
+            "0–2",
+            "1–2"
+          ]
+        },
+        "Competition": {
+          "type": "text",
+          "source_label": "competition",
+          "observed_values": [
+            "League",
+            "Cup",
+            "Supercup"
+          ]
+        }
+      },
+      "observed_row_count": 20
+    },
+    "injury_accident": {
+      "source_label": "injury accident",
+      "meaning": "Table labeled 'injury accident' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "game_id": {
+          "type": "number",
+          "source_label": "game id",
+          "foreign_key": {
+            "table": "game",
+            "column": "id"
+          }
+        },
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "Player": {
+          "type": "text",
+          "source_label": "player"
+        },
+        "Injury": {
+          "type": "text",
+          "source_label": "injury"
+        },
+        "Number_of_matches": {
+          "type": "text",
+          "source_label": "number of matches",
+          "observed_values": [
+            "12",
+            "2",
+            "1",
+            "4",
+            "3",
+            "10",
+            "4 (6)",
+            "1 (2)",
+            "7 (17)"
+          ]
+        },
+        "Source": {
+          "type": "text",
+          "source_label": "source",
+          "observed_values": [
+            "inter.it"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "injury accident": {
+      "maps_to": "injury_accident",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "stadium__row_count": {
+      "meaning": "Number of rows in stadium.",
+      "base_table": "stadium",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "game__row_count": {
+      "meaning": "Number of rows in game.",
+      "base_table": "game",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "injury_accident__row_count": {
+      "meaning": "Number of rows in injury_accident.",
+      "base_table": "injury_accident",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

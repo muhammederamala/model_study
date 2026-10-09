@@ -1,0 +1,228 @@
+{
+  "db_id": "car_1",
+  "n_questions": 92,
+  "n_questions_with_join": 58,
+  "join_pairs": [
+    {
+      "left": "car_names.makeid",
+      "right": "cars_data.id",
+      "n": 28
+    },
+    {
+      "left": "car_makers.id",
+      "right": "model_list.maker",
+      "n": 20
+    },
+    {
+      "left": "car_makers.country",
+      "right": "countries.countryid",
+      "n": 18
+    },
+    {
+      "left": "car_names.model",
+      "right": "model_list.model",
+      "n": 10
+    },
+    {
+      "left": "continents.contid",
+      "right": "countries.continent",
+      "n": 6
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 48
+    },
+    {
+      "fn": "AVG",
+      "target": "weight",
+      "n": 4
+    },
+    {
+      "fn": "MIN",
+      "target": "year",
+      "n": 2
+    },
+    {
+      "fn": "AVG",
+      "target": "mpg",
+      "n": 2
+    },
+    {
+      "fn": "MIN",
+      "target": "weight",
+      "n": 2
+    },
+    {
+      "fn": "AVG",
+      "target": "horsepower",
+      "n": 2
+    },
+    {
+      "fn": "AVG",
+      "target": "cars_data.edispl",
+      "n": 2
+    },
+    {
+      "fn": "MAX",
+      "target": "accelerate",
+      "n": 2
+    },
+    {
+      "fn": "MIN",
+      "target": "horsepower",
+      "n": 2
+    },
+    {
+      "fn": "MAX",
+      "target": "mpg",
+      "n": 2
+    }
+  ],
+  "column_clause_usage": {
+    "accelerate": {
+      "order by": 4,
+      "where": 2
+    },
+    "contid": {
+      "group by": 2
+    },
+    "continent": {
+      "group by": 2,
+      "where": 2
+    },
+    "country": {
+      "group by": 2
+    },
+    "countryid": {
+      "group by": 6
+    },
+    "countryname": {
+      "where": 4,
+      "group by": 2
+    },
+    "cylinders": {
+      "where": 16,
+      "group by": 2
+    },
+    "fullname": {
+      "where": 6
+    },
+    "horsepower": {
+      "order by": 8,
+      "where": 4
+    },
+    "id": {
+      "group by": 8
+    },
+    "make": {
+      "where": 2
+    },
+    "model": {
+      "where": 6,
+      "group by": 2
+    },
+    "mpg": {
+      "order by": 2
+    },
+    "weight": {
+      "where": 8
+    },
+    "year": {
+      "where": 14,
+      "group by": 2
+    }
+  },
+  "question_openers": {
+    "what is the": {
+      "COUNT": 14,
+      "GROUP BY": 9,
+      "AVG": 9,
+      "LIMIT 1": 8,
+      "ORDER BY ... DESC": 7,
+      "subquery": 3
+    },
+    "what are the": {
+      "GROUP BY": 7,
+      "COUNT": 7,
+      "subquery": 5,
+      "negation (NOT IN / EXCEPT)": 2,
+      "INTERSECT": 1
+    },
+    "how many car": {
+      "COUNT": 5,
+      "GROUP BY": 2
+    },
+    "how many cars": {
+      "COUNT": 4,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "subquery": 1
+    },
+    "how many countries": {
+      "COUNT": 4,
+      "GROUP BY": 2
+    },
+    "which of the": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "which model has": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "what model has": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "which are the": {
+      "GROUP BY": 1,
+      "COUNT": 1,
+      "INTERSECT": 1,
+      "subquery": 1
+    },
+    "for each continent,": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "how many models": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "find the model": {
+      "AVG": 1,
+      "subquery": 1
+    },
+    "which countries in": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "which model saves": {
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1
+    },
+    "which makers designed": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "for the cars": {
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1
+    },
+    "for all of": {
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1
+    },
+    "among the cars": {
+      "subquery": 2
+    }
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "bike_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "station": {
+      "source_label": "station",
+      "meaning": "Table labeled 'station' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "lat": {
+          "type": "number",
+          "source_label": "latitude"
+        },
+        "long": {
+          "type": "number",
+          "source_label": "longitude"
+        },
+        "dock_count": {
+          "type": "number",
+          "source_label": "dock count"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city",
+          "observed_values": [
+            "San Jose",
+            "Redwood City",
+            "Mountain View",
+            "Palo Alto",
+            "San Francisco"
+          ]
+        },
+        "installation_date": {
+          "type": "text",
+          "source_label": "installation date"
+        }
+      },
+      "observed_row_count": 70
+    },
+    "status": {
+      "source_label": "status",
+      "meaning": "Table labeled 'status' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "station_id": {
+          "type": "number",
+          "source_label": "station id",
+          "foreign_key": {
+            "table": "station",
+            "column": "id"
+          }
+        },
+        "bikes_available": {
+          "type": "number",
+          "source_label": "bikes available"
+        },
+        "docks_available": {
+          "type": "number",
+          "source_label": "docks available"
+        },
+        "time": {
+          "type": "text",
+          "source_label": "time"
+        }
+      },
+      "observed_row_count": 8487
+    },
+    "trip": {
+      "source_label": "trip",
+      "meaning": "Table labeled 'trip' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "duration": {
+          "type": "number",
+          "source_label": "duration"
+        },
+        "start_date": {
+          "type": "text",
+          "source_label": "start date"
+        },
+        "start_station_name": {
+          "type": "text",
+          "source_label": "start station name"
+        },
+        "start_station_id": {
+          "type": "number",
+          "source_label": "start station id"
+        },
+        "end_date": {
+          "type": "text",
+          "source_label": "end date"
+        },
+        "end_station_name": {
+          "type": "text",
+          "source_label": "end station name"
+        },
+        "end_station_id": {
+          "type": "number",
+          "source_label": "end station id"
+        },
+        "bike_id": {
+          "type": "number",
+          "source_label": "bike id"
+        },
+        "subscription_type": {
+          "type": "text",
+          "source_label": "subscription type",
+          "observed_values": [
+            "Subscriber",
+            "Customer"
+          ]
+        },
+        "zip_code": {
+          "type": "number",
+          "source_label": "zip code"
+        }
+      },
+      "observed_row_count": 9959
+    },
+    "weather": {
+      "source_label": "weather",
+      "meaning": "Table labeled 'weather' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "date": {
+          "type": "text",
+          "source_label": "date"
+        },
+        "max_temperature_f": {
+          "type": "number",
+          "source_label": "max temperature f"
+        },
+        "mean_temperature_f": {
+          "type": "number",
+          "source_label": "mean temperature f"
+        },
+        "min_temperature_f": {
+          "type": "number",
+          "source_label": "min temperature f"
+        },
+        "max_dew_point_f": {
+          "type": "number",
+          "source_label": "max dew point f"
+        },
+        "mean_dew_point_f": {
+          "type": "number",
+          "source_label": "mean dew point f"
+        },
+        "min_dew_point_f": {
+          "type": "number",
+          "source_label": "min dew point f"
+        },
+        "max_humidity": {
+          "type": "number",
+          "source_label": "max humidity"
+        },
+        "mean_humidity": {
+          "type": "number",
+          "source_label": "mean humidity"
+        },
+        "min_humidity": {
+          "type": "number",
+          "source_label": "min humidity"
+        },
+        "max_sea_level_pressure_inches": {
+          "type": "number",
+          "source_label": "max sea level pressure inches"
+        },
+        "mean_sea_level_pressure_inches": {
+          "type": "number",
+          "source_label": "mean sea level pressure inches"
+        },
+        "min_sea_level_pressure_inches": {
+          "type": "number",
+          "source_label": "min sea level pressure inches"
+        },
+        "max_visibility_miles": {
+          "type": "number",
+          "source_label": "max visibility miles"
+        },
+        "mean_visibility_miles": {
+          "type": "number",
+          "source_label": "mean visibility miles"
+        },
+        "min_visibility_miles": {
+          "type": "number",
+          "source_label": "min visibility miles"
+        },
+        "max_wind_Speed_mph": {
+          "type": "number",
+          "source_label": "max wind speed mph"
+        },
+        "mean_wind_speed_mph": {
+          "type": "number",
+          "source_label": "mean wind speed mph"
+        },
+        "max_gust_speed_mph": {
+          "type": "number",
+          "source_label": "max gust speed mph"
+        },
+        "precipitation_inches": {
+          "type": "number",
+          "source_label": "precipitation inches"
+        },
+        "cloud_cover": {
+          "type": "number",
+          "source_label": "cloud cover"
+        },
+        "events": {
+          "type": "text",
+          "source_label": "events",
+          "observed_values": [
+            "Fog",
+            "Rain",
+            "Fog-Rain",
+            "rain",
+            "Rain-Thunderstorm"
+          ]
+        },
+        "wind_dir_degrees": {
+          "type": "number",
+          "source_label": "wind dir degrees"
+        },
+        "zip_code": {
+          "type": "number",
+          "source_label": "zip code"
+        }
+      },
+      "observed_row_count": 3665
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "station__row_count": {
+      "meaning": "Number of rows in station.",
+      "base_table": "station",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "status__row_count": {
+      "meaning": "Number of rows in status.",
+      "base_table": "status",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "trip__row_count": {
+      "meaning": "Number of rows in trip.",
+      "base_table": "trip",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "weather__row_count": {
+      "meaning": "Number of rows in weather.",
+      "base_table": "weather",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

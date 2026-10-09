@@ -1,0 +1,347 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "swimming",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "swimmer": {
+      "source_label": "swimmer",
+      "meaning": "Table labeled 'swimmer' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key ID",
+      "primary_key_columns": [
+        "ID"
+      ],
+      "columns": {
+        "ID": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Przemysław Stańczyk",
+            "Craig Stevens",
+            "Federico Colbertaldo",
+            "Sébastien Rouault",
+            "Sergiy Fesenko",
+            "Grant Hackett",
+            "Ryan Cochrane",
+            "Oussama Mellouli"
+          ]
+        },
+        "Nationality": {
+          "type": "text",
+          "source_label": "nationality",
+          "observed_values": [
+            "Poland",
+            "Australia",
+            "Italy",
+            "France",
+            "Ukraine",
+            "Canada",
+            "Tunisia"
+          ]
+        },
+        "meter_100": {
+          "type": "number",
+          "source_label": "meter 100"
+        },
+        "meter_200": {
+          "type": "text",
+          "source_label": "meter 200",
+          "observed_values": [
+            "1:57.10",
+            "1:56.34",
+            "1:56.77",
+            "1:54.40",
+            "1:57.26",
+            "1:57.21",
+            "1:56.44"
+          ]
+        },
+        "meter_300": {
+          "type": "text",
+          "source_label": "meter 300",
+          "observed_values": [
+            "2:56.02",
+            "2:55.90",
+            "2:56.04",
+            "2:53.46",
+            "2:57.10",
+            "2:56.95",
+            "2:56.64",
+            "2:55.94"
+          ]
+        },
+        "meter_400": {
+          "type": "text",
+          "source_label": "meter 400",
+          "observed_values": [
+            "3:55.36",
+            "3:55.72",
+            "3:55.37",
+            "3:52.93",
+            "3:57.12",
+            "3:57.00",
+            "3:56.34",
+            "3:55.49"
+          ]
+        },
+        "meter_500": {
+          "type": "text",
+          "source_label": "meter 500",
+          "observed_values": [
+            "4:54.21",
+            "4:55.08",
+            "4:54.48",
+            "4:52.85",
+            "4:57.03",
+            "4:56.96",
+            "4:56.15",
+            "4:54.19"
+          ]
+        },
+        "meter_600": {
+          "type": "text",
+          "source_label": "meter 600",
+          "observed_values": [
+            "5:52.59",
+            "5:54.45",
+            "5:53.53",
+            "5:53.03",
+            "5:56.31",
+            "5:57.10",
+            "5:56.99",
+            "5:52.92"
+          ]
+        },
+        "meter_700": {
+          "type": "text",
+          "source_label": "meter 700",
+          "observed_values": [
+            "6:50.91",
+            "6:52.69",
+            "6:52.58",
+            "6:53.34",
+            "6:55.07",
+            "6:57.44",
+            "6:57.69",
+            "6:50.80"
+          ]
+        },
+        "Time": {
+          "type": "text",
+          "source_label": "time",
+          "observed_values": [
+            "7:47.91",
+            "7:48.67",
+            "7:49.98",
+            "7:52.04",
+            "7:53.43",
+            "7:55.39",
+            "7:56.56",
+            "7:46.95"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "stadium": {
+      "source_label": "stadium",
+      "meaning": "Table labeled 'stadium' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key ID",
+      "primary_key_columns": [
+        "ID"
+      ],
+      "columns": {
+        "ID": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Nou Mestalla",
+            "Gazprom Arena",
+            "Baku Olympic Stadium",
+            "Estadio La Peineta",
+            "Ferenc Puskás Stadion",
+            "Stade des Lumières",
+            "Northumberland Development Project",
+            "Fisht Olympic Stadium",
+            "Arena Baltika",
+            "Yubileyniy Stadium"
+          ]
+        },
+        "Capacity": {
+          "type": "number",
+          "source_label": "capacity"
+        },
+        "City": {
+          "type": "text",
+          "source_label": "city",
+          "observed_values": [
+            "Valencia",
+            "Saint Petersburg",
+            "Baku",
+            "Madrid",
+            "Budapest",
+            "Lyon",
+            "London",
+            "Sochi",
+            "Kaliningrad",
+            "Saransk"
+          ]
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "Spain",
+            "Russia",
+            "Azerbaijan",
+            "Hungary",
+            "France",
+            "England"
+          ]
+        },
+        "Opening_year": {
+          "type": "number",
+          "source_label": "opening year"
+        }
+      },
+      "observed_row_count": 10
+    },
+    "event": {
+      "source_label": "event",
+      "meaning": "Table labeled 'event' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key ID",
+      "primary_key_columns": [
+        "ID"
+      ],
+      "columns": {
+        "ID": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "FINA",
+            "Pacific",
+            "World Master",
+            "World Junior",
+            "IPC",
+            "European FINA"
+          ]
+        },
+        "Stadium_ID": {
+          "type": "number",
+          "source_label": "stadium id",
+          "foreign_key": {
+            "table": "stadium",
+            "column": "ID"
+          }
+        },
+        "Year": {
+          "type": "text",
+          "source_label": "year",
+          "observed_values": [
+            "2016",
+            "2011",
+            "2012",
+            "2013",
+            "2014",
+            "2017"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "record": {
+      "source_label": "record",
+      "meaning": "Table labeled 'record' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Swimmer_ID",
+      "primary_key_columns": [
+        "Swimmer_ID"
+      ],
+      "columns": {
+        "ID": {
+          "type": "number",
+          "source_label": "id"
+        },
+        "Result": {
+          "type": "text",
+          "source_label": "result",
+          "observed_values": [
+            "NC",
+            "Win",
+            "Loss"
+          ]
+        },
+        "Swimmer_ID": {
+          "type": "number",
+          "source_label": "swimmer id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "swimmer",
+            "column": "ID"
+          }
+        },
+        "Event_ID": {
+          "type": "number",
+          "source_label": "event id",
+          "foreign_key": {
+            "table": "event",
+            "column": "ID"
+          }
+        }
+      },
+      "observed_row_count": 13
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "swimmer__row_count": {
+      "meaning": "Number of rows in swimmer.",
+      "base_table": "swimmer",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "stadium__row_count": {
+      "meaning": "Number of rows in stadium.",
+      "base_table": "stadium",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "event__row_count": {
+      "meaning": "Number of rows in event.",
+      "base_table": "event",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "record__row_count": {
+      "meaning": "Number of rows in record.",
+      "base_table": "record",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

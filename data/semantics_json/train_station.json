@@ -1,0 +1,202 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "train_station",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "station": {
+      "source_label": "station",
+      "meaning": "Table labeled 'station' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Station_ID",
+      "primary_key_columns": [
+        "Station_ID"
+      ],
+      "columns": {
+        "Station_ID": {
+          "type": "number",
+          "source_label": "station id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "London Waterloo",
+            "London Victoria",
+            "London Bridge",
+            "London Liverpool Street",
+            "London Euston",
+            "London Charing Cross",
+            "Birmingham New Street",
+            "London King's Cross",
+            "Glasgow Central",
+            "East Croydon",
+            "London St Pancras",
+            "Stratford"
+          ]
+        },
+        "Annual_entry_exit": {
+          "type": "number",
+          "source_label": "annual entry exit"
+        },
+        "Annual_interchanges": {
+          "type": "number",
+          "source_label": "annual interchanges"
+        },
+        "Total_Passengers": {
+          "type": "number",
+          "source_label": "total passengers"
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "London",
+            "Birmingham",
+            "Glasgow"
+          ]
+        },
+        "Main_Services": {
+          "type": "text",
+          "source_label": "main services",
+          "observed_values": [
+            "South Western Main Line West of England Main Line",
+            "Brighton Main Line Chatham Main Line",
+            "South Eastern Main Line Thameslink",
+            "Great Eastern Main Line West Anglia Main Line",
+            "West Coast Main Line",
+            "South Eastern Main Line",
+            "West Coast Main Line Cross Country Route",
+            "East Coast Main Line",
+            "Brighton Main Line",
+            "Midland Main Line Thameslink High-Speed 1 Eurostar",
+            "Great Eastern Main Line Lea Valley Lines"
+          ]
+        },
+        "Number_of_Platforms": {
+          "type": "number",
+          "source_label": "number of platforms"
+        }
+      },
+      "observed_row_count": 12
+    },
+    "train": {
+      "source_label": "train",
+      "meaning": "Table labeled 'train' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Train_ID",
+      "primary_key_columns": [
+        "Train_ID"
+      ],
+      "columns": {
+        "Train_ID": {
+          "type": "number",
+          "source_label": "train id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Ananthapuri Express",
+            "Guruvayur Express",
+            "Jayanthi Janatha Express",
+            "Island Express",
+            "Madurai Fast Passenger",
+            "Quilon Fast Passenger",
+            "Parasuram Express"
+          ]
+        },
+        "Time": {
+          "type": "text",
+          "source_label": "time",
+          "observed_values": [
+            "17:15",
+            "22:10",
+            "4:49",
+            "11:35",
+            "06:30",
+            "11:15",
+            "21:49",
+            "04:55",
+            "16:59",
+            "10:38",
+            "04:20"
+          ]
+        },
+        "Service": {
+          "type": "text",
+          "source_label": "service",
+          "observed_values": [
+            "Daily"
+          ]
+        }
+      },
+      "observed_row_count": 11
+    },
+    "train_station": {
+      "source_label": "train station",
+      "meaning": "Table labeled 'train station' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Train_ID",
+      "primary_key_columns": [
+        "Train_ID"
+      ],
+      "columns": {
+        "Train_ID": {
+          "type": "number",
+          "source_label": "train id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "train",
+            "column": "Train_ID"
+          }
+        },
+        "Station_ID": {
+          "type": "number",
+          "source_label": "station id",
+          "foreign_key": {
+            "table": "station",
+            "column": "Station_ID"
+          }
+        }
+      },
+      "observed_row_count": 11
+    }
+  },
+  "terms": {
+    "train station": {
+      "maps_to": "train_station",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "station__row_count": {
+      "meaning": "Number of rows in station.",
+      "base_table": "station",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "train__row_count": {
+      "meaning": "Number of rows in train.",
+      "base_table": "train",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "train_station__row_count": {
+      "meaning": "Number of rows in train_station.",
+      "base_table": "train_station",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

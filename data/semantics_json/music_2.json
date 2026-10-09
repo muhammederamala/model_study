@@ -1,0 +1,273 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "music_2",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Songs": {
+      "source_label": "songs",
+      "meaning": "Table labeled 'songs' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key SongId",
+      "primary_key_columns": [
+        "SongId"
+      ],
+      "columns": {
+        "SongId": {
+          "type": "number",
+          "source_label": "song id",
+          "primary_key": true
+        },
+        "Title": {
+          "type": "text",
+          "source_label": "title"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "Albums": {
+      "source_label": "albums",
+      "meaning": "Table labeled 'albums' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key AId",
+      "primary_key_columns": [
+        "AId"
+      ],
+      "columns": {
+        "AId": {
+          "type": "number",
+          "source_label": "aid",
+          "primary_key": true
+        },
+        "Title": {
+          "type": "text",
+          "source_label": "title"
+        },
+        "Year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "Label": {
+          "type": "text",
+          "source_label": "label"
+        },
+        "Type": {
+          "type": "text",
+          "source_label": "type"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "Band": {
+      "source_label": "band",
+      "meaning": "Table labeled 'band' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Id",
+      "primary_key_columns": [
+        "Id"
+      ],
+      "columns": {
+        "Id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "Firstname": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "Lastname": {
+          "type": "text",
+          "source_label": "last name"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "Instruments": {
+      "source_label": "instruments",
+      "meaning": "Table labeled 'instruments' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key SongId",
+      "primary_key_columns": [
+        "SongId"
+      ],
+      "columns": {
+        "SongId": {
+          "type": "number",
+          "source_label": "song id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Songs",
+            "column": "SongId"
+          }
+        },
+        "BandmateId": {
+          "type": "number",
+          "source_label": "bandmate id",
+          "foreign_key": {
+            "table": "Band",
+            "column": "Id"
+          }
+        },
+        "Instrument": {
+          "type": "text",
+          "source_label": "instrument"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "Performance": {
+      "source_label": "performance",
+      "meaning": "Table labeled 'performance' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key SongId",
+      "primary_key_columns": [
+        "SongId"
+      ],
+      "columns": {
+        "SongId": {
+          "type": "number",
+          "source_label": "song id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Songs",
+            "column": "SongId"
+          }
+        },
+        "Bandmate": {
+          "type": "number",
+          "source_label": "bandmate",
+          "foreign_key": {
+            "table": "Band",
+            "column": "Id"
+          }
+        },
+        "StagePosition": {
+          "type": "text",
+          "source_label": "stage position"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "Tracklists": {
+      "source_label": "track lists",
+      "meaning": "Table labeled 'track lists' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key AlbumId",
+      "primary_key_columns": [
+        "AlbumId"
+      ],
+      "columns": {
+        "AlbumId": {
+          "type": "number",
+          "source_label": "album id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Albums",
+            "column": "AId"
+          }
+        },
+        "Position": {
+          "type": "number",
+          "source_label": "position"
+        },
+        "SongId": {
+          "type": "number",
+          "source_label": "song id",
+          "foreign_key": {
+            "table": "Songs",
+            "column": "SongId"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "Vocals": {
+      "source_label": "vocals",
+      "meaning": "Table labeled 'vocals' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key SongId",
+      "primary_key_columns": [
+        "SongId"
+      ],
+      "columns": {
+        "SongId": {
+          "type": "number",
+          "source_label": "song id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Songs",
+            "column": "SongId"
+          }
+        },
+        "Bandmate": {
+          "type": "number",
+          "source_label": "bandmate",
+          "foreign_key": {
+            "table": "Band",
+            "column": "Id"
+          }
+        },
+        "Type": {
+          "type": "text",
+          "source_label": "type"
+        }
+      },
+      "observed_row_count": 0
+    }
+  },
+  "terms": {
+    "track lists": {
+      "maps_to": "Tracklists",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Songs__row_count": {
+      "meaning": "Number of rows in Songs.",
+      "base_table": "Songs",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Albums__row_count": {
+      "meaning": "Number of rows in Albums.",
+      "base_table": "Albums",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Band__row_count": {
+      "meaning": "Number of rows in Band.",
+      "base_table": "Band",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Instruments__row_count": {
+      "meaning": "Number of rows in Instruments.",
+      "base_table": "Instruments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Performance__row_count": {
+      "meaning": "Number of rows in Performance.",
+      "base_table": "Performance",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Tracklists__row_count": {
+      "meaning": "Number of rows in Tracklists.",
+      "base_table": "Tracklists",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Vocals__row_count": {
+      "meaning": "Number of rows in Vocals.",
+      "base_table": "Vocals",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

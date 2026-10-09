@@ -1,0 +1,2199 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "baseball_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "all_star": {
+      "source_label": "all star",
+      "meaning": "Table labeled 'all star' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "player_id": {
+          "type": "text",
+          "source_label": "player id",
+          "foreign_key": {
+            "table": "player",
+            "column": "player_id"
+          }
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "game_num": {
+          "type": "number",
+          "source_label": "game num"
+        },
+        "game_id": {
+          "type": "text",
+          "source_label": "game id"
+        },
+        "team_id": {
+          "type": "text",
+          "source_label": "team id"
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "AL",
+            "NL"
+          ]
+        },
+        "gp": {
+          "type": "number",
+          "source_label": "gp"
+        },
+        "starting_pos": {
+          "type": "number",
+          "source_label": "starting pos"
+        }
+      },
+      "observed_row_count": 5069
+    },
+    "appearances": {
+      "source_label": "appearances",
+      "meaning": "Table labeled 'appearances' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "team_id": {
+          "type": "text",
+          "source_label": "team id",
+          "foreign_key": {
+            "table": "team",
+            "column": "team_id"
+          }
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "NL",
+            "AA",
+            "UA",
+            "PL",
+            "AL",
+            "FL"
+          ]
+        },
+        "player_id": {
+          "type": "text",
+          "source_label": "player id",
+          "foreign_key": {
+            "table": "player",
+            "column": "player_id"
+          }
+        },
+        "g_all": {
+          "type": "number",
+          "source_label": "g all"
+        },
+        "gs": {
+          "type": "number",
+          "source_label": "gs"
+        },
+        "g_batting": {
+          "type": "number",
+          "source_label": "g batting"
+        },
+        "g_defense": {
+          "type": "number",
+          "source_label": "g defense"
+        },
+        "g_p": {
+          "type": "number",
+          "source_label": "g p"
+        },
+        "g_c": {
+          "type": "number",
+          "source_label": "g c"
+        },
+        "g_1b": {
+          "type": "number",
+          "source_label": "g 1b"
+        },
+        "g_2b": {
+          "type": "number",
+          "source_label": "g 2b"
+        },
+        "g_3b": {
+          "type": "number",
+          "source_label": "g 3b"
+        },
+        "g_ss": {
+          "type": "number",
+          "source_label": "g ss"
+        },
+        "g_lf": {
+          "type": "number",
+          "source_label": "g lf"
+        },
+        "g_cf": {
+          "type": "number",
+          "source_label": "g cf"
+        },
+        "g_rf": {
+          "type": "number",
+          "source_label": "g rf"
+        },
+        "g_of": {
+          "type": "number",
+          "source_label": "g of"
+        },
+        "g_dh": {
+          "type": "number",
+          "source_label": "g dh"
+        },
+        "g_ph": {
+          "type": "number",
+          "source_label": "g ph"
+        },
+        "g_pr": {
+          "type": "number",
+          "source_label": "g pr"
+        }
+      },
+      "observed_row_count": 100951
+    },
+    "manager_award": {
+      "source_label": "manager award",
+      "meaning": "Table labeled 'manager award' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "player_id": {
+          "type": "text",
+          "source_label": "player id",
+          "foreign_key": {
+            "table": "player",
+            "column": "player_id"
+          }
+        },
+        "award_id": {
+          "type": "text",
+          "source_label": "award id",
+          "observed_values": [
+            "BBWAA Manager of the year",
+            "TSN Manager of the Year"
+          ]
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "AL",
+            "NL",
+            "ML"
+          ]
+        },
+        "tie": {
+          "type": "text",
+          "source_label": "tie",
+          "observed_values": [
+            "Y"
+          ]
+        },
+        "notes": {
+          "type": "number",
+          "source_label": "notes"
+        }
+      },
+      "observed_row_count": 177
+    },
+    "player_award": {
+      "source_label": "player award",
+      "meaning": "Table labeled 'player award' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "player_id": {
+          "type": "text",
+          "source_label": "player id",
+          "foreign_key": {
+            "table": "player",
+            "column": "player_id"
+          }
+        },
+        "award_id": {
+          "type": "text",
+          "source_label": "award id"
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "NL",
+            "AA",
+            "AL",
+            "ML"
+          ]
+        },
+        "tie": {
+          "type": "text",
+          "source_label": "tie",
+          "observed_values": [
+            "Y"
+          ]
+        },
+        "notes": {
+          "type": "text",
+          "source_label": "notes"
+        }
+      },
+      "observed_row_count": 6078
+    },
+    "manager_award_vote": {
+      "source_label": "manager award vote",
+      "meaning": "Table labeled 'manager award vote' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "award_id": {
+          "type": "text",
+          "source_label": "award id",
+          "observed_values": [
+            "Mgr of the year",
+            "Mgr of the Year"
+          ]
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "AL",
+            "NL"
+          ]
+        },
+        "player_id": {
+          "type": "text",
+          "source_label": "player id"
+        },
+        "points_won": {
+          "type": "number",
+          "source_label": "points won"
+        },
+        "points_max": {
+          "type": "number",
+          "source_label": "points max"
+        },
+        "votes_first": {
+          "type": "number",
+          "source_label": "votes first"
+        }
+      },
+      "observed_row_count": 414
+    },
+    "player_award_vote": {
+      "source_label": "player award vote",
+      "meaning": "Table labeled 'player award vote' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "award_id": {
+          "type": "text",
+          "source_label": "award id",
+          "observed_values": [
+            "Cy Young",
+            "MVP",
+            "Rookie of the Year"
+          ]
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "ML",
+            "AL",
+            "NL"
+          ]
+        },
+        "player_id": {
+          "type": "text",
+          "source_label": "player id",
+          "foreign_key": {
+            "table": "player",
+            "column": "player_id"
+          }
+        },
+        "points_won": {
+          "type": "number",
+          "source_label": "points won"
+        },
+        "points_max": {
+          "type": "number",
+          "source_label": "points max"
+        },
+        "votes_first": {
+          "type": "number",
+          "source_label": "votes first"
+        }
+      },
+      "observed_row_count": 6795
+    },
+    "batting": {
+      "source_label": "batting",
+      "meaning": "Table labeled 'batting' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "player_id": {
+          "type": "text",
+          "source_label": "player id",
+          "foreign_key": {
+            "table": "player",
+            "column": "player_id"
+          }
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "stint": {
+          "type": "number",
+          "source_label": "stint"
+        },
+        "team_id": {
+          "type": "text",
+          "source_label": "team id"
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "NL",
+            "AA",
+            "UA",
+            "PL",
+            "AL",
+            "FL"
+          ]
+        },
+        "g": {
+          "type": "number",
+          "source_label": "g"
+        },
+        "ab": {
+          "type": "number",
+          "source_label": "ab"
+        },
+        "r": {
+          "type": "number",
+          "source_label": "r"
+        },
+        "h": {
+          "type": "number",
+          "source_label": "h"
+        },
+        "double": {
+          "type": "number",
+          "source_label": "double"
+        },
+        "triple": {
+          "type": "number",
+          "source_label": "triple"
+        },
+        "hr": {
+          "type": "number",
+          "source_label": "hr"
+        },
+        "rbi": {
+          "type": "number",
+          "source_label": "rbi"
+        },
+        "sb": {
+          "type": "number",
+          "source_label": "sb"
+        },
+        "cs": {
+          "type": "number",
+          "source_label": "cs"
+        },
+        "bb": {
+          "type": "number",
+          "source_label": "bb"
+        },
+        "so": {
+          "type": "number",
+          "source_label": "so"
+        },
+        "ibb": {
+          "type": "number",
+          "source_label": "ibb"
+        },
+        "hbp": {
+          "type": "number",
+          "source_label": "hbp"
+        },
+        "sh": {
+          "type": "number",
+          "source_label": "sh"
+        },
+        "sf": {
+          "type": "number",
+          "source_label": "sf"
+        },
+        "g_idp": {
+          "type": "number",
+          "source_label": "g idp"
+        }
+      },
+      "observed_row_count": 101332
+    },
+    "batting_postseason": {
+      "source_label": "batting postseason",
+      "meaning": "Table labeled 'batting postseason' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "round": {
+          "type": "text",
+          "source_label": "round"
+        },
+        "player_id": {
+          "type": "text",
+          "source_label": "player id",
+          "foreign_key": {
+            "table": "player",
+            "column": "player_id"
+          }
+        },
+        "team_id": {
+          "type": "text",
+          "source_label": "team id",
+          "foreign_key": {
+            "table": "team",
+            "column": "team_id"
+          }
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "AA",
+            "NL",
+            "AL"
+          ]
+        },
+        "g": {
+          "type": "number",
+          "source_label": "g"
+        },
+        "ab": {
+          "type": "number",
+          "source_label": "ab"
+        },
+        "r": {
+          "type": "number",
+          "source_label": "r"
+        },
+        "h": {
+          "type": "number",
+          "source_label": "h"
+        },
+        "double": {
+          "type": "number",
+          "source_label": "double"
+        },
+        "triple": {
+          "type": "number",
+          "source_label": "triple"
+        },
+        "hr": {
+          "type": "number",
+          "source_label": "hr"
+        },
+        "rbi": {
+          "type": "number",
+          "source_label": "rbi"
+        },
+        "sb": {
+          "type": "number",
+          "source_label": "sb"
+        },
+        "cs": {
+          "type": "number",
+          "source_label": "cs"
+        },
+        "bb": {
+          "type": "number",
+          "source_label": "bb"
+        },
+        "so": {
+          "type": "number",
+          "source_label": "so"
+        },
+        "ibb": {
+          "type": "number",
+          "source_label": "ibb"
+        },
+        "hbp": {
+          "type": "number",
+          "source_label": "hbp"
+        },
+        "sh": {
+          "type": "number",
+          "source_label": "sh"
+        },
+        "sf": {
+          "type": "number",
+          "source_label": "sf"
+        },
+        "g_idp": {
+          "type": "number",
+          "source_label": "g idp"
+        }
+      },
+      "observed_row_count": 11690
+    },
+    "player_college": {
+      "source_label": "player college",
+      "meaning": "Table labeled 'player college' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "player_id": {
+          "type": "text",
+          "source_label": "player id",
+          "foreign_key": {
+            "table": "player",
+            "column": "player_id"
+          }
+        },
+        "college_id": {
+          "type": "text",
+          "source_label": "college id",
+          "foreign_key": {
+            "table": "college",
+            "column": "college_id"
+          }
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        }
+      },
+      "observed_row_count": 17350
+    },
+    "fielding": {
+      "source_label": "fielding",
+      "meaning": "Table labeled 'fielding' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "player_id": {
+          "type": "text",
+          "source_label": "player id",
+          "foreign_key": {
+            "table": "player",
+            "column": "player_id"
+          }
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "stint": {
+          "type": "number",
+          "source_label": "stint"
+        },
+        "team_id": {
+          "type": "text",
+          "source_label": "team id"
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "NL",
+            "AA",
+            "UA",
+            "PL",
+            "AL",
+            "FL"
+          ]
+        },
+        "pos": {
+          "type": "text",
+          "source_label": "pos",
+          "observed_values": [
+            "SS",
+            "2B",
+            "OF",
+            "C",
+            "1B",
+            "3B",
+            "P",
+            "LF",
+            "RF",
+            "CF",
+            "DH"
+          ]
+        },
+        "g": {
+          "type": "number",
+          "source_label": "g"
+        },
+        "gs": {
+          "type": "number",
+          "source_label": "gs"
+        },
+        "inn_outs": {
+          "type": "number",
+          "source_label": "inn outs"
+        },
+        "po": {
+          "type": "number",
+          "source_label": "po"
+        },
+        "a": {
+          "type": "number",
+          "source_label": "a"
+        },
+        "e": {
+          "type": "number",
+          "source_label": "e"
+        },
+        "dp": {
+          "type": "number",
+          "source_label": "dp"
+        },
+        "pb": {
+          "type": "number",
+          "source_label": "pb"
+        },
+        "wp": {
+          "type": "number",
+          "source_label": "wp"
+        },
+        "sb": {
+          "type": "number",
+          "source_label": "sb"
+        },
+        "cs": {
+          "type": "number",
+          "source_label": "cs"
+        },
+        "zr": {
+          "type": "number",
+          "source_label": "zr"
+        }
+      },
+      "observed_row_count": 170526
+    },
+    "fielding_outfield": {
+      "source_label": "fielding outfield",
+      "meaning": "Table labeled 'fielding outfield' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "player_id": {
+          "type": "text",
+          "source_label": "player id",
+          "foreign_key": {
+            "table": "player",
+            "column": "player_id"
+          }
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "stint": {
+          "type": "number",
+          "source_label": "stint"
+        },
+        "glf": {
+          "type": "number",
+          "source_label": "glf"
+        },
+        "gcf": {
+          "type": "number",
+          "source_label": "gcf"
+        },
+        "grf": {
+          "type": "number",
+          "source_label": "grf"
+        }
+      },
+      "observed_row_count": 12028
+    },
+    "fielding_postseason": {
+      "source_label": "fielding postseason",
+      "meaning": "Table labeled 'fielding postseason' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "player_id": {
+          "type": "text",
+          "source_label": "player id",
+          "foreign_key": {
+            "table": "player",
+            "column": "player_id"
+          }
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "team_id": {
+          "type": "text",
+          "source_label": "team id"
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "AL",
+            "NL"
+          ]
+        },
+        "round": {
+          "type": "text",
+          "source_label": "round"
+        },
+        "pos": {
+          "type": "text",
+          "source_label": "pos",
+          "observed_values": [
+            "3B",
+            "C",
+            "P",
+            "LF",
+            "2B",
+            "RF",
+            "1B",
+            "SS",
+            "CF",
+            "OF",
+            "DH"
+          ]
+        },
+        "g": {
+          "type": "number",
+          "source_label": "g"
+        },
+        "gs": {
+          "type": "number",
+          "source_label": "gs"
+        },
+        "inn_outs": {
+          "type": "number",
+          "source_label": "inn outs"
+        },
+        "po": {
+          "type": "number",
+          "source_label": "po"
+        },
+        "a": {
+          "type": "number",
+          "source_label": "a"
+        },
+        "e": {
+          "type": "number",
+          "source_label": "e"
+        },
+        "dp": {
+          "type": "number",
+          "source_label": "dp"
+        },
+        "tp": {
+          "type": "number",
+          "source_label": "tp"
+        },
+        "pb": {
+          "type": "number",
+          "source_label": "pb"
+        },
+        "sb": {
+          "type": "number",
+          "source_label": "sb"
+        },
+        "cs": {
+          "type": "number",
+          "source_label": "cs"
+        }
+      },
+      "observed_row_count": 12311
+    },
+    "hall_of_fame": {
+      "source_label": "hall of fame",
+      "meaning": "Table labeled 'hall of fame' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "player_id": {
+          "type": "text",
+          "source_label": "player id",
+          "foreign_key": {
+            "table": "player",
+            "column": "player_id"
+          }
+        },
+        "yearid": {
+          "type": "number",
+          "source_label": "yearid"
+        },
+        "votedby": {
+          "type": "text",
+          "source_label": "votedby",
+          "observed_values": [
+            "BBWAA",
+            "Veterans",
+            "Centennial",
+            "Old Timers",
+            "Special Election",
+            "Final Ballot",
+            "Nominating Vote",
+            "Run Off",
+            "Negro League"
+          ]
+        },
+        "ballots": {
+          "type": "number",
+          "source_label": "ballots"
+        },
+        "needed": {
+          "type": "number",
+          "source_label": "needed"
+        },
+        "votes": {
+          "type": "number",
+          "source_label": "votes"
+        },
+        "inducted": {
+          "type": "text",
+          "source_label": "inducted",
+          "observed_values": [
+            "Y",
+            "N"
+          ]
+        },
+        "category": {
+          "type": "text",
+          "source_label": "category",
+          "observed_values": [
+            "Player",
+            "Manager",
+            "Pioneer/Executive",
+            "Umpire"
+          ]
+        },
+        "needed_note": {
+          "type": "text",
+          "source_label": "needed note",
+          "observed_values": [
+            "Top 20",
+            "1st"
+          ]
+        }
+      },
+      "observed_row_count": 4120
+    },
+    "home_game": {
+      "source_label": "home game",
+      "meaning": "Table labeled 'home game' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "NL",
+            "AA",
+            "UA",
+            "PL",
+            "AL",
+            "FL"
+          ]
+        },
+        "team_id": {
+          "type": "text",
+          "source_label": "team id",
+          "foreign_key": {
+            "table": "team",
+            "column": "team_id"
+          }
+        },
+        "park_id": {
+          "type": "text",
+          "source_label": "park id",
+          "foreign_key": {
+            "table": "park",
+            "column": "park_id"
+          }
+        },
+        "span_first": {
+          "type": "text",
+          "source_label": "span first"
+        },
+        "span_last": {
+          "type": "text",
+          "source_label": "span last"
+        },
+        "games": {
+          "type": "number",
+          "source_label": "games"
+        },
+        "openings": {
+          "type": "number",
+          "source_label": "openings"
+        },
+        "attendance": {
+          "type": "number",
+          "source_label": "attendance"
+        }
+      },
+      "observed_row_count": 2944
+    },
+    "manager": {
+      "source_label": "manager",
+      "meaning": "Table labeled 'manager' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "player_id": {
+          "type": "text",
+          "source_label": "player id"
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "team_id": {
+          "type": "text",
+          "source_label": "team id",
+          "foreign_key": {
+            "table": "team",
+            "column": "team_id"
+          }
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "NL",
+            "AA",
+            "UA",
+            "PL",
+            "AL",
+            "FL"
+          ]
+        },
+        "inseason": {
+          "type": "number",
+          "source_label": "inseason"
+        },
+        "g": {
+          "type": "number",
+          "source_label": "g"
+        },
+        "w": {
+          "type": "number",
+          "source_label": "w"
+        },
+        "l": {
+          "type": "number",
+          "source_label": "l"
+        },
+        "rank": {
+          "type": "number",
+          "source_label": "rank"
+        },
+        "plyr_mgr": {
+          "type": "text",
+          "source_label": "plyr mgr",
+          "observed_values": [
+            "Y",
+            "N"
+          ]
+        }
+      },
+      "observed_row_count": 3405
+    },
+    "manager_half": {
+      "source_label": "manager half",
+      "meaning": "Table labeled 'manager half' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "player_id": {
+          "type": "text",
+          "source_label": "player id"
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "team_id": {
+          "type": "text",
+          "source_label": "team id",
+          "foreign_key": {
+            "table": "team",
+            "column": "team_id"
+          }
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "NL",
+            "AL"
+          ]
+        },
+        "inseason": {
+          "type": "number",
+          "source_label": "inseason"
+        },
+        "half": {
+          "type": "number",
+          "source_label": "half"
+        },
+        "g": {
+          "type": "number",
+          "source_label": "g"
+        },
+        "w": {
+          "type": "number",
+          "source_label": "w"
+        },
+        "l": {
+          "type": "number",
+          "source_label": "l"
+        },
+        "rank": {
+          "type": "number",
+          "source_label": "rank"
+        }
+      },
+      "observed_row_count": 93
+    },
+    "player": {
+      "source_label": "player",
+      "meaning": "Table labeled 'player' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "player_id": {
+          "type": "text",
+          "source_label": "player id"
+        },
+        "birth_year": {
+          "type": "number",
+          "source_label": "birth year"
+        },
+        "birth_month": {
+          "type": "number",
+          "source_label": "birth month"
+        },
+        "birth_day": {
+          "type": "number",
+          "source_label": "birth day"
+        },
+        "birth_country": {
+          "type": "text",
+          "source_label": "birth country"
+        },
+        "birth_state": {
+          "type": "text",
+          "source_label": "birth state"
+        },
+        "birth_city": {
+          "type": "text",
+          "source_label": "birth city"
+        },
+        "death_year": {
+          "type": "number",
+          "source_label": "death year"
+        },
+        "death_month": {
+          "type": "number",
+          "source_label": "death month"
+        },
+        "death_day": {
+          "type": "number",
+          "source_label": "death day"
+        },
+        "death_country": {
+          "type": "text",
+          "source_label": "death country"
+        },
+        "death_state": {
+          "type": "text",
+          "source_label": "death state"
+        },
+        "death_city": {
+          "type": "text",
+          "source_label": "death city"
+        },
+        "name_first": {
+          "type": "text",
+          "source_label": "name first"
+        },
+        "name_last": {
+          "type": "text",
+          "source_label": "name last"
+        },
+        "name_given": {
+          "type": "text",
+          "source_label": "name given"
+        },
+        "weight": {
+          "type": "number",
+          "source_label": "weight"
+        },
+        "height": {
+          "type": "number",
+          "source_label": "height"
+        },
+        "bats": {
+          "type": "text",
+          "source_label": "bats",
+          "observed_values": [
+            "R",
+            "L",
+            "B"
+          ]
+        },
+        "throws": {
+          "type": "text",
+          "source_label": "throws",
+          "observed_values": [
+            "R",
+            "L"
+          ]
+        },
+        "debut": {
+          "type": "text",
+          "source_label": "debut"
+        },
+        "final_game": {
+          "type": "text",
+          "source_label": "final game"
+        },
+        "retro_id": {
+          "type": "text",
+          "source_label": "retro id"
+        },
+        "bbref_id": {
+          "type": "text",
+          "source_label": "bbref id"
+        }
+      },
+      "observed_row_count": 18846
+    },
+    "park": {
+      "source_label": "park",
+      "meaning": "Table labeled 'park' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "park_id": {
+          "type": "text",
+          "source_label": "park id"
+        },
+        "park_name": {
+          "type": "text",
+          "source_label": "park name"
+        },
+        "park_alias": {
+          "type": "text",
+          "source_label": "park alias"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "state": {
+          "type": "text",
+          "source_label": "state"
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "US",
+            "MX",
+            "CA",
+            "PR",
+            "AU",
+            "JP"
+          ]
+        }
+      },
+      "observed_row_count": 250
+    },
+    "pitching": {
+      "source_label": "pitching",
+      "meaning": "Table labeled 'pitching' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "player_id": {
+          "type": "text",
+          "source_label": "player id"
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "stint": {
+          "type": "number",
+          "source_label": "stint"
+        },
+        "team_id": {
+          "type": "text",
+          "source_label": "team id"
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "NL",
+            "AA",
+            "UA",
+            "PL",
+            "AL",
+            "FL"
+          ]
+        },
+        "w": {
+          "type": "number",
+          "source_label": "w"
+        },
+        "l": {
+          "type": "number",
+          "source_label": "l"
+        },
+        "g": {
+          "type": "number",
+          "source_label": "g"
+        },
+        "gs": {
+          "type": "number",
+          "source_label": "gs"
+        },
+        "cg": {
+          "type": "number",
+          "source_label": "cg"
+        },
+        "sho": {
+          "type": "number",
+          "source_label": "sho"
+        },
+        "sv": {
+          "type": "number",
+          "source_label": "sv"
+        },
+        "ipouts": {
+          "type": "number",
+          "source_label": "ipouts"
+        },
+        "h": {
+          "type": "number",
+          "source_label": "h"
+        },
+        "er": {
+          "type": "number",
+          "source_label": "er"
+        },
+        "hr": {
+          "type": "number",
+          "source_label": "hr"
+        },
+        "bb": {
+          "type": "number",
+          "source_label": "bb"
+        },
+        "so": {
+          "type": "number",
+          "source_label": "so"
+        },
+        "baopp": {
+          "type": "number",
+          "source_label": "baopp"
+        },
+        "era": {
+          "type": "number",
+          "source_label": "era"
+        },
+        "ibb": {
+          "type": "number",
+          "source_label": "ibb"
+        },
+        "wp": {
+          "type": "number",
+          "source_label": "wp"
+        },
+        "hbp": {
+          "type": "number",
+          "source_label": "hbp"
+        },
+        "bk": {
+          "type": "number",
+          "source_label": "bk"
+        },
+        "bfp": {
+          "type": "number",
+          "source_label": "bfp"
+        },
+        "gf": {
+          "type": "number",
+          "source_label": "gf"
+        },
+        "r": {
+          "type": "number",
+          "source_label": "r"
+        },
+        "sh": {
+          "type": "number",
+          "source_label": "sh"
+        },
+        "sf": {
+          "type": "number",
+          "source_label": "sf"
+        },
+        "g_idp": {
+          "type": "number",
+          "source_label": "g idp"
+        }
+      },
+      "observed_row_count": 44139
+    },
+    "pitching_postseason": {
+      "source_label": "pitching postseason",
+      "meaning": "Table labeled 'pitching postseason' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "player_id": {
+          "type": "text",
+          "source_label": "player id"
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "round": {
+          "type": "text",
+          "source_label": "round"
+        },
+        "team_id": {
+          "type": "text",
+          "source_label": "team id"
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "AA",
+            "NL",
+            "AL"
+          ]
+        },
+        "w": {
+          "type": "number",
+          "source_label": "w"
+        },
+        "l": {
+          "type": "number",
+          "source_label": "l"
+        },
+        "g": {
+          "type": "number",
+          "source_label": "g"
+        },
+        "gs": {
+          "type": "number",
+          "source_label": "gs"
+        },
+        "cg": {
+          "type": "number",
+          "source_label": "cg"
+        },
+        "sho": {
+          "type": "number",
+          "source_label": "sho"
+        },
+        "sv": {
+          "type": "number",
+          "source_label": "sv"
+        },
+        "ipouts": {
+          "type": "number",
+          "source_label": "ipouts"
+        },
+        "h": {
+          "type": "number",
+          "source_label": "h"
+        },
+        "er": {
+          "type": "number",
+          "source_label": "er"
+        },
+        "hr": {
+          "type": "number",
+          "source_label": "hr"
+        },
+        "bb": {
+          "type": "number",
+          "source_label": "bb"
+        },
+        "so": {
+          "type": "number",
+          "source_label": "so"
+        },
+        "baopp": {
+          "type": "text",
+          "source_label": "baopp"
+        },
+        "era": {
+          "type": "number",
+          "source_label": "era"
+        },
+        "ibb": {
+          "type": "number",
+          "source_label": "ibb"
+        },
+        "wp": {
+          "type": "number",
+          "source_label": "wp"
+        },
+        "hbp": {
+          "type": "number",
+          "source_label": "hbp"
+        },
+        "bk": {
+          "type": "number",
+          "source_label": "bk"
+        },
+        "bfp": {
+          "type": "number",
+          "source_label": "bfp"
+        },
+        "gf": {
+          "type": "number",
+          "source_label": "gf"
+        },
+        "r": {
+          "type": "number",
+          "source_label": "r"
+        },
+        "sh": {
+          "type": "number",
+          "source_label": "sh"
+        },
+        "sf": {
+          "type": "number",
+          "source_label": "sf"
+        },
+        "g_idp": {
+          "type": "number",
+          "source_label": "g idp"
+        }
+      },
+      "observed_row_count": 5109
+    },
+    "salary": {
+      "source_label": "salary",
+      "meaning": "Table labeled 'salary' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "team_id": {
+          "type": "text",
+          "source_label": "team id"
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "NL",
+            "AL"
+          ]
+        },
+        "player_id": {
+          "type": "text",
+          "source_label": "player id"
+        },
+        "salary": {
+          "type": "number",
+          "source_label": "salary"
+        }
+      },
+      "observed_row_count": 25575
+    },
+    "college": {
+      "source_label": "college",
+      "meaning": "Table labeled 'college' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "college_id": {
+          "type": "text",
+          "source_label": "college id"
+        },
+        "name_full": {
+          "type": "text",
+          "source_label": "name full"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "state": {
+          "type": "text",
+          "source_label": "state"
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "USA"
+          ]
+        }
+      },
+      "observed_row_count": 1207
+    },
+    "postseason": {
+      "source_label": "postseason",
+      "meaning": "Table labeled 'postseason' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "round": {
+          "type": "text",
+          "source_label": "round"
+        },
+        "team_id_winner": {
+          "type": "text",
+          "source_label": "team id winner"
+        },
+        "league_id_winner": {
+          "type": "text",
+          "source_label": "league id winner",
+          "observed_values": [
+            "NL",
+            "AA",
+            "AL"
+          ]
+        },
+        "team_id_loser": {
+          "type": "text",
+          "source_label": "team id loser"
+        },
+        "league_id_loser": {
+          "type": "text",
+          "source_label": "league id loser",
+          "observed_values": [
+            "AA",
+            "NL",
+            "AL"
+          ]
+        },
+        "wins": {
+          "type": "number",
+          "source_label": "wins"
+        },
+        "losses": {
+          "type": "number",
+          "source_label": "losses"
+        },
+        "ties": {
+          "type": "number",
+          "source_label": "ties"
+        }
+      },
+      "observed_row_count": 307
+    },
+    "team": {
+      "source_label": "team",
+      "meaning": "Table labeled 'team' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "NL",
+            "AA",
+            "UA",
+            "PL",
+            "AL",
+            "FL"
+          ]
+        },
+        "team_id": {
+          "type": "text",
+          "source_label": "team id"
+        },
+        "franchise_id": {
+          "type": "text",
+          "source_label": "franchise id"
+        },
+        "div_id": {
+          "type": "text",
+          "source_label": "div id",
+          "observed_values": [
+            "W",
+            "E",
+            "C"
+          ]
+        },
+        "rank": {
+          "type": "number",
+          "source_label": "rank"
+        },
+        "g": {
+          "type": "number",
+          "source_label": "g"
+        },
+        "ghome": {
+          "type": "number",
+          "source_label": "ghome"
+        },
+        "w": {
+          "type": "number",
+          "source_label": "w"
+        },
+        "l": {
+          "type": "number",
+          "source_label": "l"
+        },
+        "div_win": {
+          "type": "text",
+          "source_label": "div win",
+          "observed_values": [
+            "Y",
+            "N"
+          ]
+        },
+        "wc_win": {
+          "type": "text",
+          "source_label": "wc win",
+          "observed_values": [
+            "N",
+            "Y"
+          ]
+        },
+        "lg_win": {
+          "type": "text",
+          "source_label": "lg win",
+          "observed_values": [
+            "N",
+            "Y"
+          ]
+        },
+        "ws_win": {
+          "type": "text",
+          "source_label": "ws win",
+          "observed_values": [
+            "N",
+            "Y"
+          ]
+        },
+        "r": {
+          "type": "number",
+          "source_label": "r"
+        },
+        "ab": {
+          "type": "number",
+          "source_label": "ab"
+        },
+        "h": {
+          "type": "number",
+          "source_label": "h"
+        },
+        "double": {
+          "type": "number",
+          "source_label": "double"
+        },
+        "triple": {
+          "type": "number",
+          "source_label": "triple"
+        },
+        "hr": {
+          "type": "number",
+          "source_label": "hr"
+        },
+        "bb": {
+          "type": "number",
+          "source_label": "bb"
+        },
+        "so": {
+          "type": "number",
+          "source_label": "so"
+        },
+        "sb": {
+          "type": "number",
+          "source_label": "sb"
+        },
+        "cs": {
+          "type": "number",
+          "source_label": "cs"
+        },
+        "hbp": {
+          "type": "number",
+          "source_label": "hbp"
+        },
+        "sf": {
+          "type": "number",
+          "source_label": "sf"
+        },
+        "ra": {
+          "type": "number",
+          "source_label": "ra"
+        },
+        "er": {
+          "type": "number",
+          "source_label": "er"
+        },
+        "era": {
+          "type": "number",
+          "source_label": "era"
+        },
+        "cg": {
+          "type": "number",
+          "source_label": "cg"
+        },
+        "sho": {
+          "type": "number",
+          "source_label": "sho"
+        },
+        "sv": {
+          "type": "number",
+          "source_label": "sv"
+        },
+        "ipouts": {
+          "type": "number",
+          "source_label": "ipouts"
+        },
+        "ha": {
+          "type": "number",
+          "source_label": "ha"
+        },
+        "hra": {
+          "type": "number",
+          "source_label": "hra"
+        },
+        "bba": {
+          "type": "number",
+          "source_label": "bba"
+        },
+        "soa": {
+          "type": "number",
+          "source_label": "soa"
+        },
+        "e": {
+          "type": "number",
+          "source_label": "e"
+        },
+        "dp": {
+          "type": "number",
+          "source_label": "dp"
+        },
+        "fp": {
+          "type": "number",
+          "source_label": "fp"
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "park": {
+          "type": "text",
+          "source_label": "park"
+        },
+        "attendance": {
+          "type": "number",
+          "source_label": "attendance"
+        },
+        "bpf": {
+          "type": "number",
+          "source_label": "bpf"
+        },
+        "ppf": {
+          "type": "number",
+          "source_label": "ppf"
+        },
+        "team_id_br": {
+          "type": "text",
+          "source_label": "team id br"
+        },
+        "team_id_lahman45": {
+          "type": "text",
+          "source_label": "team id lahman45"
+        },
+        "team_id_retro": {
+          "type": "text",
+          "source_label": "team id retro"
+        }
+      },
+      "observed_row_count": 2805
+    },
+    "team_franchise": {
+      "source_label": "team franchise",
+      "meaning": "Table labeled 'team franchise' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "franchise_id": {
+          "type": "text",
+          "source_label": "franchise id"
+        },
+        "franchise_name": {
+          "type": "text",
+          "source_label": "franchise name"
+        },
+        "active": {
+          "type": "text",
+          "source_label": "active",
+          "observed_values": [
+            "N",
+            "Y"
+          ]
+        },
+        "na_assoc": {
+          "type": "text",
+          "source_label": "na assoc"
+        }
+      },
+      "observed_row_count": 120
+    },
+    "team_half": {
+      "source_label": "team half",
+      "meaning": "Table labeled 'team half' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "league_id": {
+          "type": "text",
+          "source_label": "league id",
+          "observed_values": [
+            "NL",
+            "AL"
+          ]
+        },
+        "team_id": {
+          "type": "text",
+          "source_label": "team id"
+        },
+        "half": {
+          "type": "number",
+          "source_label": "half"
+        },
+        "div_id": {
+          "type": "text",
+          "source_label": "div id",
+          "observed_values": [
+            "W",
+            "E"
+          ]
+        },
+        "div_win": {
+          "type": "text",
+          "source_label": "div win",
+          "observed_values": [
+            "N"
+          ]
+        },
+        "rank": {
+          "type": "number",
+          "source_label": "rank"
+        },
+        "g": {
+          "type": "number",
+          "source_label": "g"
+        },
+        "w": {
+          "type": "number",
+          "source_label": "w"
+        },
+        "l": {
+          "type": "number",
+          "source_label": "l"
+        }
+      },
+      "observed_row_count": 52
+    }
+  },
+  "terms": {
+    "all star": {
+      "maps_to": "all_star",
+      "source": "Spider normalized table name"
+    },
+    "manager award": {
+      "maps_to": "manager_award",
+      "source": "Spider normalized table name"
+    },
+    "player award": {
+      "maps_to": "player_award",
+      "source": "Spider normalized table name"
+    },
+    "manager award vote": {
+      "maps_to": "manager_award_vote",
+      "source": "Spider normalized table name"
+    },
+    "player award vote": {
+      "maps_to": "player_award_vote",
+      "source": "Spider normalized table name"
+    },
+    "batting postseason": {
+      "maps_to": "batting_postseason",
+      "source": "Spider normalized table name"
+    },
+    "player college": {
+      "maps_to": "player_college",
+      "source": "Spider normalized table name"
+    },
+    "fielding outfield": {
+      "maps_to": "fielding_outfield",
+      "source": "Spider normalized table name"
+    },
+    "fielding postseason": {
+      "maps_to": "fielding_postseason",
+      "source": "Spider normalized table name"
+    },
+    "hall of fame": {
+      "maps_to": "hall_of_fame",
+      "source": "Spider normalized table name"
+    },
+    "home game": {
+      "maps_to": "home_game",
+      "source": "Spider normalized table name"
+    },
+    "manager half": {
+      "maps_to": "manager_half",
+      "source": "Spider normalized table name"
+    },
+    "pitching postseason": {
+      "maps_to": "pitching_postseason",
+      "source": "Spider normalized table name"
+    },
+    "team franchise": {
+      "maps_to": "team_franchise",
+      "source": "Spider normalized table name"
+    },
+    "team half": {
+      "maps_to": "team_half",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "all_star__row_count": {
+      "meaning": "Number of rows in all_star.",
+      "base_table": "all_star",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "appearances__row_count": {
+      "meaning": "Number of rows in appearances.",
+      "base_table": "appearances",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "manager_award__row_count": {
+      "meaning": "Number of rows in manager_award.",
+      "base_table": "manager_award",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "player_award__row_count": {
+      "meaning": "Number of rows in player_award.",
+      "base_table": "player_award",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "manager_award_vote__row_count": {
+      "meaning": "Number of rows in manager_award_vote.",
+      "base_table": "manager_award_vote",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "player_award_vote__row_count": {
+      "meaning": "Number of rows in player_award_vote.",
+      "base_table": "player_award_vote",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "batting__row_count": {
+      "meaning": "Number of rows in batting.",
+      "base_table": "batting",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "batting_postseason__row_count": {
+      "meaning": "Number of rows in batting_postseason.",
+      "base_table": "batting_postseason",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "player_college__row_count": {
+      "meaning": "Number of rows in player_college.",
+      "base_table": "player_college",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "fielding__row_count": {
+      "meaning": "Number of rows in fielding.",
+      "base_table": "fielding",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "fielding_outfield__row_count": {
+      "meaning": "Number of rows in fielding_outfield.",
+      "base_table": "fielding_outfield",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "fielding_postseason__row_count": {
+      "meaning": "Number of rows in fielding_postseason.",
+      "base_table": "fielding_postseason",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "hall_of_fame__row_count": {
+      "meaning": "Number of rows in hall_of_fame.",
+      "base_table": "hall_of_fame",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "home_game__row_count": {
+      "meaning": "Number of rows in home_game.",
+      "base_table": "home_game",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "manager__row_count": {
+      "meaning": "Number of rows in manager.",
+      "base_table": "manager",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "manager_half__row_count": {
+      "meaning": "Number of rows in manager_half.",
+      "base_table": "manager_half",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "player__row_count": {
+      "meaning": "Number of rows in player.",
+      "base_table": "player",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "park__row_count": {
+      "meaning": "Number of rows in park.",
+      "base_table": "park",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "pitching__row_count": {
+      "meaning": "Number of rows in pitching.",
+      "base_table": "pitching",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "pitching_postseason__row_count": {
+      "meaning": "Number of rows in pitching_postseason.",
+      "base_table": "pitching_postseason",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "salary__row_count": {
+      "meaning": "Number of rows in salary.",
+      "base_table": "salary",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "college__row_count": {
+      "meaning": "Number of rows in college.",
+      "base_table": "college",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "postseason__row_count": {
+      "meaning": "Number of rows in postseason.",
+      "base_table": "postseason",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "team__row_count": {
+      "meaning": "Number of rows in team.",
+      "base_table": "team",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "team_franchise__row_count": {
+      "meaning": "Number of rows in team_franchise.",
+      "base_table": "team_franchise",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "team_half__row_count": {
+      "meaning": "Number of rows in team_half.",
+      "base_table": "team_half",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

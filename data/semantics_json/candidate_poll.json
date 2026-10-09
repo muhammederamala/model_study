@@ -1,0 +1,154 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "candidate_poll",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "candidate": {
+      "source_label": "candidate",
+      "meaning": "Table labeled 'candidate' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Candidate_ID",
+      "primary_key_columns": [
+        "Candidate_ID"
+      ],
+      "columns": {
+        "Candidate_ID": {
+          "type": "number",
+          "source_label": "candidate id",
+          "primary_key": true
+        },
+        "People_ID": {
+          "type": "number",
+          "source_label": "people id",
+          "foreign_key": {
+            "table": "people",
+            "column": "People_ID"
+          }
+        },
+        "Poll_Source": {
+          "type": "text",
+          "source_label": "poll source",
+          "observed_values": [
+            "WNBC/Marist Poll",
+            "FOX News/Opinion Dynamics Poll",
+            "Newsweek Poll"
+          ]
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "Feb 12–15, 2007",
+            "Feb 13–14, 2007",
+            "Nov 9–10, 2006"
+          ]
+        },
+        "Support_rate": {
+          "type": "number",
+          "source_label": "support rate"
+        },
+        "Consider_rate": {
+          "type": "number",
+          "source_label": "consider rate"
+        },
+        "Oppose_rate": {
+          "type": "number",
+          "source_label": "oppose rate"
+        },
+        "Unsure_rate": {
+          "type": "number",
+          "source_label": "unsure rate"
+        }
+      },
+      "observed_row_count": 6
+    },
+    "people": {
+      "source_label": "people",
+      "meaning": "Table labeled 'people' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key People_ID",
+      "primary_key_columns": [
+        "People_ID"
+      ],
+      "columns": {
+        "People_ID": {
+          "type": "number",
+          "source_label": "people id",
+          "primary_key": true
+        },
+        "Sex": {
+          "type": "text",
+          "source_label": "sex",
+          "observed_values": [
+            "M",
+            "F"
+          ]
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Hubert Henno",
+            "Dominique Daquin",
+            "Stéphane Antiga",
+            "Laurent Capet",
+            "Frantz Granvorka",
+            "Vincent Montméat",
+            "Loïc De Kergret",
+            "Philippe Barça-Cysique",
+            "Guillaume Samica"
+          ]
+        },
+        "Date_of_Birth": {
+          "type": "text",
+          "source_label": "date of birth",
+          "observed_values": [
+            "06.10.1976",
+            "10.11.1972",
+            "03.02.1976",
+            "05.05.1972",
+            "10.03.1976",
+            "01.09.1977",
+            "20.08.1970",
+            "22.04.1977",
+            "28.09.1981"
+          ]
+        },
+        "Height": {
+          "type": "number",
+          "source_label": "height"
+        },
+        "Weight": {
+          "type": "number",
+          "source_label": "weight"
+        }
+      },
+      "observed_row_count": 9
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "candidate__row_count": {
+      "meaning": "Number of rows in candidate.",
+      "base_table": "candidate",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "people__row_count": {
+      "meaning": "Number of rows in people.",
+      "base_table": "people",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

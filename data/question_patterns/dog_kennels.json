@@ -1,0 +1,278 @@
+{
+  "db_id": "dog_kennels",
+  "n_questions": 82,
+  "n_questions_with_join": 36,
+  "join_pairs": [
+    {
+      "left": "dogs.owner_id",
+      "right": "owners.owner_id",
+      "n": 14
+    },
+    {
+      "left": "professionals.professional_id",
+      "right": "treatments.professional_id",
+      "n": 12
+    },
+    {
+      "left": "dogs.dog_id",
+      "right": "treatments.dog_id",
+      "n": 8
+    },
+    {
+      "left": "treatment_types.treatment_type_code",
+      "right": "treatments.treatment_type_code",
+      "n": 6
+    },
+    {
+      "left": "breeds.breed_code",
+      "right": "dogs.breed_code",
+      "n": 2
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 22
+    },
+    {
+      "fn": "AVG",
+      "target": "age",
+      "n": 6
+    },
+    {
+      "fn": "SUM",
+      "target": "cost_of_treatment",
+      "n": 4
+    },
+    {
+      "fn": "MAX",
+      "target": "age",
+      "n": 4
+    },
+    {
+      "fn": "SUM",
+      "target": "treatments.cost_of_treatment",
+      "n": 2
+    },
+    {
+      "fn": "AVG",
+      "target": "cost_of_treatment",
+      "n": 2
+    },
+    {
+      "fn": "COUNT",
+      "target": "dog_id",
+      "n": 2
+    },
+    {
+      "fn": "COUNT",
+      "target": "professional_id",
+      "n": 2
+    },
+    {
+      "fn": "MAX",
+      "target": "charge_amount",
+      "n": 2
+    }
+  ],
+  "column_clause_usage": {
+    "abandoned_yn": {
+      "where": 2
+    },
+    "age": {
+      "where": 4
+    },
+    "breed_code": {
+      "where": 2,
+      "group by": 2
+    },
+    "breed_name": {
+      "group by": 2
+    },
+    "city": {
+      "where": 2
+    },
+    "cost_of_treatment": {
+      "order by": 4,
+      "having": 2,
+      "where": 2
+    },
+    "date_of_treatment": {
+      "order by": 2
+    },
+    "dog_id": {
+      "where": 6,
+      "group by": 2
+    },
+    "owner_id": {
+      "group by": 6,
+      "where": 2
+    },
+    "professional_id": {
+      "group by": 6,
+      "where": 2
+    },
+    "state": {
+      "where": 8
+    },
+    "treatment_type_code": {
+      "group by": 2
+    }
+  },
+  "question_openers": {
+    "what is the": {
+      "AVG": 2,
+      "GROUP BY": 2,
+      "LIMIT 1": 2,
+      "subquery": 1,
+      "ORDER BY ... DESC": 1,
+      "COUNT": 1
+    },
+    "what are the": {
+      "GROUP BY": 2,
+      "subquery": 2,
+      "negation (NOT IN / EXCEPT)": 1,
+      "COUNT": 1,
+      "AVG": 1
+    },
+    "which owner has": {
+      "GROUP BY": 2,
+      "ORDER BY ... DESC": 2,
+      "LIMIT 1": 2,
+      "COUNT": 1
+    },
+    "tell me the": {
+      "COUNT": 2,
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "how many dogs": {
+      "COUNT": 3,
+      "subquery": 2,
+      "AVG": 1,
+      "negation (NOT IN / EXCEPT)": 1
+    },
+    "find the number": {
+      "COUNT": 3,
+      "negation (NOT IN / EXCEPT)": 2,
+      "subquery": 2
+    },
+    "which professionals have": {
+      "GROUP BY": 2,
+      "COUNT": 2,
+      "AVG": 1,
+      "subquery": 1
+    },
+    "give me the": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1,
+      "GROUP BY": 1,
+      "LIMIT 1": 1
+    },
+    "which owner owns": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "return the owner": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "which breed do": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "list the names": {
+      "GROUP BY": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1,
+      "subquery": 1
+    },
+    "which dogs are": {
+      "GROUP BY": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1,
+      "subquery": 1
+    },
+    "count the number": {
+      "COUNT": 2,
+      "AVG": 1,
+      "subquery": 1
+    },
+    "how many professionals": {
+      "COUNT": 2,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "which professionals live": {
+      "GROUP BY": 1,
+      "COUNT": 1,
+      "subquery": 1
+    },
+    "find the id,": {
+      "GROUP BY": 1,
+      "COUNT": 1,
+      "subquery": 1
+    },
+    "which dogs have": {
+      "GROUP BY": 1,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "find the owner": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1
+    },
+    "how many owners": {
+      "COUNT": 1,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "which states have": {
+      "INTERSECT": 1,
+      "subquery": 1
+    },
+    "find the states": {
+      "INTERSECT": 1,
+      "subquery": 1
+    },
+    "find the average": {
+      "AVG": 1,
+      "subquery": 1
+    },
+    "which first names": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "find the first": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "which professional did": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "find the id": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "how much does": {
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1
+    },
+    "show me the": {
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1
+    }
+  }
+}

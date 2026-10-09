@@ -1,0 +1,287 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "shop_membership",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "member": {
+      "source_label": "member",
+      "meaning": "Table labeled 'member' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Member_ID",
+      "primary_key_columns": [
+        "Member_ID"
+      ],
+      "columns": {
+        "Member_ID": {
+          "type": "number",
+          "source_label": "member id",
+          "primary_key": true
+        },
+        "Card_Number": {
+          "type": "text",
+          "source_label": "card number",
+          "observed_values": [
+            "LE99",
+            "LT98",
+            "RT91",
+            "RE95",
+            "OLB56",
+            "MLB4",
+            "SLB51",
+            "RCB32",
+            "LCB7",
+            "FS10"
+          ]
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Jeremy Jarmon",
+            "Myron Pryor",
+            "Corey Peters",
+            "Ventrell Jenkins",
+            "Braxton Kelley",
+            "Micah Johnson",
+            "Johnny Williams",
+            "Trevard Lindley",
+            "David Jones",
+            "Matt Lentz"
+          ]
+        },
+        "Hometown": {
+          "type": "text",
+          "source_label": "hometown",
+          "observed_values": [
+            "Collierville, Tennessee",
+            "Louisville, Kentucky",
+            "Columbia, South Carolina",
+            "LaGrange, Georgia",
+            "Fort Campbell, Kentucky",
+            "Jacksonville, Florida",
+            "Hiram, Georgia",
+            "Red Jacket, West Virginia",
+            "Simpsonville, South Carolina"
+          ]
+        },
+        "Level": {
+          "type": "number",
+          "source_label": "level"
+        }
+      },
+      "observed_row_count": 10
+    },
+    "branch": {
+      "source_label": "branch",
+      "meaning": "Table labeled 'branch' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Branch_ID",
+      "primary_key_columns": [
+        "Branch_ID"
+      ],
+      "columns": {
+        "Branch_ID": {
+          "type": "number",
+          "source_label": "branch id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Alexandre",
+            "Popert",
+            "Stanley",
+            "Zytogorski",
+            "Cochrane",
+            "Taverner",
+            "Saint Amant",
+            "Brooke Greville"
+          ]
+        },
+        "Open_year": {
+          "type": "text",
+          "source_label": "open year",
+          "observed_values": [
+            "2001",
+            "2009",
+            "2013",
+            "2012",
+            "2014",
+            "2015"
+          ]
+        },
+        "Address_road": {
+          "type": "text",
+          "source_label": "address road",
+          "observed_values": [
+            "Valleys Place",
+            "Oaks Crescent",
+            "Abbott Street",
+            "Abbey Rise",
+            "Brampton Road",
+            "Cecilia Avenue",
+            "Concord Road",
+            "Glebe Street"
+          ]
+        },
+        "City": {
+          "type": "text",
+          "source_label": "city",
+          "observed_values": [
+            "London",
+            "Oxford"
+          ]
+        },
+        "membership_amount": {
+          "type": "text",
+          "source_label": "membership amount",
+          "observed_values": [
+            "112",
+            "11",
+            "6",
+            "7",
+            "1418",
+            "56",
+            "91",
+            "31"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "membership_register_branch": {
+      "source_label": "membership register branch",
+      "meaning": "Table labeled 'membership register branch' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Member_ID",
+      "primary_key_columns": [
+        "Member_ID"
+      ],
+      "columns": {
+        "Member_ID": {
+          "type": "number",
+          "source_label": "member id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "member",
+            "column": "Member_ID"
+          }
+        },
+        "Branch_ID": {
+          "type": "text",
+          "source_label": "branch id",
+          "foreign_key": {
+            "table": "branch",
+            "column": "Branch_ID"
+          },
+          "observed_values": [
+            "1",
+            "4",
+            "5",
+            "6",
+            "2",
+            "8"
+          ]
+        },
+        "Register_Year": {
+          "type": "text",
+          "source_label": "register year",
+          "observed_values": [
+            "2016",
+            "2017"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "purchase": {
+      "source_label": "purchase",
+      "meaning": "Table labeled 'purchase' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Member_ID",
+      "primary_key_columns": [
+        "Member_ID"
+      ],
+      "columns": {
+        "Member_ID": {
+          "type": "number",
+          "source_label": "member id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "member",
+            "column": "Member_ID"
+          }
+        },
+        "Branch_ID": {
+          "type": "text",
+          "source_label": "branch id",
+          "foreign_key": {
+            "table": "branch",
+            "column": "Branch_ID"
+          },
+          "observed_values": [
+            "3",
+            "2",
+            "5",
+            "1",
+            "6"
+          ]
+        },
+        "Year": {
+          "type": "text",
+          "source_label": "year",
+          "observed_values": [
+            "2018",
+            "2017"
+          ]
+        },
+        "Total_pounds": {
+          "type": "number",
+          "source_label": "total pounds"
+        }
+      },
+      "observed_row_count": 8
+    }
+  },
+  "terms": {
+    "membership register branch": {
+      "maps_to": "membership_register_branch",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "member__row_count": {
+      "meaning": "Number of rows in member.",
+      "base_table": "member",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "branch__row_count": {
+      "meaning": "Number of rows in branch.",
+      "base_table": "branch",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "membership_register_branch__row_count": {
+      "meaning": "Number of rows in membership_register_branch.",
+      "base_table": "membership_register_branch",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "purchase__row_count": {
+      "meaning": "Number of rows in purchase.",
+      "base_table": "purchase",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

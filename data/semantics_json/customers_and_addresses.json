@@ -1,0 +1,365 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "customers_and_addresses",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Addresses": {
+      "source_label": "addresses",
+      "meaning": "Table labeled 'addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key address_id",
+      "primary_key_columns": [
+        "address_id"
+      ],
+      "columns": {
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "primary_key": true
+        },
+        "address_content": {
+          "type": "text",
+          "source_label": "address content"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "zip_postcode": {
+          "type": "text",
+          "source_label": "zip postcode"
+        },
+        "state_province_county": {
+          "type": "text",
+          "source_label": "state province county",
+          "observed_values": [
+            "Colorado",
+            "SouthCarolina",
+            "NewJersey",
+            "Arizona",
+            "Mississippi",
+            "Virginia",
+            "Florida",
+            "Texas",
+            "NewMexico",
+            "Arkansas",
+            "RhodeIsland",
+            "Kentucky"
+          ]
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "USA"
+          ]
+        },
+        "other_address_details": {
+          "type": "text",
+          "source_label": "other address details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Products": {
+      "source_label": "products",
+      "meaning": "Table labeled 'products' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key product_id",
+      "primary_key_columns": [
+        "product_id"
+      ],
+      "columns": {
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "primary_key": true
+        },
+        "product_details": {
+          "type": "text",
+          "source_label": "product details",
+          "observed_values": [
+            "Americano",
+            "Dove Chocolate",
+            "Latte"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Customers": {
+      "source_label": "customers",
+      "meaning": "Table labeled 'customers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key customer_id",
+      "primary_key_columns": [
+        "customer_id"
+      ],
+      "columns": {
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true
+        },
+        "payment_method": {
+          "type": "text",
+          "source_label": "payment method",
+          "observed_values": [
+            "Cash",
+            "Cheque",
+            "Credit Card"
+          ]
+        },
+        "customer_name": {
+          "type": "text",
+          "source_label": "customer name"
+        },
+        "date_became_customer": {
+          "type": "time",
+          "source_label": "date became customer"
+        },
+        "other_customer_details": {
+          "type": "text",
+          "source_label": "other customer details",
+          "observed_values": [
+            "VIP"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Customer_Addresses": {
+      "source_label": "customer addresses",
+      "meaning": "Table labeled 'customer addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers",
+            "column": "customer_id"
+          }
+        },
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "address_id"
+          }
+        },
+        "date_address_from": {
+          "type": "time",
+          "source_label": "date address from"
+        },
+        "address_type": {
+          "type": "text",
+          "source_label": "address type",
+          "observed_values": [
+            "Billing",
+            "Residential"
+          ]
+        },
+        "date_address_to": {
+          "type": "time",
+          "source_label": "date address to"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Customer_Contact_Channels": {
+      "source_label": "customer contact channels",
+      "meaning": "Table labeled 'customer contact channels' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers",
+            "column": "customer_id"
+          }
+        },
+        "channel_code": {
+          "type": "text",
+          "source_label": "channel code",
+          "observed_values": [
+            "Email",
+            "Cell",
+            "Handheld",
+            "Fax",
+            "Mobile"
+          ]
+        },
+        "active_from_date": {
+          "type": "time",
+          "source_label": "active from date"
+        },
+        "active_to_date": {
+          "type": "time",
+          "source_label": "active to date"
+        },
+        "contact_number": {
+          "type": "text",
+          "source_label": "contact number"
+        }
+      },
+      "observed_row_count": 20
+    },
+    "Customer_Orders": {
+      "source_label": "customer orders",
+      "meaning": "Table labeled 'customer orders' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key order_id",
+      "primary_key_columns": [
+        "order_id"
+      ],
+      "columns": {
+        "order_id": {
+          "type": "number",
+          "source_label": "order id",
+          "primary_key": true
+        },
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers",
+            "column": "customer_id"
+          }
+        },
+        "order_status": {
+          "type": "text",
+          "source_label": "order status",
+          "observed_values": [
+            "Cancelled",
+            "Delivered"
+          ]
+        },
+        "order_date": {
+          "type": "time",
+          "source_label": "order date"
+        },
+        "order_details": {
+          "type": "text",
+          "source_label": "order details",
+          "observed_values": [
+            "Second time"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Order_Items": {
+      "source_label": "order items",
+      "meaning": "Table labeled 'order items' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "order_id": {
+          "type": "number",
+          "source_label": "order id",
+          "foreign_key": {
+            "table": "Customer_Orders",
+            "column": "order_id"
+          }
+        },
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "foreign_key": {
+            "table": "Products",
+            "column": "product_id"
+          }
+        },
+        "order_quantity": {
+          "type": "text",
+          "source_label": "order quantity",
+          "observed_values": [
+            "5",
+            "9",
+            "2",
+            "6",
+            "8",
+            "1",
+            "7"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "customer addresses": {
+      "maps_to": "Customer_Addresses",
+      "source": "Spider normalized table name"
+    },
+    "customer contact channels": {
+      "maps_to": "Customer_Contact_Channels",
+      "source": "Spider normalized table name"
+    },
+    "customer orders": {
+      "maps_to": "Customer_Orders",
+      "source": "Spider normalized table name"
+    },
+    "order items": {
+      "maps_to": "Order_Items",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Addresses__row_count": {
+      "meaning": "Number of rows in Addresses.",
+      "base_table": "Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Products__row_count": {
+      "meaning": "Number of rows in Products.",
+      "base_table": "Products",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customers__row_count": {
+      "meaning": "Number of rows in Customers.",
+      "base_table": "Customers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customer_Addresses__row_count": {
+      "meaning": "Number of rows in Customer_Addresses.",
+      "base_table": "Customer_Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customer_Contact_Channels__row_count": {
+      "meaning": "Number of rows in Customer_Contact_Channels.",
+      "base_table": "Customer_Contact_Channels",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customer_Orders__row_count": {
+      "meaning": "Number of rows in Customer_Orders.",
+      "base_table": "Customer_Orders",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Order_Items__row_count": {
+      "meaning": "Number of rows in Order_Items.",
+      "base_table": "Order_Items",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

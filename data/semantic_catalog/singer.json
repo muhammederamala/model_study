@@ -1,0 +1,259 @@
+{
+  "format_version": "1.0",
+  "db_id": "singer",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "singer": {
+      "source_label": "singer",
+      "meaning": "Table labeled 'singer' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Singer_ID"
+      ],
+      "columns": {
+        "Singer_ID": {
+          "type": "number",
+          "source_label": "singer id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Liliane Bettencourt",
+            "Christy Walton",
+            "Alice Walton",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Gina Rinehart",
+            "Susanne Klatten",
+            "Abigail Johnson"
+          ]
+        },
+        "Birth_Year": {
+          "type": "number",
+          "source_label": "birth year"
+        },
+        "Net_Worth_Millions": {
+          "type": "number",
+          "source_label": "net worth millions"
+        },
+        "Citizenship": {
+          "type": "text",
+          "source_label": "citizenship",
+          "observed_values": [
+            "France",
+            "United States",
+            "Chile",
+            "Australia",
+            "Germany"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "song": {
+      "source_label": "song",
+      "meaning": "Table labeled 'song' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Song_ID"
+      ],
+      "columns": {
+        "Song_ID": {
+          "type": "number",
+          "source_label": "song id",
+          "primary_key": true
+        },
+        "Title": {
+          "type": "text",
+          "source_label": "title",
+          "observed_values": [
+            "Do They Know It's Christmas",
+            "F**k It (I Don't Want You Back)",
+            "Cha Cha Slide",
+            "Call on Me",
+            "Yeah",
+            "All This Time",
+            "Left Outside Alone",
+            "Mysterious Girl"
+          ]
+        },
+        "Singer_ID": {
+          "type": "number",
+          "source_label": "singer id",
+          "foreign_key": {
+            "table": "singer",
+            "column": "Singer_ID"
+          }
+        },
+        "Sales": {
+          "type": "number",
+          "source_label": "sales"
+        },
+        "Highest_Position": {
+          "type": "number",
+          "source_label": "highest position"
+        }
+      },
+      "observed_row_count": 8
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "song",
+      "from_column": "Singer_ID",
+      "to_table": "singer",
+      "to_column": "Singer_ID",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {},
+  "metrics": {
+    "singer__row_count": {
+      "meaning": "Number of rows in singer.",
+      "base_table": "singer",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "song__row_count": {
+      "meaning": "Number of rows in song.",
+      "base_table": "song",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "singer",
+      "column": "Name",
+      "value": "Abigail Johnson",
+      "key": "abigail johnson"
+    },
+    {
+      "table": "singer",
+      "column": "Name",
+      "value": "Alice Walton",
+      "key": "alice walton"
+    },
+    {
+      "table": "song",
+      "column": "Title",
+      "value": "All This Time",
+      "key": "all this time"
+    },
+    {
+      "table": "singer",
+      "column": "Citizenship",
+      "value": "Australia",
+      "key": "australia"
+    },
+    {
+      "table": "song",
+      "column": "Title",
+      "value": "Call on Me",
+      "key": "call on me"
+    },
+    {
+      "table": "song",
+      "column": "Title",
+      "value": "Cha Cha Slide",
+      "key": "cha cha slide"
+    },
+    {
+      "table": "singer",
+      "column": "Citizenship",
+      "value": "Chile",
+      "key": "chile"
+    },
+    {
+      "table": "singer",
+      "column": "Name",
+      "value": "Christy Walton",
+      "key": "christy walton"
+    },
+    {
+      "table": "song",
+      "column": "Title",
+      "value": "Do They Know It's Christmas",
+      "key": "do they know it s christmas"
+    },
+    {
+      "table": "song",
+      "column": "Title",
+      "value": "F**k It (I Don't Want You Back)",
+      "key": "f k it i don t want you back"
+    },
+    {
+      "table": "singer",
+      "column": "Citizenship",
+      "value": "France",
+      "key": "france"
+    },
+    {
+      "table": "singer",
+      "column": "Citizenship",
+      "value": "Germany",
+      "key": "germany"
+    },
+    {
+      "table": "singer",
+      "column": "Name",
+      "value": "Gina Rinehart",
+      "key": "gina rinehart"
+    },
+    {
+      "table": "singer",
+      "column": "Name",
+      "value": "Iris Fontbona",
+      "key": "iris fontbona"
+    },
+    {
+      "table": "singer",
+      "column": "Name",
+      "value": "Jacqueline Mars",
+      "key": "jacqueline mars"
+    },
+    {
+      "table": "song",
+      "column": "Title",
+      "value": "Left Outside Alone",
+      "key": "left outside alone"
+    },
+    {
+      "table": "singer",
+      "column": "Name",
+      "value": "Liliane Bettencourt",
+      "key": "liliane bettencourt"
+    },
+    {
+      "table": "song",
+      "column": "Title",
+      "value": "Mysterious Girl",
+      "key": "mysterious girl"
+    },
+    {
+      "table": "singer",
+      "column": "Name",
+      "value": "Susanne Klatten",
+      "key": "susanne klatten"
+    },
+    {
+      "table": "singer",
+      "column": "Citizenship",
+      "value": "United States",
+      "key": "united states"
+    },
+    {
+      "table": "song",
+      "column": "Title",
+      "value": "Yeah",
+      "key": "yeah"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

@@ -1,0 +1,784 @@
+{
+  "format_version": "1.0",
+  "db_id": "orchestra",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "conductor": {
+      "source_label": "conductor",
+      "meaning": "Table labeled 'conductor' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Conductor_ID"
+      ],
+      "columns": {
+        "Conductor_ID": {
+          "type": "number",
+          "source_label": "conductor id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Antal Doráti",
+            "Igor Stravinsky",
+            "Colin Davis",
+            "Paul Jorgensen",
+            "Antal Brown",
+            "Charles Dutoit",
+            "Gerard Schwarz",
+            "Pierre Boulez",
+            "Valeri Gergiev",
+            "Robert Craft",
+            "Seiji Ozawa",
+            "Michael Tilson Thomas"
+          ]
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Nationality": {
+          "type": "text",
+          "source_label": "nationality",
+          "observed_values": [
+            "USA",
+            "UK",
+            "France"
+          ]
+        },
+        "Year_of_Work": {
+          "type": "number",
+          "source_label": "year of work"
+        }
+      },
+      "observed_row_count": 12
+    },
+    "orchestra": {
+      "source_label": "orchestra",
+      "meaning": "Table labeled 'orchestra' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Orchestra_ID"
+      ],
+      "columns": {
+        "Orchestra_ID": {
+          "type": "number",
+          "source_label": "orchestra id",
+          "primary_key": true
+        },
+        "Orchestra": {
+          "type": "text",
+          "source_label": "orchestra",
+          "observed_values": [
+            "London Symphony Orchestra",
+            "Columbia Symphony Orchestra",
+            "Royal Concertgebouw Orchestra",
+            "Royal Danish Orchestra",
+            "Detroit Symphony Orchestra",
+            "Montreal Symphony Orchestra",
+            "Seattle Symphony Orchestra",
+            "Chicago Symphony Orchestra",
+            "Kirov Orchestra",
+            "Philharmonia Orchestra",
+            "Orchestre de Paris",
+            "San Francisco Symphony Orchestra"
+          ]
+        },
+        "Conductor_ID": {
+          "type": "number",
+          "source_label": "conductor id",
+          "foreign_key": {
+            "table": "conductor",
+            "column": "Conductor_ID"
+          }
+        },
+        "Record_Company": {
+          "type": "text",
+          "source_label": "record company",
+          "observed_values": [
+            "Mercury Records",
+            "Columbia Masterworks",
+            "Philips",
+            "Kultur",
+            "Decca Records",
+            "Delos Records",
+            "Deutsche Grammophon",
+            "Philips Classics Records",
+            "Koch Records / Naxos Records",
+            "EMI",
+            "RCA"
+          ]
+        },
+        "Year_of_Founded": {
+          "type": "number",
+          "source_label": "year of founded"
+        },
+        "Major_Record_Format": {
+          "type": "text",
+          "source_label": "major record format",
+          "observed_values": [
+            "CD",
+            "CD / LP",
+            "DVD"
+          ]
+        }
+      },
+      "observed_row_count": 12
+    },
+    "performance": {
+      "source_label": "performance",
+      "meaning": "Table labeled 'performance' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Performance_ID"
+      ],
+      "columns": {
+        "Performance_ID": {
+          "type": "number",
+          "source_label": "performance id",
+          "primary_key": true
+        },
+        "Orchestra_ID": {
+          "type": "number",
+          "source_label": "orchestra id",
+          "foreign_key": {
+            "table": "orchestra",
+            "column": "Orchestra_ID"
+          }
+        },
+        "Type": {
+          "type": "text",
+          "source_label": "type",
+          "observed_values": [
+            "Auditions 1",
+            "Auditions 2",
+            "Auditions 3",
+            "Auditions 4",
+            "Auditions 5",
+            "Semi-final 1",
+            "Semi-final 2",
+            "Semi-final 3",
+            "Live final",
+            "Live final results",
+            "Series average"
+          ]
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "9 June",
+            "10 June",
+            "11 June",
+            "12 June",
+            "13 June",
+            "14 June",
+            "15 June",
+            "16 June",
+            "17 June",
+            "2007"
+          ]
+        },
+        "Official_ratings_(millions)": {
+          "type": "number",
+          "source_label": "official ratings (millions)"
+        },
+        "Weekly_rank": {
+          "type": "text",
+          "source_label": "weekly rank",
+          "observed_values": [
+            "12",
+            "8",
+            "15",
+            "13",
+            "11",
+            "9",
+            "7",
+            "1",
+            "2",
+            "TBC"
+          ]
+        },
+        "Share": {
+          "type": "text",
+          "source_label": "share",
+          "observed_values": [
+            "22.7%",
+            "28.0%",
+            "29.4%",
+            "29.3%",
+            "29.2%",
+            "34.0%",
+            "38.1%",
+            "40.9%",
+            "43.7%",
+            "44.7%",
+            "34%"
+          ]
+        }
+      },
+      "observed_row_count": 11
+    },
+    "show": {
+      "source_label": "show",
+      "meaning": "Table labeled 'show' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [],
+      "columns": {
+        "Show_ID": {
+          "type": "number",
+          "source_label": "show id"
+        },
+        "Performance_ID": {
+          "type": "number",
+          "source_label": "performance id",
+          "foreign_key": {
+            "table": "performance",
+            "column": "Performance_ID"
+          }
+        },
+        "If_first_show": {
+          "type": "others",
+          "source_label": "if first show"
+        },
+        "Result": {
+          "type": "text",
+          "source_label": "result",
+          "observed_values": [
+            "T",
+            "F"
+          ]
+        },
+        "Attendance": {
+          "type": "number",
+          "source_label": "attendance"
+        }
+      },
+      "observed_row_count": 5
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "orchestra",
+      "from_column": "Conductor_ID",
+      "to_table": "conductor",
+      "to_column": "Conductor_ID",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "performance",
+      "from_column": "Orchestra_ID",
+      "to_table": "orchestra",
+      "to_column": "Orchestra_ID",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "show",
+      "from_column": "Performance_ID",
+      "to_table": "performance",
+      "to_column": "Performance_ID",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {},
+  "metrics": {
+    "conductor__row_count": {
+      "meaning": "Number of rows in conductor.",
+      "base_table": "conductor",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "orchestra__row_count": {
+      "meaning": "Number of rows in orchestra.",
+      "base_table": "orchestra",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "performance__row_count": {
+      "meaning": "Number of rows in performance.",
+      "base_table": "performance",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "show__row_count": {
+      "meaning": "Number of rows in show.",
+      "base_table": "show",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "performance",
+      "column": "Date",
+      "value": "10 June",
+      "key": "10 june"
+    },
+    {
+      "table": "performance",
+      "column": "Weekly_rank",
+      "value": "11",
+      "key": "11"
+    },
+    {
+      "table": "performance",
+      "column": "Date",
+      "value": "11 June",
+      "key": "11 june"
+    },
+    {
+      "table": "performance",
+      "column": "Weekly_rank",
+      "value": "12",
+      "key": "12"
+    },
+    {
+      "table": "performance",
+      "column": "Date",
+      "value": "12 June",
+      "key": "12 june"
+    },
+    {
+      "table": "performance",
+      "column": "Weekly_rank",
+      "value": "13",
+      "key": "13"
+    },
+    {
+      "table": "performance",
+      "column": "Date",
+      "value": "13 June",
+      "key": "13 june"
+    },
+    {
+      "table": "performance",
+      "column": "Date",
+      "value": "14 June",
+      "key": "14 june"
+    },
+    {
+      "table": "performance",
+      "column": "Weekly_rank",
+      "value": "15",
+      "key": "15"
+    },
+    {
+      "table": "performance",
+      "column": "Date",
+      "value": "15 June",
+      "key": "15 june"
+    },
+    {
+      "table": "performance",
+      "column": "Date",
+      "value": "16 June",
+      "key": "16 june"
+    },
+    {
+      "table": "performance",
+      "column": "Date",
+      "value": "17 June",
+      "key": "17 june"
+    },
+    {
+      "table": "performance",
+      "column": "Date",
+      "value": "2007",
+      "key": "2007"
+    },
+    {
+      "table": "performance",
+      "column": "Share",
+      "value": "22.7%",
+      "key": "22 7"
+    },
+    {
+      "table": "performance",
+      "column": "Share",
+      "value": "28.0%",
+      "key": "28 0"
+    },
+    {
+      "table": "performance",
+      "column": "Share",
+      "value": "29.2%",
+      "key": "29 2"
+    },
+    {
+      "table": "performance",
+      "column": "Share",
+      "value": "29.3%",
+      "key": "29 3"
+    },
+    {
+      "table": "performance",
+      "column": "Share",
+      "value": "29.4%",
+      "key": "29 4"
+    },
+    {
+      "table": "performance",
+      "column": "Share",
+      "value": "34%",
+      "key": "34"
+    },
+    {
+      "table": "performance",
+      "column": "Share",
+      "value": "34.0%",
+      "key": "34 0"
+    },
+    {
+      "table": "performance",
+      "column": "Share",
+      "value": "38.1%",
+      "key": "38 1"
+    },
+    {
+      "table": "performance",
+      "column": "Share",
+      "value": "40.9%",
+      "key": "40 9"
+    },
+    {
+      "table": "performance",
+      "column": "Share",
+      "value": "43.7%",
+      "key": "43 7"
+    },
+    {
+      "table": "performance",
+      "column": "Share",
+      "value": "44.7%",
+      "key": "44 7"
+    },
+    {
+      "table": "performance",
+      "column": "Date",
+      "value": "9 June",
+      "key": "9 june"
+    },
+    {
+      "table": "conductor",
+      "column": "Name",
+      "value": "Antal Brown",
+      "key": "antal brown"
+    },
+    {
+      "table": "conductor",
+      "column": "Name",
+      "value": "Antal Doráti",
+      "key": "antal doráti"
+    },
+    {
+      "table": "performance",
+      "column": "Type",
+      "value": "Auditions 1",
+      "key": "auditions 1"
+    },
+    {
+      "table": "performance",
+      "column": "Type",
+      "value": "Auditions 2",
+      "key": "auditions 2"
+    },
+    {
+      "table": "performance",
+      "column": "Type",
+      "value": "Auditions 3",
+      "key": "auditions 3"
+    },
+    {
+      "table": "performance",
+      "column": "Type",
+      "value": "Auditions 4",
+      "key": "auditions 4"
+    },
+    {
+      "table": "performance",
+      "column": "Type",
+      "value": "Auditions 5",
+      "key": "auditions 5"
+    },
+    {
+      "table": "orchestra",
+      "column": "Major_Record_Format",
+      "value": "CD",
+      "key": "cd"
+    },
+    {
+      "table": "orchestra",
+      "column": "Major_Record_Format",
+      "value": "CD / LP",
+      "key": "cd lp"
+    },
+    {
+      "table": "conductor",
+      "column": "Name",
+      "value": "Charles Dutoit",
+      "key": "charles dutoit"
+    },
+    {
+      "table": "orchestra",
+      "column": "Orchestra",
+      "value": "Chicago Symphony Orchestra",
+      "key": "chicago symphony orchestra"
+    },
+    {
+      "table": "conductor",
+      "column": "Name",
+      "value": "Colin Davis",
+      "key": "colin davis"
+    },
+    {
+      "table": "orchestra",
+      "column": "Record_Company",
+      "value": "Columbia Masterworks",
+      "key": "columbia masterworks"
+    },
+    {
+      "table": "orchestra",
+      "column": "Orchestra",
+      "value": "Columbia Symphony Orchestra",
+      "key": "columbia symphony orchestra"
+    },
+    {
+      "table": "orchestra",
+      "column": "Record_Company",
+      "value": "Decca Records",
+      "key": "decca records"
+    },
+    {
+      "table": "orchestra",
+      "column": "Record_Company",
+      "value": "Delos Records",
+      "key": "delos records"
+    },
+    {
+      "table": "orchestra",
+      "column": "Orchestra",
+      "value": "Detroit Symphony Orchestra",
+      "key": "detroit symphony orchestra"
+    },
+    {
+      "table": "orchestra",
+      "column": "Record_Company",
+      "value": "Deutsche Grammophon",
+      "key": "deutsche grammophon"
+    },
+    {
+      "table": "orchestra",
+      "column": "Major_Record_Format",
+      "value": "DVD",
+      "key": "dvd"
+    },
+    {
+      "table": "orchestra",
+      "column": "Record_Company",
+      "value": "EMI",
+      "key": "emi"
+    },
+    {
+      "table": "conductor",
+      "column": "Nationality",
+      "value": "France",
+      "key": "france"
+    },
+    {
+      "table": "conductor",
+      "column": "Name",
+      "value": "Gerard Schwarz",
+      "key": "gerard schwarz"
+    },
+    {
+      "table": "conductor",
+      "column": "Name",
+      "value": "Igor Stravinsky",
+      "key": "igor stravinsky"
+    },
+    {
+      "table": "orchestra",
+      "column": "Orchestra",
+      "value": "Kirov Orchestra",
+      "key": "kirov orchestra"
+    },
+    {
+      "table": "orchestra",
+      "column": "Record_Company",
+      "value": "Koch Records / Naxos Records",
+      "key": "koch records naxos records"
+    },
+    {
+      "table": "orchestra",
+      "column": "Record_Company",
+      "value": "Kultur",
+      "key": "kultur"
+    },
+    {
+      "table": "performance",
+      "column": "Type",
+      "value": "Live final",
+      "key": "live final"
+    },
+    {
+      "table": "performance",
+      "column": "Type",
+      "value": "Live final results",
+      "key": "live final results"
+    },
+    {
+      "table": "orchestra",
+      "column": "Orchestra",
+      "value": "London Symphony Orchestra",
+      "key": "london symphony orchestra"
+    },
+    {
+      "table": "orchestra",
+      "column": "Record_Company",
+      "value": "Mercury Records",
+      "key": "mercury records"
+    },
+    {
+      "table": "conductor",
+      "column": "Name",
+      "value": "Michael Tilson Thomas",
+      "key": "michael tilson thomas"
+    },
+    {
+      "table": "orchestra",
+      "column": "Orchestra",
+      "value": "Montreal Symphony Orchestra",
+      "key": "montreal symphony orchestra"
+    },
+    {
+      "table": "orchestra",
+      "column": "Orchestra",
+      "value": "Orchestre de Paris",
+      "key": "orchestre de paris"
+    },
+    {
+      "table": "conductor",
+      "column": "Name",
+      "value": "Paul Jorgensen",
+      "key": "paul jorgensen"
+    },
+    {
+      "table": "orchestra",
+      "column": "Orchestra",
+      "value": "Philharmonia Orchestra",
+      "key": "philharmonia orchestra"
+    },
+    {
+      "table": "orchestra",
+      "column": "Record_Company",
+      "value": "Philips",
+      "key": "philips"
+    },
+    {
+      "table": "orchestra",
+      "column": "Record_Company",
+      "value": "Philips Classics Records",
+      "key": "philips classics records"
+    },
+    {
+      "table": "conductor",
+      "column": "Name",
+      "value": "Pierre Boulez",
+      "key": "pierre boulez"
+    },
+    {
+      "table": "orchestra",
+      "column": "Record_Company",
+      "value": "RCA",
+      "key": "rca"
+    },
+    {
+      "table": "conductor",
+      "column": "Name",
+      "value": "Robert Craft",
+      "key": "robert craft"
+    },
+    {
+      "table": "orchestra",
+      "column": "Orchestra",
+      "value": "Royal Concertgebouw Orchestra",
+      "key": "royal concertgebouw orchestra"
+    },
+    {
+      "table": "orchestra",
+      "column": "Orchestra",
+      "value": "Royal Danish Orchestra",
+      "key": "royal danish orchestra"
+    },
+    {
+      "table": "orchestra",
+      "column": "Orchestra",
+      "value": "San Francisco Symphony Orchestra",
+      "key": "san francisco symphony orchestra"
+    },
+    {
+      "table": "orchestra",
+      "column": "Orchestra",
+      "value": "Seattle Symphony Orchestra",
+      "key": "seattle symphony orchestra"
+    },
+    {
+      "table": "conductor",
+      "column": "Name",
+      "value": "Seiji Ozawa",
+      "key": "seiji ozawa"
+    },
+    {
+      "table": "performance",
+      "column": "Type",
+      "value": "Semi-final 1",
+      "key": "semi final 1"
+    },
+    {
+      "table": "performance",
+      "column": "Type",
+      "value": "Semi-final 2",
+      "key": "semi final 2"
+    },
+    {
+      "table": "performance",
+      "column": "Type",
+      "value": "Semi-final 3",
+      "key": "semi final 3"
+    },
+    {
+      "table": "performance",
+      "column": "Type",
+      "value": "Series average",
+      "key": "series average"
+    },
+    {
+      "table": "performance",
+      "column": "Weekly_rank",
+      "value": "TBC",
+      "key": "tbc"
+    },
+    {
+      "table": "conductor",
+      "column": "Nationality",
+      "value": "UK",
+      "key": "uk"
+    },
+    {
+      "table": "conductor",
+      "column": "Nationality",
+      "value": "USA",
+      "key": "usa"
+    },
+    {
+      "table": "conductor",
+      "column": "Name",
+      "value": "Valeri Gergiev",
+      "key": "valeri gergiev"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

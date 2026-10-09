@@ -1,0 +1,653 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "chinook_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Album": {
+      "source_label": "album",
+      "meaning": "Table labeled 'album' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key AlbumId",
+      "primary_key_columns": [
+        "AlbumId"
+      ],
+      "columns": {
+        "AlbumId": {
+          "type": "number",
+          "source_label": "album id",
+          "primary_key": true
+        },
+        "Title": {
+          "type": "text",
+          "source_label": "title"
+        },
+        "ArtistId": {
+          "type": "number",
+          "source_label": "artist id",
+          "foreign_key": {
+            "table": "Artist",
+            "column": "ArtistId"
+          }
+        }
+      },
+      "observed_row_count": 347
+    },
+    "Artist": {
+      "source_label": "artist",
+      "meaning": "Table labeled 'artist' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key ArtistId",
+      "primary_key_columns": [
+        "ArtistId"
+      ],
+      "columns": {
+        "ArtistId": {
+          "type": "number",
+          "source_label": "artist id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name"
+        }
+      },
+      "observed_row_count": 275
+    },
+    "Customer": {
+      "source_label": "customer",
+      "meaning": "Table labeled 'customer' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key CustomerId",
+      "primary_key_columns": [
+        "CustomerId"
+      ],
+      "columns": {
+        "CustomerId": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true
+        },
+        "FirstName": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "LastName": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "Company": {
+          "type": "text",
+          "source_label": "company",
+          "observed_values": [
+            "Embraer - Empresa Brasileira de Aeronáutica S.A.",
+            "JetBrains s.r.o.",
+            "Woodstock Discos",
+            "Banco do Brasil S.A.",
+            "Riotur",
+            "Telus",
+            "Rogers Canada",
+            "Google Inc.",
+            "Microsoft Corporation",
+            "Apple Inc."
+          ]
+        },
+        "Address": {
+          "type": "text",
+          "source_label": "address"
+        },
+        "City": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "State": {
+          "type": "text",
+          "source_label": "state"
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country"
+        },
+        "PostalCode": {
+          "type": "text",
+          "source_label": "postal code"
+        },
+        "Phone": {
+          "type": "text",
+          "source_label": "phone"
+        },
+        "Fax": {
+          "type": "text",
+          "source_label": "fax",
+          "observed_values": [
+            "+55 (12) 3923-5566",
+            "+420 2 4172 5555",
+            "+55 (11) 3033-4564",
+            "+55 (11) 3055-8131",
+            "+55 (21) 2271-7070",
+            "+55 (61) 3363-7855",
+            "+1 (780) 434-5565",
+            "+1 (604) 688-8756",
+            "+1 (650) 253-0000",
+            "+1 (425) 882-8081",
+            "+1 (212) 221-4679",
+            "+1 (408) 996-1011"
+          ]
+        },
+        "Email": {
+          "type": "text",
+          "source_label": "email"
+        },
+        "SupportRepId": {
+          "type": "number",
+          "source_label": "support representative id",
+          "foreign_key": {
+            "table": "Employee",
+            "column": "EmployeeId"
+          }
+        }
+      },
+      "observed_row_count": 59
+    },
+    "Employee": {
+      "source_label": "employee",
+      "meaning": "Table labeled 'employee' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key EmployeeId",
+      "primary_key_columns": [
+        "EmployeeId"
+      ],
+      "columns": {
+        "EmployeeId": {
+          "type": "number",
+          "source_label": "employee id",
+          "primary_key": true
+        },
+        "LastName": {
+          "type": "text",
+          "source_label": "last name",
+          "observed_values": [
+            "Adams",
+            "Edwards",
+            "Peacock",
+            "Park",
+            "Johnson",
+            "Mitchell",
+            "King",
+            "Callahan"
+          ]
+        },
+        "FirstName": {
+          "type": "text",
+          "source_label": "first name",
+          "observed_values": [
+            "Andrew",
+            "Nancy",
+            "Jane",
+            "Margaret",
+            "Steve",
+            "Michael",
+            "Robert",
+            "Laura"
+          ]
+        },
+        "Title": {
+          "type": "text",
+          "source_label": "title",
+          "observed_values": [
+            "General Manager",
+            "Sales Manager",
+            "Sales Support Agent",
+            "IT Manager",
+            "IT Staff"
+          ]
+        },
+        "ReportsTo": {
+          "type": "number",
+          "source_label": "reports to",
+          "foreign_key": {
+            "table": "Employee",
+            "column": "EmployeeId"
+          }
+        },
+        "BirthDate": {
+          "type": "time",
+          "source_label": "birth date"
+        },
+        "HireDate": {
+          "type": "time",
+          "source_label": "hire date"
+        },
+        "Address": {
+          "type": "text",
+          "source_label": "address",
+          "observed_values": [
+            "11120 Jasper Ave NW",
+            "825 8 Ave SW",
+            "1111 6 Ave SW",
+            "683 10 Street SW",
+            "7727B 41 Ave",
+            "5827 Bowness Road NW",
+            "590 Columbia Boulevard West",
+            "923 7 ST NW"
+          ]
+        },
+        "City": {
+          "type": "text",
+          "source_label": "city",
+          "observed_values": [
+            "Edmonton",
+            "Calgary",
+            "Lethbridge"
+          ]
+        },
+        "State": {
+          "type": "text",
+          "source_label": "state",
+          "observed_values": [
+            "AB"
+          ]
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "Canada"
+          ]
+        },
+        "PostalCode": {
+          "type": "text",
+          "source_label": "postal code",
+          "observed_values": [
+            "T5K 2N1",
+            "T2P 2T3",
+            "T2P 5M5",
+            "T2P 5G3",
+            "T3B 1Y7",
+            "T3B 0C5",
+            "T1K 5N8",
+            "T1H 1Y8"
+          ]
+        },
+        "Phone": {
+          "type": "text",
+          "source_label": "phone",
+          "observed_values": [
+            "+1 (780) 428-9482",
+            "+1 (403) 262-3443",
+            "+1 (403) 263-4423",
+            "1 (780) 836-9987",
+            "+1 (403) 246-9887",
+            "+1 (403) 456-9986",
+            "+1 (403) 467-3351"
+          ]
+        },
+        "Fax": {
+          "type": "text",
+          "source_label": "fax",
+          "observed_values": [
+            "+1 (780) 428-3457",
+            "+1 (403) 262-3322",
+            "+1 (403) 262-6712",
+            "+1 (403) 263-4289",
+            "1 (780) 836-9543",
+            "+1 (403) 246-9899",
+            "+1 (403) 456-8485",
+            "+1 (403) 467-8772"
+          ]
+        },
+        "Email": {
+          "type": "text",
+          "source_label": "email",
+          "observed_values": [
+            "andrew@chinookcorp.com",
+            "nancy@chinookcorp.com",
+            "jane@chinookcorp.com",
+            "margaret@chinookcorp.com",
+            "steve@chinookcorp.com",
+            "michael@chinookcorp.com",
+            "robert@chinookcorp.com",
+            "laura@chinookcorp.com"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "Genre": {
+      "source_label": "genre",
+      "meaning": "Table labeled 'genre' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key GenreId",
+      "primary_key_columns": [
+        "GenreId"
+      ],
+      "columns": {
+        "GenreId": {
+          "type": "number",
+          "source_label": "genre id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name"
+        }
+      },
+      "observed_row_count": 25
+    },
+    "Invoice": {
+      "source_label": "invoice",
+      "meaning": "Table labeled 'invoice' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key InvoiceId",
+      "primary_key_columns": [
+        "InvoiceId"
+      ],
+      "columns": {
+        "InvoiceId": {
+          "type": "number",
+          "source_label": "invoice id",
+          "primary_key": true
+        },
+        "CustomerId": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customer",
+            "column": "CustomerId"
+          }
+        },
+        "InvoiceDate": {
+          "type": "time",
+          "source_label": "invoice date"
+        },
+        "BillingAddress": {
+          "type": "text",
+          "source_label": "billing address"
+        },
+        "BillingCity": {
+          "type": "text",
+          "source_label": "billing city"
+        },
+        "BillingState": {
+          "type": "text",
+          "source_label": "billing state"
+        },
+        "BillingCountry": {
+          "type": "text",
+          "source_label": "billing country"
+        },
+        "BillingPostalCode": {
+          "type": "text",
+          "source_label": "billing postal code"
+        },
+        "Total": {
+          "type": "number",
+          "source_label": "total"
+        }
+      },
+      "observed_row_count": 412
+    },
+    "InvoiceLine": {
+      "source_label": "invoice line",
+      "meaning": "Table labeled 'invoice line' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key InvoiceLineId",
+      "primary_key_columns": [
+        "InvoiceLineId"
+      ],
+      "columns": {
+        "InvoiceLineId": {
+          "type": "number",
+          "source_label": "invoice line id",
+          "primary_key": true
+        },
+        "InvoiceId": {
+          "type": "number",
+          "source_label": "invoice id",
+          "foreign_key": {
+            "table": "Invoice",
+            "column": "InvoiceId"
+          }
+        },
+        "TrackId": {
+          "type": "number",
+          "source_label": "track id",
+          "foreign_key": {
+            "table": "Track",
+            "column": "TrackId"
+          }
+        },
+        "UnitPrice": {
+          "type": "number",
+          "source_label": "unit price"
+        },
+        "Quantity": {
+          "type": "number",
+          "source_label": "quantity"
+        }
+      },
+      "observed_row_count": 2240
+    },
+    "MediaType": {
+      "source_label": "media type",
+      "meaning": "Table labeled 'media type' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key MediaTypeId",
+      "primary_key_columns": [
+        "MediaTypeId"
+      ],
+      "columns": {
+        "MediaTypeId": {
+          "type": "number",
+          "source_label": "media type id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "MPEG audio file",
+            "Protected AAC audio file",
+            "Protected MPEG-4 video file",
+            "Purchased AAC audio file",
+            "AAC audio file"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "Playlist": {
+      "source_label": "playlist",
+      "meaning": "Table labeled 'playlist' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key PlaylistId",
+      "primary_key_columns": [
+        "PlaylistId"
+      ],
+      "columns": {
+        "PlaylistId": {
+          "type": "number",
+          "source_label": "play list id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name"
+        }
+      },
+      "observed_row_count": 18
+    },
+    "PlaylistTrack": {
+      "source_label": "playlist track",
+      "meaning": "Table labeled 'playlist track' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key PlaylistId",
+      "primary_key_columns": [
+        "PlaylistId"
+      ],
+      "columns": {
+        "PlaylistId": {
+          "type": "number",
+          "source_label": "play list id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Playlist",
+            "column": "PlaylistId"
+          }
+        },
+        "TrackId": {
+          "type": "number",
+          "source_label": "track id",
+          "foreign_key": {
+            "table": "Track",
+            "column": "TrackId"
+          }
+        }
+      },
+      "observed_row_count": 8715
+    },
+    "Track": {
+      "source_label": "track",
+      "meaning": "Table labeled 'track' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key TrackId",
+      "primary_key_columns": [
+        "TrackId"
+      ],
+      "columns": {
+        "TrackId": {
+          "type": "number",
+          "source_label": "track id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "AlbumId": {
+          "type": "number",
+          "source_label": "album id",
+          "foreign_key": {
+            "table": "Album",
+            "column": "AlbumId"
+          }
+        },
+        "MediaTypeId": {
+          "type": "number",
+          "source_label": "media type id",
+          "foreign_key": {
+            "table": "MediaType",
+            "column": "MediaTypeId"
+          }
+        },
+        "GenreId": {
+          "type": "number",
+          "source_label": "genre id",
+          "foreign_key": {
+            "table": "Genre",
+            "column": "GenreId"
+          }
+        },
+        "Composer": {
+          "type": "text",
+          "source_label": "composer"
+        },
+        "Milliseconds": {
+          "type": "number",
+          "source_label": "milliseconds"
+        },
+        "Bytes": {
+          "type": "number",
+          "source_label": "bytes"
+        },
+        "UnitPrice": {
+          "type": "number",
+          "source_label": "unit price"
+        }
+      },
+      "observed_row_count": 3503
+    }
+  },
+  "terms": {
+    "invoice line": {
+      "maps_to": "InvoiceLine",
+      "source": "Spider normalized table name"
+    },
+    "media type": {
+      "maps_to": "MediaType",
+      "source": "Spider normalized table name"
+    },
+    "playlist track": {
+      "maps_to": "PlaylistTrack",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Album__row_count": {
+      "meaning": "Number of rows in Album.",
+      "base_table": "Album",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Artist__row_count": {
+      "meaning": "Number of rows in Artist.",
+      "base_table": "Artist",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customer__row_count": {
+      "meaning": "Number of rows in Customer.",
+      "base_table": "Customer",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Employee__row_count": {
+      "meaning": "Number of rows in Employee.",
+      "base_table": "Employee",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Genre__row_count": {
+      "meaning": "Number of rows in Genre.",
+      "base_table": "Genre",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Invoice__row_count": {
+      "meaning": "Number of rows in Invoice.",
+      "base_table": "Invoice",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "InvoiceLine__row_count": {
+      "meaning": "Number of rows in InvoiceLine.",
+      "base_table": "InvoiceLine",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "MediaType__row_count": {
+      "meaning": "Number of rows in MediaType.",
+      "base_table": "MediaType",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Playlist__row_count": {
+      "meaning": "Number of rows in Playlist.",
+      "base_table": "Playlist",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "PlaylistTrack__row_count": {
+      "meaning": "Number of rows in PlaylistTrack.",
+      "base_table": "PlaylistTrack",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Track__row_count": {
+      "meaning": "Number of rows in Track.",
+      "base_table": "Track",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

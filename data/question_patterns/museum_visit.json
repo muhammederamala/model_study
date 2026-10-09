@@ -1,0 +1,128 @@
+{
+  "db_id": "museum_visit",
+  "n_questions": 18,
+  "n_questions_with_join": 7,
+  "join_pairs": [
+    {
+      "left": "visit.visitor_id",
+      "right": "visitor.id",
+      "n": 5
+    },
+    {
+      "left": "museum.museum_id",
+      "right": "visit.museum_id",
+      "n": 3
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 5
+    },
+    {
+      "fn": "SUM",
+      "target": "visit.total_spent",
+      "n": 2
+    },
+    {
+      "fn": "AVG",
+      "target": "age",
+      "n": 1
+    },
+    {
+      "fn": "AVG",
+      "target": "num_of_staff",
+      "n": 1
+    },
+    {
+      "fn": "MIN",
+      "target": "num_of_staff",
+      "n": 1
+    },
+    {
+      "fn": "AVG",
+      "target": "num_of_ticket",
+      "n": 1
+    },
+    {
+      "fn": "MAX",
+      "target": "num_of_ticket",
+      "n": 1
+    }
+  ],
+  "column_clause_usage": {
+    "age": {
+      "where": 1,
+      "order by": 1
+    },
+    "id": {
+      "group by": 1,
+      "where": 1
+    },
+    "level_of_membership": {
+      "where": 4,
+      "order by": 1
+    },
+    "museum_id": {
+      "where": 2,
+      "group by": 1
+    },
+    "name": {
+      "where": 1
+    },
+    "num_of_staff": {
+      "order by": 1,
+      "where": 1
+    },
+    "num_of_ticket": {
+      "order by": 1
+    },
+    "open_year": {
+      "where": 5
+    },
+    "total_spent": {
+      "order by": 1
+    },
+    "visitor_id": {
+      "group by": 1,
+      "where": 1
+    }
+  },
+  "question_openers": {
+    "what are the": {
+      "GROUP BY": 2,
+      "ORDER BY ... DESC": 2,
+      "LIMIT 1": 2,
+      "COUNT": 1,
+      "AVG": 1
+    },
+    "what is the": {
+      "subquery": 2,
+      "AVG": 1,
+      "negation (NOT IN / EXCEPT)": 1,
+      "INTERSECT": 1
+    },
+    "find the name": {
+      "ORDER BY ... DESC": 2,
+      "LIMIT 1": 1
+    },
+    "find the number": {
+      "COUNT": 1,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "find the names": {
+      "ORDER BY ... DESC": 1,
+      "subquery": 1
+    },
+    "find the id": {
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1
+    },
+    "find the id,": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    }
+  }
+}

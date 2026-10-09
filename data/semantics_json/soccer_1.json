@@ -1,0 +1,642 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "soccer_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Player_Attributes": {
+      "source_label": "player attributes",
+      "meaning": "Table labeled 'player attributes' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "player_fifa_api_id": {
+          "type": "number",
+          "source_label": "player fifa api id",
+          "foreign_key": {
+            "table": "Player",
+            "column": "player_fifa_api_id"
+          }
+        },
+        "player_api_id": {
+          "type": "number",
+          "source_label": "player api id",
+          "foreign_key": {
+            "table": "Player",
+            "column": "player_api_id"
+          }
+        },
+        "date": {
+          "type": "text",
+          "source_label": "date"
+        },
+        "overall_rating": {
+          "type": "number",
+          "source_label": "overall rating"
+        },
+        "potential": {
+          "type": "number",
+          "source_label": "potential"
+        },
+        "preferred_foot": {
+          "type": "text",
+          "source_label": "preferred foot",
+          "observed_values": [
+            "right",
+            "left"
+          ]
+        },
+        "attacking_work_rate": {
+          "type": "text",
+          "source_label": "attacking work rate",
+          "observed_values": [
+            "medium",
+            "high",
+            "low",
+            "None",
+            "le",
+            "norm",
+            "stoc",
+            "y"
+          ]
+        },
+        "defensive_work_rate": {
+          "type": "text",
+          "source_label": "defensive work rate"
+        },
+        "crossing": {
+          "type": "number",
+          "source_label": "crossing"
+        },
+        "finishing": {
+          "type": "number",
+          "source_label": "finishing"
+        },
+        "heading_accuracy": {
+          "type": "number",
+          "source_label": "heading accuracy"
+        },
+        "short_passing": {
+          "type": "number",
+          "source_label": "short passing"
+        },
+        "volleys": {
+          "type": "number",
+          "source_label": "volleys"
+        },
+        "dribbling": {
+          "type": "number",
+          "source_label": "dribbling"
+        },
+        "curve": {
+          "type": "number",
+          "source_label": "curve"
+        },
+        "free_kick_accuracy": {
+          "type": "number",
+          "source_label": "free kick accuracy"
+        },
+        "long_passing": {
+          "type": "number",
+          "source_label": "long passing"
+        },
+        "ball_control": {
+          "type": "number",
+          "source_label": "ball control"
+        },
+        "acceleration": {
+          "type": "number",
+          "source_label": "acceleration"
+        },
+        "sprint_speed": {
+          "type": "number",
+          "source_label": "sprint speed"
+        },
+        "agility": {
+          "type": "number",
+          "source_label": "agility"
+        },
+        "reactions": {
+          "type": "number",
+          "source_label": "reactions"
+        },
+        "balance": {
+          "type": "number",
+          "source_label": "balance"
+        },
+        "shot_power": {
+          "type": "number",
+          "source_label": "shot power"
+        },
+        "jumping": {
+          "type": "number",
+          "source_label": "jumping"
+        },
+        "stamina": {
+          "type": "number",
+          "source_label": "stamina"
+        },
+        "strength": {
+          "type": "number",
+          "source_label": "strength"
+        },
+        "long_shots": {
+          "type": "number",
+          "source_label": "long shots"
+        },
+        "aggression": {
+          "type": "number",
+          "source_label": "aggression"
+        },
+        "interceptions": {
+          "type": "number",
+          "source_label": "interceptions"
+        },
+        "positioning": {
+          "type": "number",
+          "source_label": "positioning"
+        },
+        "vision": {
+          "type": "number",
+          "source_label": "vision"
+        },
+        "penalties": {
+          "type": "number",
+          "source_label": "penalties"
+        },
+        "marking": {
+          "type": "number",
+          "source_label": "marking"
+        },
+        "standing_tackle": {
+          "type": "number",
+          "source_label": "standing tackle"
+        },
+        "sliding_tackle": {
+          "type": "number",
+          "source_label": "sliding tackle"
+        },
+        "gk_diving": {
+          "type": "number",
+          "source_label": "gk diving"
+        },
+        "gk_handling": {
+          "type": "number",
+          "source_label": "gk handling"
+        },
+        "gk_kicking": {
+          "type": "number",
+          "source_label": "gk kicking"
+        },
+        "gk_positioning": {
+          "type": "number",
+          "source_label": "gk positioning"
+        },
+        "gk_reflexes": {
+          "type": "number",
+          "source_label": "gk reflexes"
+        }
+      },
+      "observed_row_count": 183978
+    },
+    "sqlite_sequence": {
+      "source_label": "sqlite sequence",
+      "meaning": "Table labeled 'sqlite sequence' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Team",
+            "Country",
+            "League",
+            "Player",
+            "Player_Attributes",
+            "Team_Attributes"
+          ]
+        },
+        "seq": {
+          "type": "text",
+          "source_label": "seq",
+          "observed_values": [
+            103916,
+            51958,
+            11075,
+            183978,
+            1458
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "Player": {
+      "source_label": "player",
+      "meaning": "Table labeled 'player' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "player_api_id": {
+          "type": "number",
+          "source_label": "player api id"
+        },
+        "player_name": {
+          "type": "text",
+          "source_label": "player name"
+        },
+        "player_fifa_api_id": {
+          "type": "number",
+          "source_label": "player fifa api id"
+        },
+        "birthday": {
+          "type": "text",
+          "source_label": "birthday"
+        },
+        "height": {
+          "type": "number",
+          "source_label": "height"
+        },
+        "weight": {
+          "type": "number",
+          "source_label": "weight"
+        }
+      },
+      "observed_row_count": 11060
+    },
+    "League": {
+      "source_label": "league",
+      "meaning": "Table labeled 'league' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "country_id": {
+          "type": "number",
+          "source_label": "country id",
+          "foreign_key": {
+            "table": "Country",
+            "column": "id"
+          }
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Belgium Jupiler League",
+            "England Premier League",
+            "France Ligue 1",
+            "Germany 1. Bundesliga",
+            "Italy Serie A",
+            "Netherlands Eredivisie",
+            "Poland Ekstraklasa",
+            "Portugal Liga ZON Sagres",
+            "Scotland Premier League",
+            "Spain LIGA BBVA",
+            "Switzerland Super League"
+          ]
+        }
+      },
+      "observed_row_count": 11
+    },
+    "Country": {
+      "source_label": "country",
+      "meaning": "Table labeled 'country' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Belgium",
+            "England",
+            "France",
+            "Germany",
+            "Italy",
+            "Netherlands",
+            "Poland",
+            "Portugal",
+            "Scotland",
+            "Spain",
+            "Switzerland"
+          ]
+        }
+      },
+      "observed_row_count": 11
+    },
+    "Team": {
+      "source_label": "team",
+      "meaning": "Table labeled 'team' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "team_api_id": {
+          "type": "number",
+          "source_label": "team api id"
+        },
+        "team_fifa_api_id": {
+          "type": "number",
+          "source_label": "team fifa api id"
+        },
+        "team_long_name": {
+          "type": "text",
+          "source_label": "team long name"
+        },
+        "team_short_name": {
+          "type": "text",
+          "source_label": "team short name"
+        }
+      },
+      "observed_row_count": 299
+    },
+    "Team_Attributes": {
+      "source_label": "team attributes",
+      "meaning": "Table labeled 'team attributes' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "team_fifa_api_id": {
+          "type": "number",
+          "source_label": "team fifa api id",
+          "foreign_key": {
+            "table": "Team",
+            "column": "team_fifa_api_id"
+          }
+        },
+        "team_api_id": {
+          "type": "number",
+          "source_label": "team api id",
+          "foreign_key": {
+            "table": "Team",
+            "column": "team_api_id"
+          }
+        },
+        "date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "2010-02-22 00:00:00",
+            "2014-09-19 00:00:00",
+            "2015-09-10 00:00:00",
+            "2011-02-22 00:00:00",
+            "2012-02-22 00:00:00",
+            "2013-09-20 00:00:00"
+          ]
+        },
+        "buildUpPlaySpeed": {
+          "type": "number",
+          "source_label": "buildup play speed"
+        },
+        "buildUpPlaySpeedClass": {
+          "type": "text",
+          "source_label": "buildup play speed class",
+          "observed_values": [
+            "Balanced",
+            "Fast",
+            "Slow"
+          ]
+        },
+        "buildUpPlayDribbling": {
+          "type": "number",
+          "source_label": "buildup play dribbling"
+        },
+        "buildUpPlayDribblingClass": {
+          "type": "text",
+          "source_label": "buildup play dribbling class",
+          "observed_values": [
+            "Little",
+            "Normal",
+            "Lots"
+          ]
+        },
+        "buildUpPlayPassing": {
+          "type": "number",
+          "source_label": "buildup play passing"
+        },
+        "buildUpPlayPassingClass": {
+          "type": "text",
+          "source_label": "buildup play passing class",
+          "observed_values": [
+            "Mixed",
+            "Long",
+            "Short"
+          ]
+        },
+        "buildUpPlayPositioningClass": {
+          "type": "text",
+          "source_label": "buildup play positioning class",
+          "observed_values": [
+            "Organised",
+            "Free Form"
+          ]
+        },
+        "chanceCreationPassing": {
+          "type": "number",
+          "source_label": "chance creation passing"
+        },
+        "chanceCreationPassingClass": {
+          "type": "text",
+          "source_label": "chance creation passing class",
+          "observed_values": [
+            "Normal",
+            "Risky",
+            "Safe"
+          ]
+        },
+        "chanceCreationCrossing": {
+          "type": "number",
+          "source_label": "chance creation crossing"
+        },
+        "chanceCreationCrossingClass": {
+          "type": "text",
+          "source_label": "chance creation crossing class",
+          "observed_values": [
+            "Normal",
+            "Lots",
+            "Little"
+          ]
+        },
+        "chanceCreationShooting": {
+          "type": "number",
+          "source_label": "chance creation shooting"
+        },
+        "chanceCreationShootingClass": {
+          "type": "text",
+          "source_label": "chance creation shooting class",
+          "observed_values": [
+            "Normal",
+            "Lots",
+            "Little"
+          ]
+        },
+        "chanceCreationPositioningClass": {
+          "type": "text",
+          "source_label": "chance creation positioning class",
+          "observed_values": [
+            "Organised",
+            "Free Form"
+          ]
+        },
+        "defencePressure": {
+          "type": "number",
+          "source_label": "defence pressure"
+        },
+        "defencePressureClass": {
+          "type": "text",
+          "source_label": "defence pressure class",
+          "observed_values": [
+            "Medium",
+            "Deep",
+            "High"
+          ]
+        },
+        "defenceAggression": {
+          "type": "number",
+          "source_label": "defence aggression"
+        },
+        "defenceAggressionClass": {
+          "type": "text",
+          "source_label": "defence aggression class",
+          "observed_values": [
+            "Press",
+            "Double",
+            "Contain"
+          ]
+        },
+        "defenceTeamWidth": {
+          "type": "number",
+          "source_label": "defence team width"
+        },
+        "defenceTeamWidthClass": {
+          "type": "text",
+          "source_label": "defence team width class",
+          "observed_values": [
+            "Normal",
+            "Wide",
+            "Narrow"
+          ]
+        },
+        "defenceDefenderLineClass": {
+          "type": "text",
+          "source_label": "defence defender line class",
+          "observed_values": [
+            "Cover",
+            "Offside Trap"
+          ]
+        }
+      },
+      "observed_row_count": 1458
+    }
+  },
+  "terms": {
+    "player attributes": {
+      "maps_to": "Player_Attributes",
+      "source": "Spider normalized table name"
+    },
+    "sqlite sequence": {
+      "maps_to": "sqlite_sequence",
+      "source": "Spider normalized table name"
+    },
+    "team attributes": {
+      "maps_to": "Team_Attributes",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Player_Attributes__row_count": {
+      "meaning": "Number of rows in Player_Attributes.",
+      "base_table": "Player_Attributes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "sqlite_sequence__row_count": {
+      "meaning": "Number of rows in sqlite_sequence.",
+      "base_table": "sqlite_sequence",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Player__row_count": {
+      "meaning": "Number of rows in Player.",
+      "base_table": "Player",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "League__row_count": {
+      "meaning": "Number of rows in League.",
+      "base_table": "League",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Country__row_count": {
+      "meaning": "Number of rows in Country.",
+      "base_table": "Country",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Team__row_count": {
+      "meaning": "Number of rows in Team.",
+      "base_table": "Team",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Team_Attributes__row_count": {
+      "meaning": "Number of rows in Team_Attributes.",
+      "base_table": "Team_Attributes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

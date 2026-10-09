@@ -1,0 +1,239 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "restaurant_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Student": {
+      "source_label": "student",
+      "meaning": "Table labeled 'student' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key StuID",
+      "primary_key_columns": [
+        "StuID"
+      ],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true
+        },
+        "LName": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "Fname": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Sex": {
+          "type": "text",
+          "source_label": "sex",
+          "observed_values": [
+            "F",
+            "M"
+          ]
+        },
+        "Major": {
+          "type": "number",
+          "source_label": "major"
+        },
+        "Advisor": {
+          "type": "number",
+          "source_label": "advisor"
+        },
+        "city_code": {
+          "type": "text",
+          "source_label": "city code"
+        }
+      },
+      "observed_row_count": 34
+    },
+    "Restaurant": {
+      "source_label": "restaurant",
+      "meaning": "Table labeled 'restaurant' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key ResID",
+      "primary_key_columns": [
+        "ResID"
+      ],
+      "columns": {
+        "ResID": {
+          "type": "number",
+          "source_label": "restaurant id",
+          "primary_key": true
+        },
+        "ResName": {
+          "type": "text",
+          "source_label": "restaurant name",
+          "observed_values": [
+            "Subway",
+            "Honeygrow"
+          ]
+        },
+        "Address": {
+          "type": "text",
+          "source_label": "address",
+          "observed_values": [
+            "3233 St Paul St, Baltimore, MD 21218",
+            "3212 St Paul St, Baltimore, MD 21218"
+          ]
+        },
+        "Rating": {
+          "type": "number",
+          "source_label": "rating"
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Type_Of_Restaurant": {
+      "source_label": "type of restaurant",
+      "meaning": "Table labeled 'type of restaurant' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "ResID": {
+          "type": "number",
+          "source_label": "restaurant id",
+          "foreign_key": {
+            "table": "Restaurant",
+            "column": "ResID"
+          }
+        },
+        "ResTypeID": {
+          "type": "number",
+          "source_label": "restaurant type id",
+          "foreign_key": {
+            "table": "Restaurant_Type",
+            "column": "ResTypeID"
+          }
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Restaurant_Type": {
+      "source_label": "restaurant type",
+      "meaning": "Table labeled 'restaurant type' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key ResTypeID",
+      "primary_key_columns": [
+        "ResTypeID"
+      ],
+      "columns": {
+        "ResTypeID": {
+          "type": "number",
+          "source_label": "restaurant type id",
+          "primary_key": true
+        },
+        "ResTypeName": {
+          "type": "text",
+          "source_label": "restaurant type name",
+          "observed_values": [
+            "Sandwich",
+            "Stir-fry"
+          ]
+        },
+        "ResTypeDescription": {
+          "type": "text",
+          "source_label": "restaurant type description",
+          "observed_values": [
+            "Simplest there is.",
+            "Classic Chinese cooking."
+          ]
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Visits_Restaurant": {
+      "source_label": "visits restaurant",
+      "meaning": "Table labeled 'visits restaurant' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Student",
+            "column": "StuID"
+          }
+        },
+        "ResID": {
+          "type": "number",
+          "source_label": "restaurant id",
+          "foreign_key": {
+            "table": "Restaurant",
+            "column": "ResID"
+          }
+        },
+        "Time": {
+          "type": "time",
+          "source_label": "time"
+        },
+        "Spent": {
+          "type": "number",
+          "source_label": "spent"
+        }
+      },
+      "observed_row_count": 2
+    }
+  },
+  "terms": {
+    "type of restaurant": {
+      "maps_to": "Type_Of_Restaurant",
+      "source": "Spider normalized table name"
+    },
+    "restaurant type": {
+      "maps_to": "Restaurant_Type",
+      "source": "Spider normalized table name"
+    },
+    "visits restaurant": {
+      "maps_to": "Visits_Restaurant",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Student__row_count": {
+      "meaning": "Number of rows in Student.",
+      "base_table": "Student",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Restaurant__row_count": {
+      "meaning": "Number of rows in Restaurant.",
+      "base_table": "Restaurant",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Type_Of_Restaurant__row_count": {
+      "meaning": "Number of rows in Type_Of_Restaurant.",
+      "base_table": "Type_Of_Restaurant",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Restaurant_Type__row_count": {
+      "meaning": "Number of rows in Restaurant_Type.",
+      "base_table": "Restaurant_Type",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Visits_Restaurant__row_count": {
+      "meaning": "Number of rows in Visits_Restaurant.",
+      "base_table": "Visits_Restaurant",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

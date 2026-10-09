@@ -1,0 +1,709 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "assets_maintenance",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Third_Party_Companies": {
+      "source_label": "third party companies",
+      "meaning": "Table labeled 'third party companies' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key company_id",
+      "primary_key_columns": [
+        "company_id"
+      ],
+      "columns": {
+        "company_id": {
+          "type": "number",
+          "source_label": "company id",
+          "primary_key": true
+        },
+        "company_type": {
+          "type": "text",
+          "source_label": "company type",
+          "observed_values": [
+            "Maintenance Contractor",
+            "Supplier"
+          ]
+        },
+        "company_name": {
+          "type": "text",
+          "source_label": "company name"
+        },
+        "company_address": {
+          "type": "text",
+          "source_label": "company address"
+        },
+        "other_company_details": {
+          "type": "text",
+          "source_label": "other company details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Maintenance_Contracts": {
+      "source_label": "maintenance contracts",
+      "meaning": "Table labeled 'maintenance contracts' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key maintenance_contract_id",
+      "primary_key_columns": [
+        "maintenance_contract_id"
+      ],
+      "columns": {
+        "maintenance_contract_id": {
+          "type": "number",
+          "source_label": "maintenance contract id",
+          "primary_key": true
+        },
+        "maintenance_contract_company_id": {
+          "type": "number",
+          "source_label": "maintenance contract company id",
+          "foreign_key": {
+            "table": "Third_Party_Companies",
+            "column": "company_id"
+          }
+        },
+        "contract_start_date": {
+          "type": "time",
+          "source_label": "contract start date"
+        },
+        "contract_end_date": {
+          "type": "time",
+          "source_label": "contract end date"
+        },
+        "other_contract_details": {
+          "type": "text",
+          "source_label": "other contract details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Parts": {
+      "source_label": "parts",
+      "meaning": "Table labeled 'parts' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key part_id",
+      "primary_key_columns": [
+        "part_id"
+      ],
+      "columns": {
+        "part_id": {
+          "type": "number",
+          "source_label": "part id",
+          "primary_key": true
+        },
+        "part_name": {
+          "type": "text",
+          "source_label": "part name",
+          "observed_values": [
+            "top",
+            "middle",
+            "package"
+          ]
+        },
+        "chargeable_yn": {
+          "type": "text",
+          "source_label": "chargeable yn",
+          "observed_values": [
+            "0",
+            "1"
+          ]
+        },
+        "chargeable_amount": {
+          "type": "text",
+          "source_label": "chargeable amount",
+          "observed_values": [
+            "4",
+            "9"
+          ]
+        },
+        "other_part_details": {
+          "type": "text",
+          "source_label": "other part details"
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Skills": {
+      "source_label": "skills",
+      "meaning": "Table labeled 'skills' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key skill_id",
+      "primary_key_columns": [
+        "skill_id"
+      ],
+      "columns": {
+        "skill_id": {
+          "type": "number",
+          "source_label": "skill id",
+          "primary_key": true
+        },
+        "skill_code": {
+          "type": "text",
+          "source_label": "skill code",
+          "observed_values": [
+            "ELEC",
+            "MECH",
+            "TV"
+          ]
+        },
+        "skill_description": {
+          "type": "text",
+          "source_label": "skill description",
+          "observed_values": [
+            "Electrical",
+            "Mechanical",
+            "TV, Video"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Staff": {
+      "source_label": "staff",
+      "meaning": "Table labeled 'staff' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key staff_id",
+      "primary_key_columns": [
+        "staff_id"
+      ],
+      "columns": {
+        "staff_id": {
+          "type": "number",
+          "source_label": "staff id",
+          "primary_key": true
+        },
+        "staff_name": {
+          "type": "text",
+          "source_label": "staff name"
+        },
+        "gender": {
+          "type": "text",
+          "source_label": "gender",
+          "observed_values": [
+            "1",
+            "0"
+          ]
+        },
+        "other_staff_details": {
+          "type": "text",
+          "source_label": "other staff details",
+          "observed_values": [
+            "Manager",
+            "Woker"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Assets": {
+      "source_label": "assets",
+      "meaning": "Table labeled 'assets' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key asset_id",
+      "primary_key_columns": [
+        "asset_id"
+      ],
+      "columns": {
+        "asset_id": {
+          "type": "number",
+          "source_label": "asset id",
+          "primary_key": true
+        },
+        "maintenance_contract_id": {
+          "type": "number",
+          "source_label": "maintenance contract id",
+          "foreign_key": {
+            "table": "Maintenance_Contracts",
+            "column": "maintenance_contract_id"
+          }
+        },
+        "supplier_company_id": {
+          "type": "number",
+          "source_label": "supplier company id",
+          "foreign_key": {
+            "table": "Third_Party_Companies",
+            "column": "company_id"
+          }
+        },
+        "asset_details": {
+          "type": "text",
+          "source_label": "asset details"
+        },
+        "asset_make": {
+          "type": "text",
+          "source_label": "asset make",
+          "observed_values": [
+            "PT",
+            "IN",
+            "IT",
+            "RU",
+            "DE",
+            "CN",
+            "GB",
+            "FR",
+            "IE"
+          ]
+        },
+        "asset_model": {
+          "type": "text",
+          "source_label": "asset model"
+        },
+        "asset_acquired_date": {
+          "type": "time",
+          "source_label": "asset acquired date"
+        },
+        "asset_disposed_date": {
+          "type": "time",
+          "source_label": "asset disposed date"
+        },
+        "other_asset_details": {
+          "type": "text",
+          "source_label": "other asset details",
+          "observed_values": [
+            "Bad condition"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Asset_Parts": {
+      "source_label": "asset parts",
+      "meaning": "Table labeled 'asset parts' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "asset_id": {
+          "type": "number",
+          "source_label": "asset id",
+          "foreign_key": {
+            "table": "Assets",
+            "column": "asset_id"
+          }
+        },
+        "part_id": {
+          "type": "number",
+          "source_label": "part id",
+          "foreign_key": {
+            "table": "Parts",
+            "column": "part_id"
+          }
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Maintenance_Engineers": {
+      "source_label": "maintenance engineers",
+      "meaning": "Table labeled 'maintenance engineers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key engineer_id",
+      "primary_key_columns": [
+        "engineer_id"
+      ],
+      "columns": {
+        "engineer_id": {
+          "type": "number",
+          "source_label": "engineer id",
+          "primary_key": true
+        },
+        "company_id": {
+          "type": "number",
+          "source_label": "company id",
+          "foreign_key": {
+            "table": "Third_Party_Companies",
+            "column": "company_id"
+          }
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details",
+          "observed_values": [
+            "Skilled"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Engineer_Skills": {
+      "source_label": "engineer skills",
+      "meaning": "Table labeled 'engineer skills' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "engineer_id": {
+          "type": "number",
+          "source_label": "engineer id",
+          "foreign_key": {
+            "table": "Maintenance_Engineers",
+            "column": "engineer_id"
+          }
+        },
+        "skill_id": {
+          "type": "number",
+          "source_label": "skill id",
+          "foreign_key": {
+            "table": "Skills",
+            "column": "skill_id"
+          }
+        }
+      },
+      "observed_row_count": 20
+    },
+    "Fault_Log": {
+      "source_label": "fault log",
+      "meaning": "Table labeled 'fault log' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key fault_log_entry_id",
+      "primary_key_columns": [
+        "fault_log_entry_id"
+      ],
+      "columns": {
+        "fault_log_entry_id": {
+          "type": "number",
+          "source_label": "fault log entry id",
+          "primary_key": true
+        },
+        "asset_id": {
+          "type": "number",
+          "source_label": "asset id",
+          "foreign_key": {
+            "table": "Assets",
+            "column": "asset_id"
+          }
+        },
+        "recorded_by_staff_id": {
+          "type": "number",
+          "source_label": "recorded by staff id",
+          "foreign_key": {
+            "table": "Staff",
+            "column": "staff_id"
+          }
+        },
+        "fault_log_entry_datetime": {
+          "type": "time",
+          "source_label": "fault log entry datetime"
+        },
+        "fault_description": {
+          "type": "text",
+          "source_label": "fault description",
+          "observed_values": [
+            "system error",
+            "failed parts"
+          ]
+        },
+        "other_fault_details": {
+          "type": "text",
+          "source_label": "other fault details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Engineer_Visits": {
+      "source_label": "engineer visits",
+      "meaning": "Table labeled 'engineer visits' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key engineer_visit_id",
+      "primary_key_columns": [
+        "engineer_visit_id"
+      ],
+      "columns": {
+        "engineer_visit_id": {
+          "type": "number",
+          "source_label": "engineer visit id",
+          "primary_key": true
+        },
+        "contact_staff_id": {
+          "type": "number",
+          "source_label": "contact staff id",
+          "foreign_key": {
+            "table": "Staff",
+            "column": "staff_id"
+          }
+        },
+        "engineer_id": {
+          "type": "number",
+          "source_label": "engineer id",
+          "foreign_key": {
+            "table": "Maintenance_Engineers",
+            "column": "engineer_id"
+          }
+        },
+        "fault_log_entry_id": {
+          "type": "number",
+          "source_label": "fault log entry id",
+          "foreign_key": {
+            "table": "Fault_Log",
+            "column": "fault_log_entry_id"
+          }
+        },
+        "fault_status": {
+          "type": "text",
+          "source_label": "fault status",
+          "observed_values": [
+            "Waiting",
+            "Return",
+            "Fixed",
+            "Reported"
+          ]
+        },
+        "visit_start_datetime": {
+          "type": "time",
+          "source_label": "visit start datetime"
+        },
+        "visit_end_datetime": {
+          "type": "time",
+          "source_label": "visit end datetime"
+        },
+        "other_visit_details": {
+          "type": "text",
+          "source_label": "other visit details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Part_Faults": {
+      "source_label": "part faults",
+      "meaning": "Table labeled 'part faults' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key part_fault_id",
+      "primary_key_columns": [
+        "part_fault_id"
+      ],
+      "columns": {
+        "part_fault_id": {
+          "type": "number",
+          "source_label": "part fault id",
+          "primary_key": true
+        },
+        "part_id": {
+          "type": "number",
+          "source_label": "part id",
+          "foreign_key": {
+            "table": "Parts",
+            "column": "part_id"
+          }
+        },
+        "fault_short_name": {
+          "type": "text",
+          "source_label": "fault short name",
+          "observed_values": [
+            "PW",
+            "TW",
+            "MW"
+          ]
+        },
+        "fault_description": {
+          "type": "text",
+          "source_label": "fault description",
+          "observed_values": [
+            "Package Wrong",
+            "Top Parts Wrong",
+            "Medium Scale Wrong"
+          ]
+        },
+        "other_fault_details": {
+          "type": "text",
+          "source_label": "other fault details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Fault_Log_Parts": {
+      "source_label": "fault log parts",
+      "meaning": "Table labeled 'fault log parts' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "fault_log_entry_id": {
+          "type": "number",
+          "source_label": "fault log entry id",
+          "foreign_key": {
+            "table": "Fault_Log",
+            "column": "fault_log_entry_id"
+          }
+        },
+        "part_fault_id": {
+          "type": "number",
+          "source_label": "part fault id",
+          "foreign_key": {
+            "table": "Part_Faults",
+            "column": "part_fault_id"
+          }
+        },
+        "fault_status": {
+          "type": "text",
+          "source_label": "fault status",
+          "observed_values": [
+            "Reported",
+            "Return",
+            "Fixed",
+            "Waiting"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Skills_Required_To_Fix": {
+      "source_label": "skills required to fix",
+      "meaning": "Table labeled 'skills required to fix' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "part_fault_id": {
+          "type": "number",
+          "source_label": "part fault id",
+          "foreign_key": {
+            "table": "Part_Faults",
+            "column": "part_fault_id"
+          }
+        },
+        "skill_id": {
+          "type": "number",
+          "source_label": "skill id",
+          "foreign_key": {
+            "table": "Skills",
+            "column": "skill_id"
+          }
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "third party companies": {
+      "maps_to": "Third_Party_Companies",
+      "source": "Spider normalized table name"
+    },
+    "maintenance contracts": {
+      "maps_to": "Maintenance_Contracts",
+      "source": "Spider normalized table name"
+    },
+    "asset parts": {
+      "maps_to": "Asset_Parts",
+      "source": "Spider normalized table name"
+    },
+    "maintenance engineers": {
+      "maps_to": "Maintenance_Engineers",
+      "source": "Spider normalized table name"
+    },
+    "engineer skills": {
+      "maps_to": "Engineer_Skills",
+      "source": "Spider normalized table name"
+    },
+    "fault log": {
+      "maps_to": "Fault_Log",
+      "source": "Spider normalized table name"
+    },
+    "engineer visits": {
+      "maps_to": "Engineer_Visits",
+      "source": "Spider normalized table name"
+    },
+    "part faults": {
+      "maps_to": "Part_Faults",
+      "source": "Spider normalized table name"
+    },
+    "fault log parts": {
+      "maps_to": "Fault_Log_Parts",
+      "source": "Spider normalized table name"
+    },
+    "skills required to fix": {
+      "maps_to": "Skills_Required_To_Fix",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Third_Party_Companies__row_count": {
+      "meaning": "Number of rows in Third_Party_Companies.",
+      "base_table": "Third_Party_Companies",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Maintenance_Contracts__row_count": {
+      "meaning": "Number of rows in Maintenance_Contracts.",
+      "base_table": "Maintenance_Contracts",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Parts__row_count": {
+      "meaning": "Number of rows in Parts.",
+      "base_table": "Parts",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Skills__row_count": {
+      "meaning": "Number of rows in Skills.",
+      "base_table": "Skills",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Staff__row_count": {
+      "meaning": "Number of rows in Staff.",
+      "base_table": "Staff",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Assets__row_count": {
+      "meaning": "Number of rows in Assets.",
+      "base_table": "Assets",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Asset_Parts__row_count": {
+      "meaning": "Number of rows in Asset_Parts.",
+      "base_table": "Asset_Parts",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Maintenance_Engineers__row_count": {
+      "meaning": "Number of rows in Maintenance_Engineers.",
+      "base_table": "Maintenance_Engineers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Engineer_Skills__row_count": {
+      "meaning": "Number of rows in Engineer_Skills.",
+      "base_table": "Engineer_Skills",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Fault_Log__row_count": {
+      "meaning": "Number of rows in Fault_Log.",
+      "base_table": "Fault_Log",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Engineer_Visits__row_count": {
+      "meaning": "Number of rows in Engineer_Visits.",
+      "base_table": "Engineer_Visits",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Part_Faults__row_count": {
+      "meaning": "Number of rows in Part_Faults.",
+      "base_table": "Part_Faults",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Fault_Log_Parts__row_count": {
+      "meaning": "Number of rows in Fault_Log_Parts.",
+      "base_table": "Fault_Log_Parts",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Skills_Required_To_Fix__row_count": {
+      "meaning": "Number of rows in Skills_Required_To_Fix.",
+      "base_table": "Skills_Required_To_Fix",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

@@ -1,0 +1,435 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "customers_campaigns_ecommerce",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Premises": {
+      "source_label": "premises",
+      "meaning": "Table labeled 'premises' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key premise_id",
+      "primary_key_columns": [
+        "premise_id"
+      ],
+      "columns": {
+        "premise_id": {
+          "type": "number",
+          "source_label": "premise id",
+          "primary_key": true
+        },
+        "premises_type": {
+          "type": "text",
+          "source_label": "premises type",
+          "observed_values": [
+            "Warehouse",
+            "Residence",
+            "Office"
+          ]
+        },
+        "premise_details": {
+          "type": "text",
+          "source_label": "premise details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Products": {
+      "source_label": "products",
+      "meaning": "Table labeled 'products' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key product_id",
+      "primary_key_columns": [
+        "product_id"
+      ],
+      "columns": {
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "primary_key": true
+        },
+        "product_category": {
+          "type": "text",
+          "source_label": "product category",
+          "observed_values": [
+            "Food",
+            "Electronics",
+            "Books",
+            "Hardware"
+          ]
+        },
+        "product_name": {
+          "type": "text",
+          "source_label": "product name"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Customers": {
+      "source_label": "customers",
+      "meaning": "Table labeled 'customers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key customer_id",
+      "primary_key_columns": [
+        "customer_id"
+      ],
+      "columns": {
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true
+        },
+        "payment_method": {
+          "type": "text",
+          "source_label": "payment method",
+          "observed_values": [
+            "Credit Card",
+            "Direct Debit"
+          ]
+        },
+        "customer_name": {
+          "type": "text",
+          "source_label": "customer name"
+        },
+        "customer_phone": {
+          "type": "text",
+          "source_label": "customer phone"
+        },
+        "customer_email": {
+          "type": "text",
+          "source_label": "customer email"
+        },
+        "customer_address": {
+          "type": "text",
+          "source_label": "customer address"
+        },
+        "customer_login": {
+          "type": "text",
+          "source_label": "customer login"
+        },
+        "customer_password": {
+          "type": "text",
+          "source_label": "customer password"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Mailshot_Campaigns": {
+      "source_label": "mailshot campaigns",
+      "meaning": "Table labeled 'mailshot campaigns' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key mailshot_id",
+      "primary_key_columns": [
+        "mailshot_id"
+      ],
+      "columns": {
+        "mailshot_id": {
+          "type": "number",
+          "source_label": "mailshot id",
+          "primary_key": true
+        },
+        "product_category": {
+          "type": "text",
+          "source_label": "product category",
+          "observed_values": [
+            "food",
+            "clothes"
+          ]
+        },
+        "mailshot_name": {
+          "type": "text",
+          "source_label": "mailshot name",
+          "observed_values": [
+            "US",
+            "FED",
+            "USPS",
+            "AL"
+          ]
+        },
+        "mailshot_start_date": {
+          "type": "time",
+          "source_label": "mailshot start date"
+        },
+        "mailshot_end_date": {
+          "type": "time",
+          "source_label": "mailshot end date"
+        }
+      },
+      "observed_row_count": 20
+    },
+    "Customer_Addresses": {
+      "source_label": "customer addresses",
+      "meaning": "Table labeled 'customer addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers",
+            "column": "customer_id"
+          }
+        },
+        "premise_id": {
+          "type": "number",
+          "source_label": "premise id",
+          "foreign_key": {
+            "table": "Premises",
+            "column": "premise_id"
+          }
+        },
+        "date_address_from": {
+          "type": "time",
+          "source_label": "date address from"
+        },
+        "address_type_code": {
+          "type": "text",
+          "source_label": "address type code",
+          "observed_values": [
+            "Billing",
+            "Shipping"
+          ]
+        },
+        "date_address_to": {
+          "type": "time",
+          "source_label": "date address to"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Customer_Orders": {
+      "source_label": "customer orders",
+      "meaning": "Table labeled 'customer orders' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key order_id",
+      "primary_key_columns": [
+        "order_id"
+      ],
+      "columns": {
+        "order_id": {
+          "type": "number",
+          "source_label": "order id",
+          "primary_key": true
+        },
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers",
+            "column": "customer_id"
+          }
+        },
+        "order_status_code": {
+          "type": "text",
+          "source_label": "order status code",
+          "observed_values": [
+            "Cancelled",
+            "Delivered",
+            "Paid"
+          ]
+        },
+        "shipping_method_code": {
+          "type": "text",
+          "source_label": "shipping method code",
+          "observed_values": [
+            "Unspecified",
+            "FedEx",
+            "UPS"
+          ]
+        },
+        "order_placed_datetime": {
+          "type": "time",
+          "source_label": "order placed datetime"
+        },
+        "order_delivered_datetime": {
+          "type": "time",
+          "source_label": "order delivered datetime"
+        },
+        "order_shipping_charges": {
+          "type": "text",
+          "source_label": "order shipping charges"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Mailshot_Customers": {
+      "source_label": "mailshot customers",
+      "meaning": "Table labeled 'mailshot customers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "mailshot_id": {
+          "type": "number",
+          "source_label": "mailshot id",
+          "foreign_key": {
+            "table": "Mailshot_Campaigns",
+            "column": "mailshot_id"
+          }
+        },
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "Customers",
+            "column": "customer_id"
+          }
+        },
+        "outcome_code": {
+          "type": "text",
+          "source_label": "outcome code",
+          "observed_values": [
+            "Order",
+            "No Response"
+          ]
+        },
+        "mailshot_customer_date": {
+          "type": "time",
+          "source_label": "mailshot customer date"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Order_Items": {
+      "source_label": "order items",
+      "meaning": "Table labeled 'order items' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "item_id": {
+          "type": "number",
+          "source_label": "item id"
+        },
+        "order_item_status_code": {
+          "type": "text",
+          "source_label": "order item status code",
+          "observed_values": [
+            "Delivered",
+            "Paid",
+            "Cancelled"
+          ]
+        },
+        "order_id": {
+          "type": "number",
+          "source_label": "order id",
+          "foreign_key": {
+            "table": "Customer_Orders",
+            "column": "order_id"
+          }
+        },
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "foreign_key": {
+            "table": "Products",
+            "column": "product_id"
+          }
+        },
+        "item_status_code": {
+          "type": "text",
+          "source_label": "item status code",
+          "observed_values": [
+            "good"
+          ]
+        },
+        "item_delivered_datetime": {
+          "type": "time",
+          "source_label": "item delivered datetime"
+        },
+        "item_order_quantity": {
+          "type": "text",
+          "source_label": "item order quantity",
+          "observed_values": [
+            "6",
+            "7",
+            "4",
+            "3",
+            "5",
+            "2",
+            "1",
+            "9"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "mailshot campaigns": {
+      "maps_to": "Mailshot_Campaigns",
+      "source": "Spider normalized table name"
+    },
+    "customer addresses": {
+      "maps_to": "Customer_Addresses",
+      "source": "Spider normalized table name"
+    },
+    "customer orders": {
+      "maps_to": "Customer_Orders",
+      "source": "Spider normalized table name"
+    },
+    "mailshot customers": {
+      "maps_to": "Mailshot_Customers",
+      "source": "Spider normalized table name"
+    },
+    "order items": {
+      "maps_to": "Order_Items",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Premises__row_count": {
+      "meaning": "Number of rows in Premises.",
+      "base_table": "Premises",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Products__row_count": {
+      "meaning": "Number of rows in Products.",
+      "base_table": "Products",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customers__row_count": {
+      "meaning": "Number of rows in Customers.",
+      "base_table": "Customers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Mailshot_Campaigns__row_count": {
+      "meaning": "Number of rows in Mailshot_Campaigns.",
+      "base_table": "Mailshot_Campaigns",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customer_Addresses__row_count": {
+      "meaning": "Number of rows in Customer_Addresses.",
+      "base_table": "Customer_Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Customer_Orders__row_count": {
+      "meaning": "Number of rows in Customer_Orders.",
+      "base_table": "Customer_Orders",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Mailshot_Customers__row_count": {
+      "meaning": "Number of rows in Mailshot_Customers.",
+      "base_table": "Mailshot_Customers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Order_Items__row_count": {
+      "meaning": "Number of rows in Order_Items.",
+      "base_table": "Order_Items",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

@@ -1,0 +1,37 @@
+{
+  "evaluated": 40,
+  "total": 1032,
+  "json_correct": 28,
+  "baseline_correct_on_same_ids": 30,
+  "recovered_ids": [
+    153,
+    116,
+    238
+  ],
+  "regressed_ids": [
+    23,
+    37,
+    87,
+    138,
+    221
+  ],
+  "compile_failures": 8,
+  "sql_execution_failures": 0,
+  "by_complexity": {
+    "complex": {
+      "evaluated": 6,
+      "json_correct": 3,
+      "baseline_correct_on_same_ids": 3
+    },
+    "moderate": {
+      "evaluated": 13,
+      "json_correct": 6,
+      "baseline_correct_on_same_ids": 8
+    },
+    "simple": {
+      "evaluated": 21,
+      "json_correct": 19,
+      "baseline_correct_on_same_ids": 19
+    }
+  }
+}

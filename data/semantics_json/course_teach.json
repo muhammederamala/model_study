@@ -1,0 +1,180 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "course_teach",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "course": {
+      "source_label": "course",
+      "meaning": "Table labeled 'course' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Course_ID",
+      "primary_key_columns": [
+        "Course_ID"
+      ],
+      "columns": {
+        "Course_ID": {
+          "type": "number",
+          "source_label": "course id",
+          "primary_key": true
+        },
+        "Staring_Date": {
+          "type": "text",
+          "source_label": "staring date",
+          "observed_values": [
+            "5 May",
+            "6 May",
+            "7 May",
+            "9 May",
+            "10 May",
+            "11 May",
+            "13 May",
+            "14 May",
+            "15 May",
+            "17 May"
+          ]
+        },
+        "Course": {
+          "type": "text",
+          "source_label": "course",
+          "observed_values": [
+            "Language Arts",
+            "Math",
+            "Science",
+            "History",
+            "Bible",
+            "Geography",
+            "Sports",
+            "French",
+            "Health",
+            "Music"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    },
+    "teacher": {
+      "source_label": "teacher",
+      "meaning": "Table labeled 'teacher' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Teacher_ID",
+      "primary_key_columns": [
+        "Teacher_ID"
+      ],
+      "columns": {
+        "Teacher_ID": {
+          "type": "number",
+          "source_label": "teacher id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Joseph Huts",
+            "Gustaaf Deloor",
+            "Vicente Carretero",
+            "John Deloor",
+            "Kearsley Brown",
+            "Anne Walker",
+            "Lucy Wong"
+          ]
+        },
+        "Age": {
+          "type": "text",
+          "source_label": "age",
+          "observed_values": [
+            "32",
+            "29",
+            "26",
+            "33",
+            "45",
+            "41",
+            "39"
+          ]
+        },
+        "Hometown": {
+          "type": "text",
+          "source_label": "hometown",
+          "observed_values": [
+            "Blackrod Urban District",
+            "Bolton County Borough",
+            "Farnworth Municipal Borough",
+            "Horwich Urban District",
+            "Kearsley Urban District",
+            "Little Lever Urban District",
+            "Turton Urban District"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "course_arrange": {
+      "source_label": "course arrange",
+      "meaning": "Table labeled 'course arrange' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Course_ID",
+      "primary_key_columns": [
+        "Course_ID"
+      ],
+      "columns": {
+        "Course_ID": {
+          "type": "number",
+          "source_label": "course id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "course",
+            "column": "Course_ID"
+          }
+        },
+        "Teacher_ID": {
+          "type": "number",
+          "source_label": "teacher id",
+          "foreign_key": {
+            "table": "teacher",
+            "column": "Teacher_ID"
+          }
+        },
+        "Grade": {
+          "type": "number",
+          "source_label": "grade"
+        }
+      },
+      "observed_row_count": 6
+    }
+  },
+  "terms": {
+    "course arrange": {
+      "maps_to": "course_arrange",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "course__row_count": {
+      "meaning": "Number of rows in course.",
+      "base_table": "course",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "teacher__row_count": {
+      "meaning": "Number of rows in teacher.",
+      "base_table": "teacher",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "course_arrange__row_count": {
+      "meaning": "Number of rows in course_arrange.",
+      "base_table": "course_arrange",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

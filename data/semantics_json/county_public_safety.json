@@ -1,0 +1,157 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "county_public_safety",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "county_public_safety": {
+      "source_label": "county public safety",
+      "meaning": "Table labeled 'county public safety' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key County_ID",
+      "primary_key_columns": [
+        "County_ID"
+      ],
+      "columns": {
+        "County_ID": {
+          "type": "number",
+          "source_label": "county id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Abbotsford",
+            "Burnaby",
+            "Campbell River",
+            "Castlegar",
+            "Central Saanich",
+            "Chilliwack"
+          ]
+        },
+        "Population": {
+          "type": "number",
+          "source_label": "population"
+        },
+        "Police_officers": {
+          "type": "number",
+          "source_label": "police officers"
+        },
+        "Residents_per_officer": {
+          "type": "number",
+          "source_label": "residents per officer"
+        },
+        "Case_burden": {
+          "type": "number",
+          "source_label": "case burden"
+        },
+        "Crime_rate": {
+          "type": "number",
+          "source_label": "crime rate"
+        },
+        "Police_force": {
+          "type": "text",
+          "source_label": "police force",
+          "observed_values": [
+            "Abbotsford Police Department",
+            "RCMP",
+            "Central Saanich Police"
+          ]
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "East",
+            "West",
+            "North"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "city": {
+      "source_label": "city",
+      "meaning": "Table labeled 'city' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key City_ID",
+      "primary_key_columns": [
+        "City_ID"
+      ],
+      "columns": {
+        "City_ID": {
+          "type": "number",
+          "source_label": "city id",
+          "primary_key": true
+        },
+        "County_ID": {
+          "type": "number",
+          "source_label": "county id",
+          "foreign_key": {
+            "table": "county_public_safety",
+            "column": "County_ID"
+          }
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "White": {
+          "type": "number",
+          "source_label": "white"
+        },
+        "Black": {
+          "type": "number",
+          "source_label": "black"
+        },
+        "Amerindian": {
+          "type": "number",
+          "source_label": "amerindian"
+        },
+        "Asian": {
+          "type": "number",
+          "source_label": "asian"
+        },
+        "Multiracial": {
+          "type": "number",
+          "source_label": "multiracial"
+        },
+        "Hispanic": {
+          "type": "number",
+          "source_label": "hispanic"
+        }
+      },
+      "observed_row_count": 17
+    }
+  },
+  "terms": {
+    "county public safety": {
+      "maps_to": "county_public_safety",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "county_public_safety__row_count": {
+      "meaning": "Number of rows in county_public_safety.",
+      "base_table": "county_public_safety",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "city__row_count": {
+      "meaning": "Number of rows in city.",
+      "base_table": "city",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

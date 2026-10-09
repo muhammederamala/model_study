@@ -1,0 +1,135 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "book_2",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "publication": {
+      "source_label": "publication",
+      "meaning": "Table labeled 'publication' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Publication_ID",
+      "primary_key_columns": [
+        "Publication_ID"
+      ],
+      "columns": {
+        "Publication_ID": {
+          "type": "number",
+          "source_label": "publication id",
+          "primary_key": true
+        },
+        "Book_ID": {
+          "type": "number",
+          "source_label": "book id",
+          "foreign_key": {
+            "table": "book",
+            "column": "Book_ID"
+          }
+        },
+        "Publisher": {
+          "type": "text",
+          "source_label": "publisher",
+          "observed_values": [
+            "Pearson",
+            "Thomson Reuters",
+            "Wiley",
+            "Springer Nature",
+            "Bertelsmann"
+          ]
+        },
+        "Publication_Date": {
+          "type": "text",
+          "source_label": "publication date",
+          "observed_values": [
+            "August 2008",
+            "March 2008",
+            "June 2006",
+            "October 2005",
+            "March 2007",
+            "April 2007"
+          ]
+        },
+        "Price": {
+          "type": "number",
+          "source_label": "price"
+        }
+      },
+      "observed_row_count": 7
+    },
+    "book": {
+      "source_label": "book",
+      "meaning": "Table labeled 'book' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Book_ID",
+      "primary_key_columns": [
+        "Book_ID"
+      ],
+      "columns": {
+        "Book_ID": {
+          "type": "number",
+          "source_label": "book id",
+          "primary_key": true
+        },
+        "Title": {
+          "type": "text",
+          "source_label": "title",
+          "observed_values": [
+            "The Black Lamb",
+            "Bloody Mary",
+            "Bloody Mary : Lady Liberty",
+            "BrainBanx",
+            "Cyberella",
+            "Dead Corps",
+            "The Dome: Ground Zero",
+            "Gemini Blood",
+            "Michael Moorcock's Multiverse",
+            "Sheva's War"
+          ]
+        },
+        "Issues": {
+          "type": "number",
+          "source_label": "issues"
+        },
+        "Writer": {
+          "type": "text",
+          "source_label": "writer",
+          "observed_values": [
+            "Timothy Truman",
+            "Garth Ennis",
+            "Elaine Lee",
+            "Howard Chaykin",
+            "Christopher Hinz",
+            "Dave Gibbons",
+            "Michael Moorcock",
+            "Christopher Moeller"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "publication__row_count": {
+      "meaning": "Number of rows in publication.",
+      "base_table": "publication",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "book__row_count": {
+      "meaning": "Number of rows in book.",
+      "base_table": "book",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

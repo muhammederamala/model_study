@@ -1,0 +1,581 @@
+{
+  "format_version": "1.0",
+  "db_id": "battle_death",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "battle": {
+      "source_label": "battle",
+      "meaning": "Table labeled 'battle' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Battle of Adrianople",
+            "Battle of Serres",
+            "Battle of Rusion",
+            "Battle of Rodosto",
+            "Battle of Messinopolis",
+            "Battle of Boruy",
+            "Battle of Philippopolis",
+            "Siege of Constantinople"
+          ]
+        },
+        "date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "14 April 1205",
+            "June 1205",
+            "31 January 1206",
+            "February 1206",
+            "4 September 1207",
+            "31 June 1208",
+            "1235"
+          ]
+        },
+        "bulgarian_commander": {
+          "type": "text",
+          "source_label": "bulgarian commander",
+          "observed_values": [
+            "Kaloyan",
+            "Unknown",
+            "Boril",
+            "Ivan Asen II"
+          ]
+        },
+        "latin_commander": {
+          "type": "text",
+          "source_label": "latin commander",
+          "observed_values": [
+            "Baldwin I",
+            "Unknown",
+            "Thierry de Termond",
+            "Boniface of Montferrat",
+            "Henry I",
+            "John of Brienne"
+          ]
+        },
+        "result": {
+          "type": "text",
+          "source_label": "result",
+          "observed_values": [
+            "Bulgarian victory",
+            "Latin victory",
+            "Two Year Truce"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "ship": {
+      "source_label": "ship",
+      "meaning": "Table labeled 'ship' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "lost_in_battle": {
+          "type": "number",
+          "source_label": "lost in battle",
+          "foreign_key": {
+            "table": "battle",
+            "column": "id"
+          }
+        },
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Lettice",
+            "Bon Accord",
+            "Mary",
+            "HMS Avon",
+            "Three Brothers",
+            "Bacchus",
+            "HMS Atalanta"
+          ]
+        },
+        "tonnage": {
+          "type": "text",
+          "source_label": "tonnage",
+          "observed_values": [
+            "t",
+            "391",
+            "225"
+          ]
+        },
+        "ship_type": {
+          "type": "text",
+          "source_label": "ship type",
+          "observed_values": [
+            "Brig",
+            "18-gun Brig",
+            "8 gun Brig"
+          ]
+        },
+        "location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "English Channel",
+            "SW Approaches",
+            "Mid-Atlantic"
+          ]
+        },
+        "disposition_of_ship": {
+          "type": "text",
+          "source_label": "disposition of ship",
+          "observed_values": [
+            "Captured",
+            "Wrecked",
+            "Scuttled",
+            "Sank"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "death": {
+      "source_label": "death",
+      "meaning": "Table labeled 'death' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "caused_by_ship_id": {
+          "type": "number",
+          "source_label": "caused by ship id",
+          "foreign_key": {
+            "table": "ship",
+            "column": "id"
+          }
+        },
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "note": {
+          "type": "text",
+          "source_label": "note",
+          "observed_values": [
+            "Dantewada, Chhattisgarh",
+            "Erraboru, Chhattisgarh",
+            "East Champaran, Bihar",
+            "Gajapati, Odisha",
+            "Sundargarh, Odisha",
+            "Kanker, Chhattisgarh",
+            "WestMidnapore, West Bengal",
+            "Bastar, Chattisgarh",
+            "Bokaro, Jharkhand"
+          ]
+        },
+        "killed": {
+          "type": "number",
+          "source_label": "killed"
+        },
+        "injured": {
+          "type": "number",
+          "source_label": "injured"
+        }
+      },
+      "observed_row_count": 13
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "death",
+      "from_column": "caused_by_ship_id",
+      "to_table": "ship",
+      "to_column": "id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "ship",
+      "from_column": "lost_in_battle",
+      "to_table": "battle",
+      "to_column": "id",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {},
+  "metrics": {
+    "battle__row_count": {
+      "meaning": "Number of rows in battle.",
+      "base_table": "battle",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "ship__row_count": {
+      "meaning": "Number of rows in ship.",
+      "base_table": "ship",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "death__row_count": {
+      "meaning": "Number of rows in death.",
+      "base_table": "death",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "battle",
+      "column": "date",
+      "value": "1235",
+      "key": "1235"
+    },
+    {
+      "table": "battle",
+      "column": "date",
+      "value": "14 April 1205",
+      "key": "14 april 1205"
+    },
+    {
+      "table": "ship",
+      "column": "ship_type",
+      "value": "18-gun Brig",
+      "key": "18 gun brig"
+    },
+    {
+      "table": "ship",
+      "column": "tonnage",
+      "value": "225",
+      "key": "225"
+    },
+    {
+      "table": "battle",
+      "column": "date",
+      "value": "31 January 1206",
+      "key": "31 january 1206"
+    },
+    {
+      "table": "battle",
+      "column": "date",
+      "value": "31 June 1208",
+      "key": "31 june 1208"
+    },
+    {
+      "table": "ship",
+      "column": "tonnage",
+      "value": "391",
+      "key": "391"
+    },
+    {
+      "table": "battle",
+      "column": "date",
+      "value": "4 September 1207",
+      "key": "4 september 1207"
+    },
+    {
+      "table": "ship",
+      "column": "ship_type",
+      "value": "8 gun Brig",
+      "key": "8 gun brig"
+    },
+    {
+      "table": "ship",
+      "column": "name",
+      "value": "Bacchus",
+      "key": "bacchus"
+    },
+    {
+      "table": "battle",
+      "column": "latin_commander",
+      "value": "Baldwin I",
+      "key": "baldwin i"
+    },
+    {
+      "table": "death",
+      "column": "note",
+      "value": "Bastar, Chattisgarh",
+      "key": "bastar chattisgarh"
+    },
+    {
+      "table": "battle",
+      "column": "name",
+      "value": "Battle of Adrianople",
+      "key": "battle of adrianople"
+    },
+    {
+      "table": "battle",
+      "column": "name",
+      "value": "Battle of Boruy",
+      "key": "battle of boruy"
+    },
+    {
+      "table": "battle",
+      "column": "name",
+      "value": "Battle of Messinopolis",
+      "key": "battle of messinopolis"
+    },
+    {
+      "table": "battle",
+      "column": "name",
+      "value": "Battle of Philippopolis",
+      "key": "battle of philippopolis"
+    },
+    {
+      "table": "battle",
+      "column": "name",
+      "value": "Battle of Rodosto",
+      "key": "battle of rodosto"
+    },
+    {
+      "table": "battle",
+      "column": "name",
+      "value": "Battle of Rusion",
+      "key": "battle of rusion"
+    },
+    {
+      "table": "battle",
+      "column": "name",
+      "value": "Battle of Serres",
+      "key": "battle of serres"
+    },
+    {
+      "table": "death",
+      "column": "note",
+      "value": "Bokaro, Jharkhand",
+      "key": "bokaro jharkhand"
+    },
+    {
+      "table": "ship",
+      "column": "name",
+      "value": "Bon Accord",
+      "key": "bon accord"
+    },
+    {
+      "table": "battle",
+      "column": "latin_commander",
+      "value": "Boniface of Montferrat",
+      "key": "boniface of montferrat"
+    },
+    {
+      "table": "battle",
+      "column": "bulgarian_commander",
+      "value": "Boril",
+      "key": "boril"
+    },
+    {
+      "table": "ship",
+      "column": "ship_type",
+      "value": "Brig",
+      "key": "brig"
+    },
+    {
+      "table": "battle",
+      "column": "result",
+      "value": "Bulgarian victory",
+      "key": "bulgarian victory"
+    },
+    {
+      "table": "ship",
+      "column": "disposition_of_ship",
+      "value": "Captured",
+      "key": "captured"
+    },
+    {
+      "table": "death",
+      "column": "note",
+      "value": "Dantewada, Chhattisgarh",
+      "key": "dantewada chhattisgarh"
+    },
+    {
+      "table": "death",
+      "column": "note",
+      "value": "East Champaran, Bihar",
+      "key": "east champaran bihar"
+    },
+    {
+      "table": "ship",
+      "column": "location",
+      "value": "English Channel",
+      "key": "english channel"
+    },
+    {
+      "table": "death",
+      "column": "note",
+      "value": "Erraboru, Chhattisgarh",
+      "key": "erraboru chhattisgarh"
+    },
+    {
+      "table": "battle",
+      "column": "date",
+      "value": "February 1206",
+      "key": "february 1206"
+    },
+    {
+      "table": "death",
+      "column": "note",
+      "value": "Gajapati, Odisha",
+      "key": "gajapati odisha"
+    },
+    {
+      "table": "battle",
+      "column": "latin_commander",
+      "value": "Henry I",
+      "key": "henry i"
+    },
+    {
+      "table": "ship",
+      "column": "name",
+      "value": "HMS Atalanta",
+      "key": "hms atalanta"
+    },
+    {
+      "table": "ship",
+      "column": "name",
+      "value": "HMS Avon",
+      "key": "hms avon"
+    },
+    {
+      "table": "battle",
+      "column": "bulgarian_commander",
+      "value": "Ivan Asen II",
+      "key": "ivan asen ii"
+    },
+    {
+      "table": "battle",
+      "column": "latin_commander",
+      "value": "John of Brienne",
+      "key": "john of brienne"
+    },
+    {
+      "table": "battle",
+      "column": "date",
+      "value": "June 1205",
+      "key": "june 1205"
+    },
+    {
+      "table": "battle",
+      "column": "bulgarian_commander",
+      "value": "Kaloyan",
+      "key": "kaloyan"
+    },
+    {
+      "table": "death",
+      "column": "note",
+      "value": "Kanker, Chhattisgarh",
+      "key": "kanker chhattisgarh"
+    },
+    {
+      "table": "battle",
+      "column": "result",
+      "value": "Latin victory",
+      "key": "latin victory"
+    },
+    {
+      "table": "ship",
+      "column": "name",
+      "value": "Lettice",
+      "key": "lettice"
+    },
+    {
+      "table": "ship",
+      "column": "name",
+      "value": "Mary",
+      "key": "mary"
+    },
+    {
+      "table": "ship",
+      "column": "location",
+      "value": "Mid-Atlantic",
+      "key": "mid atlantic"
+    },
+    {
+      "table": "ship",
+      "column": "disposition_of_ship",
+      "value": "Sank",
+      "key": "sank"
+    },
+    {
+      "table": "ship",
+      "column": "disposition_of_ship",
+      "value": "Scuttled",
+      "key": "scuttled"
+    },
+    {
+      "table": "battle",
+      "column": "name",
+      "value": "Siege of Constantinople",
+      "key": "siege of constantinople"
+    },
+    {
+      "table": "death",
+      "column": "note",
+      "value": "Sundargarh, Odisha",
+      "key": "sundargarh odisha"
+    },
+    {
+      "table": "ship",
+      "column": "location",
+      "value": "SW Approaches",
+      "key": "sw approaches"
+    },
+    {
+      "table": "battle",
+      "column": "latin_commander",
+      "value": "Thierry de Termond",
+      "key": "thierry de termond"
+    },
+    {
+      "table": "ship",
+      "column": "name",
+      "value": "Three Brothers",
+      "key": "three brothers"
+    },
+    {
+      "table": "battle",
+      "column": "result",
+      "value": "Two Year Truce",
+      "key": "two year truce"
+    },
+    {
+      "table": "battle",
+      "column": "bulgarian_commander",
+      "value": "Unknown",
+      "key": "unknown"
+    },
+    {
+      "table": "battle",
+      "column": "latin_commander",
+      "value": "Unknown",
+      "key": "unknown"
+    },
+    {
+      "table": "death",
+      "column": "note",
+      "value": "WestMidnapore, West Bengal",
+      "key": "west midnapore west bengal"
+    },
+    {
+      "table": "ship",
+      "column": "disposition_of_ship",
+      "value": "Wrecked",
+      "key": "wrecked"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

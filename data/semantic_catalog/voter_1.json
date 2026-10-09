@@ -1,0 +1,567 @@
+{
+  "format_version": "1.0",
+  "db_id": "voter_1",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "AREA_CODE_STATE": {
+      "source_label": "area code state",
+      "meaning": "Table labeled 'area code state' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "area_code"
+      ],
+      "columns": {
+        "area_code": {
+          "type": "number",
+          "source_label": "area code",
+          "primary_key": true
+        },
+        "state": {
+          "type": "text",
+          "source_label": "state"
+        }
+      },
+      "observed_row_count": 305
+    },
+    "CONTESTANTS": {
+      "source_label": "contestants",
+      "meaning": "Table labeled 'contestants' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "contestant_number"
+      ],
+      "columns": {
+        "contestant_number": {
+          "type": "number",
+          "source_label": "contestant number",
+          "primary_key": true
+        },
+        "contestant_name": {
+          "type": "text",
+          "source_label": "contestant name",
+          "observed_values": [
+            "Edwina Burnam",
+            "Tabatha Gehling",
+            "Kelly Clauss",
+            "Jessie Alloway",
+            "Alana Bregman",
+            "Jessie Eichman",
+            "Allie Rogalski",
+            "Nita Coster",
+            "Kurt Walser",
+            "Ericka Dieter",
+            "Loraine NygrenTania Mattioli"
+          ]
+        }
+      },
+      "observed_row_count": 11
+    },
+    "VOTES": {
+      "source_label": "votes",
+      "meaning": "Table labeled 'votes' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "vote_id"
+      ],
+      "columns": {
+        "vote_id": {
+          "type": "number",
+          "source_label": "vote id",
+          "primary_key": true
+        },
+        "phone_number": {
+          "type": "number",
+          "source_label": "phone number"
+        },
+        "state": {
+          "type": "text",
+          "source_label": "state",
+          "foreign_key": {
+            "table": "AREA_CODE_STATE",
+            "column": "state"
+          },
+          "observed_values": [
+            "NY",
+            "CA",
+            "NJ\n"
+          ]
+        },
+        "contestant_number": {
+          "type": "number",
+          "source_label": "contestant number",
+          "foreign_key": {
+            "table": "CONTESTANTS",
+            "column": "contestant_number"
+          }
+        },
+        "created": {
+          "type": "time",
+          "source_label": "created"
+        }
+      },
+      "observed_row_count": 4
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "VOTES",
+      "from_column": "contestant_number",
+      "to_table": "CONTESTANTS",
+      "to_column": "contestant_number",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "VOTES",
+      "from_column": "state",
+      "to_table": "AREA_CODE_STATE",
+      "to_column": "state",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {
+    "area code state": {
+      "maps_to": "AREA_CODE_STATE",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "AREA_CODE_STATE__row_count": {
+      "meaning": "Number of rows in AREA_CODE_STATE.",
+      "base_table": "AREA_CODE_STATE",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "CONTESTANTS__row_count": {
+      "meaning": "Number of rows in CONTESTANTS.",
+      "base_table": "CONTESTANTS",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "VOTES__row_count": {
+      "meaning": "Number of rows in VOTES.",
+      "base_table": "VOTES",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "VOTES",
+      "column": "created",
+      "value": "2018-03-09 19:03:21",
+      "key": "2018 03 09 19 03 21"
+    },
+    {
+      "table": "VOTES",
+      "column": "created",
+      "value": "2018-03-09 19:03:36",
+      "key": "2018 03 09 19 03 36"
+    },
+    {
+      "table": "VOTES",
+      "column": "created",
+      "value": "2018-03-09 19:03:39",
+      "key": "2018 03 09 19 03 39"
+    },
+    {
+      "table": "VOTES",
+      "column": "created",
+      "value": "2018-03-09 19:03:40",
+      "key": "2018 03 09 19 03 40"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "AK",
+      "key": "ak"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "AL",
+      "key": "al"
+    },
+    {
+      "table": "CONTESTANTS",
+      "column": "contestant_name",
+      "value": "Alana Bregman",
+      "key": "alana bregman"
+    },
+    {
+      "table": "CONTESTANTS",
+      "column": "contestant_name",
+      "value": "Allie Rogalski",
+      "key": "allie rogalski"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "AR",
+      "key": "ar"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "AZ",
+      "key": "az"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "CA",
+      "key": "ca"
+    },
+    {
+      "table": "VOTES",
+      "column": "state",
+      "value": "CA",
+      "key": "ca"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "CO",
+      "key": "co"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "CT",
+      "key": "ct"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "DC",
+      "key": "dc"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "DE",
+      "key": "de"
+    },
+    {
+      "table": "CONTESTANTS",
+      "column": "contestant_name",
+      "value": "Edwina Burnam",
+      "key": "edwina burnam"
+    },
+    {
+      "table": "CONTESTANTS",
+      "column": "contestant_name",
+      "value": "Ericka Dieter",
+      "key": "ericka dieter"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "FL",
+      "key": "fl"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "GA",
+      "key": "ga"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "HI",
+      "key": "hi"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "IA",
+      "key": "ia"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "ID",
+      "key": "id"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "IL",
+      "key": "il"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "IN",
+      "key": "in"
+    },
+    {
+      "table": "CONTESTANTS",
+      "column": "contestant_name",
+      "value": "Jessie Alloway",
+      "key": "jessie alloway"
+    },
+    {
+      "table": "CONTESTANTS",
+      "column": "contestant_name",
+      "value": "Jessie Eichman",
+      "key": "jessie eichman"
+    },
+    {
+      "table": "CONTESTANTS",
+      "column": "contestant_name",
+      "value": "Kelly Clauss",
+      "key": "kelly clauss"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "KS",
+      "key": "ks"
+    },
+    {
+      "table": "CONTESTANTS",
+      "column": "contestant_name",
+      "value": "Kurt Walser",
+      "key": "kurt walser"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "KY",
+      "key": "ky"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "LA",
+      "key": "la"
+    },
+    {
+      "table": "CONTESTANTS",
+      "column": "contestant_name",
+      "value": "Loraine NygrenTania Mattioli",
+      "key": "loraine nygren tania mattioli"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "MA",
+      "key": "ma"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "MD",
+      "key": "md"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "ME",
+      "key": "me"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "MI",
+      "key": "mi"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "MN",
+      "key": "mn"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "MO",
+      "key": "mo"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "MS",
+      "key": "ms"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "MT",
+      "key": "mt"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "NC",
+      "key": "nc"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "ND",
+      "key": "nd"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "NE",
+      "key": "ne"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "NH",
+      "key": "nh"
+    },
+    {
+      "table": "CONTESTANTS",
+      "column": "contestant_name",
+      "value": "Nita Coster",
+      "key": "nita coster"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "NJ",
+      "key": "nj"
+    },
+    {
+      "table": "VOTES",
+      "column": "state",
+      "value": "NJ\n",
+      "key": "nj"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "NM",
+      "key": "nm"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "NV",
+      "key": "nv"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "NY",
+      "key": "ny"
+    },
+    {
+      "table": "VOTES",
+      "column": "state",
+      "value": "NY",
+      "key": "ny"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "OH",
+      "key": "oh"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "OK",
+      "key": "ok"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "OR",
+      "key": "or"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "PA",
+      "key": "pa"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "RI",
+      "key": "ri"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "SC",
+      "key": "sc"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "SD",
+      "key": "sd"
+    },
+    {
+      "table": "CONTESTANTS",
+      "column": "contestant_name",
+      "value": "Tabatha Gehling",
+      "key": "tabatha gehling"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "TN",
+      "key": "tn"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "TX",
+      "key": "tx"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "UT",
+      "key": "ut"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "VA",
+      "key": "va"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "VT",
+      "key": "vt"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "WA",
+      "key": "wa"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "WI",
+      "key": "wi"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "WV",
+      "key": "wv"
+    },
+    {
+      "table": "AREA_CODE_STATE",
+      "column": "state",
+      "value": "WY",
+      "key": "wy"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

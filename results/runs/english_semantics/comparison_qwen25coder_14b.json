@@ -1,0 +1,62 @@
+{
+  "evaluated": 1032,
+  "total": 1032,
+  "english_correct": 789,
+  "catalog_correct_on_same_ids": 788,
+  "baseline_correct_on_same_ids": 808,
+  "recovered_vs_catalog_ids": [
+    37,
+    691,
+    697,
+    742,
+    167,
+    978,
+    66,
+    507,
+    589,
+    591,
+    737,
+    769,
+    1010,
+    130
+  ],
+  "regressed_vs_catalog_ids": [
+    655,
+    0,
+    958,
+    532,
+    220,
+    707,
+    536,
+    893,
+    879,
+    563,
+    687,
+    29,
+    281
+  ],
+  "sql_errors": 13,
+  "by_complexity": {
+    "complex": {
+      "evaluated": 171,
+      "english_correct": 112,
+      "catalog_correct_on_same_ids": 114,
+      "baseline_correct_on_same_ids": 111
+    },
+    "moderate": {
+      "evaluated": 364,
+      "english_correct": 244,
+      "catalog_correct_on_same_ids": 241,
+      "baseline_correct_on_same_ids": 246
+    },
+    "simple": {
+      "evaluated": 497,
+      "english_correct": 433,
+      "catalog_correct_on_same_ids": 433,
+      "baseline_correct_on_same_ids": 451
+    }
+  },
+  "english_accuracy": 0.7645348837209303,
+  "catalog_accuracy": 0.7635658914728682,
+  "baseline_accuracy": 0.7829457364341085
+}

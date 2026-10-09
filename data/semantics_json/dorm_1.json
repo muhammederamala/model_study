@@ -1,0 +1,237 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "dorm_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Student": {
+      "source_label": "student",
+      "meaning": "Table labeled 'student' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key StuID",
+      "primary_key_columns": [
+        "StuID"
+      ],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true
+        },
+        "LName": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "Fname": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Sex": {
+          "type": "text",
+          "source_label": "sex",
+          "observed_values": [
+            "F",
+            "M"
+          ]
+        },
+        "Major": {
+          "type": "number",
+          "source_label": "major"
+        },
+        "Advisor": {
+          "type": "number",
+          "source_label": "advisor"
+        },
+        "city_code": {
+          "type": "text",
+          "source_label": "city code"
+        }
+      },
+      "observed_row_count": 34
+    },
+    "Dorm": {
+      "source_label": "dorm",
+      "meaning": "Table labeled 'dorm' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "dormid": {
+          "type": "number",
+          "source_label": "dorm id"
+        },
+        "dorm_name": {
+          "type": "text",
+          "source_label": "dorm name",
+          "observed_values": [
+            "Smith Hall",
+            "Bud Jones Hall",
+            "Fawlty Towers",
+            "Dorm-plex 2000",
+            "Anonymous Donor Hall",
+            "University Hovels",
+            "Grad Student Asylum"
+          ]
+        },
+        "student_capacity": {
+          "type": "number",
+          "source_label": "student capacity"
+        },
+        "gender": {
+          "type": "text",
+          "source_label": "gender",
+          "observed_values": [
+            "X",
+            "M",
+            "F"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "Dorm_amenity": {
+      "source_label": "dorm amenity",
+      "meaning": "Table labeled 'dorm amenity' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "amenid": {
+          "type": "number",
+          "source_label": "amenity id"
+        },
+        "amenity_name": {
+          "type": "text",
+          "source_label": "amenity name",
+          "observed_values": [
+            "TV Lounge",
+            "Study Room",
+            "Pub in Basement",
+            "Carpeted Rooms",
+            "4 Walls",
+            "Roof",
+            "Ethernet Ports",
+            "Air Conditioning",
+            "Heat",
+            "Working Fireplaces",
+            "Kitchen in Every Room",
+            "Allows Pets"
+          ]
+        }
+      },
+      "observed_row_count": 12
+    },
+    "Has_amenity": {
+      "source_label": "has amenity",
+      "meaning": "Table labeled 'has amenity' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "dormid": {
+          "type": "number",
+          "source_label": "dorm id",
+          "foreign_key": {
+            "table": "Dorm",
+            "column": "dormid"
+          }
+        },
+        "amenid": {
+          "type": "number",
+          "source_label": "amenity id",
+          "foreign_key": {
+            "table": "Dorm_amenity",
+            "column": "amenid"
+          }
+        }
+      },
+      "observed_row_count": 40
+    },
+    "Lives_in": {
+      "source_label": "lives in",
+      "meaning": "Table labeled 'lives in' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "stuid": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Student",
+            "column": "StuID"
+          }
+        },
+        "dormid": {
+          "type": "number",
+          "source_label": "dorm id",
+          "foreign_key": {
+            "table": "Dorm",
+            "column": "dormid"
+          }
+        },
+        "room_number": {
+          "type": "number",
+          "source_label": "room number"
+        }
+      },
+      "observed_row_count": 31
+    }
+  },
+  "terms": {
+    "dorm amenity": {
+      "maps_to": "Dorm_amenity",
+      "source": "Spider normalized table name"
+    },
+    "has amenity": {
+      "maps_to": "Has_amenity",
+      "source": "Spider normalized table name"
+    },
+    "lives in": {
+      "maps_to": "Lives_in",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Student__row_count": {
+      "meaning": "Number of rows in Student.",
+      "base_table": "Student",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Dorm__row_count": {
+      "meaning": "Number of rows in Dorm.",
+      "base_table": "Dorm",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Dorm_amenity__row_count": {
+      "meaning": "Number of rows in Dorm_amenity.",
+      "base_table": "Dorm_amenity",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Has_amenity__row_count": {
+      "meaning": "Number of rows in Has_amenity.",
+      "base_table": "Has_amenity",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Lives_in__row_count": {
+      "meaning": "Number of rows in Lives_in.",
+      "base_table": "Lives_in",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

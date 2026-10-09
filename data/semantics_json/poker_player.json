@@ -1,0 +1,133 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "poker_player",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "poker_player": {
+      "source_label": "poker player",
+      "meaning": "Table labeled 'poker player' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Poker_Player_ID",
+      "primary_key_columns": [
+        "Poker_Player_ID"
+      ],
+      "columns": {
+        "Poker_Player_ID": {
+          "type": "number",
+          "source_label": "poker player id",
+          "primary_key": true
+        },
+        "People_ID": {
+          "type": "number",
+          "source_label": "people id",
+          "foreign_key": {
+            "table": "people",
+            "column": "People_ID"
+          }
+        },
+        "Final_Table_Made": {
+          "type": "number",
+          "source_label": "final table made"
+        },
+        "Best_Finish": {
+          "type": "number",
+          "source_label": "best finish"
+        },
+        "Money_Rank": {
+          "type": "number",
+          "source_label": "money rank"
+        },
+        "Earnings": {
+          "type": "number",
+          "source_label": "earnings"
+        }
+      },
+      "observed_row_count": 5
+    },
+    "people": {
+      "source_label": "people",
+      "meaning": "Table labeled 'people' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key People_ID",
+      "primary_key_columns": [
+        "People_ID"
+      ],
+      "columns": {
+        "People_ID": {
+          "type": "number",
+          "source_label": "people id",
+          "primary_key": true
+        },
+        "Nationality": {
+          "type": "text",
+          "source_label": "nationality",
+          "observed_values": [
+            "Russia",
+            "Bulgaria"
+          ]
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Aleksey Ostapenko",
+            "Teodor Salparov",
+            "Roman Bragin",
+            "Sergey Grankin",
+            "Yevgeni Sivozhelez",
+            "Maksim Botin",
+            "Semen Poltavskiy"
+          ]
+        },
+        "Birth_Date": {
+          "type": "text",
+          "source_label": "birth date",
+          "observed_values": [
+            "May 26, 1986",
+            "August 16, 1982",
+            "April 17, 1987",
+            "January 22, 1987",
+            "August 8, 1986",
+            "July 14, 1983",
+            "February 8, 1981"
+          ]
+        },
+        "Height": {
+          "type": "number",
+          "source_label": "height"
+        }
+      },
+      "observed_row_count": 7
+    }
+  },
+  "terms": {
+    "poker player": {
+      "maps_to": "poker_player",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "poker_player__row_count": {
+      "meaning": "Number of rows in poker_player.",
+      "base_table": "poker_player",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "people__row_count": {
+      "meaning": "Number of rows in people.",
+      "base_table": "people",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

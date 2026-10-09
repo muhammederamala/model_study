@@ -1,0 +1,1287 @@
+{
+  "format_version": "1.0",
+  "db_id": "tvshow",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "TV_Channel": {
+      "source_label": "tv channel",
+      "meaning": "Table labeled 'tv channel' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "series_name": {
+          "type": "text",
+          "source_label": "series name"
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "Italy",
+            "United Kingdom",
+            "Poland"
+          ]
+        },
+        "Language": {
+          "type": "text",
+          "source_label": "language",
+          "observed_values": [
+            "Italian",
+            "English"
+          ]
+        },
+        "Content": {
+          "type": "text",
+          "source_label": "content",
+          "observed_values": [
+            "music"
+          ]
+        },
+        "Pixel_aspect_ratio_PAR": {
+          "type": "text",
+          "source_label": "pixel aspect ratio par",
+          "observed_values": [
+            "4:3",
+            "4:3 / 16:9",
+            "16:9"
+          ]
+        },
+        "Hight_definition_TV": {
+          "type": "text",
+          "source_label": "hight definition tv",
+          "observed_values": [
+            "no",
+            "yes"
+          ]
+        },
+        "Pay_per_view_PPV": {
+          "type": "text",
+          "source_label": "pay per view ppv",
+          "observed_values": [
+            "no"
+          ]
+        },
+        "Package_Option": {
+          "type": "text",
+          "source_label": "package option",
+          "observed_values": [
+            "Sky Famiglia",
+            "no ( FTV )",
+            "Sky Famiglia + Sky HD",
+            "Option"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "TV_series": {
+      "source_label": "tv series",
+      "meaning": "Table labeled 'tv series' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "Episode": {
+          "type": "text",
+          "source_label": "episode",
+          "observed_values": [
+            "A Love of a Lifetime",
+            "Friendly Skies",
+            "Game Three",
+            "The Year of the Rabbit",
+            "The Legend of Dylan McCleen",
+            "Keepers",
+            "Double Down",
+            "Winterland",
+            "Emily",
+            "Blowback",
+            "Home By Another Way",
+            "The Hanged Man"
+          ]
+        },
+        "Air_Date": {
+          "type": "text",
+          "source_label": "air date",
+          "observed_values": [
+            "September 24, 2007",
+            "October 1, 2007",
+            "October 8, 2007",
+            "October 15, 2007",
+            "October 22, 2007",
+            "October 29, 2007",
+            "November 5, 2007",
+            "November 12, 2007",
+            "November 19, 2007",
+            "November 26, 2007",
+            "December 10, 2007",
+            "December 17, 2007"
+          ]
+        },
+        "Rating": {
+          "type": "text",
+          "source_label": "rating",
+          "observed_values": [
+            "5.8",
+            "5.3",
+            "4.4",
+            "4.3",
+            "3.8",
+            "3.7",
+            "3.4",
+            "4.0",
+            "3.5",
+            "3.0"
+          ]
+        },
+        "Share": {
+          "type": "number",
+          "source_label": "share"
+        },
+        "18_49_Rating_Share": {
+          "type": "text",
+          "source_label": "18 49 rating share",
+          "observed_values": [
+            "3.5/9",
+            "3.2/8",
+            "2.9/7",
+            "2.7/7",
+            "2.4/6",
+            "2.2/6",
+            "2.1/5",
+            "1.7/5",
+            "1.5/4"
+          ]
+        },
+        "Viewers_m": {
+          "type": "text",
+          "source_label": "viewers m",
+          "observed_values": [
+            "9.16",
+            "8.23",
+            "6.94",
+            "6.75",
+            "6.06",
+            "5.75",
+            "5.13",
+            "6.09",
+            "5.61",
+            "6.05",
+            "5.28",
+            "4.24"
+          ]
+        },
+        "Weekly_Rank": {
+          "type": "number",
+          "source_label": "weekly rank"
+        },
+        "Channel": {
+          "type": "text",
+          "source_label": "channel",
+          "foreign_key": {
+            "table": "TV_Channel",
+            "column": "id"
+          },
+          "observed_values": [
+            "700",
+            "701",
+            "707",
+            "713",
+            "714",
+            "708",
+            "717",
+            "719",
+            "728"
+          ]
+        }
+      },
+      "observed_row_count": 12
+    },
+    "Cartoon": {
+      "source_label": "cartoon",
+      "meaning": "Table labeled 'cartoon' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "Title": {
+          "type": "text",
+          "source_label": "title",
+          "observed_values": [
+            "The Rise of the Blue Beetle!",
+            "Terror on Dinosaur Island!",
+            "Evil Under the Sea!",
+            "Day of the Dark Knight!",
+            "Invasion of the Secret Santas!",
+            "Enter the Outsiders!",
+            "Dawn of the Dead Man!",
+            "Fall of the Blue Beetle!",
+            "Journey to the Center of the Bat!",
+            "The Eyes of Despero!",
+            "Return of the Fearsome Fangs!",
+            "Deep Cover for Batman!"
+          ]
+        },
+        "Directed_by": {
+          "type": "text",
+          "source_label": "directed by",
+          "observed_values": [
+            "Ben Jones",
+            "Brandon Vietti",
+            "Michael Chang"
+          ]
+        },
+        "Written_by": {
+          "type": "text",
+          "source_label": "written by",
+          "observed_values": [
+            "Michael Jelenic",
+            "Steven Melching",
+            "Joseph Kuhr",
+            "J. M. DeMatteis",
+            "Adam Beechen",
+            "Todd Casey",
+            "James Krieg",
+            "Matt Wayne"
+          ]
+        },
+        "Original_air_date": {
+          "type": "text",
+          "source_label": "original air date",
+          "observed_values": [
+            "November14,2008",
+            "November21,2008",
+            "December5,2008",
+            "January2,2009",
+            "December12,2008",
+            "January9,2009",
+            "January16,2009",
+            "January23,2009",
+            "January30,2009",
+            "February6,2009",
+            "February20,2009",
+            "February27,2009"
+          ]
+        },
+        "Production_code": {
+          "type": "number",
+          "source_label": "production code"
+        },
+        "Channel": {
+          "type": "text",
+          "source_label": "channel",
+          "foreign_key": {
+            "table": "TV_Channel",
+            "column": "id"
+          },
+          "observed_values": [
+            "700",
+            "701",
+            "703",
+            "704",
+            "705",
+            "706",
+            "707",
+            "708",
+            "728"
+          ]
+        }
+      },
+      "observed_row_count": 12
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "Cartoon",
+      "from_column": "Channel",
+      "to_table": "TV_Channel",
+      "to_column": "id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "TV_series",
+      "from_column": "Channel",
+      "to_table": "TV_Channel",
+      "to_column": "id",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {
+    "tv channel": {
+      "maps_to": "TV_Channel",
+      "source": "Spider normalized table name"
+    },
+    "tv series": {
+      "maps_to": "TV_series",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "TV_Channel__row_count": {
+      "meaning": "Number of rows in TV_Channel.",
+      "base_table": "TV_Channel",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "TV_series__row_count": {
+      "meaning": "Number of rows in TV_series.",
+      "base_table": "TV_series",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Cartoon__row_count": {
+      "meaning": "Number of rows in Cartoon.",
+      "base_table": "Cartoon",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "TV_series",
+      "column": "18_49_Rating_Share",
+      "value": "1.5/4",
+      "key": "1 5 4"
+    },
+    {
+      "table": "TV_series",
+      "column": "18_49_Rating_Share",
+      "value": "1.7/5",
+      "key": "1 7 5"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Pixel_aspect_ratio_PAR",
+      "value": "16:9",
+      "key": "16 9"
+    },
+    {
+      "table": "TV_series",
+      "column": "18_49_Rating_Share",
+      "value": "2.1/5",
+      "key": "2 1 5"
+    },
+    {
+      "table": "TV_series",
+      "column": "18_49_Rating_Share",
+      "value": "2.2/6",
+      "key": "2 2 6"
+    },
+    {
+      "table": "TV_series",
+      "column": "18_49_Rating_Share",
+      "value": "2.4/6",
+      "key": "2 4 6"
+    },
+    {
+      "table": "TV_series",
+      "column": "18_49_Rating_Share",
+      "value": "2.7/7",
+      "key": "2 7 7"
+    },
+    {
+      "table": "TV_series",
+      "column": "18_49_Rating_Share",
+      "value": "2.9/7",
+      "key": "2 9 7"
+    },
+    {
+      "table": "TV_series",
+      "column": "Rating",
+      "value": "3.0",
+      "key": "3 0"
+    },
+    {
+      "table": "TV_series",
+      "column": "18_49_Rating_Share",
+      "value": "3.2/8",
+      "key": "3 2 8"
+    },
+    {
+      "table": "TV_series",
+      "column": "Rating",
+      "value": "3.4",
+      "key": "3 4"
+    },
+    {
+      "table": "TV_series",
+      "column": "Rating",
+      "value": "3.5",
+      "key": "3 5"
+    },
+    {
+      "table": "TV_series",
+      "column": "18_49_Rating_Share",
+      "value": "3.5/9",
+      "key": "3 5 9"
+    },
+    {
+      "table": "TV_series",
+      "column": "Rating",
+      "value": "3.7",
+      "key": "3 7"
+    },
+    {
+      "table": "TV_series",
+      "column": "Rating",
+      "value": "3.8",
+      "key": "3 8"
+    },
+    {
+      "table": "TV_series",
+      "column": "Rating",
+      "value": "4.0",
+      "key": "4 0"
+    },
+    {
+      "table": "TV_series",
+      "column": "Viewers_m",
+      "value": "4.24",
+      "key": "4 24"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Pixel_aspect_ratio_PAR",
+      "value": "4:3",
+      "key": "4 3"
+    },
+    {
+      "table": "TV_series",
+      "column": "Rating",
+      "value": "4.3",
+      "key": "4 3"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Pixel_aspect_ratio_PAR",
+      "value": "4:3 / 16:9",
+      "key": "4 3 16 9"
+    },
+    {
+      "table": "TV_series",
+      "column": "Rating",
+      "value": "4.4",
+      "key": "4 4"
+    },
+    {
+      "table": "TV_series",
+      "column": "Viewers_m",
+      "value": "5.13",
+      "key": "5 13"
+    },
+    {
+      "table": "TV_series",
+      "column": "Viewers_m",
+      "value": "5.28",
+      "key": "5 28"
+    },
+    {
+      "table": "TV_series",
+      "column": "Rating",
+      "value": "5.3",
+      "key": "5 3"
+    },
+    {
+      "table": "TV_series",
+      "column": "Viewers_m",
+      "value": "5.61",
+      "key": "5 61"
+    },
+    {
+      "table": "TV_series",
+      "column": "Viewers_m",
+      "value": "5.75",
+      "key": "5 75"
+    },
+    {
+      "table": "TV_series",
+      "column": "Rating",
+      "value": "5.8",
+      "key": "5 8"
+    },
+    {
+      "table": "TV_series",
+      "column": "Viewers_m",
+      "value": "6.05",
+      "key": "6 05"
+    },
+    {
+      "table": "TV_series",
+      "column": "Viewers_m",
+      "value": "6.06",
+      "key": "6 06"
+    },
+    {
+      "table": "TV_series",
+      "column": "Viewers_m",
+      "value": "6.09",
+      "key": "6 09"
+    },
+    {
+      "table": "TV_series",
+      "column": "Viewers_m",
+      "value": "6.75",
+      "key": "6 75"
+    },
+    {
+      "table": "TV_series",
+      "column": "Viewers_m",
+      "value": "6.94",
+      "key": "6 94"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Channel",
+      "value": "700",
+      "key": "700"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "id",
+      "value": "700",
+      "key": "700"
+    },
+    {
+      "table": "TV_series",
+      "column": "Channel",
+      "value": "700",
+      "key": "700"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Channel",
+      "value": "701",
+      "key": "701"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "id",
+      "value": "701",
+      "key": "701"
+    },
+    {
+      "table": "TV_series",
+      "column": "Channel",
+      "value": "701",
+      "key": "701"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Channel",
+      "value": "703",
+      "key": "703"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "id",
+      "value": "703",
+      "key": "703"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Channel",
+      "value": "704",
+      "key": "704"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "id",
+      "value": "704",
+      "key": "704"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Channel",
+      "value": "705",
+      "key": "705"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "id",
+      "value": "705",
+      "key": "705"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Channel",
+      "value": "706",
+      "key": "706"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "id",
+      "value": "706",
+      "key": "706"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Channel",
+      "value": "707",
+      "key": "707"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "id",
+      "value": "707",
+      "key": "707"
+    },
+    {
+      "table": "TV_series",
+      "column": "Channel",
+      "value": "707",
+      "key": "707"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Channel",
+      "value": "708",
+      "key": "708"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "id",
+      "value": "708",
+      "key": "708"
+    },
+    {
+      "table": "TV_series",
+      "column": "Channel",
+      "value": "708",
+      "key": "708"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "id",
+      "value": "709",
+      "key": "709"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "id",
+      "value": "713",
+      "key": "713"
+    },
+    {
+      "table": "TV_series",
+      "column": "Channel",
+      "value": "713",
+      "key": "713"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "id",
+      "value": "714",
+      "key": "714"
+    },
+    {
+      "table": "TV_series",
+      "column": "Channel",
+      "value": "714",
+      "key": "714"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "id",
+      "value": "715",
+      "key": "715"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "id",
+      "value": "717",
+      "key": "717"
+    },
+    {
+      "table": "TV_series",
+      "column": "Channel",
+      "value": "717",
+      "key": "717"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "id",
+      "value": "719",
+      "key": "719"
+    },
+    {
+      "table": "TV_series",
+      "column": "Channel",
+      "value": "719",
+      "key": "719"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Channel",
+      "value": "728",
+      "key": "728"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "id",
+      "value": "728",
+      "key": "728"
+    },
+    {
+      "table": "TV_series",
+      "column": "Channel",
+      "value": "728",
+      "key": "728"
+    },
+    {
+      "table": "TV_series",
+      "column": "Viewers_m",
+      "value": "8.23",
+      "key": "8 23"
+    },
+    {
+      "table": "TV_series",
+      "column": "Viewers_m",
+      "value": "9.16",
+      "key": "9 16"
+    },
+    {
+      "table": "TV_series",
+      "column": "Episode",
+      "value": "A Love of a Lifetime",
+      "key": "a love of a lifetime"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Written_by",
+      "value": "Adam Beechen",
+      "key": "adam beechen"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Directed_by",
+      "value": "Ben Jones",
+      "key": "ben jones"
+    },
+    {
+      "table": "TV_series",
+      "column": "Episode",
+      "value": "Blowback",
+      "key": "blowback"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Directed_by",
+      "value": "Brandon Vietti",
+      "key": "brandon vietti"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "series_name",
+      "value": "Classica",
+      "key": "classica"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Title",
+      "value": "Dawn of the Dead Man!",
+      "key": "dawn of the dead man"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Title",
+      "value": "Day of the Dark Knight!",
+      "key": "day of the dark knight"
+    },
+    {
+      "table": "TV_series",
+      "column": "Air_Date",
+      "value": "December 10, 2007",
+      "key": "december 10 2007"
+    },
+    {
+      "table": "TV_series",
+      "column": "Air_Date",
+      "value": "December 17, 2007",
+      "key": "december 17 2007"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Original_air_date",
+      "value": "December12,2008",
+      "key": "december12 2008"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Original_air_date",
+      "value": "December5,2008",
+      "key": "december5 2008"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Title",
+      "value": "Deep Cover for Batman!",
+      "key": "deep cover for batman"
+    },
+    {
+      "table": "TV_series",
+      "column": "Episode",
+      "value": "Double Down",
+      "key": "double down"
+    },
+    {
+      "table": "TV_series",
+      "column": "Episode",
+      "value": "Emily",
+      "key": "emily"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Language",
+      "value": "English",
+      "key": "english"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Title",
+      "value": "Enter the Outsiders!",
+      "key": "enter the outsiders"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Title",
+      "value": "Evil Under the Sea!",
+      "key": "evil under the sea"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Title",
+      "value": "Fall of the Blue Beetle!",
+      "key": "fall of the blue beetle"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Original_air_date",
+      "value": "February20,2009",
+      "key": "february20 2009"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Original_air_date",
+      "value": "February27,2009",
+      "key": "february27 2009"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Original_air_date",
+      "value": "February6,2009",
+      "key": "february6 2009"
+    },
+    {
+      "table": "TV_series",
+      "column": "Episode",
+      "value": "Friendly Skies",
+      "key": "friendly skies"
+    },
+    {
+      "table": "TV_series",
+      "column": "Episode",
+      "value": "Game Three",
+      "key": "game three"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "series_name",
+      "value": "Hip Hop TV",
+      "key": "hip hop tv"
+    },
+    {
+      "table": "TV_series",
+      "column": "Episode",
+      "value": "Home By Another Way",
+      "key": "home by another way"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Title",
+      "value": "Invasion of the Secret Santas!",
+      "key": "invasion of the secret santas"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Language",
+      "value": "Italian",
+      "key": "italian"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Country",
+      "value": "Italy",
+      "key": "italy"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Written_by",
+      "value": "J. M. DeMatteis",
+      "key": "j m de matteis"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Written_by",
+      "value": "James Krieg",
+      "key": "james krieg"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Original_air_date",
+      "value": "January16,2009",
+      "key": "january16 2009"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Original_air_date",
+      "value": "January2,2009",
+      "key": "january2 2009"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Original_air_date",
+      "value": "January23,2009",
+      "key": "january23 2009"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Original_air_date",
+      "value": "January30,2009",
+      "key": "january30 2009"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Original_air_date",
+      "value": "January9,2009",
+      "key": "january9 2009"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Written_by",
+      "value": "Joseph Kuhr",
+      "key": "joseph kuhr"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Title",
+      "value": "Journey to the Center of the Bat!",
+      "key": "journey to the center of the bat"
+    },
+    {
+      "table": "TV_series",
+      "column": "Episode",
+      "value": "Keepers",
+      "key": "keepers"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "series_name",
+      "value": "Match Music",
+      "key": "match music"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Written_by",
+      "value": "Matt Wayne",
+      "key": "matt wayne"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Directed_by",
+      "value": "Michael Chang",
+      "key": "michael chang"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Written_by",
+      "value": "Michael Jelenic",
+      "key": "michael jelenic"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "series_name",
+      "value": "MTV Classic",
+      "key": "mtv classic"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "series_name",
+      "value": "MTV Dance",
+      "key": "mtv dance"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "series_name",
+      "value": "MTV Hits",
+      "key": "mtv hits"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "series_name",
+      "value": "MTV Live HD",
+      "key": "mtv live hd"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "series_name",
+      "value": "MTV Music",
+      "key": "mtv music"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "series_name",
+      "value": "MTV Rocks",
+      "key": "mtv rocks"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Content",
+      "value": "music",
+      "key": "music"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "series_name",
+      "value": "Music Box Italia",
+      "key": "music box italia"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "series_name",
+      "value": "myDeejay",
+      "key": "my deejay"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Hight_definition_TV",
+      "value": "no",
+      "key": "no"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Pay_per_view_PPV",
+      "value": "no",
+      "key": "no"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Package_Option",
+      "value": "no ( FTV )",
+      "key": "no ftv"
+    },
+    {
+      "table": "TV_series",
+      "column": "Air_Date",
+      "value": "November 12, 2007",
+      "key": "november 12 2007"
+    },
+    {
+      "table": "TV_series",
+      "column": "Air_Date",
+      "value": "November 19, 2007",
+      "key": "november 19 2007"
+    },
+    {
+      "table": "TV_series",
+      "column": "Air_Date",
+      "value": "November 26, 2007",
+      "key": "november 26 2007"
+    },
+    {
+      "table": "TV_series",
+      "column": "Air_Date",
+      "value": "November 5, 2007",
+      "key": "november 5 2007"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Original_air_date",
+      "value": "November14,2008",
+      "key": "november14 2008"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Original_air_date",
+      "value": "November21,2008",
+      "key": "november21 2008"
+    },
+    {
+      "table": "TV_series",
+      "column": "Air_Date",
+      "value": "October 1, 2007",
+      "key": "october 1 2007"
+    },
+    {
+      "table": "TV_series",
+      "column": "Air_Date",
+      "value": "October 15, 2007",
+      "key": "october 15 2007"
+    },
+    {
+      "table": "TV_series",
+      "column": "Air_Date",
+      "value": "October 22, 2007",
+      "key": "october 22 2007"
+    },
+    {
+      "table": "TV_series",
+      "column": "Air_Date",
+      "value": "October 29, 2007",
+      "key": "october 29 2007"
+    },
+    {
+      "table": "TV_series",
+      "column": "Air_Date",
+      "value": "October 8, 2007",
+      "key": "october 8 2007"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Package_Option",
+      "value": "Option",
+      "key": "option"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Country",
+      "value": "Poland",
+      "key": "poland"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "series_name",
+      "value": "Radio Capital TiVù",
+      "key": "radio capital ti vù"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Title",
+      "value": "Return of the Fearsome Fangs!",
+      "key": "return of the fearsome fangs"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "series_name",
+      "value": "Rock TV",
+      "key": "rock tv"
+    },
+    {
+      "table": "TV_series",
+      "column": "Air_Date",
+      "value": "September 24, 2007",
+      "key": "september 24 2007"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Package_Option",
+      "value": "Sky Famiglia",
+      "key": "sky famiglia"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Package_Option",
+      "value": "Sky Famiglia + Sky HD",
+      "key": "sky famiglia sky hd"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "series_name",
+      "value": "Sky Music",
+      "key": "sky music"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "series_name",
+      "value": "Sky Radio",
+      "key": "sky radio"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Written_by",
+      "value": "Steven Melching",
+      "key": "steven melching"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Title",
+      "value": "Terror on Dinosaur Island!",
+      "key": "terror on dinosaur island"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Title",
+      "value": "The Eyes of Despero!",
+      "key": "the eyes of despero"
+    },
+    {
+      "table": "TV_series",
+      "column": "Episode",
+      "value": "The Hanged Man",
+      "key": "the hanged man"
+    },
+    {
+      "table": "TV_series",
+      "column": "Episode",
+      "value": "The Legend of Dylan McCleen",
+      "key": "the legend of dylan mc cleen"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Title",
+      "value": "The Rise of the Blue Beetle!",
+      "key": "the rise of the blue beetle"
+    },
+    {
+      "table": "TV_series",
+      "column": "Episode",
+      "value": "The Year of the Rabbit",
+      "key": "the year of the rabbit"
+    },
+    {
+      "table": "Cartoon",
+      "column": "Written_by",
+      "value": "Todd Casey",
+      "key": "todd casey"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Country",
+      "value": "United Kingdom",
+      "key": "united kingdom"
+    },
+    {
+      "table": "TV_series",
+      "column": "Episode",
+      "value": "Winterland",
+      "key": "winterland"
+    },
+    {
+      "table": "TV_Channel",
+      "column": "Hight_definition_TV",
+      "value": "yes",
+      "key": "yes"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

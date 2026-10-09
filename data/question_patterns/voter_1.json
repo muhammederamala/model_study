@@ -1,0 +1,81 @@
+{
+  "db_id": "voter_1",
+  "n_questions": 15,
+  "n_questions_with_join": 5,
+  "join_pairs": [
+    {
+      "left": "contestants.contestant_number",
+      "right": "votes.contestant_number",
+      "n": 4
+    },
+    {
+      "left": "area_code_state.state",
+      "right": "votes.state",
+      "n": 2
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 6
+    },
+    {
+      "fn": "MAX",
+      "target": "area_code",
+      "n": 1
+    },
+    {
+      "fn": "MIN",
+      "target": "area_code",
+      "n": 1
+    },
+    {
+      "fn": "MAX",
+      "target": "created",
+      "n": 1
+    }
+  ],
+  "column_clause_usage": {
+    "area_code": {
+      "group by": 1
+    },
+    "contestant_name": {
+      "where": 4,
+      "order by": 1
+    },
+    "contestant_number": {
+      "group by": 2,
+      "where": 1
+    },
+    "state": {
+      "where": 2
+    }
+  },
+  "question_openers": {
+    "what is the": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "what are the": {
+      "COUNT": 2,
+      "GROUP BY": 1
+    },
+    "of all the": {
+      "GROUP BY": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "how many contestants": {
+      "COUNT": 1,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "list the area": {
+      "INTERSECT": 1,
+      "subquery": 1
+    }
+  }
+}

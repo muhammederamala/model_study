@@ -1,0 +1,188 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "icfp_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Inst": {
+      "source_label": "institution",
+      "meaning": "Table labeled 'institution' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key instID",
+      "primary_key_columns": [
+        "instID"
+      ],
+      "columns": {
+        "instID": {
+          "type": "number",
+          "source_label": "institution id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "University of Oxford",
+            "Northeastern University",
+            "Indiana University",
+            "Google",
+            "Tohoku University",
+            "University of Pennsylvania",
+            "Portland State University",
+            "INRIA"
+          ]
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "UK",
+            "USA",
+            "Japan",
+            "France"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "Authors": {
+      "source_label": "authors",
+      "meaning": "Table labeled 'authors' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key authID",
+      "primary_key_columns": [
+        "authID"
+      ],
+      "columns": {
+        "authID": {
+          "type": "number",
+          "source_label": "author id",
+          "primary_key": true
+        },
+        "lname": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "fname": {
+          "type": "text",
+          "source_label": "first name"
+        }
+      },
+      "observed_row_count": 13
+    },
+    "Papers": {
+      "source_label": "papers",
+      "meaning": "Table labeled 'papers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key paperID",
+      "primary_key_columns": [
+        "paperID"
+      ],
+      "columns": {
+        "paperID": {
+          "type": "number",
+          "source_label": "paper id",
+          "primary_key": true
+        },
+        "title": {
+          "type": "text",
+          "source_label": "title",
+          "observed_values": [
+            "Just do it: Simple Monadic Equational Reasoning",
+            "Proving the Unique Fixed-Point Principle Correct: An Adventure with Category Theory",
+            "Functional Pearl: Modular Rollback through Control Logging",
+            "An Equivalence-Preserving CPS Translation via Multi-Language Semantics",
+            "Making Standard ML a Practical Database Programming Language",
+            "Nameless, Painless",
+            "Binders Unbound"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "Authorship": {
+      "source_label": "authorship count",
+      "meaning": "Table labeled 'authorship count' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key authID",
+      "primary_key_columns": [
+        "authID"
+      ],
+      "columns": {
+        "authID": {
+          "type": "number",
+          "source_label": "author id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Authors",
+            "column": "authID"
+          }
+        },
+        "instID": {
+          "type": "number",
+          "source_label": "institution id",
+          "foreign_key": {
+            "table": "Inst",
+            "column": "instID"
+          }
+        },
+        "paperID": {
+          "type": "number",
+          "source_label": "paper id",
+          "foreign_key": {
+            "table": "Papers",
+            "column": "paperID"
+          }
+        },
+        "authOrder": {
+          "type": "number",
+          "source_label": "author count"
+        }
+      },
+      "observed_row_count": 14
+    }
+  },
+  "terms": {
+    "institution": {
+      "maps_to": "Inst",
+      "source": "Spider normalized table name"
+    },
+    "authorship count": {
+      "maps_to": "Authorship",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Inst__row_count": {
+      "meaning": "Number of rows in Inst.",
+      "base_table": "Inst",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Authors__row_count": {
+      "meaning": "Number of rows in Authors.",
+      "base_table": "Authors",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Papers__row_count": {
+      "meaning": "Number of rows in Papers.",
+      "base_table": "Papers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Authorship__row_count": {
+      "meaning": "Number of rows in Authorship.",
+      "base_table": "Authorship",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

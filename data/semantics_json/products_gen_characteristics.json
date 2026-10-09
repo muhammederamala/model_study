@@ -1,0 +1,354 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "products_gen_characteristics",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Ref_Characteristic_Types": {
+      "source_label": "reference characteristic types",
+      "meaning": "Table labeled 'reference characteristic types' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key characteristic_type_code",
+      "primary_key_columns": [
+        "characteristic_type_code"
+      ],
+      "columns": {
+        "characteristic_type_code": {
+          "type": "text",
+          "source_label": "characteristic type code",
+          "primary_key": true,
+          "observed_values": [
+            "Grade",
+            "Purity"
+          ]
+        },
+        "characteristic_type_description": {
+          "type": "text",
+          "source_label": "characteristic type description",
+          "observed_values": [
+            "Grade",
+            "Purity"
+          ]
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Ref_Colors": {
+      "source_label": "reference colors",
+      "meaning": "Table labeled 'reference colors' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key color_code",
+      "primary_key_columns": [
+        "color_code"
+      ],
+      "columns": {
+        "color_code": {
+          "type": "text",
+          "source_label": "color code",
+          "primary_key": true,
+          "observed_values": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        "color_description": {
+          "type": "text",
+          "source_label": "color description",
+          "observed_values": [
+            "red",
+            "green",
+            "yellow",
+            "blue",
+            "black",
+            "white",
+            "purple",
+            "gray"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "Ref_Product_Categories": {
+      "source_label": "reference product categories",
+      "meaning": "Table labeled 'reference product categories' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key product_category_code",
+      "primary_key_columns": [
+        "product_category_code"
+      ],
+      "columns": {
+        "product_category_code": {
+          "type": "text",
+          "source_label": "product category code",
+          "primary_key": true,
+          "observed_values": [
+            "Herbs",
+            "Seeds",
+            "Spices"
+          ]
+        },
+        "product_category_description": {
+          "type": "text",
+          "source_label": "product category description",
+          "observed_values": [
+            "Herbs",
+            "Seeds",
+            "Spices"
+          ]
+        },
+        "unit_of_measure": {
+          "type": "text",
+          "source_label": "unit of measure",
+          "observed_values": [
+            "Handful             ",
+            "Weight - pound,kilo."
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Characteristics": {
+      "source_label": "characteristics",
+      "meaning": "Table labeled 'characteristics' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key characteristic_id",
+      "primary_key_columns": [
+        "characteristic_id"
+      ],
+      "columns": {
+        "characteristic_id": {
+          "type": "number",
+          "source_label": "characteristic id",
+          "primary_key": true
+        },
+        "characteristic_type_code": {
+          "type": "text",
+          "source_label": "characteristic type code",
+          "foreign_key": {
+            "table": "Ref_Characteristic_Types",
+            "column": "characteristic_type_code"
+          },
+          "observed_values": [
+            "Grade",
+            "Purity"
+          ]
+        },
+        "characteristic_data_type": {
+          "type": "text",
+          "source_label": "characteristic data type"
+        },
+        "characteristic_name": {
+          "type": "text",
+          "source_label": "characteristic name",
+          "observed_values": [
+            "slow",
+            "fast",
+            "warm",
+            "hot",
+            "cool",
+            "error"
+          ]
+        },
+        "other_characteristic_details": {
+          "type": "text",
+          "source_label": "other characteristic details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Products": {
+      "source_label": "products",
+      "meaning": "Table labeled 'products' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key product_id",
+      "primary_key_columns": [
+        "product_id"
+      ],
+      "columns": {
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "primary_key": true
+        },
+        "color_code": {
+          "type": "text",
+          "source_label": "color code",
+          "foreign_key": {
+            "table": "Ref_Colors",
+            "column": "color_code"
+          },
+          "observed_values": [
+            "4",
+            "2",
+            "9",
+            "1",
+            "5",
+            "7"
+          ]
+        },
+        "product_category_code": {
+          "type": "text",
+          "source_label": "product category code",
+          "foreign_key": {
+            "table": "Ref_Product_Categories",
+            "column": "product_category_code"
+          },
+          "observed_values": [
+            "Spices",
+            "Herbs",
+            "Seeds"
+          ]
+        },
+        "product_name": {
+          "type": "text",
+          "source_label": "product name"
+        },
+        "typical_buying_price": {
+          "type": "text",
+          "source_label": "typical buying price",
+          "observed_values": [
+            "352447.2874677",
+            "503.8431967",
+            "5.578",
+            "1284268.0659",
+            "24493",
+            "12008702.623",
+            "339404395.7",
+            "162",
+            "1686539.4",
+            "43221310.465574"
+          ]
+        },
+        "typical_selling_price": {
+          "type": "text",
+          "source_label": "typical selling price"
+        },
+        "product_description": {
+          "type": "text",
+          "source_label": "product description",
+          "observed_values": [
+            "et",
+            "rerum",
+            "officia",
+            "blanditiis",
+            "eius",
+            "doloribus",
+            "nulla",
+            "vel",
+            "minus",
+            "nisi",
+            "exercitationem",
+            "ut"
+          ]
+        },
+        "other_product_details": {
+          "type": "text",
+          "source_label": "other product details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Product_Characteristics": {
+      "source_label": "product characteristics",
+      "meaning": "Table labeled 'product characteristics' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "product_id": {
+          "type": "number",
+          "source_label": "product id",
+          "foreign_key": {
+            "table": "Products",
+            "column": "product_id"
+          }
+        },
+        "characteristic_id": {
+          "type": "number",
+          "source_label": "characteristic id",
+          "foreign_key": {
+            "table": "Characteristics",
+            "column": "characteristic_id"
+          }
+        },
+        "product_characteristic_value": {
+          "type": "text",
+          "source_label": "product characteristic value",
+          "observed_values": [
+            "low",
+            "medium",
+            "high"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "reference characteristic types": {
+      "maps_to": "Ref_Characteristic_Types",
+      "source": "Spider normalized table name"
+    },
+    "reference colors": {
+      "maps_to": "Ref_Colors",
+      "source": "Spider normalized table name"
+    },
+    "reference product categories": {
+      "maps_to": "Ref_Product_Categories",
+      "source": "Spider normalized table name"
+    },
+    "product characteristics": {
+      "maps_to": "Product_Characteristics",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Ref_Characteristic_Types__row_count": {
+      "meaning": "Number of rows in Ref_Characteristic_Types.",
+      "base_table": "Ref_Characteristic_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Ref_Colors__row_count": {
+      "meaning": "Number of rows in Ref_Colors.",
+      "base_table": "Ref_Colors",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Ref_Product_Categories__row_count": {
+      "meaning": "Number of rows in Ref_Product_Categories.",
+      "base_table": "Ref_Product_Categories",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Characteristics__row_count": {
+      "meaning": "Number of rows in Characteristics.",
+      "base_table": "Characteristics",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Products__row_count": {
+      "meaning": "Number of rows in Products.",
+      "base_table": "Products",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Product_Characteristics__row_count": {
+      "meaning": "Number of rows in Product_Characteristics.",
+      "base_table": "Product_Characteristics",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

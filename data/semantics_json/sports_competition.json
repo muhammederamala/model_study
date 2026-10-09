@@ -1,0 +1,307 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "sports_competition",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "club": {
+      "source_label": "club",
+      "meaning": "Table labeled 'club' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Club_ID",
+      "primary_key_columns": [
+        "Club_ID"
+      ],
+      "columns": {
+        "Club_ID": {
+          "type": "number",
+          "source_label": "club id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "AIB",
+            "BK Slide",
+            "IFG",
+            "ASC",
+            "HGS2",
+            "HSBIF"
+          ]
+        },
+        "Region": {
+          "type": "text",
+          "source_label": "region",
+          "observed_values": [
+            "USA",
+            "UK",
+            "China",
+            "Japan",
+            "England",
+            "Brazil"
+          ]
+        },
+        "Start_year": {
+          "type": "text",
+          "source_label": "start year",
+          "observed_values": [
+            "2009",
+            "1998",
+            "2005",
+            "2001",
+            "2000",
+            "2011"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "club_rank": {
+      "source_label": "club rank",
+      "meaning": "Table labeled 'club rank' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Rank",
+      "primary_key_columns": [
+        "Rank"
+      ],
+      "columns": {
+        "Rank": {
+          "type": "number",
+          "source_label": "rank",
+          "primary_key": true
+        },
+        "Club_ID": {
+          "type": "number",
+          "source_label": "club id",
+          "foreign_key": {
+            "table": "club",
+            "column": "Club_ID"
+          }
+        },
+        "Gold": {
+          "type": "number",
+          "source_label": "gold"
+        },
+        "Silver": {
+          "type": "number",
+          "source_label": "silver"
+        },
+        "Bronze": {
+          "type": "number",
+          "source_label": "bronze"
+        },
+        "Total": {
+          "type": "number",
+          "source_label": "total"
+        }
+      },
+      "observed_row_count": 6
+    },
+    "player": {
+      "source_label": "player",
+      "meaning": "Table labeled 'player' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Player_ID",
+      "primary_key_columns": [
+        "Player_ID"
+      ],
+      "columns": {
+        "Player_ID": {
+          "type": "number",
+          "source_label": "player id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "Position": {
+          "type": "text",
+          "source_label": "position",
+          "observed_values": [
+            "Full Back",
+            "Right Wing",
+            "Right Centre",
+            "Left Wing",
+            "Stand Off",
+            "Scrum Half",
+            "Prop",
+            "Hooker",
+            "Second Row",
+            "Loose Forward"
+          ]
+        },
+        "Club_ID": {
+          "type": "number",
+          "source_label": "club id",
+          "foreign_key": {
+            "table": "club",
+            "column": "Club_ID"
+          }
+        },
+        "Apps": {
+          "type": "number",
+          "source_label": "apps"
+        },
+        "Tries": {
+          "type": "number",
+          "source_label": "tries"
+        },
+        "Goals": {
+          "type": "text",
+          "source_label": "goals",
+          "observed_values": [
+            "0",
+            "50/60",
+            "90/106",
+            "0/1"
+          ]
+        },
+        "Points": {
+          "type": "number",
+          "source_label": "points"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "competition": {
+      "source_label": "competition",
+      "meaning": "Table labeled 'competition' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Competition_ID",
+      "primary_key_columns": [
+        "Competition_ID"
+      ],
+      "columns": {
+        "Competition_ID": {
+          "type": "number",
+          "source_label": "competition id",
+          "primary_key": true
+        },
+        "Year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "Competition_type": {
+          "type": "text",
+          "source_label": "competition type",
+          "observed_values": [
+            "Friendly",
+            "Tournament"
+          ]
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "Italy",
+            "Spain",
+            "Australia",
+            "Russia",
+            "Slovenia",
+            "Ireland"
+          ]
+        }
+      },
+      "observed_row_count": 11
+    },
+    "competition_result": {
+      "source_label": "competition result",
+      "meaning": "Table labeled 'competition result' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Competition_ID",
+      "primary_key_columns": [
+        "Competition_ID"
+      ],
+      "columns": {
+        "Competition_ID": {
+          "type": "number",
+          "source_label": "competition id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "competition",
+            "column": "Competition_ID"
+          }
+        },
+        "Club_ID_1": {
+          "type": "number",
+          "source_label": "club id 1",
+          "foreign_key": {
+            "table": "club",
+            "column": "Club_ID"
+          }
+        },
+        "Club_ID_2": {
+          "type": "number",
+          "source_label": "club id 2",
+          "foreign_key": {
+            "table": "club",
+            "column": "Club_ID"
+          }
+        },
+        "Score": {
+          "type": "text",
+          "source_label": "score",
+          "observed_values": [
+            "11:10",
+            "25:2",
+            "13:10",
+            "12:9",
+            "10:3",
+            "10:11"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    }
+  },
+  "terms": {
+    "club rank": {
+      "maps_to": "club_rank",
+      "source": "Spider normalized table name"
+    },
+    "competition result": {
+      "maps_to": "competition_result",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "club__row_count": {
+      "meaning": "Number of rows in club.",
+      "base_table": "club",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "club_rank__row_count": {
+      "meaning": "Number of rows in club_rank.",
+      "base_table": "club_rank",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "player__row_count": {
+      "meaning": "Number of rows in player.",
+      "base_table": "player",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "competition__row_count": {
+      "meaning": "Number of rows in competition.",
+      "base_table": "competition",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "competition_result__row_count": {
+      "meaning": "Number of rows in competition_result.",
+      "base_table": "competition_result",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

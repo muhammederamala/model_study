@@ -1,0 +1,463 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "dog_kennels",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Breeds": {
+      "source_label": "breeds",
+      "meaning": "Table labeled 'breeds' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key breed_code",
+      "primary_key_columns": [
+        "breed_code"
+      ],
+      "columns": {
+        "breed_code": {
+          "type": "text",
+          "source_label": "breed code",
+          "primary_key": true,
+          "observed_values": [
+            "BUL",
+            "ESK",
+            "HUS"
+          ]
+        },
+        "breed_name": {
+          "type": "text",
+          "source_label": "breed name",
+          "observed_values": [
+            "Eskimo",
+            "Husky",
+            "Bulldog"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Charges": {
+      "source_label": "charges",
+      "meaning": "Table labeled 'charges' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key charge_id",
+      "primary_key_columns": [
+        "charge_id"
+      ],
+      "columns": {
+        "charge_id": {
+          "type": "number",
+          "source_label": "charge id",
+          "primary_key": true
+        },
+        "charge_type": {
+          "type": "text",
+          "source_label": "charge type",
+          "observed_values": [
+            "Daily Accommodation",
+            "Drugs",
+            "Health Check"
+          ]
+        },
+        "charge_amount": {
+          "type": "number",
+          "source_label": "charge amount"
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Sizes": {
+      "source_label": "sizes",
+      "meaning": "Table labeled 'sizes' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key size_code",
+      "primary_key_columns": [
+        "size_code"
+      ],
+      "columns": {
+        "size_code": {
+          "type": "text",
+          "source_label": "size code",
+          "primary_key": true,
+          "observed_values": [
+            "LGE",
+            "MED",
+            "SML"
+          ]
+        },
+        "size_description": {
+          "type": "text",
+          "source_label": "size description",
+          "observed_values": [
+            "Small",
+            "Medium",
+            "Large"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Treatment_Types": {
+      "source_label": "treatment types",
+      "meaning": "Table labeled 'treatment types' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key treatment_type_code",
+      "primary_key_columns": [
+        "treatment_type_code"
+      ],
+      "columns": {
+        "treatment_type_code": {
+          "type": "text",
+          "source_label": "treatment type code",
+          "primary_key": true,
+          "observed_values": [
+            "EXAM",
+            "VAC",
+            "WALK"
+          ]
+        },
+        "treatment_type_description": {
+          "type": "text",
+          "source_label": "treatment type description",
+          "observed_values": [
+            "Physical examination",
+            "Vaccination",
+            "Take for a Walk"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Owners": {
+      "source_label": "owners",
+      "meaning": "Table labeled 'owners' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key owner_id",
+      "primary_key_columns": [
+        "owner_id"
+      ],
+      "columns": {
+        "owner_id": {
+          "type": "number",
+          "source_label": "owner id",
+          "primary_key": true
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "street": {
+          "type": "text",
+          "source_label": "street"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "state": {
+          "type": "text",
+          "source_label": "state"
+        },
+        "zip_code": {
+          "type": "text",
+          "source_label": "zip code"
+        },
+        "email_address": {
+          "type": "text",
+          "source_label": "email address"
+        },
+        "home_phone": {
+          "type": "text",
+          "source_label": "home phone"
+        },
+        "cell_number": {
+          "type": "text",
+          "source_label": "cell number"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Dogs": {
+      "source_label": "dogs",
+      "meaning": "Table labeled 'dogs' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key dog_id",
+      "primary_key_columns": [
+        "dog_id"
+      ],
+      "columns": {
+        "dog_id": {
+          "type": "number",
+          "source_label": "dog id",
+          "primary_key": true
+        },
+        "owner_id": {
+          "type": "number",
+          "source_label": "owner id",
+          "foreign_key": {
+            "table": "Owners",
+            "column": "owner_id"
+          }
+        },
+        "abandoned_yn": {
+          "type": "text",
+          "source_label": "abandoned yes or no",
+          "observed_values": [
+            "1",
+            "0"
+          ]
+        },
+        "breed_code": {
+          "type": "text",
+          "source_label": "breed code",
+          "foreign_key": {
+            "table": "Breeds",
+            "column": "breed_code"
+          },
+          "observed_values": [
+            "ESK",
+            "BUL",
+            "HUS"
+          ]
+        },
+        "size_code": {
+          "type": "text",
+          "source_label": "size code",
+          "foreign_key": {
+            "table": "Sizes",
+            "column": "size_code"
+          },
+          "observed_values": [
+            "LGE",
+            "MED",
+            "SML"
+          ]
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "age": {
+          "type": "text",
+          "source_label": "age",
+          "observed_values": [
+            "6",
+            "9",
+            "8",
+            "5",
+            "4",
+            "2",
+            "3",
+            "1"
+          ]
+        },
+        "date_of_birth": {
+          "type": "time",
+          "source_label": "date of birth"
+        },
+        "gender": {
+          "type": "text",
+          "source_label": "gender",
+          "observed_values": [
+            "1",
+            "0"
+          ]
+        },
+        "weight": {
+          "type": "text",
+          "source_label": "weight"
+        },
+        "date_arrived": {
+          "type": "time",
+          "source_label": "date arrived"
+        },
+        "date_adopted": {
+          "type": "time",
+          "source_label": "date adopted"
+        },
+        "date_departed": {
+          "type": "time",
+          "source_label": "date departed"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Professionals": {
+      "source_label": "professionals",
+      "meaning": "Table labeled 'professionals' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key professional_id",
+      "primary_key_columns": [
+        "professional_id"
+      ],
+      "columns": {
+        "professional_id": {
+          "type": "number",
+          "source_label": "professional id",
+          "primary_key": true
+        },
+        "role_code": {
+          "type": "text",
+          "source_label": "role code",
+          "observed_values": [
+            "Employee",
+            "Veterenarian"
+          ]
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "street": {
+          "type": "text",
+          "source_label": "street"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "state": {
+          "type": "text",
+          "source_label": "state"
+        },
+        "zip_code": {
+          "type": "text",
+          "source_label": "zip code"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "email_address": {
+          "type": "text",
+          "source_label": "email address"
+        },
+        "home_phone": {
+          "type": "text",
+          "source_label": "home phone"
+        },
+        "cell_number": {
+          "type": "text",
+          "source_label": "cell number"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Treatments": {
+      "source_label": "treatments",
+      "meaning": "Table labeled 'treatments' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key treatment_id",
+      "primary_key_columns": [
+        "treatment_id"
+      ],
+      "columns": {
+        "treatment_id": {
+          "type": "number",
+          "source_label": "treatment id",
+          "primary_key": true
+        },
+        "dog_id": {
+          "type": "number",
+          "source_label": "dog id",
+          "foreign_key": {
+            "table": "Dogs",
+            "column": "dog_id"
+          }
+        },
+        "professional_id": {
+          "type": "number",
+          "source_label": "professional id",
+          "foreign_key": {
+            "table": "Professionals",
+            "column": "professional_id"
+          }
+        },
+        "treatment_type_code": {
+          "type": "text",
+          "source_label": "treatment type code",
+          "foreign_key": {
+            "table": "Treatment_Types",
+            "column": "treatment_type_code"
+          },
+          "observed_values": [
+            "WALK",
+            "VAC",
+            "EXAM"
+          ]
+        },
+        "date_of_treatment": {
+          "type": "time",
+          "source_label": "date of treatment"
+        },
+        "cost_of_treatment": {
+          "type": "number",
+          "source_label": "cost of treatment"
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "treatment types": {
+      "maps_to": "Treatment_Types",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Breeds__row_count": {
+      "meaning": "Number of rows in Breeds.",
+      "base_table": "Breeds",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Charges__row_count": {
+      "meaning": "Number of rows in Charges.",
+      "base_table": "Charges",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Sizes__row_count": {
+      "meaning": "Number of rows in Sizes.",
+      "base_table": "Sizes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Treatment_Types__row_count": {
+      "meaning": "Number of rows in Treatment_Types.",
+      "base_table": "Treatment_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Owners__row_count": {
+      "meaning": "Number of rows in Owners.",
+      "base_table": "Owners",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Dogs__row_count": {
+      "meaning": "Number of rows in Dogs.",
+      "base_table": "Dogs",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Professionals__row_count": {
+      "meaning": "Number of rows in Professionals.",
+      "base_table": "Professionals",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Treatments__row_count": {
+      "meaning": "Number of rows in Treatments.",
+      "base_table": "Treatments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

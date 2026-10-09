@@ -1,0 +1,239 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "music_4",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "artist": {
+      "source_label": "artist",
+      "meaning": "Table labeled 'artist' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Artist_ID",
+      "primary_key_columns": [
+        "Artist_ID"
+      ],
+      "columns": {
+        "Artist_ID": {
+          "type": "number",
+          "source_label": "artist id",
+          "primary_key": true
+        },
+        "Artist": {
+          "type": "text",
+          "source_label": "artist",
+          "observed_values": [
+            "Gorgoroth",
+            "Ophiolatry",
+            "Black Flame",
+            "Tangorodrim",
+            "Triumfall"
+          ]
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Famous_Title": {
+          "type": "text",
+          "source_label": "famous title",
+          "observed_values": [
+            "Bergen 1996",
+            "Transmutation",
+            "Antievangelistical Process (re-release)",
+            "Imperivm",
+            "Unholy Metal Way (re-release)",
+            "Those Who Unleashed (re-release)",
+            "Antithesis of All Flesh"
+          ]
+        },
+        "Famous_Release_date": {
+          "type": "text",
+          "source_label": "famous release date",
+          "observed_values": [
+            "November 2007",
+            "January 21, 2008",
+            "2009",
+            "June 23, 2008",
+            "June 15, 2009"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "volume": {
+      "source_label": "volume",
+      "meaning": "Table labeled 'volume' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Volume_ID",
+      "primary_key_columns": [
+        "Volume_ID"
+      ],
+      "columns": {
+        "Volume_ID": {
+          "type": "number",
+          "source_label": "volume id",
+          "primary_key": true
+        },
+        "Volume_Issue": {
+          "type": "text",
+          "source_label": "volume issue",
+          "observed_values": [
+            "45:14 §",
+            "45:15",
+            "45:16",
+            "45:21-22",
+            "46:5",
+            "46:6-8",
+            "46:9",
+            "46:10",
+            "46:14-15",
+            "46:16"
+          ]
+        },
+        "Issue_Date": {
+          "type": "text",
+          "source_label": "issue date",
+          "observed_values": [
+            "27 December 1986 - 10 January",
+            "17 January",
+            "24 January",
+            "28 February - 7 March",
+            "9 May",
+            "16 May - 30 May",
+            "6 June",
+            "13 June",
+            "11 July - 18 July",
+            "25 July"
+          ]
+        },
+        "Weeks_on_Top": {
+          "type": "number",
+          "source_label": "weeks on top"
+        },
+        "Song": {
+          "type": "text",
+          "source_label": "song",
+          "observed_values": [
+            " The Way",
+            " Everybody Have Fun Tonight ",
+            " Walk Like an Egyptian ",
+            " Touch Me (I Want Your Body) ",
+            " With or Without You ",
+            " (I Just) Died in Your Arms ",
+            " La Isla Bonita ",
+            "Looking for a New Love",
+            " Always ",
+            "Head to Toe "
+          ]
+        },
+        "Artist_ID": {
+          "type": "number",
+          "source_label": "artist id",
+          "foreign_key": {
+            "table": "artist",
+            "column": "Artist_ID"
+          }
+        }
+      },
+      "observed_row_count": 10
+    },
+    "music_festival": {
+      "source_label": "music festival",
+      "meaning": "Table labeled 'music festival' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key ID",
+      "primary_key_columns": [
+        "ID"
+      ],
+      "columns": {
+        "ID": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "Music_Festival": {
+          "type": "text",
+          "source_label": "music festival",
+          "observed_values": [
+            "34th England Academy Prize",
+            "34th Japan Academy Prize",
+            "34th European Academy Prize",
+            "36th Japan Academy Prize",
+            "34th USA Academy Prize",
+            "40th Japan Academy Prize",
+            "37th Sweden Academy Prize",
+            "37th Canadian Academy Prize",
+            "35th China Academy Prize"
+          ]
+        },
+        "Date_of_ceremony": {
+          "type": "text",
+          "source_label": "date of ceremony",
+          "observed_values": [
+            "18 February 2011"
+          ]
+        },
+        "Category": {
+          "type": "text",
+          "source_label": "category",
+          "observed_values": [
+            "Best Song",
+            "Best Lyrics",
+            "Best Sound Song"
+          ]
+        },
+        "Volume": {
+          "type": "number",
+          "source_label": "volume",
+          "foreign_key": {
+            "table": "volume",
+            "column": "Volume_ID"
+          }
+        },
+        "Result": {
+          "type": "text",
+          "source_label": "result",
+          "observed_values": [
+            "Nominated",
+            "Awarded"
+          ]
+        }
+      },
+      "observed_row_count": 9
+    }
+  },
+  "terms": {
+    "music festival": {
+      "maps_to": "music_festival",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "artist__row_count": {
+      "meaning": "Number of rows in artist.",
+      "base_table": "artist",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "volume__row_count": {
+      "meaning": "Number of rows in volume.",
+      "base_table": "volume",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "music_festival__row_count": {
+      "meaning": "Number of rows in music_festival.",
+      "base_table": "music_festival",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

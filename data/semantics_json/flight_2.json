@@ -1,0 +1,174 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "flight_2",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "airlines": {
+      "source_label": "airlines",
+      "meaning": "Table labeled 'airlines' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key uid",
+      "primary_key_columns": [
+        "uid"
+      ],
+      "columns": {
+        "uid": {
+          "type": "number",
+          "source_label": "airline id",
+          "primary_key": true
+        },
+        "Airline": {
+          "type": "text",
+          "source_label": "airline name",
+          "observed_values": [
+            "United Airlines",
+            "US Airways",
+            "Delta Airlines",
+            "Southwest Airlines",
+            "American Airlines",
+            "Northwest Airlines",
+            "Continental Airlines",
+            "JetBlue Airways",
+            "Frontier Airlines",
+            "AirTran Airways",
+            "Allegiant Air",
+            "Virgin America"
+          ]
+        },
+        "Abbreviation": {
+          "type": "text",
+          "source_label": "abbreviation",
+          "observed_values": [
+            "UAL",
+            "USAir",
+            "Delta",
+            "Southwest",
+            "American",
+            "Northwest",
+            "Continental",
+            "JetBlue",
+            "Frontier",
+            "AirTran",
+            "Allegiant",
+            "Virgin"
+          ]
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "USA"
+          ]
+        }
+      },
+      "observed_row_count": 12
+    },
+    "airports": {
+      "source_label": "airports",
+      "meaning": "Table labeled 'airports' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key AirportCode",
+      "primary_key_columns": [
+        "AirportCode"
+      ],
+      "columns": {
+        "City": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "AirportCode": {
+          "type": "text",
+          "source_label": "airport code",
+          "primary_key": true
+        },
+        "AirportName": {
+          "type": "text",
+          "source_label": "airport name"
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "United States "
+          ]
+        },
+        "CountryAbbrev": {
+          "type": "text",
+          "source_label": "country abbrev",
+          "observed_values": [
+            "US ",
+            "US"
+          ]
+        }
+      },
+      "observed_row_count": 100
+    },
+    "flights": {
+      "source_label": "flights",
+      "meaning": "Table labeled 'flights' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Airline",
+      "primary_key_columns": [
+        "Airline"
+      ],
+      "columns": {
+        "Airline": {
+          "type": "number",
+          "source_label": "airline",
+          "primary_key": true
+        },
+        "FlightNo": {
+          "type": "number",
+          "source_label": "flight number"
+        },
+        "SourceAirport": {
+          "type": "text",
+          "source_label": "source airport",
+          "foreign_key": {
+            "table": "airports",
+            "column": "AirportCode"
+          }
+        },
+        "DestAirport": {
+          "type": "text",
+          "source_label": "destination airport",
+          "foreign_key": {
+            "table": "airports",
+            "column": "AirportCode"
+          }
+        }
+      },
+      "observed_row_count": 1200
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "airlines__row_count": {
+      "meaning": "Number of rows in airlines.",
+      "base_table": "airlines",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "airports__row_count": {
+      "meaning": "Number of rows in airports.",
+      "base_table": "airports",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "flights__row_count": {
+      "meaning": "Number of rows in flights.",
+      "base_table": "flights",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

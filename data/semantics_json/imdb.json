@@ -1,0 +1,632 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "imdb",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "actor": {
+      "source_label": "actor",
+      "meaning": "Table labeled 'actor' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key aid",
+      "primary_key_columns": [
+        "aid"
+      ],
+      "columns": {
+        "aid": {
+          "type": "number",
+          "source_label": "aid",
+          "primary_key": true
+        },
+        "gender": {
+          "type": "text",
+          "source_label": "gender"
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "nationality": {
+          "type": "text",
+          "source_label": "nationality"
+        },
+        "birth_city": {
+          "type": "text",
+          "source_label": "birth city"
+        },
+        "birth_year": {
+          "type": "number",
+          "source_label": "birth year"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "copyright": {
+      "source_label": "copyright",
+      "meaning": "Table labeled 'copyright' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "msid": {
+          "type": "number",
+          "source_label": "msid"
+        },
+        "cid": {
+          "type": "number",
+          "source_label": "cid"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "cast": {
+      "source_label": "cast",
+      "meaning": "Table labeled 'cast' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "msid": {
+          "type": "number",
+          "source_label": "msid",
+          "foreign_key": {
+            "table": "copyright",
+            "column": "msid"
+          }
+        },
+        "aid": {
+          "type": "number",
+          "source_label": "aid",
+          "foreign_key": {
+            "table": "actor",
+            "column": "aid"
+          }
+        },
+        "role": {
+          "type": "number",
+          "source_label": "role"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "genre": {
+      "source_label": "genre",
+      "meaning": "Table labeled 'genre' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key gid",
+      "primary_key_columns": [
+        "gid"
+      ],
+      "columns": {
+        "gid": {
+          "type": "number",
+          "source_label": "gid",
+          "primary_key": true
+        },
+        "genre": {
+          "type": "text",
+          "source_label": "genre"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "classification": {
+      "source_label": "classification",
+      "meaning": "Table labeled 'classification' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "msid": {
+          "type": "number",
+          "source_label": "msid",
+          "foreign_key": {
+            "table": "copyright",
+            "column": "msid"
+          }
+        },
+        "gid": {
+          "type": "number",
+          "source_label": "gid",
+          "foreign_key": {
+            "table": "genre",
+            "column": "gid"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "company": {
+      "source_label": "company",
+      "meaning": "Table labeled 'company' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "country_code": {
+          "type": "text",
+          "source_label": "country code"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "director": {
+      "source_label": "director",
+      "meaning": "Table labeled 'director' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key did",
+      "primary_key_columns": [
+        "did"
+      ],
+      "columns": {
+        "did": {
+          "type": "number",
+          "source_label": "did",
+          "primary_key": true
+        },
+        "gender": {
+          "type": "text",
+          "source_label": "gender"
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "nationality": {
+          "type": "text",
+          "source_label": "nationality"
+        },
+        "birth_city": {
+          "type": "text",
+          "source_label": "birth city"
+        },
+        "birth_year": {
+          "type": "number",
+          "source_label": "birth year"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "producer": {
+      "source_label": "producer",
+      "meaning": "Table labeled 'producer' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key pid",
+      "primary_key_columns": [
+        "pid"
+      ],
+      "columns": {
+        "pid": {
+          "type": "number",
+          "source_label": "pid",
+          "primary_key": true
+        },
+        "gender": {
+          "type": "text",
+          "source_label": "gender"
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "nationality": {
+          "type": "text",
+          "source_label": "nationality"
+        },
+        "birth_city": {
+          "type": "text",
+          "source_label": "birth city"
+        },
+        "birth_year": {
+          "type": "number",
+          "source_label": "birth year"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "directed_by": {
+      "source_label": "directed by",
+      "meaning": "Table labeled 'directed by' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "msid": {
+          "type": "number",
+          "source_label": "msid",
+          "foreign_key": {
+            "table": "copyright",
+            "column": "msid"
+          }
+        },
+        "did": {
+          "type": "number",
+          "source_label": "did",
+          "foreign_key": {
+            "table": "director",
+            "column": "did"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "keyword": {
+      "source_label": "keyword",
+      "meaning": "Table labeled 'keyword' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "keyword": {
+          "type": "text",
+          "source_label": "keyword"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "made_by": {
+      "source_label": "made by",
+      "meaning": "Table labeled 'made by' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "msid": {
+          "type": "number",
+          "source_label": "msid",
+          "foreign_key": {
+            "table": "copyright",
+            "column": "msid"
+          }
+        },
+        "pid": {
+          "type": "number",
+          "source_label": "pid",
+          "foreign_key": {
+            "table": "producer",
+            "column": "pid"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "movie": {
+      "source_label": "movie",
+      "meaning": "Table labeled 'movie' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key mid",
+      "primary_key_columns": [
+        "mid"
+      ],
+      "columns": {
+        "mid": {
+          "type": "number",
+          "source_label": "mid",
+          "primary_key": true
+        },
+        "title": {
+          "type": "text",
+          "source_label": "title"
+        },
+        "release_year": {
+          "type": "number",
+          "source_label": "release year"
+        },
+        "title_aka": {
+          "type": "text",
+          "source_label": "title aka"
+        },
+        "budget": {
+          "type": "text",
+          "source_label": "budget"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "tags": {
+      "source_label": "tags",
+      "meaning": "Table labeled 'tags' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "msid": {
+          "type": "number",
+          "source_label": "msid",
+          "foreign_key": {
+            "table": "copyright",
+            "column": "msid"
+          }
+        },
+        "kid": {
+          "type": "number",
+          "source_label": "kid"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "tv_series": {
+      "source_label": "tv series",
+      "meaning": "Table labeled 'tv series' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key sid",
+      "primary_key_columns": [
+        "sid"
+      ],
+      "columns": {
+        "sid": {
+          "type": "number",
+          "source_label": "sid",
+          "primary_key": true
+        },
+        "title": {
+          "type": "text",
+          "source_label": "title"
+        },
+        "release_year": {
+          "type": "number",
+          "source_label": "release year"
+        },
+        "num_of_seasons": {
+          "type": "number",
+          "source_label": "num of seasons"
+        },
+        "num_of_episodes": {
+          "type": "number",
+          "source_label": "num of episodes"
+        },
+        "title_aka": {
+          "type": "text",
+          "source_label": "title aka"
+        },
+        "budget": {
+          "type": "text",
+          "source_label": "budget"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "writer": {
+      "source_label": "writer",
+      "meaning": "Table labeled 'writer' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key wid",
+      "primary_key_columns": [
+        "wid"
+      ],
+      "columns": {
+        "wid": {
+          "type": "number",
+          "source_label": "wid",
+          "primary_key": true
+        },
+        "gender": {
+          "type": "text",
+          "source_label": "gender"
+        },
+        "name": {
+          "type": "number",
+          "source_label": "name"
+        },
+        "nationality": {
+          "type": "number",
+          "source_label": "nationality"
+        },
+        "num_of_episodes": {
+          "type": "number",
+          "source_label": "num of episodes"
+        },
+        "birth_city": {
+          "type": "text",
+          "source_label": "birth city"
+        },
+        "birth_year": {
+          "type": "number",
+          "source_label": "birth year"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "written_by": {
+      "source_label": "written by",
+      "meaning": "Table labeled 'written by' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id"
+        },
+        "msid": {
+          "type": "number",
+          "source_label": "msid",
+          "foreign_key": {
+            "table": "copyright",
+            "column": "msid"
+          }
+        },
+        "wid": {
+          "type": "number",
+          "source_label": "wid",
+          "foreign_key": {
+            "table": "writer",
+            "column": "wid"
+          }
+        }
+      },
+      "observed_row_count": 0
+    }
+  },
+  "terms": {
+    "directed by": {
+      "maps_to": "directed_by",
+      "source": "Spider normalized table name"
+    },
+    "made by": {
+      "maps_to": "made_by",
+      "source": "Spider normalized table name"
+    },
+    "tv series": {
+      "maps_to": "tv_series",
+      "source": "Spider normalized table name"
+    },
+    "written by": {
+      "maps_to": "written_by",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "actor__row_count": {
+      "meaning": "Number of rows in actor.",
+      "base_table": "actor",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "copyright__row_count": {
+      "meaning": "Number of rows in copyright.",
+      "base_table": "copyright",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "cast__row_count": {
+      "meaning": "Number of rows in cast.",
+      "base_table": "cast",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "genre__row_count": {
+      "meaning": "Number of rows in genre.",
+      "base_table": "genre",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "classification__row_count": {
+      "meaning": "Number of rows in classification.",
+      "base_table": "classification",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "company__row_count": {
+      "meaning": "Number of rows in company.",
+      "base_table": "company",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "director__row_count": {
+      "meaning": "Number of rows in director.",
+      "base_table": "director",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "producer__row_count": {
+      "meaning": "Number of rows in producer.",
+      "base_table": "producer",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "directed_by__row_count": {
+      "meaning": "Number of rows in directed_by.",
+      "base_table": "directed_by",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "keyword__row_count": {
+      "meaning": "Number of rows in keyword.",
+      "base_table": "keyword",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "made_by__row_count": {
+      "meaning": "Number of rows in made_by.",
+      "base_table": "made_by",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "movie__row_count": {
+      "meaning": "Number of rows in movie.",
+      "base_table": "movie",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "tags__row_count": {
+      "meaning": "Number of rows in tags.",
+      "base_table": "tags",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "tv_series__row_count": {
+      "meaning": "Number of rows in tv_series.",
+      "base_table": "tv_series",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "writer__row_count": {
+      "meaning": "Number of rows in writer.",
+      "base_table": "writer",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "written_by__row_count": {
+      "meaning": "Number of rows in written_by.",
+      "base_table": "written_by",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

@@ -1,0 +1,114 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "student_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "list": {
+      "source_label": "list",
+      "meaning": "Table labeled 'list' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key LastName",
+      "primary_key_columns": [
+        "LastName"
+      ],
+      "columns": {
+        "LastName": {
+          "type": "text",
+          "source_label": "last name",
+          "primary_key": true
+        },
+        "FirstName": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "Grade": {
+          "type": "number",
+          "source_label": "grade"
+        },
+        "Classroom": {
+          "type": "number",
+          "source_label": "class room"
+        }
+      },
+      "observed_row_count": 60
+    },
+    "teachers": {
+      "source_label": "teachers",
+      "meaning": "Table labeled 'teachers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key LastName",
+      "primary_key_columns": [
+        "LastName"
+      ],
+      "columns": {
+        "LastName": {
+          "type": "text",
+          "source_label": "last name",
+          "primary_key": true,
+          "observed_values": [
+            "COVIN",
+            "KAWA",
+            "KRIENER",
+            "MACROSTIE",
+            "MARROTTE",
+            "MOYER",
+            "NIBLER",
+            "ONDERSMA",
+            "SUGAI",
+            "SUMPTION",
+            "TARRING",
+            "URSERY"
+          ]
+        },
+        "FirstName": {
+          "type": "text",
+          "source_label": "first name",
+          "observed_values": [
+            " JEROME",
+            " GORDON",
+            " BILLIE",
+            " MIN",
+            " KIRK",
+            " OTHA",
+            " JERLENE",
+            " LORIA",
+            " ALFREDA",
+            " GEORGETTA",
+            " LEIA",
+            " CHARMAINE"
+          ]
+        },
+        "Classroom": {
+          "type": "number",
+          "source_label": "class room"
+        }
+      },
+      "observed_row_count": 12
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "list__row_count": {
+      "meaning": "Number of rows in list.",
+      "base_table": "list",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "teachers__row_count": {
+      "meaning": "Number of rows in teachers.",
+      "base_table": "teachers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

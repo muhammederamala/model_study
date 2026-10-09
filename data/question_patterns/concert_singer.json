@@ -1,0 +1,170 @@
+{
+  "db_id": "concert_singer",
+  "n_questions": 45,
+  "n_questions_with_join": 14,
+  "join_pairs": [
+    {
+      "left": "concert.stadium_id",
+      "right": "stadium.stadium_id",
+      "n": 8
+    },
+    {
+      "left": "concert.concert_id",
+      "right": "singer_in_concert.concert_id",
+      "n": 4
+    },
+    {
+      "left": "singer.singer_id",
+      "right": "singer_in_concert.singer_id",
+      "n": 4
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 18
+    },
+    {
+      "fn": "AVG",
+      "target": "age",
+      "n": 4
+    },
+    {
+      "fn": "MIN",
+      "target": "age",
+      "n": 2
+    },
+    {
+      "fn": "MAX",
+      "target": "age",
+      "n": 2
+    },
+    {
+      "fn": "MAX",
+      "target": "capacity",
+      "n": 2
+    },
+    {
+      "fn": "AVG",
+      "target": "capacity",
+      "n": 1
+    }
+  ],
+  "column_clause_usage": {
+    "age": {
+      "where": 5,
+      "order by": 4
+    },
+    "average": {
+      "order by": 2
+    },
+    "capacity": {
+      "where": 2,
+      "order by": 2
+    },
+    "concert_id": {
+      "group by": 2
+    },
+    "country": {
+      "where": 2,
+      "group by": 2
+    },
+    "singer_id": {
+      "group by": 2
+    },
+    "song_name": {
+      "where": 2
+    },
+    "stadium_id": {
+      "group by": 4,
+      "where": 4
+    },
+    "year": {
+      "where": 10,
+      "group by": 2
+    }
+  },
+  "question_openers": {
+    "what is the": {
+      "ORDER BY ... DESC": 4,
+      "LIMIT 1": 4,
+      "COUNT": 3,
+      "AVG": 3,
+      "GROUP BY": 2
+    },
+    "what are the": {
+      "subquery": 4,
+      "COUNT": 3,
+      "ORDER BY ... DESC": 2,
+      "LIMIT 1": 2,
+      "negation (NOT IN / EXCEPT)": 2,
+      "GROUP BY": 2,
+      "INTERSECT": 1
+    },
+    "show the stadium": {
+      "GROUP BY": 2,
+      "COUNT": 2,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "which year has": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "find the number": {
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1,
+      "subquery": 1
+    },
+    "how many singers": {
+      "COUNT": 2,
+      "GROUP BY": 1
+    },
+    "show the name": {
+      "LIMIT 1": 1,
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "show all countries": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "list all song": {
+      "AVG": 1,
+      "subquery": 1
+    },
+    "what are all": {
+      "AVG": 1,
+      "subquery": 1
+    },
+    "how many concerts": {
+      "COUNT": 2
+    },
+    "for each stadium,": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "show countries where": {
+      "INTERSECT": 1,
+      "subquery": 1
+    },
+    "show names for": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "list singer names": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "find the name": {
+      "INTERSECT": 1,
+      "subquery": 1
+    }
+  }
+}

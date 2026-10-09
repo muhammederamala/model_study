@@ -1,0 +1,320 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "protein_institute",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "building": {
+      "source_label": "building",
+      "meaning": "Table labeled 'building' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key building_id",
+      "primary_key_columns": [
+        "building_id"
+      ],
+      "columns": {
+        "building_id": {
+          "type": "text",
+          "source_label": "building id",
+          "primary_key": true,
+          "observed_values": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Citizens Bank Building",
+            "Tampa City Hall",
+            "Floridan Hotel",
+            "Franklin Exchange Building",
+            "Park Tower",
+            "One Tampa City Center",
+            "Bank of America Tower",
+            "100 North Tampa"
+          ]
+        },
+        "Street_address": {
+          "type": "text",
+          "source_label": "street address",
+          "observed_values": [
+            "701 North Franklin Street",
+            "315 John F. Kennedy Boulevard",
+            "905 Franklin Street",
+            "655 North Franklin Street",
+            "400 North Tampa Street",
+            "201 North Franklin Street",
+            "101 East Kennedy Boulevard",
+            "100 North Tampa Street"
+          ]
+        },
+        "Years_as_tallest": {
+          "type": "text",
+          "source_label": "years as tallest",
+          "observed_values": [
+            "1913–1915",
+            "1915–1926",
+            "1926–1966",
+            "1966–1972",
+            "1972–1981",
+            "1981–1986",
+            "1986–1992",
+            "1992–present"
+          ]
+        },
+        "Height_feet": {
+          "type": "number",
+          "source_label": "height feet"
+        },
+        "Floors": {
+          "type": "number",
+          "source_label": "floors"
+        }
+      },
+      "observed_row_count": 8
+    },
+    "Institution": {
+      "source_label": "institution",
+      "meaning": "Table labeled 'institution' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Institution_id",
+      "primary_key_columns": [
+        "Institution_id"
+      ],
+      "columns": {
+        "Institution_id": {
+          "type": "text",
+          "source_label": "institution id",
+          "primary_key": true,
+          "observed_values": [
+            "0",
+            "1",
+            "10",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        "Institution": {
+          "type": "text",
+          "source_label": "institution",
+          "observed_values": [
+            "Ave Maria University",
+            "Dakota State University",
+            "Edward Waters College",
+            "Haskell Indian Nations University",
+            "Jamestown College",
+            "Lindenwood University–Belleville",
+            "Mayville State University",
+            "Menlo College",
+            "Point University",
+            "Valley City State University",
+            "Webber International University"
+          ]
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "Ave Maria, Florida",
+            "Madison, South Dakota",
+            "Jacksonville, Florida",
+            "Lawrence, Kansas",
+            "Jamestown, North Dakota",
+            "Belleville, Illinois",
+            "Mayville, North Dakota",
+            "Atherton, California",
+            "West Point, Georgia",
+            "Valley City, North Dakota",
+            "Babson Park, Florida"
+          ]
+        },
+        "Founded": {
+          "type": "number",
+          "source_label": "founded"
+        },
+        "Type": {
+          "type": "text",
+          "source_label": "type",
+          "observed_values": [
+            "Private",
+            "Public",
+            "Tribal"
+          ]
+        },
+        "Enrollment": {
+          "type": "number",
+          "source_label": "enrollment"
+        },
+        "Team": {
+          "type": "text",
+          "source_label": "team",
+          "observed_values": [
+            "Gyrenes",
+            "Trojans",
+            "Tigers",
+            "Fighting Indians",
+            "Jimmies",
+            "Lynx",
+            "Comets",
+            "Oaks",
+            "Skyhawks",
+            "Vikings",
+            "Warriors"
+          ]
+        },
+        "Primary_Conference": {
+          "type": "text",
+          "source_label": "primary conference",
+          "observed_values": [
+            "The Sun",
+            "none",
+            "Gulf Coast (GCAC)",
+            "MCAC",
+            "CalPac",
+            "AAC"
+          ]
+        },
+        "building_id": {
+          "type": "text",
+          "source_label": "building id",
+          "foreign_key": {
+            "table": "building",
+            "column": "building_id"
+          },
+          "observed_values": [
+            "1",
+            "3",
+            "5",
+            "2",
+            "0",
+            "4",
+            "7"
+          ]
+        }
+      },
+      "observed_row_count": 11
+    },
+    "protein": {
+      "source_label": "protein",
+      "meaning": "Table labeled 'protein' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key common_name",
+      "primary_key_columns": [
+        "common_name"
+      ],
+      "columns": {
+        "common_name": {
+          "type": "text",
+          "source_label": "common name",
+          "primary_key": true,
+          "observed_values": [
+            "Tropical Clawed Frog",
+            "body louse",
+            "porkworm",
+            "purple sea urchin",
+            "southern house mosquito"
+          ]
+        },
+        "protein_name": {
+          "type": "text",
+          "source_label": "protein name",
+          "observed_values": [
+            "uncharacterized protein C20orf117-like",
+            "uncharacterized protein LOC578090",
+            "Centromeric protein E, putative",
+            "conserved hypothetical protein",
+            "surface antigen repeat family protein"
+          ]
+        },
+        "divergence_from_human_lineage": {
+          "type": "number",
+          "source_label": "divergence from human lineage"
+        },
+        "accession_number": {
+          "type": "text",
+          "source_label": "accession number",
+          "observed_values": [
+            "XP_002942331.1",
+            "XP_783370.2",
+            "XP_002429877.1",
+            "XP_001843754.1",
+            "XP_003380263.1"
+          ]
+        },
+        "sequence_length": {
+          "type": "number",
+          "source_label": "sequence length"
+        },
+        "sequence_identity_to_human_protein": {
+          "type": "text",
+          "source_label": "sequence identity to human protein",
+          "observed_values": [
+            "39%",
+            "47%",
+            "30%",
+            "32%",
+            "36%"
+          ]
+        },
+        "Institution_id": {
+          "type": "text",
+          "source_label": "institution id",
+          "foreign_key": {
+            "table": "Institution",
+            "column": "Institution_id"
+          },
+          "observed_values": [
+            "1",
+            "3",
+            "5",
+            "9"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "building__row_count": {
+      "meaning": "Number of rows in building.",
+      "base_table": "building",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Institution__row_count": {
+      "meaning": "Number of rows in Institution.",
+      "base_table": "Institution",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "protein__row_count": {
+      "meaning": "Number of rows in protein.",
+      "base_table": "protein",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

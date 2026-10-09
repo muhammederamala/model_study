@@ -1,0 +1,529 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "student_assessment",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Addresses": {
+      "source_label": "addresses",
+      "meaning": "Table labeled 'addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key address_id",
+      "primary_key_columns": [
+        "address_id"
+      ],
+      "columns": {
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "primary_key": true
+        },
+        "line_1": {
+          "type": "text",
+          "source_label": "line 1"
+        },
+        "line_2": {
+          "type": "text",
+          "source_label": "line 2"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "zip_postcode": {
+          "type": "text",
+          "source_label": "zip postcode"
+        },
+        "state_province_county": {
+          "type": "text",
+          "source_label": "state province county",
+          "observed_values": [
+            "Montana",
+            "Texas",
+            "Vermont",
+            "Washington",
+            "Massachusetts",
+            "NewMexico",
+            "Mississippi",
+            "Michigan",
+            "Connecticut",
+            "Ohio",
+            "SouthDakota",
+            "Kansas"
+          ]
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "USA"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "People": {
+      "source_label": "people",
+      "meaning": "Table labeled 'people' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key person_id",
+      "primary_key_columns": [
+        "person_id"
+      ],
+      "columns": {
+        "person_id": {
+          "type": "number",
+          "source_label": "person id",
+          "primary_key": true
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name",
+          "observed_values": [
+            "Shannon",
+            "Virginie",
+            "Dariana",
+            "Verna",
+            "Hoyt",
+            "Mayra",
+            "Lizeth",
+            "Nova"
+          ]
+        },
+        "middle_name": {
+          "type": "text",
+          "source_label": "middle name",
+          "observed_values": [
+            "Elissa",
+            "Jasmin",
+            "Hayley",
+            "Arielle",
+            "Mercedes",
+            "Haley",
+            "Bell",
+            "Amiya"
+          ]
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name",
+          "observed_values": [
+            "Senger",
+            "Hartmann",
+            "Bednar",
+            "Grant",
+            "Wintheiser",
+            "Bartoletti",
+            "Feest"
+          ]
+        },
+        "cell_mobile_number": {
+          "type": "text",
+          "source_label": "cell mobile number",
+          "observed_values": [
+            "01955267735",
+            "(508)319-2970x043",
+            "(262)347-9364x516",
+            "1-372-548-7538x314",
+            "1-603-110-0647",
+            "724-681-4161x51632",
+            "812.228.0645x91481",
+            "766-272-9964"
+          ]
+        },
+        "email_address": {
+          "type": "text",
+          "source_label": "email address",
+          "observed_values": [
+            "javier.trantow@example.net",
+            "boyer.lonie@example.com",
+            "leila14@example.net",
+            "adele.gibson@example.net",
+            "stanley.monahan@example.org",
+            "terry.kuhlman@example.org",
+            "celestine11@example.net",
+            "oreynolds@example.com"
+          ]
+        },
+        "login_name": {
+          "type": "text",
+          "source_label": "login name",
+          "observed_values": [
+            "pgub",
+            "bkkv",
+            "zops",
+            "uuol",
+            "bnto",
+            "rzxu",
+            "mkou",
+            "qrwl"
+          ]
+        },
+        "password": {
+          "type": "text",
+          "source_label": "password",
+          "observed_values": [
+            "5e4ff49a61b3544da3ad7dc7e2cf28847564c64c",
+            "b063331ea8116befaa7b84c59c6a22200f5f8caa",
+            "b20b6a9f24aadeda70d54e410c3219f61fb063fb",
+            "7be9c03d5467d563555c51ebb3eb78e7f90832ec",
+            "c55795df86182959094b83e27900f7cf44ced570",
+            "ecae473cb54601e01457078ac0cdf4a1ced837bb",
+            "76a93d1d3b7becc932d203beac61d064bd54e947",
+            "7dce9b688636ee212294c257dd2f6b85c7f65f2e"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "Students": {
+      "source_label": "students",
+      "meaning": "Table labeled 'students' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key student_id",
+      "primary_key_columns": [
+        "student_id"
+      ],
+      "columns": {
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "People",
+            "column": "person_id"
+          }
+        },
+        "student_details": {
+          "type": "text",
+          "source_label": "student details",
+          "observed_values": [
+            "Marry",
+            "Martin",
+            "Barry",
+            "Nikhil",
+            "John",
+            "Sarah",
+            "Joe",
+            "Nancy"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "Courses": {
+      "source_label": "courses",
+      "meaning": "Table labeled 'courses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key course_id",
+      "primary_key_columns": [
+        "course_id"
+      ],
+      "columns": {
+        "course_id": {
+          "type": "text",
+          "source_label": "course id",
+          "primary_key": true,
+          "observed_values": [
+            "301",
+            "302",
+            "303",
+            "304",
+            "305",
+            "306"
+          ]
+        },
+        "course_name": {
+          "type": "text",
+          "source_label": "course name",
+          "observed_values": [
+            "statistics",
+            "English",
+            "French",
+            "database",
+            "data structure",
+            "Art history"
+          ]
+        },
+        "course_description": {
+          "type": "text",
+          "source_label": "course description",
+          "observed_values": [
+            "statistics",
+            "English",
+            "French",
+            "database",
+            "data structure",
+            "Art history"
+          ]
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 6
+    },
+    "People_Addresses": {
+      "source_label": "people addresses",
+      "meaning": "Table labeled 'people addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key person_address_id",
+      "primary_key_columns": [
+        "person_address_id"
+      ],
+      "columns": {
+        "person_address_id": {
+          "type": "number",
+          "source_label": "person address id",
+          "primary_key": true
+        },
+        "person_id": {
+          "type": "number",
+          "source_label": "person id",
+          "foreign_key": {
+            "table": "People",
+            "column": "person_id"
+          }
+        },
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "address_id"
+          }
+        },
+        "date_from": {
+          "type": "time",
+          "source_label": "date from"
+        },
+        "date_to": {
+          "type": "time",
+          "source_label": "date to"
+        }
+      },
+      "observed_row_count": 8
+    },
+    "Student_Course_Registrations": {
+      "source_label": "student course registrations",
+      "meaning": "Table labeled 'student course registrations' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key student_id",
+      "primary_key_columns": [
+        "student_id"
+      ],
+      "columns": {
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Students",
+            "column": "student_id"
+          }
+        },
+        "course_id": {
+          "type": "number",
+          "source_label": "course id",
+          "foreign_key": {
+            "table": "Courses",
+            "column": "course_id"
+          }
+        },
+        "registration_date": {
+          "type": "time",
+          "source_label": "registration date"
+        }
+      },
+      "observed_row_count": 9
+    },
+    "Student_Course_Attendance": {
+      "source_label": "student course attendance",
+      "meaning": "Table labeled 'student course attendance' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key student_id",
+      "primary_key_columns": [
+        "student_id"
+      ],
+      "columns": {
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Student_Course_Registrations",
+            "column": "student_id"
+          }
+        },
+        "course_id": {
+          "type": "number",
+          "source_label": "course id",
+          "foreign_key": {
+            "table": "Student_Course_Registrations",
+            "column": "course_id"
+          }
+        },
+        "date_of_attendance": {
+          "type": "time",
+          "source_label": "date of attendance"
+        }
+      },
+      "observed_row_count": 8
+    },
+    "Candidates": {
+      "source_label": "candidates",
+      "meaning": "Table labeled 'candidates' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key candidate_id",
+      "primary_key_columns": [
+        "candidate_id"
+      ],
+      "columns": {
+        "candidate_id": {
+          "type": "number",
+          "source_label": "candidate id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "People",
+            "column": "person_id"
+          }
+        },
+        "candidate_details": {
+          "type": "text",
+          "source_label": "candidate details",
+          "observed_values": [
+            "Jane",
+            "Robert",
+            "Alex",
+            "Tao",
+            "Jack",
+            "Leo",
+            "Robin",
+            "Cindy"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "Candidate_Assessments": {
+      "source_label": "candidate assessments",
+      "meaning": "Table labeled 'candidate assessments' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key candidate_id",
+      "primary_key_columns": [
+        "candidate_id"
+      ],
+      "columns": {
+        "candidate_id": {
+          "type": "number",
+          "source_label": "candidate id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Candidates",
+            "column": "candidate_id"
+          }
+        },
+        "qualification": {
+          "type": "text",
+          "source_label": "qualification",
+          "observed_values": [
+            "A",
+            "B",
+            "D",
+            "C"
+          ]
+        },
+        "assessment_date": {
+          "type": "time",
+          "source_label": "assessment date"
+        },
+        "asessment_outcome_code": {
+          "type": "text",
+          "source_label": "asessment outcome code",
+          "observed_values": [
+            "Pass",
+            "Fail"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    }
+  },
+  "terms": {
+    "people addresses": {
+      "maps_to": "People_Addresses",
+      "source": "Spider normalized table name"
+    },
+    "student course registrations": {
+      "maps_to": "Student_Course_Registrations",
+      "source": "Spider normalized table name"
+    },
+    "student course attendance": {
+      "maps_to": "Student_Course_Attendance",
+      "source": "Spider normalized table name"
+    },
+    "candidate assessments": {
+      "maps_to": "Candidate_Assessments",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Addresses__row_count": {
+      "meaning": "Number of rows in Addresses.",
+      "base_table": "Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "People__row_count": {
+      "meaning": "Number of rows in People.",
+      "base_table": "People",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Students__row_count": {
+      "meaning": "Number of rows in Students.",
+      "base_table": "Students",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Courses__row_count": {
+      "meaning": "Number of rows in Courses.",
+      "base_table": "Courses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "People_Addresses__row_count": {
+      "meaning": "Number of rows in People_Addresses.",
+      "base_table": "People_Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Student_Course_Registrations__row_count": {
+      "meaning": "Number of rows in Student_Course_Registrations.",
+      "base_table": "Student_Course_Registrations",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Student_Course_Attendance__row_count": {
+      "meaning": "Number of rows in Student_Course_Attendance.",
+      "base_table": "Student_Course_Attendance",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Candidates__row_count": {
+      "meaning": "Number of rows in Candidates.",
+      "base_table": "Candidates",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Candidate_Assessments__row_count": {
+      "meaning": "Number of rows in Candidate_Assessments.",
+      "base_table": "Candidate_Assessments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

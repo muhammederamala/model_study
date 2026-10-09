@@ -1,0 +1,347 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "real_estate_properties",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Ref_Feature_Types": {
+      "source_label": "reference feature types",
+      "meaning": "Table labeled 'reference feature types' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key feature_type_code",
+      "primary_key_columns": [
+        "feature_type_code"
+      ],
+      "columns": {
+        "feature_type_code": {
+          "type": "text",
+          "source_label": "feature type code",
+          "primary_key": true,
+          "observed_values": [
+            "Amenity",
+            "Security"
+          ]
+        },
+        "feature_type_name": {
+          "type": "text",
+          "source_label": "feature type name",
+          "observed_values": [
+            "Amenity, eg Pool.",
+            "Securiyt, eg Burglar Alarm."
+          ]
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Ref_Property_Types": {
+      "source_label": "reference property types",
+      "meaning": "Table labeled 'reference property types' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key property_type_code",
+      "primary_key_columns": [
+        "property_type_code"
+      ],
+      "columns": {
+        "property_type_code": {
+          "type": "text",
+          "source_label": "property type code",
+          "primary_key": true,
+          "observed_values": [
+            "Apartment",
+            "Field",
+            "House",
+            "Other",
+            "Shop"
+          ]
+        },
+        "property_type_description": {
+          "type": "text",
+          "source_label": "property type description",
+          "observed_values": [
+            "House, Bungalow, etc.",
+            "Apartment, Flat, Condo, etc.",
+            "Field, Meadow.",
+            "Other, to be determined.",
+            "Shop, Retail Outlet."
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "Other_Available_Features": {
+      "source_label": "other available features",
+      "meaning": "Table labeled 'other available features' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key feature_id",
+      "primary_key_columns": [
+        "feature_id"
+      ],
+      "columns": {
+        "feature_id": {
+          "type": "number",
+          "source_label": "feature id",
+          "primary_key": true
+        },
+        "feature_type_code": {
+          "type": "text",
+          "source_label": "feature type code",
+          "foreign_key": {
+            "table": "Ref_Feature_Types",
+            "column": "feature_type_code"
+          },
+          "observed_values": [
+            "Amenity",
+            "Security"
+          ]
+        },
+        "feature_name": {
+          "type": "text",
+          "source_label": "feature name",
+          "observed_values": [
+            "AirCon",
+            "Pool",
+            "BurglarAlarm"
+          ]
+        },
+        "feature_description": {
+          "type": "text",
+          "source_label": "feature description",
+          "observed_values": [
+            "Air Conditioning.",
+            "Swimming Pool.",
+            "Burglar Alarm"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Properties": {
+      "source_label": "properties",
+      "meaning": "Table labeled 'properties' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key property_id",
+      "primary_key_columns": [
+        "property_id"
+      ],
+      "columns": {
+        "property_id": {
+          "type": "number",
+          "source_label": "property id",
+          "primary_key": true
+        },
+        "property_type_code": {
+          "type": "text",
+          "source_label": "property type code",
+          "foreign_key": {
+            "table": "Ref_Property_Types",
+            "column": "property_type_code"
+          },
+          "observed_values": [
+            "House",
+            "Other",
+            "Field",
+            "Apartment",
+            "Shop"
+          ]
+        },
+        "date_on_market": {
+          "type": "time",
+          "source_label": "date on market"
+        },
+        "date_sold": {
+          "type": "time",
+          "source_label": "date sold"
+        },
+        "property_name": {
+          "type": "text",
+          "source_label": "property name"
+        },
+        "property_address": {
+          "type": "text",
+          "source_label": "property address"
+        },
+        "room_count": {
+          "type": "number",
+          "source_label": "room count"
+        },
+        "vendor_requested_price": {
+          "type": "number",
+          "source_label": "vendor requested price"
+        },
+        "buyer_offered_price": {
+          "type": "number",
+          "source_label": "buyer offered price"
+        },
+        "agreed_selling_price": {
+          "type": "number",
+          "source_label": "agreed selling price"
+        },
+        "apt_feature_1": {
+          "type": "text",
+          "source_label": "apt feature 1",
+          "observed_values": [
+            "aut",
+            "est",
+            "ut",
+            "nesciunt",
+            "quo",
+            "sed",
+            "quos",
+            "fuga",
+            "enim",
+            "consequatur",
+            "et",
+            "qui"
+          ]
+        },
+        "apt_feature_2": {
+          "type": "text",
+          "source_label": "apt feature 2"
+        },
+        "apt_feature_3": {
+          "type": "text",
+          "source_label": "apt feature 3"
+        },
+        "fld_feature_1": {
+          "type": "text",
+          "source_label": "fld feature 1"
+        },
+        "fld_feature_2": {
+          "type": "text",
+          "source_label": "fld feature 2"
+        },
+        "fld_feature_3": {
+          "type": "text",
+          "source_label": "fld feature 3"
+        },
+        "hse_feature_1": {
+          "type": "text",
+          "source_label": "hse feature 1"
+        },
+        "hse_feature_2": {
+          "type": "text",
+          "source_label": "hse feature 2"
+        },
+        "hse_feature_3": {
+          "type": "text",
+          "source_label": "hse feature 3"
+        },
+        "oth_feature_1": {
+          "type": "text",
+          "source_label": "oth feature 1"
+        },
+        "oth_feature_2": {
+          "type": "text",
+          "source_label": "oth feature 2"
+        },
+        "oth_feature_3": {
+          "type": "text",
+          "source_label": "oth feature 3"
+        },
+        "shp_feature_1": {
+          "type": "text",
+          "source_label": "shp feature 1"
+        },
+        "shp_feature_2": {
+          "type": "text",
+          "source_label": "shp feature 2"
+        },
+        "shp_feature_3": {
+          "type": "text",
+          "source_label": "shp feature 3"
+        },
+        "other_property_details": {
+          "type": "text",
+          "source_label": "other property details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Other_Property_Features": {
+      "source_label": "other property features",
+      "meaning": "Table labeled 'other property features' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "property_id": {
+          "type": "number",
+          "source_label": "property id",
+          "foreign_key": {
+            "table": "Properties",
+            "column": "property_id"
+          }
+        },
+        "feature_id": {
+          "type": "number",
+          "source_label": "feature id",
+          "foreign_key": {
+            "table": "Other_Available_Features",
+            "column": "feature_id"
+          }
+        },
+        "property_feature_description": {
+          "type": "text",
+          "source_label": "property feature description"
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "reference feature types": {
+      "maps_to": "Ref_Feature_Types",
+      "source": "Spider normalized table name"
+    },
+    "reference property types": {
+      "maps_to": "Ref_Property_Types",
+      "source": "Spider normalized table name"
+    },
+    "other available features": {
+      "maps_to": "Other_Available_Features",
+      "source": "Spider normalized table name"
+    },
+    "other property features": {
+      "maps_to": "Other_Property_Features",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Ref_Feature_Types__row_count": {
+      "meaning": "Number of rows in Ref_Feature_Types.",
+      "base_table": "Ref_Feature_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Ref_Property_Types__row_count": {
+      "meaning": "Number of rows in Ref_Property_Types.",
+      "base_table": "Ref_Property_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Other_Available_Features__row_count": {
+      "meaning": "Number of rows in Other_Available_Features.",
+      "base_table": "Other_Available_Features",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Properties__row_count": {
+      "meaning": "Number of rows in Properties.",
+      "base_table": "Properties",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Other_Property_Features__row_count": {
+      "meaning": "Number of rows in Other_Property_Features.",
+      "base_table": "Other_Property_Features",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

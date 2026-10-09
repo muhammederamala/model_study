@@ -1,0 +1,161 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "ship_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "captain": {
+      "source_label": "captain",
+      "meaning": "Table labeled 'captain' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Captain_ID",
+      "primary_key_columns": [
+        "Captain_ID"
+      ],
+      "columns": {
+        "Captain_ID": {
+          "type": "number",
+          "source_label": "captain id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Captain Sir Henry Langford",
+            "Captain Beves Conway",
+            "Lieutenant Hugh Bolitho",
+            "Lieutenant Montagu Verling",
+            "Captain Henry Dumaresq",
+            "Captain Gilbert Pears",
+            "Commander Richard Bolitho"
+          ]
+        },
+        "Ship_ID": {
+          "type": "number",
+          "source_label": "ship id",
+          "foreign_key": {
+            "table": "Ship",
+            "column": "Ship_ID"
+          }
+        },
+        "age": {
+          "type": "text",
+          "source_label": "age",
+          "observed_values": [
+            "40",
+            "54",
+            "43",
+            "45",
+            "38",
+            "60"
+          ]
+        },
+        "Class": {
+          "type": "text",
+          "source_label": "class",
+          "observed_values": [
+            "Third-rate ship of the line",
+            "Cutter",
+            "Armed schooner",
+            "Frigate",
+            "Sloop-of-war"
+          ]
+        },
+        "Rank": {
+          "type": "text",
+          "source_label": "rank",
+          "observed_values": [
+            "Midshipman",
+            "Lieutenant",
+            "Commander, junior captain"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "Ship": {
+      "source_label": "ship",
+      "meaning": "Table labeled 'ship' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Ship_ID",
+      "primary_key_columns": [
+        "Ship_ID"
+      ],
+      "columns": {
+        "Ship_ID": {
+          "type": "number",
+          "source_label": "ship id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "HMS Manxman",
+            "HMS Gorgon",
+            "HM Cutter Avenger",
+            "HM Schooner Hotspur",
+            "HMS Destiny",
+            "HMS Trojan",
+            "HM Sloop Sparrow",
+            "HMS Phalarope",
+            "HMS Undine"
+          ]
+        },
+        "Type": {
+          "type": "text",
+          "source_label": "type",
+          "observed_values": [
+            "Panamax"
+          ]
+        },
+        "Built_Year": {
+          "type": "number",
+          "source_label": "built year"
+        },
+        "Class": {
+          "type": "text",
+          "source_label": "class",
+          "observed_values": [
+            "KR",
+            "GL"
+          ]
+        },
+        "Flag": {
+          "type": "text",
+          "source_label": "flag",
+          "observed_values": [
+            "Panama",
+            "Malta"
+          ]
+        }
+      },
+      "observed_row_count": 9
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "captain__row_count": {
+      "meaning": "Number of rows in captain.",
+      "base_table": "captain",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Ship__row_count": {
+      "meaning": "Number of rows in Ship.",
+      "base_table": "Ship",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

@@ -1,0 +1,40 @@
+# Python environments, caches, and build outputs
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+.aws/
+*.pem
+*.key
+
+# Logs and OS metadata
+*.log
+*.pid
+.DS_Store
+__MACOSX/
+
+# Downloaded Spider sources and caches
+/data/spider_data.zip
+/data/spider_data/
+/data/.cache/
+/data/__MACOSX/
+
+# Machine-local dependency bootstrap
+/tools/get-pip.py
+
+# Future model and training artifacts
+checkpoints/
+adapters/
+*.safetensors
+*.gguf

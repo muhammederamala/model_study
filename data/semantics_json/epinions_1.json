@@ -1,0 +1,174 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "epinions_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "item": {
+      "source_label": "item",
+      "meaning": "Table labeled 'item' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key i_id",
+      "primary_key_columns": [
+        "i_id"
+      ],
+      "columns": {
+        "i_id": {
+          "type": "number",
+          "source_label": "item id",
+          "primary_key": true
+        },
+        "title": {
+          "type": "text",
+          "source_label": "title",
+          "observed_values": [
+            "pear",
+            "orange",
+            "apple",
+            "shampoo",
+            "avocado",
+            "comb",
+            "blue hoodie",
+            "cup"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "review": {
+      "source_label": "review",
+      "meaning": "Table labeled 'review' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key a_id",
+      "primary_key_columns": [
+        "a_id"
+      ],
+      "columns": {
+        "a_id": {
+          "type": "number",
+          "source_label": "a id",
+          "primary_key": true
+        },
+        "u_id": {
+          "type": "number",
+          "source_label": "user id",
+          "foreign_key": {
+            "table": "useracct",
+            "column": "u_id"
+          }
+        },
+        "i_id": {
+          "type": "number",
+          "source_label": "item id",
+          "foreign_key": {
+            "table": "item",
+            "column": "i_id"
+          }
+        },
+        "rating": {
+          "type": "number",
+          "source_label": "rating"
+        },
+        "rank": {
+          "type": "number",
+          "source_label": "rank"
+        }
+      },
+      "observed_row_count": 7
+    },
+    "useracct": {
+      "source_label": "useracct",
+      "meaning": "Table labeled 'useracct' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key u_id",
+      "primary_key_columns": [
+        "u_id"
+      ],
+      "columns": {
+        "u_id": {
+          "type": "number",
+          "source_label": "user id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Helen",
+            "Mark",
+            "Terry",
+            "Nancy",
+            "Rosie",
+            "Roxi",
+            "Emily"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "trust": {
+      "source_label": "trust",
+      "meaning": "Table labeled 'trust' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "source_u_id": {
+          "type": "number",
+          "source_label": "source user id",
+          "foreign_key": {
+            "table": "useracct",
+            "column": "u_id"
+          }
+        },
+        "target_u_id": {
+          "type": "number",
+          "source_label": "target user id",
+          "foreign_key": {
+            "table": "useracct",
+            "column": "u_id"
+          }
+        },
+        "trust": {
+          "type": "number",
+          "source_label": "trust"
+        }
+      },
+      "observed_row_count": 9
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "item__row_count": {
+      "meaning": "Number of rows in item.",
+      "base_table": "item",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "review__row_count": {
+      "meaning": "Number of rows in review.",
+      "base_table": "review",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "useracct__row_count": {
+      "meaning": "Number of rows in useracct.",
+      "base_table": "useracct",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "trust__row_count": {
+      "meaning": "Number of rows in trust.",
+      "base_table": "trust",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

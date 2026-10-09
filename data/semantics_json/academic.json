@@ -1,0 +1,554 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "academic",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "author": {
+      "source_label": "author",
+      "meaning": "Table labeled 'author' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key aid",
+      "primary_key_columns": [
+        "aid"
+      ],
+      "columns": {
+        "aid": {
+          "type": "number",
+          "source_label": "aid",
+          "primary_key": true
+        },
+        "homepage": {
+          "type": "text",
+          "source_label": "homepage"
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "oid": {
+          "type": "number",
+          "source_label": "oid"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "conference": {
+      "source_label": "conference",
+      "meaning": "Table labeled 'conference' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key cid",
+      "primary_key_columns": [
+        "cid"
+      ],
+      "columns": {
+        "cid": {
+          "type": "number",
+          "source_label": "cid",
+          "primary_key": true
+        },
+        "homepage": {
+          "type": "text",
+          "source_label": "homepage"
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "domain": {
+      "source_label": "domain",
+      "meaning": "Table labeled 'domain' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key did",
+      "primary_key_columns": [
+        "did"
+      ],
+      "columns": {
+        "did": {
+          "type": "number",
+          "source_label": "did",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "domain_author": {
+      "source_label": "domain author",
+      "meaning": "Table labeled 'domain author' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key did",
+      "primary_key_columns": [
+        "did"
+      ],
+      "columns": {
+        "aid": {
+          "type": "number",
+          "source_label": "aid",
+          "foreign_key": {
+            "table": "author",
+            "column": "aid"
+          }
+        },
+        "did": {
+          "type": "number",
+          "source_label": "did",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "domain",
+            "column": "did"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "domain_conference": {
+      "source_label": "domain conference",
+      "meaning": "Table labeled 'domain conference' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key did",
+      "primary_key_columns": [
+        "did"
+      ],
+      "columns": {
+        "cid": {
+          "type": "number",
+          "source_label": "cid",
+          "foreign_key": {
+            "table": "conference",
+            "column": "cid"
+          }
+        },
+        "did": {
+          "type": "number",
+          "source_label": "did",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "domain",
+            "column": "did"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "journal": {
+      "source_label": "journal",
+      "meaning": "Table labeled 'journal' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key jid",
+      "primary_key_columns": [
+        "jid"
+      ],
+      "columns": {
+        "homepage": {
+          "type": "text",
+          "source_label": "homepage"
+        },
+        "jid": {
+          "type": "number",
+          "source_label": "jid",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "domain_journal": {
+      "source_label": "domain journal",
+      "meaning": "Table labeled 'domain journal' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key did",
+      "primary_key_columns": [
+        "did"
+      ],
+      "columns": {
+        "did": {
+          "type": "number",
+          "source_label": "did",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "domain",
+            "column": "did"
+          }
+        },
+        "jid": {
+          "type": "number",
+          "source_label": "jid",
+          "foreign_key": {
+            "table": "journal",
+            "column": "jid"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "keyword": {
+      "source_label": "keyword",
+      "meaning": "Table labeled 'keyword' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key kid",
+      "primary_key_columns": [
+        "kid"
+      ],
+      "columns": {
+        "keyword": {
+          "type": "text",
+          "source_label": "keyword"
+        },
+        "kid": {
+          "type": "number",
+          "source_label": "kid",
+          "primary_key": true
+        }
+      },
+      "observed_row_count": 0
+    },
+    "domain_keyword": {
+      "source_label": "domain keyword",
+      "meaning": "Table labeled 'domain keyword' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key did",
+      "primary_key_columns": [
+        "did"
+      ],
+      "columns": {
+        "did": {
+          "type": "number",
+          "source_label": "did",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "domain",
+            "column": "did"
+          }
+        },
+        "kid": {
+          "type": "number",
+          "source_label": "kid",
+          "foreign_key": {
+            "table": "keyword",
+            "column": "kid"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "publication": {
+      "source_label": "publication",
+      "meaning": "Table labeled 'publication' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key pid",
+      "primary_key_columns": [
+        "pid"
+      ],
+      "columns": {
+        "abstract": {
+          "type": "text",
+          "source_label": "abstract"
+        },
+        "cid": {
+          "type": "text",
+          "source_label": "cid",
+          "foreign_key": {
+            "table": "conference",
+            "column": "cid"
+          }
+        },
+        "citation_num": {
+          "type": "number",
+          "source_label": "citation num"
+        },
+        "jid": {
+          "type": "number",
+          "source_label": "jid",
+          "foreign_key": {
+            "table": "journal",
+            "column": "jid"
+          }
+        },
+        "pid": {
+          "type": "number",
+          "source_label": "pid",
+          "primary_key": true
+        },
+        "reference_num": {
+          "type": "number",
+          "source_label": "reference num"
+        },
+        "title": {
+          "type": "text",
+          "source_label": "title"
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "domain_publication": {
+      "source_label": "domain publication",
+      "meaning": "Table labeled 'domain publication' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key did",
+      "primary_key_columns": [
+        "did"
+      ],
+      "columns": {
+        "did": {
+          "type": "number",
+          "source_label": "did",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "domain",
+            "column": "did"
+          }
+        },
+        "pid": {
+          "type": "number",
+          "source_label": "pid",
+          "foreign_key": {
+            "table": "publication",
+            "column": "pid"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "organization": {
+      "source_label": "organization",
+      "meaning": "Table labeled 'organization' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key oid",
+      "primary_key_columns": [
+        "oid"
+      ],
+      "columns": {
+        "continent": {
+          "type": "text",
+          "source_label": "continent"
+        },
+        "homepage": {
+          "type": "text",
+          "source_label": "homepage"
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "oid": {
+          "type": "number",
+          "source_label": "oid",
+          "primary_key": true
+        }
+      },
+      "observed_row_count": 0
+    },
+    "publication_keyword": {
+      "source_label": "publication keyword",
+      "meaning": "Table labeled 'publication keyword' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key kid",
+      "primary_key_columns": [
+        "kid"
+      ],
+      "columns": {
+        "pid": {
+          "type": "number",
+          "source_label": "pid",
+          "foreign_key": {
+            "table": "publication",
+            "column": "pid"
+          }
+        },
+        "kid": {
+          "type": "number",
+          "source_label": "kid",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "keyword",
+            "column": "kid"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "writes": {
+      "source_label": "writes",
+      "meaning": "Table labeled 'writes' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key aid",
+      "primary_key_columns": [
+        "aid"
+      ],
+      "columns": {
+        "aid": {
+          "type": "number",
+          "source_label": "aid",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "author",
+            "column": "aid"
+          }
+        },
+        "pid": {
+          "type": "number",
+          "source_label": "pid",
+          "foreign_key": {
+            "table": "publication",
+            "column": "pid"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "cite": {
+      "source_label": "cite",
+      "meaning": "Table labeled 'cite' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "cited": {
+          "type": "number",
+          "source_label": "cited",
+          "foreign_key": {
+            "table": "publication",
+            "column": "pid"
+          }
+        },
+        "citing": {
+          "type": "number",
+          "source_label": "citing",
+          "foreign_key": {
+            "table": "publication",
+            "column": "pid"
+          }
+        }
+      },
+      "observed_row_count": 0
+    }
+  },
+  "terms": {
+    "domain author": {
+      "maps_to": "domain_author",
+      "source": "Spider normalized table name"
+    },
+    "domain conference": {
+      "maps_to": "domain_conference",
+      "source": "Spider normalized table name"
+    },
+    "domain journal": {
+      "maps_to": "domain_journal",
+      "source": "Spider normalized table name"
+    },
+    "domain keyword": {
+      "maps_to": "domain_keyword",
+      "source": "Spider normalized table name"
+    },
+    "domain publication": {
+      "maps_to": "domain_publication",
+      "source": "Spider normalized table name"
+    },
+    "publication keyword": {
+      "maps_to": "publication_keyword",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "author__row_count": {
+      "meaning": "Number of rows in author.",
+      "base_table": "author",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "conference__row_count": {
+      "meaning": "Number of rows in conference.",
+      "base_table": "conference",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "domain__row_count": {
+      "meaning": "Number of rows in domain.",
+      "base_table": "domain",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "domain_author__row_count": {
+      "meaning": "Number of rows in domain_author.",
+      "base_table": "domain_author",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "domain_conference__row_count": {
+      "meaning": "Number of rows in domain_conference.",
+      "base_table": "domain_conference",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "journal__row_count": {
+      "meaning": "Number of rows in journal.",
+      "base_table": "journal",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "domain_journal__row_count": {
+      "meaning": "Number of rows in domain_journal.",
+      "base_table": "domain_journal",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "keyword__row_count": {
+      "meaning": "Number of rows in keyword.",
+      "base_table": "keyword",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "domain_keyword__row_count": {
+      "meaning": "Number of rows in domain_keyword.",
+      "base_table": "domain_keyword",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "publication__row_count": {
+      "meaning": "Number of rows in publication.",
+      "base_table": "publication",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "domain_publication__row_count": {
+      "meaning": "Number of rows in domain_publication.",
+      "base_table": "domain_publication",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "organization__row_count": {
+      "meaning": "Number of rows in organization.",
+      "base_table": "organization",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "publication_keyword__row_count": {
+      "meaning": "Number of rows in publication_keyword.",
+      "base_table": "publication_keyword",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "writes__row_count": {
+      "meaning": "Number of rows in writes.",
+      "base_table": "writes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "cite__row_count": {
+      "meaning": "Number of rows in cite.",
+      "base_table": "cite",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

@@ -1,0 +1,361 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "company_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "works_on": {
+      "source_label": "works on",
+      "meaning": "Table labeled 'works on' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Essn",
+      "primary_key_columns": [
+        "Essn"
+      ],
+      "columns": {
+        "Essn": {
+          "type": "number",
+          "source_label": "employee ssn",
+          "primary_key": true
+        },
+        "Pno": {
+          "type": "number",
+          "source_label": "project number"
+        },
+        "Hours": {
+          "type": "number",
+          "source_label": "hours"
+        }
+      },
+      "observed_row_count": 16
+    },
+    "employee": {
+      "source_label": "employee",
+      "meaning": "Table labeled 'employee' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Ssn",
+      "primary_key_columns": [
+        "Ssn"
+      ],
+      "columns": {
+        "Fname": {
+          "type": "text",
+          "source_label": "first name",
+          "observed_values": [
+            "Jonh",
+            "Franklin",
+            "Joyce",
+            "Ramesh",
+            "James",
+            "Jennifier",
+            "Ahmad",
+            "Alicia"
+          ]
+        },
+        "Minit": {
+          "type": "text",
+          "source_label": "minit",
+          "observed_values": [
+            "B",
+            "T",
+            "A",
+            "K",
+            "E",
+            "S",
+            "V",
+            "J"
+          ]
+        },
+        "Lname": {
+          "type": "text",
+          "source_label": "last name",
+          "observed_values": [
+            "Smith",
+            "Wong",
+            "English",
+            "Narayan",
+            "Borg",
+            "Wallace",
+            "Jabbar",
+            "Zelaya"
+          ]
+        },
+        "Ssn": {
+          "type": "number",
+          "source_label": "ssn",
+          "primary_key": true
+        },
+        "Bdate": {
+          "type": "text",
+          "source_label": "birth date",
+          "observed_values": [
+            "1965-01-09",
+            "1955-12-08",
+            "1972-07-31",
+            "1962-09-15",
+            "1937-11-10",
+            "1941-06-20",
+            "1969-03-29",
+            "1968-01-19"
+          ]
+        },
+        "Address": {
+          "type": "text",
+          "source_label": "address",
+          "observed_values": [
+            "731 Fondren, Houston, TX",
+            "638 Voss, Houston, TX",
+            "5631 Rice, Houston, TX",
+            "975 Fire Oak, Humble, TX",
+            "450 Stone, Houston, TX",
+            "291 Berry, Bellaire, TX",
+            "980 Dallas, Houston, TX",
+            "3321 Castle, Spring, TX"
+          ]
+        },
+        "Sex": {
+          "type": "text",
+          "source_label": "sex",
+          "observed_values": [
+            "M",
+            "F"
+          ]
+        },
+        "Salary": {
+          "type": "number",
+          "source_label": "salary"
+        },
+        "Super_ssn": {
+          "type": "number",
+          "source_label": "super ssn"
+        },
+        "Dno": {
+          "type": "number",
+          "source_label": "department no"
+        }
+      },
+      "observed_row_count": 8
+    },
+    "department": {
+      "source_label": "department",
+      "meaning": "Table labeled 'department' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Dnumber",
+      "primary_key_columns": [
+        "Dnumber"
+      ],
+      "columns": {
+        "Dname": {
+          "type": "text",
+          "source_label": "department name",
+          "observed_values": [
+            "Headquarters",
+            "Administration",
+            "Research"
+          ]
+        },
+        "Dnumber": {
+          "type": "number",
+          "source_label": "department number",
+          "primary_key": true
+        },
+        "Mgr_ssn": {
+          "type": "number",
+          "source_label": "manager ssn"
+        },
+        "Mgr_start_date": {
+          "type": "text",
+          "source_label": "manager start date",
+          "observed_values": [
+            "1981-06-19",
+            "1995-01-01",
+            "1988-05-22"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "project": {
+      "source_label": "project",
+      "meaning": "Table labeled 'project' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Pnumber",
+      "primary_key_columns": [
+        "Pnumber"
+      ],
+      "columns": {
+        "Pname": {
+          "type": "text",
+          "source_label": "dependent name",
+          "observed_values": [
+            "ProductX",
+            "ProductY",
+            "ProductZ",
+            "Computerization",
+            "Reorganization",
+            "Newbenefits"
+          ]
+        },
+        "Pnumber": {
+          "type": "number",
+          "source_label": "dependent number",
+          "primary_key": true
+        },
+        "Plocation": {
+          "type": "text",
+          "source_label": "dependent location",
+          "observed_values": [
+            "Bellaire",
+            "Sugarland",
+            "Houston",
+            "Stafford"
+          ]
+        },
+        "Dnum": {
+          "type": "number",
+          "source_label": "department number"
+        }
+      },
+      "observed_row_count": 6
+    },
+    "dependent": {
+      "source_label": "dependent",
+      "meaning": "Table labeled 'dependent' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Essn",
+      "primary_key_columns": [
+        "Essn"
+      ],
+      "columns": {
+        "Essn": {
+          "type": "number",
+          "source_label": "employee ssn",
+          "primary_key": true
+        },
+        "Dependent_name": {
+          "type": "text",
+          "source_label": "dependent name",
+          "observed_values": [
+            "Alice",
+            "Elizabeth",
+            "Michael",
+            "Joy",
+            "Theodore",
+            "Abner"
+          ]
+        },
+        "Sex": {
+          "type": "text",
+          "source_label": "sex",
+          "observed_values": [
+            "F",
+            "M"
+          ]
+        },
+        "Bdate": {
+          "type": "text",
+          "source_label": "birth date",
+          "observed_values": [
+            "1986-04-05",
+            "1983-10-25",
+            "1958-05-03",
+            "1942-02-28",
+            "1988-01-04",
+            "1988-12-30",
+            "1967-05-05"
+          ]
+        },
+        "Relationship": {
+          "type": "text",
+          "source_label": "relationship",
+          "observed_values": [
+            "Daughter",
+            "Son",
+            "Spouse"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "dept_locations": {
+      "source_label": "department locations",
+      "meaning": "Table labeled 'department locations' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Dnumber",
+      "primary_key_columns": [
+        "Dnumber"
+      ],
+      "columns": {
+        "Dnumber": {
+          "type": "number",
+          "source_label": "department number",
+          "primary_key": true
+        },
+        "Dlocation": {
+          "type": "text",
+          "source_label": "department location",
+          "observed_values": [
+            "Houston",
+            "Stafford",
+            "Bellaire",
+            "Sugarland"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    }
+  },
+  "terms": {
+    "works on": {
+      "maps_to": "works_on",
+      "source": "Spider normalized table name"
+    },
+    "department locations": {
+      "maps_to": "dept_locations",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "works_on__row_count": {
+      "meaning": "Number of rows in works_on.",
+      "base_table": "works_on",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "employee__row_count": {
+      "meaning": "Number of rows in employee.",
+      "base_table": "employee",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "department__row_count": {
+      "meaning": "Number of rows in department.",
+      "base_table": "department",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "project__row_count": {
+      "meaning": "Number of rows in project.",
+      "base_table": "project",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "dependent__row_count": {
+      "meaning": "Number of rows in dependent.",
+      "base_table": "dependent",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "dept_locations__row_count": {
+      "meaning": "Number of rows in dept_locations.",
+      "base_table": "dept_locations",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

@@ -1,0 +1,273 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "culture_company",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "book_club": {
+      "source_label": "book club",
+      "meaning": "Table labeled 'book club' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key book_club_id",
+      "primary_key_columns": [
+        "book_club_id"
+      ],
+      "columns": {
+        "book_club_id": {
+          "type": "number",
+          "source_label": "book club id",
+          "primary_key": true
+        },
+        "Year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "Author_or_Editor": {
+          "type": "text",
+          "source_label": "author or editor",
+          "observed_values": [
+            "Michael Nava",
+            "Donald Ward",
+            "Michael Bishop",
+            "Joseph Hansen",
+            "George Baxt",
+            "Antoinette Azolakov",
+            "Claire McNab",
+            "Judy Grahn",
+            "Dolores Klaich",
+            "Sandy Bayer",
+            "Jeffrey N. McMahan",
+            "Thom Nickels"
+          ]
+        },
+        "Book_Title": {
+          "type": "text",
+          "source_label": "book title",
+          "observed_values": [
+            "Goldenboy",
+            "Death Takes the Stage",
+            "Unicorn Mountain",
+            "Obedience",
+            "Whoӳ Next",
+            "Skiptrace",
+            "Lessons In Murder",
+            "Mundaneӳ World",
+            "Heavy Gilt",
+            "The Crystal Curtain",
+            "Somewhere in the Night",
+            "Walking Water / After All This"
+          ]
+        },
+        "Publisher": {
+          "type": "text",
+          "source_label": "publisher",
+          "observed_values": [
+            "Alyson",
+            "St. Martin's Press",
+            "William Morrow",
+            "Mysterious Press",
+            "International Polygonics",
+            "Banned Books",
+            "Naiad Press",
+            "Crossing Press"
+          ]
+        },
+        "Category": {
+          "type": "text",
+          "source_label": "category",
+          "observed_values": [
+            "Gay M/SF",
+            "Lesb. M/SF",
+            "Gay SF/F"
+          ]
+        },
+        "Result": {
+          "type": "text",
+          "source_label": "result",
+          "observed_values": [
+            "Won [A ]",
+            "Nom",
+            "Won",
+            "Won [B ]"
+          ]
+        }
+      },
+      "observed_row_count": 12
+    },
+    "movie": {
+      "source_label": "movie",
+      "meaning": "Table labeled 'movie' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key movie_id",
+      "primary_key_columns": [
+        "movie_id"
+      ],
+      "columns": {
+        "movie_id": {
+          "type": "number",
+          "source_label": "movie id",
+          "primary_key": true
+        },
+        "Title": {
+          "type": "text",
+          "source_label": "title",
+          "observed_values": [
+            "The Boondock Saints",
+            "The Big Kahuna",
+            "Storm Catcher",
+            "Jill Rips",
+            "The Whole Nine Yards",
+            "Battlefield Earth",
+            "Get Carter",
+            "The Art of War",
+            "Agent Red",
+            "3000 Miles to Graceland"
+          ]
+        },
+        "Year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "Director": {
+          "type": "text",
+          "source_label": "director",
+          "observed_values": [
+            "Troy Duffy",
+            "John Swanbeck",
+            "Anthony Hickox",
+            "Jonathan Lynn",
+            "Roger Christian",
+            "Stephen Kay",
+            "Christian Duguay",
+            "Damian Lee",
+            "Demian Lichtenstein"
+          ]
+        },
+        "Budget_million": {
+          "type": "number",
+          "source_label": "budget million"
+        },
+        "Gross_worldwide": {
+          "type": "number",
+          "source_label": "gross worldwide"
+        }
+      },
+      "observed_row_count": 10
+    },
+    "culture_company": {
+      "source_label": "culture company",
+      "meaning": "Table labeled 'culture company' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Company_name",
+      "primary_key_columns": [
+        "Company_name"
+      ],
+      "columns": {
+        "Company_name": {
+          "type": "text",
+          "source_label": "company name",
+          "primary_key": true,
+          "observed_values": [
+            "Cathay Pacific Culture",
+            "Cathay Pacific Culture Services (HK) Limited",
+            "Culture China",
+            "Culture China Cargo",
+            "Culture Hong Kong",
+            "Dragonair"
+          ]
+        },
+        "Type": {
+          "type": "text",
+          "source_label": "type",
+          "observed_values": [
+            "Corporate",
+            "Joint Venture",
+            "Subsidiary"
+          ]
+        },
+        "Incorporated_in": {
+          "type": "text",
+          "source_label": "incorporated in",
+          "observed_values": [
+            "China",
+            "Hong Kong"
+          ]
+        },
+        "Group_Equity_Shareholding": {
+          "type": "number",
+          "source_label": "group equity shareholding"
+        },
+        "book_club_id": {
+          "type": "text",
+          "source_label": "book club id",
+          "foreign_key": {
+            "table": "book_club",
+            "column": "book_club_id"
+          },
+          "observed_values": [
+            "1",
+            "2",
+            "3",
+            "5",
+            "6"
+          ]
+        },
+        "movie_id": {
+          "type": "text",
+          "source_label": "movie id",
+          "foreign_key": {
+            "table": "movie",
+            "column": "movie_id"
+          },
+          "observed_values": [
+            "2",
+            "3",
+            "4",
+            "7",
+            "5",
+            "6"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    }
+  },
+  "terms": {
+    "book club": {
+      "maps_to": "book_club",
+      "source": "Spider normalized table name"
+    },
+    "culture company": {
+      "maps_to": "culture_company",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "book_club__row_count": {
+      "meaning": "Number of rows in book_club.",
+      "base_table": "book_club",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "movie__row_count": {
+      "meaning": "Number of rows in movie.",
+      "base_table": "movie",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "culture_company__row_count": {
+      "meaning": "Number of rows in culture_company.",
+      "base_table": "culture_company",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

@@ -1,0 +1,227 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "world_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "city": {
+      "source_label": "city",
+      "meaning": "Table labeled 'city' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key ID",
+      "primary_key_columns": [
+        "ID"
+      ],
+      "columns": {
+        "ID": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "CountryCode": {
+          "type": "text",
+          "source_label": "country code",
+          "foreign_key": {
+            "table": "country",
+            "column": "Code"
+          }
+        },
+        "District": {
+          "type": "text",
+          "source_label": "district"
+        },
+        "Population": {
+          "type": "number",
+          "source_label": "population"
+        }
+      },
+      "observed_row_count": 4079
+    },
+    "sqlite_sequence": {
+      "source_label": "sqlite sequence",
+      "meaning": "Table labeled 'sqlite sequence' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "city"
+          ]
+        },
+        "seq": {
+          "type": "text",
+          "source_label": "seq",
+          "observed_values": [
+            4079
+          ]
+        }
+      },
+      "observed_row_count": 1
+    },
+    "country": {
+      "source_label": "country",
+      "meaning": "Table labeled 'country' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Code",
+      "primary_key_columns": [
+        "Code"
+      ],
+      "columns": {
+        "Code": {
+          "type": "text",
+          "source_label": "code",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "Continent": {
+          "type": "text",
+          "source_label": "continent",
+          "observed_values": [
+            "North America",
+            "Asia",
+            "Africa",
+            "Europe",
+            "South America",
+            "Oceania",
+            "Antarctica"
+          ]
+        },
+        "Region": {
+          "type": "text",
+          "source_label": "region"
+        },
+        "SurfaceArea": {
+          "type": "number",
+          "source_label": "surface area"
+        },
+        "IndepYear": {
+          "type": "number",
+          "source_label": "indepdent year"
+        },
+        "Population": {
+          "type": "number",
+          "source_label": "population"
+        },
+        "LifeExpectancy": {
+          "type": "number",
+          "source_label": "life expectancy"
+        },
+        "GNP": {
+          "type": "number",
+          "source_label": "gnp"
+        },
+        "GNPOld": {
+          "type": "number",
+          "source_label": "gnp old"
+        },
+        "LocalName": {
+          "type": "text",
+          "source_label": "local name"
+        },
+        "GovernmentForm": {
+          "type": "text",
+          "source_label": "government form"
+        },
+        "HeadOfState": {
+          "type": "text",
+          "source_label": "head of state"
+        },
+        "Capital": {
+          "type": "number",
+          "source_label": "capital"
+        },
+        "Code2": {
+          "type": "text",
+          "source_label": "code2"
+        }
+      },
+      "observed_row_count": 239
+    },
+    "countrylanguage": {
+      "source_label": "countrylanguage",
+      "meaning": "Table labeled 'countrylanguage' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key CountryCode",
+      "primary_key_columns": [
+        "CountryCode"
+      ],
+      "columns": {
+        "CountryCode": {
+          "type": "text",
+          "source_label": "countrycode",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "country",
+            "column": "Code"
+          }
+        },
+        "Language": {
+          "type": "text",
+          "source_label": "language"
+        },
+        "IsOfficial": {
+          "type": "text",
+          "source_label": "is official",
+          "observed_values": [
+            "T",
+            "F"
+          ]
+        },
+        "Percentage": {
+          "type": "number",
+          "source_label": "percentage"
+        }
+      },
+      "observed_row_count": 984
+    }
+  },
+  "terms": {
+    "sqlite sequence": {
+      "maps_to": "sqlite_sequence",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "city__row_count": {
+      "meaning": "Number of rows in city.",
+      "base_table": "city",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "sqlite_sequence__row_count": {
+      "meaning": "Number of rows in sqlite_sequence.",
+      "base_table": "sqlite_sequence",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "country__row_count": {
+      "meaning": "Number of rows in country.",
+      "base_table": "country",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "countrylanguage__row_count": {
+      "meaning": "Number of rows in countrylanguage.",
+      "base_table": "countrylanguage",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

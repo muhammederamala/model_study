@@ -1,0 +1,2920 @@
+{
+  "format_version": "1.0",
+  "db_id": "dog_kennels",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "Breeds": {
+      "source_label": "breeds",
+      "meaning": "Table labeled 'breeds' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "breed_code"
+      ],
+      "columns": {
+        "breed_code": {
+          "type": "text",
+          "source_label": "breed code",
+          "primary_key": true,
+          "observed_values": [
+            "BUL",
+            "ESK",
+            "HUS"
+          ]
+        },
+        "breed_name": {
+          "type": "text",
+          "source_label": "breed name",
+          "observed_values": [
+            "Eskimo",
+            "Husky",
+            "Bulldog"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Charges": {
+      "source_label": "charges",
+      "meaning": "Table labeled 'charges' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "charge_id"
+      ],
+      "columns": {
+        "charge_id": {
+          "type": "number",
+          "source_label": "charge id",
+          "primary_key": true
+        },
+        "charge_type": {
+          "type": "text",
+          "source_label": "charge type",
+          "observed_values": [
+            "Daily Accommodation",
+            "Drugs",
+            "Health Check"
+          ]
+        },
+        "charge_amount": {
+          "type": "number",
+          "source_label": "charge amount"
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Sizes": {
+      "source_label": "sizes",
+      "meaning": "Table labeled 'sizes' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "size_code"
+      ],
+      "columns": {
+        "size_code": {
+          "type": "text",
+          "source_label": "size code",
+          "primary_key": true,
+          "observed_values": [
+            "LGE",
+            "MED",
+            "SML"
+          ]
+        },
+        "size_description": {
+          "type": "text",
+          "source_label": "size description",
+          "observed_values": [
+            "Small",
+            "Medium",
+            "Large"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Treatment_Types": {
+      "source_label": "treatment types",
+      "meaning": "Table labeled 'treatment types' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "treatment_type_code"
+      ],
+      "columns": {
+        "treatment_type_code": {
+          "type": "text",
+          "source_label": "treatment type code",
+          "primary_key": true,
+          "observed_values": [
+            "EXAM",
+            "VAC",
+            "WALK"
+          ]
+        },
+        "treatment_type_description": {
+          "type": "text",
+          "source_label": "treatment type description",
+          "observed_values": [
+            "Physical examination",
+            "Vaccination",
+            "Take for a Walk"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Owners": {
+      "source_label": "owners",
+      "meaning": "Table labeled 'owners' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "owner_id"
+      ],
+      "columns": {
+        "owner_id": {
+          "type": "number",
+          "source_label": "owner id",
+          "primary_key": true
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "street": {
+          "type": "text",
+          "source_label": "street"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "state": {
+          "type": "text",
+          "source_label": "state"
+        },
+        "zip_code": {
+          "type": "text",
+          "source_label": "zip code"
+        },
+        "email_address": {
+          "type": "text",
+          "source_label": "email address"
+        },
+        "home_phone": {
+          "type": "text",
+          "source_label": "home phone"
+        },
+        "cell_number": {
+          "type": "text",
+          "source_label": "cell number"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Dogs": {
+      "source_label": "dogs",
+      "meaning": "Table labeled 'dogs' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "dog_id"
+      ],
+      "columns": {
+        "dog_id": {
+          "type": "number",
+          "source_label": "dog id",
+          "primary_key": true
+        },
+        "owner_id": {
+          "type": "number",
+          "source_label": "owner id",
+          "foreign_key": {
+            "table": "Owners",
+            "column": "owner_id"
+          }
+        },
+        "abandoned_yn": {
+          "type": "text",
+          "source_label": "abandoned yes or no",
+          "observed_values": [
+            "1",
+            "0"
+          ]
+        },
+        "breed_code": {
+          "type": "text",
+          "source_label": "breed code",
+          "foreign_key": {
+            "table": "Breeds",
+            "column": "breed_code"
+          },
+          "observed_values": [
+            "ESK",
+            "BUL",
+            "HUS"
+          ]
+        },
+        "size_code": {
+          "type": "text",
+          "source_label": "size code",
+          "foreign_key": {
+            "table": "Sizes",
+            "column": "size_code"
+          },
+          "observed_values": [
+            "LGE",
+            "MED",
+            "SML"
+          ]
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "age": {
+          "type": "text",
+          "source_label": "age",
+          "observed_values": [
+            "6",
+            "9",
+            "8",
+            "5",
+            "4",
+            "2",
+            "3",
+            "1"
+          ]
+        },
+        "date_of_birth": {
+          "type": "time",
+          "source_label": "date of birth"
+        },
+        "gender": {
+          "type": "text",
+          "source_label": "gender",
+          "observed_values": [
+            "1",
+            "0"
+          ]
+        },
+        "weight": {
+          "type": "text",
+          "source_label": "weight"
+        },
+        "date_arrived": {
+          "type": "time",
+          "source_label": "date arrived"
+        },
+        "date_adopted": {
+          "type": "time",
+          "source_label": "date adopted"
+        },
+        "date_departed": {
+          "type": "time",
+          "source_label": "date departed"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Professionals": {
+      "source_label": "professionals",
+      "meaning": "Table labeled 'professionals' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "professional_id"
+      ],
+      "columns": {
+        "professional_id": {
+          "type": "number",
+          "source_label": "professional id",
+          "primary_key": true
+        },
+        "role_code": {
+          "type": "text",
+          "source_label": "role code",
+          "observed_values": [
+            "Employee",
+            "Veterenarian"
+          ]
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "street": {
+          "type": "text",
+          "source_label": "street"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "state": {
+          "type": "text",
+          "source_label": "state"
+        },
+        "zip_code": {
+          "type": "text",
+          "source_label": "zip code"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "email_address": {
+          "type": "text",
+          "source_label": "email address"
+        },
+        "home_phone": {
+          "type": "text",
+          "source_label": "home phone"
+        },
+        "cell_number": {
+          "type": "text",
+          "source_label": "cell number"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Treatments": {
+      "source_label": "treatments",
+      "meaning": "Table labeled 'treatments' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "treatment_id"
+      ],
+      "columns": {
+        "treatment_id": {
+          "type": "number",
+          "source_label": "treatment id",
+          "primary_key": true
+        },
+        "dog_id": {
+          "type": "number",
+          "source_label": "dog id",
+          "foreign_key": {
+            "table": "Dogs",
+            "column": "dog_id"
+          }
+        },
+        "professional_id": {
+          "type": "number",
+          "source_label": "professional id",
+          "foreign_key": {
+            "table": "Professionals",
+            "column": "professional_id"
+          }
+        },
+        "treatment_type_code": {
+          "type": "text",
+          "source_label": "treatment type code",
+          "foreign_key": {
+            "table": "Treatment_Types",
+            "column": "treatment_type_code"
+          },
+          "observed_values": [
+            "WALK",
+            "VAC",
+            "EXAM"
+          ]
+        },
+        "date_of_treatment": {
+          "type": "time",
+          "source_label": "date of treatment"
+        },
+        "cost_of_treatment": {
+          "type": "number",
+          "source_label": "cost of treatment"
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "Dogs",
+      "from_column": "breed_code",
+      "to_table": "Breeds",
+      "to_column": "breed_code",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Dogs",
+      "from_column": "owner_id",
+      "to_table": "Owners",
+      "to_column": "owner_id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Dogs",
+      "from_column": "size_code",
+      "to_table": "Sizes",
+      "to_column": "size_code",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Treatments",
+      "from_column": "dog_id",
+      "to_table": "Dogs",
+      "to_column": "dog_id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Treatments",
+      "from_column": "professional_id",
+      "to_table": "Professionals",
+      "to_column": "professional_id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Treatments",
+      "from_column": "treatment_type_code",
+      "to_table": "Treatment_Types",
+      "to_column": "treatment_type_code",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {
+    "treatment types": {
+      "maps_to": "Treatment_Types",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Breeds__row_count": {
+      "meaning": "Number of rows in Breeds.",
+      "base_table": "Breeds",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Charges__row_count": {
+      "meaning": "Number of rows in Charges.",
+      "base_table": "Charges",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Sizes__row_count": {
+      "meaning": "Number of rows in Sizes.",
+      "base_table": "Sizes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Treatment_Types__row_count": {
+      "meaning": "Number of rows in Treatment_Types.",
+      "base_table": "Treatment_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Owners__row_count": {
+      "meaning": "Number of rows in Owners.",
+      "base_table": "Owners",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Dogs__row_count": {
+      "meaning": "Number of rows in Dogs.",
+      "base_table": "Dogs",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Professionals__row_count": {
+      "meaning": "Number of rows in Professionals.",
+      "base_table": "Professionals",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Treatments__row_count": {
+      "meaning": "Number of rows in Treatments.",
+      "base_table": "Treatments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "Owners",
+      "column": "cell_number",
+      "value": "+00(2)4323592985",
+      "key": "00 2 4323592985"
+    },
+    {
+      "table": "Professionals",
+      "column": "cell_number",
+      "value": "00230569697",
+      "key": "00230569697"
+    },
+    {
+      "table": "Owners",
+      "column": "zip_code",
+      "value": "00589",
+      "key": "00589"
+    },
+    {
+      "table": "Professionals",
+      "column": "cell_number",
+      "value": "011.193.9081x3186",
+      "key": "011 193 9081x3186"
+    },
+    {
+      "table": "Owners",
+      "column": "home_phone",
+      "value": "01802479758",
+      "key": "01802479758"
+    },
+    {
+      "table": "Professionals",
+      "column": "home_phone",
+      "value": "+02(1)0259033559",
+      "key": "02 1 0259033559"
+    },
+    {
+      "table": "Professionals",
+      "column": "home_phone",
+      "value": "022.529.0550x1319",
+      "key": "022 529 0550x1319"
+    },
+    {
+      "table": "Professionals",
+      "column": "zip_code",
+      "value": "02281",
+      "key": "02281"
+    },
+    {
+      "table": "Owners",
+      "column": "zip_code",
+      "value": "02647",
+      "key": "02647"
+    },
+    {
+      "table": "Owners",
+      "column": "home_phone",
+      "value": "(058)997-7627",
+      "key": "058 997 7627"
+    },
+    {
+      "table": "Owners",
+      "column": "street",
+      "value": "0647 Hintz Village Apt. 024",
+      "key": "0647 hintz village apt 024"
+    },
+    {
+      "table": "Owners",
+      "column": "home_phone",
+      "value": "066.264.7885",
+      "key": "066 264 7885"
+    },
+    {
+      "table": "Professionals",
+      "column": "zip_code",
+      "value": "06646",
+      "key": "06646"
+    },
+    {
+      "table": "Professionals",
+      "column": "street",
+      "value": "07073 Brenna Ways Suite 089\nLowehaven, KY 93275-96",
+      "key": "07073 brenna ways suite 089 lowehaven ky 93275 96"
+    },
+    {
+      "table": "Professionals",
+      "column": "zip_code",
+      "value": "07412",
+      "key": "07412"
+    },
+    {
+      "table": "Owners",
+      "column": "home_phone",
+      "value": "085.557.0379x84348",
+      "key": "085 557 0379x84348"
+    },
+    {
+      "table": "Owners",
+      "column": "home_phone",
+      "value": "(094)747-5094x8134",
+      "key": "094 747 5094x8134"
+    },
+    {
+      "table": "Professionals",
+      "column": "street",
+      "value": "09615 McKenzie Stravenue Apt. 128\nWest Elliottview",
+      "key": "09615 mc kenzie stravenue apt 128 west elliottview"
+    },
+    {
+      "table": "Professionals",
+      "column": "home_phone",
+      "value": "1-138-287-3775",
+      "key": "1 138 287 3775"
+    },
+    {
+      "table": "Professionals",
+      "column": "cell_number",
+      "value": "1-181-670-9466",
+      "key": "1 181 670 9466"
+    },
+    {
+      "table": "Professionals",
+      "column": "cell_number",
+      "value": "1-185-137-1945x409",
+      "key": "1 185 137 1945x409"
+    },
+    {
+      "table": "Professionals",
+      "column": "cell_number",
+      "value": "1-258-285-4707x8020",
+      "key": "1 258 285 4707x8020"
+    },
+    {
+      "table": "Owners",
+      "column": "home_phone",
+      "value": "1-332-849-1908",
+      "key": "1 332 849 1908"
+    },
+    {
+      "table": "Owners",
+      "column": "home_phone",
+      "value": "1-346-655-5842x768",
+      "key": "1 346 655 5842x768"
+    },
+    {
+      "table": "Dogs",
+      "column": "weight",
+      "value": "1.39",
+      "key": "1 39"
+    },
+    {
+      "table": "Professionals",
+      "column": "home_phone",
+      "value": "1-609-566-2752x25197",
+      "key": "1 609 566 2752x25197"
+    },
+    {
+      "table": "Owners",
+      "column": "cell_number",
+      "value": "1-626-264-7659x1697",
+      "key": "1 626 264 7659x1697"
+    },
+    {
+      "table": "Owners",
+      "column": "home_phone",
+      "value": "1-682-845-0116x63235",
+      "key": "1 682 845 0116x63235"
+    },
+    {
+      "table": "Dogs",
+      "column": "weight",
+      "value": "1.72",
+      "key": "1 72"
+    },
+    {
+      "table": "Owners",
+      "column": "cell_number",
+      "value": "1-739-421-2225x38148",
+      "key": "1 739 421 2225x38148"
+    },
+    {
+      "table": "Owners",
+      "column": "zip_code",
+      "value": "11990",
+      "key": "11990"
+    },
+    {
+      "table": "Owners",
+      "column": "street",
+      "value": "1204 Mae Highway Apt. 107",
+      "key": "1204 mae highway apt 107"
+    },
+    {
+      "table": "Owners",
+      "column": "cell_number",
+      "value": "121.381.3316x6535",
+      "key": "121 381 3316x6535"
+    },
+    {
+      "table": "Owners",
+      "column": "home_phone",
+      "value": "130-796-4589x05454",
+      "key": "130 796 4589x05454"
+    },
+    {
+      "table": "Professionals",
+      "column": "cell_number",
+      "value": "139-321-7313",
+      "key": "139 321 7313"
+    },
+    {
+      "table": "Owners",
+      "column": "street",
+      "value": "15828 Spencer Extensions",
+      "key": "15828 spencer extensions"
+    },
+    {
+      "table": "Professionals",
+      "column": "street",
+      "value": "17286 Waters Green\nEast Bernadinefort, CA 89573",
+      "key": "17286 waters green east bernadinefort ca 89573"
+    },
+    {
+      "table": "Professionals",
+      "column": "zip_code",
+      "value": "17902",
+      "key": "17902"
+    },
+    {
+      "table": "Owners",
+      "column": "street",
+      "value": "1858 Jan Park",
+      "key": "1858 jan park"
+    },
+    {
+      "table": "Professionals",
+      "column": "street",
+      "value": "188 VonRueden Tunnel Suite 630\nNorth Macibury, NV ",
+      "key": "188 von rueden tunnel suite 630 north macibury nv"
+    },
+    {
+      "table": "Dogs",
+      "column": "weight",
+      "value": "2.18",
+      "key": "2 18"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_of_birth",
+      "value": "2008-05-19 15:54:49",
+      "key": "2008 05 19 15 54 49"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_of_birth",
+      "value": "2008-05-30 12:51:34",
+      "key": "2008 05 30 12 51 34"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_of_birth",
+      "value": "2008-10-09 22:38:53",
+      "key": "2008 10 09 22 38 53"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_of_birth",
+      "value": "2009-04-12 06:02:48",
+      "key": "2009 04 12 06 02 48"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_of_birth",
+      "value": "2010-11-11 07:11:53",
+      "key": "2010 11 11 07 11 53"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_of_birth",
+      "value": "2012-01-27 05:11:53",
+      "key": "2012 01 27 05 11 53"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_of_birth",
+      "value": "2012-05-03 21:42:25",
+      "key": "2012 05 03 21 42 25"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_of_birth",
+      "value": "2012-05-31 08:01:36",
+      "key": "2012 05 31 08 01 36"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_of_birth",
+      "value": "2012-07-11 17:15:10",
+      "key": "2012 07 11 17 15 10"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_of_birth",
+      "value": "2012-10-14 14:44:37",
+      "key": "2012 10 14 14 44 37"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_of_birth",
+      "value": "2013-02-13 05:15:21",
+      "key": "2013 02 13 05 15 21"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_of_birth",
+      "value": "2013-02-20 14:50:56",
+      "key": "2013 02 20 14 50 56"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_of_birth",
+      "value": "2015-02-26 21:31:22",
+      "key": "2015 02 26 21 31 22"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_arrived",
+      "value": "2017-04-15 09:25:31",
+      "key": "2017 04 15 09 25 31"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_arrived",
+      "value": "2017-04-20 00:58:55",
+      "key": "2017 04 20 00 58 55"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_arrived",
+      "value": "2017-05-06 08:03:52",
+      "key": "2017 05 06 08 03 52"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_arrived",
+      "value": "2017-06-18 19:45:38",
+      "key": "2017 06 18 19 45 38"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_arrived",
+      "value": "2017-06-25 10:14:05",
+      "key": "2017 06 25 10 14 05"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_arrived",
+      "value": "2017-07-25 15:19:07",
+      "key": "2017 07 25 15 19 07"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_arrived",
+      "value": "2017-09-08 20:10:13",
+      "key": "2017 09 08 20 10 13"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_of_birth",
+      "value": "2017-09-19 05:39:09",
+      "key": "2017 09 19 05 39 09"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_arrived",
+      "value": "2017-10-16 20:06:21",
+      "key": "2017 10 16 20 06 21"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_arrived",
+      "value": "2017-10-24 04:45:13",
+      "key": "2017 10 24 04 45 13"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_arrived",
+      "value": "2017-10-25 00:55:34",
+      "key": "2017 10 25 00 55 34"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_arrived",
+      "value": "2017-12-22 05:02:02",
+      "key": "2017 12 22 05 02 02"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_arrived",
+      "value": "2017-12-29 06:08:26",
+      "key": "2017 12 29 06 08 26"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_arrived",
+      "value": "2017-12-29 23:24:13",
+      "key": "2017 12 29 23 24 13"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_arrived",
+      "value": "2018-01-02 03:15:29",
+      "key": "2018 01 02 03 15 29"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_arrived",
+      "value": "2018-01-17 11:44:16",
+      "key": "2018 01 17 11 44 16"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_adopted",
+      "value": "2018-02-25 23:45:30",
+      "key": "2018 02 25 23 45 30"
+    },
+    {
+      "table": "Treatments",
+      "column": "date_of_treatment",
+      "value": "2018-02-26 09:08:53",
+      "key": "2018 02 26 09 08 53"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_adopted",
+      "value": "2018-02-27 00:27:57",
+      "key": "2018 02 27 00 27 57"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_adopted",
+      "value": "2018-02-27 11:54:35",
+      "key": "2018 02 27 11 54 35"
+    },
+    {
+      "table": "Treatments",
+      "column": "date_of_treatment",
+      "value": "2018-02-28 17:09:43",
+      "key": "2018 02 28 17 09 43"
+    },
+    {
+      "table": "Treatments",
+      "column": "date_of_treatment",
+      "value": "2018-03-01 04:14:46",
+      "key": "2018 03 01 04 14 46"
+    },
+    {
+      "table": "Treatments",
+      "column": "date_of_treatment",
+      "value": "2018-03-04 20:33:43",
+      "key": "2018 03 04 20 33 43"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_adopted",
+      "value": "2018-03-05 06:05:23",
+      "key": "2018 03 05 06 05 23"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_adopted",
+      "value": "2018-03-06 16:32:11",
+      "key": "2018 03 06 16 32 11"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_adopted",
+      "value": "2018-03-07 21:45:43",
+      "key": "2018 03 07 21 45 43"
+    },
+    {
+      "table": "Treatments",
+      "column": "date_of_treatment",
+      "value": "2018-03-08 05:26:23",
+      "key": "2018 03 08 05 26 23"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_adopted",
+      "value": "2018-03-08 15:03:00",
+      "key": "2018 03 08 15 03 00"
+    },
+    {
+      "table": "Treatments",
+      "column": "date_of_treatment",
+      "value": "2018-03-10 11:45:58",
+      "key": "2018 03 10 11 45 58"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_adopted",
+      "value": "2018-03-10 15:06:43",
+      "key": "2018 03 10 15 06 43"
+    },
+    {
+      "table": "Treatments",
+      "column": "date_of_treatment",
+      "value": "2018-03-11 04:23:15",
+      "key": "2018 03 11 04 23 15"
+    },
+    {
+      "table": "Treatments",
+      "column": "date_of_treatment",
+      "value": "2018-03-13 12:22:58",
+      "key": "2018 03 13 12 22 58"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_adopted",
+      "value": "2018-03-13 12:47:15",
+      "key": "2018 03 13 12 47 15"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_adopted",
+      "value": "2018-03-14 08:05:18",
+      "key": "2018 03 14 08 05 18"
+    },
+    {
+      "table": "Treatments",
+      "column": "date_of_treatment",
+      "value": "2018-03-14 19:10:40",
+      "key": "2018 03 14 19 10 40"
+    },
+    {
+      "table": "Treatments",
+      "column": "date_of_treatment",
+      "value": "2018-03-15 19:10:02",
+      "key": "2018 03 15 19 10 02"
+    },
+    {
+      "table": "Treatments",
+      "column": "date_of_treatment",
+      "value": "2018-03-15 20:25:34",
+      "key": "2018 03 15 20 25 34"
+    },
+    {
+      "table": "Treatments",
+      "column": "date_of_treatment",
+      "value": "2018-03-16 10:27:36",
+      "key": "2018 03 16 10 27 36"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_of_birth",
+      "value": "2018-03-17 04:05:12",
+      "key": "2018 03 17 04 05 12"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_adopted",
+      "value": "2018-03-18 07:47:40",
+      "key": "2018 03 18 07 47 40"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_adopted",
+      "value": "2018-03-18 15:12:50",
+      "key": "2018 03 18 15 12 50"
+    },
+    {
+      "table": "Treatments",
+      "column": "date_of_treatment",
+      "value": "2018-03-19 04:39:54",
+      "key": "2018 03 19 04 39 54"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_adopted",
+      "value": "2018-03-21 10:41:18",
+      "key": "2018 03 21 10 41 18"
+    },
+    {
+      "table": "Treatments",
+      "column": "date_of_treatment",
+      "value": "2018-03-23 13:52:10",
+      "key": "2018 03 23 13 52 10"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_adopted",
+      "value": "2018-03-23 16:02:04",
+      "key": "2018 03 23 16 02 04"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_departed",
+      "value": "2018-03-24 19:12:22",
+      "key": "2018 03 24 19 12 22"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_departed",
+      "value": "2018-03-24 19:36:59",
+      "key": "2018 03 24 19 36 59"
+    },
+    {
+      "table": "Treatments",
+      "column": "date_of_treatment",
+      "value": "2018-03-24 22:25:58",
+      "key": "2018 03 24 22 25 58"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_departed",
+      "value": "2018-03-24 23:48:59",
+      "key": "2018 03 24 23 48 59"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_departed",
+      "value": "2018-03-25 02:11:32",
+      "key": "2018 03 25 02 11 32"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_departed",
+      "value": "2018-03-25 02:47:40",
+      "key": "2018 03 25 02 47 40"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_departed",
+      "value": "2018-03-25 04:42:14",
+      "key": "2018 03 25 04 42 14"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_departed",
+      "value": "2018-03-25 04:50:22",
+      "key": "2018 03 25 04 50 22"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_departed",
+      "value": "2018-03-25 05:07:47",
+      "key": "2018 03 25 05 07 47"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_departed",
+      "value": "2018-03-25 06:29:10",
+      "key": "2018 03 25 06 29 10"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_departed",
+      "value": "2018-03-25 06:46:07",
+      "key": "2018 03 25 06 46 07"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_departed",
+      "value": "2018-03-25 06:58:44",
+      "key": "2018 03 25 06 58 44"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_adopted",
+      "value": "2018-03-25 08:12:51",
+      "key": "2018 03 25 08 12 51"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_departed",
+      "value": "2018-03-25 10:25:46",
+      "key": "2018 03 25 10 25 46"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_departed",
+      "value": "2018-03-25 13:07:04",
+      "key": "2018 03 25 13 07 04"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_departed",
+      "value": "2018-03-25 14:15:41",
+      "key": "2018 03 25 14 15 41"
+    },
+    {
+      "table": "Dogs",
+      "column": "date_departed",
+      "value": "2018-03-25 15:05:16",
+      "key": "2018 03 25 15 05 16"
+    },
+    {
+      "table": "Owners",
+      "column": "zip_code",
+      "value": "22693",
+      "key": "22693"
+    },
+    {
+      "table": "Owners",
+      "column": "zip_code",
+      "value": "22731",
+      "key": "22731"
+    },
+    {
+      "table": "Professionals",
+      "column": "home_phone",
+      "value": "(230)338-3342x585",
+      "key": "230 338 3342x585"
+    },
+    {
+      "table": "Owners",
+      "column": "street",
+      "value": "2417 Keara Stravenue Apt. 146",
+      "key": "2417 keara stravenue apt 146"
+    },
+    {
+      "table": "Professionals",
+      "column": "home_phone",
+      "value": "246-951-0080x76716",
+      "key": "246 951 0080x76716"
+    },
+    {
+      "table": "Owners",
+      "column": "zip_code",
+      "value": "25609",
+      "key": "25609"
+    },
+    {
+      "table": "Owners",
+      "column": "cell_number",
+      "value": "(257)399-3116",
+      "key": "257 399 3116"
+    },
+    {
+      "table": "Owners",
+      "column": "street",
+      "value": "2635 Caitlyn Plains",
+      "key": "2635 caitlyn plains"
+    },
+    {
+      "table": "Professionals",
+      "column": "cell_number",
+      "value": "(275)939-2435x80863",
+      "key": "275 939 2435x80863"
+    },
+    {
+      "table": "Dogs",
+      "column": "weight",
+      "value": "3.52",
+      "key": "3 52"
+    },
+    {
+      "table": "Professionals",
+      "column": "home_phone",
+      "value": "312.216.3352",
+      "key": "312 216 3352"
+    },
+    {
+      "table": "Owners",
+      "column": "home_phone",
+      "value": "318-052-6573",
+      "key": "318 052 6573"
+    },
+    {
+      "table": "Professionals",
+      "column": "home_phone",
+      "value": "320-508-6023",
+      "key": "320 508 6023"
+    },
+    {
+      "table": "Professionals",
+      "column": "home_phone",
+      "value": "325-155-0801x7005",
+      "key": "325 155 0801x7005"
+    },
+    {
+      "table": "Professionals",
+      "column": "cell_number",
+      "value": "328.842.3792",
+      "key": "328 842 3792"
+    },
+    {
+      "table": "Professionals",
+      "column": "zip_code",
+      "value": "33020",
+      "key": "33020"
+    },
+    {
+      "table": "Professionals",
+      "column": "zip_code",
+      "value": "34041",
+      "key": "34041"
+    },
+    {
+      "table": "Owners",
+      "column": "cell_number",
+      "value": "341.667.8085",
+      "key": "341 667 8085"
+    },
+    {
+      "table": "Professionals",
+      "column": "home_phone",
+      "value": "346.594.3739",
+      "key": "346 594 3739"
+    },
+    {
+      "table": "Owners",
+      "column": "zip_code",
+      "value": "35747",
+      "key": "35747"
+    },
+    {
+      "table": "Owners",
+      "column": "home_phone",
+      "value": "363.948.1090",
+      "key": "363 948 1090"
+    },
+    {
+      "table": "Owners",
+      "column": "zip_code",
+      "value": "36871",
+      "key": "36871"
+    },
+    {
+      "table": "Professionals",
+      "column": "street",
+      "value": "36895 Eli Ferry\nPort Marcelle, FL 45712",
+      "key": "36895 eli ferry port marcelle fl 45712"
+    },
+    {
+      "table": "Professionals",
+      "column": "cell_number",
+      "value": "(369)908-7311x065",
+      "key": "369 908 7311x065"
+    },
+    {
+      "table": "Professionals",
+      "column": "street",
+      "value": "390 Bryce Drive\nNorth Dock, LA 65357-7228",
+      "key": "390 bryce drive north dock la 65357 7228"
+    },
+    {
+      "table": "Dogs",
+      "column": "weight",
+      "value": "4.01",
+      "key": "4 01"
+    },
+    {
+      "table": "Dogs",
+      "column": "weight",
+      "value": "4.36",
+      "key": "4 36"
+    },
+    {
+      "table": "Professionals",
+      "column": "zip_code",
+      "value": "41215",
+      "key": "41215"
+    },
+    {
+      "table": "Professionals",
+      "column": "home_phone",
+      "value": "+43(5)1132733868",
+      "key": "43 5 1132733868"
+    },
+    {
+      "table": "Professionals",
+      "column": "zip_code",
+      "value": "43129",
+      "key": "43129"
+    },
+    {
+      "table": "Professionals",
+      "column": "street",
+      "value": "44234 Marvin Shoals Suite 659\nNorth Frances, AL 23",
+      "key": "44234 marvin shoals suite 659 north frances al 23"
+    },
+    {
+      "table": "Owners",
+      "column": "zip_code",
+      "value": "45244",
+      "key": "45244"
+    },
+    {
+      "table": "Professionals",
+      "column": "cell_number",
+      "value": "461-801-2600",
+      "key": "461 801 2600"
+    },
+    {
+      "table": "Owners",
+      "column": "cell_number",
+      "value": "478.978.0729",
+      "key": "478 978 0729"
+    },
+    {
+      "table": "Owners",
+      "column": "cell_number",
+      "value": "481-483-9083x37986",
+      "key": "481 483 9083x37986"
+    },
+    {
+      "table": "Professionals",
+      "column": "cell_number",
+      "value": "499-434-0215x1628",
+      "key": "499 434 0215x1628"
+    },
+    {
+      "table": "Dogs",
+      "column": "weight",
+      "value": "5.16",
+      "key": "5 16"
+    },
+    {
+      "table": "Owners",
+      "column": "street",
+      "value": "51934 Treutel Harbor",
+      "key": "51934 treutel harbor"
+    },
+    {
+      "table": "Professionals",
+      "column": "zip_code",
+      "value": "52476",
+      "key": "52476"
+    },
+    {
+      "table": "Professionals",
+      "column": "zip_code",
+      "value": "54312",
+      "key": "54312"
+    },
+    {
+      "table": "Owners",
+      "column": "home_phone",
+      "value": "(544)034-1670",
+      "key": "544 034 1670"
+    },
+    {
+      "table": "Owners",
+      "column": "cell_number",
+      "value": "559.874.3011x989",
+      "key": "559 874 3011x989"
+    },
+    {
+      "table": "Owners",
+      "column": "street",
+      "value": "57382 Yost Ridges",
+      "key": "57382 yost ridges"
+    },
+    {
+      "table": "Owners",
+      "column": "street",
+      "value": "59509 Mellie Mountain",
+      "key": "59509 mellie mountain"
+    },
+    {
+      "table": "Dogs",
+      "column": "weight",
+      "value": "6.92",
+      "key": "6 92"
+    },
+    {
+      "table": "Owners",
+      "column": "street",
+      "value": "60352 Kayleigh Crossing Suite 700",
+      "key": "60352 kayleigh crossing suite 700"
+    },
+    {
+      "table": "Professionals",
+      "column": "cell_number",
+      "value": "609-405-2990",
+      "key": "609 405 2990"
+    },
+    {
+      "table": "Owners",
+      "column": "zip_code",
+      "value": "61019",
+      "key": "61019"
+    },
+    {
+      "table": "Owners",
+      "column": "cell_number",
+      "value": "633.455.3045x85484",
+      "key": "633 455 3045x85484"
+    },
+    {
+      "table": "Professionals",
+      "column": "street",
+      "value": "63949 Keeling Landing Apt. 502\nJohnsview, SD 06780",
+      "key": "63949 keeling landing apt 502 johnsview sd 06780"
+    },
+    {
+      "table": "Professionals",
+      "column": "zip_code",
+      "value": "67980",
+      "key": "67980"
+    },
+    {
+      "table": "Owners",
+      "column": "street",
+      "value": "68118 Daniel Row",
+      "key": "68118 daniel row"
+    },
+    {
+      "table": "Professionals",
+      "column": "street",
+      "value": "68589 Bradly Manor\nNew Audrey, IN 91497",
+      "key": "68589 bradly manor new audrey in 91497"
+    },
+    {
+      "table": "Professionals",
+      "column": "street",
+      "value": "6915 Oberbrunner Point Suite 491\nGleasonville, LA ",
+      "key": "6915 oberbrunner point suite 491 gleasonville la"
+    },
+    {
+      "table": "Owners",
+      "column": "street",
+      "value": "692 Jaskolski Forges",
+      "key": "692 jaskolski forges"
+    },
+    {
+      "table": "Owners",
+      "column": "street",
+      "value": "6950 Katherine Forges Apt. 630",
+      "key": "6950 katherine forges apt 630"
+    },
+    {
+      "table": "Dogs",
+      "column": "weight",
+      "value": "7.57",
+      "key": "7 57"
+    },
+    {
+      "table": "Owners",
+      "column": "cell_number",
+      "value": "+70(4)9217952551",
+      "key": "70 4 9217952551"
+    },
+    {
+      "table": "Professionals",
+      "column": "home_phone",
+      "value": "+71(6)2898266914",
+      "key": "71 6 2898266914"
+    },
+    {
+      "table": "Owners",
+      "column": "cell_number",
+      "value": "(722)768-5439x484",
+      "key": "722 768 5439x484"
+    },
+    {
+      "table": "Professionals",
+      "column": "street",
+      "value": "72532 Hane Course\nLake Berylland, ND 95283",
+      "key": "72532 hane course lake berylland nd 95283"
+    },
+    {
+      "table": "Professionals",
+      "column": "street",
+      "value": "7284 Torphy Flats Apt. 610\nDiannaburgh, SC 78560",
+      "key": "7284 torphy flats apt 610 diannaburgh sc 78560"
+    },
+    {
+      "table": "Owners",
+      "column": "cell_number",
+      "value": "739-136-7202",
+      "key": "739 136 7202"
+    },
+    {
+      "table": "Owners",
+      "column": "cell_number",
+      "value": "762.589.6117x1328",
+      "key": "762 589 6117x1328"
+    },
+    {
+      "table": "Professionals",
+      "column": "zip_code",
+      "value": "77129",
+      "key": "77129"
+    },
+    {
+      "table": "Professionals",
+      "column": "street",
+      "value": "7783 Abraham Alley\nPort Madelynhaven, KY 59172-273",
+      "key": "7783 abraham alley port madelynhaven ky 59172 273"
+    },
+    {
+      "table": "Owners",
+      "column": "zip_code",
+      "value": "78297",
+      "key": "78297"
+    },
+    {
+      "table": "Owners",
+      "column": "cell_number",
+      "value": "(783)271-6744x4507",
+      "key": "783 271 6744x4507"
+    },
+    {
+      "table": "Owners",
+      "column": "home_phone",
+      "value": "(799)563-0260x454",
+      "key": "799 563 0260x454"
+    },
+    {
+      "table": "Dogs",
+      "column": "weight",
+      "value": "8.04",
+      "key": "8 04"
+    },
+    {
+      "table": "Dogs",
+      "column": "weight",
+      "value": "8.16",
+      "key": "8 16"
+    },
+    {
+      "table": "Dogs",
+      "column": "weight",
+      "value": "8.95",
+      "key": "8 95"
+    },
+    {
+      "table": "Dogs",
+      "column": "weight",
+      "value": "8.96",
+      "key": "8 96"
+    },
+    {
+      "table": "Professionals",
+      "column": "zip_code",
+      "value": "80775",
+      "key": "80775"
+    },
+    {
+      "table": "Professionals",
+      "column": "zip_code",
+      "value": "84515",
+      "key": "84515"
+    },
+    {
+      "table": "Owners",
+      "column": "zip_code",
+      "value": "86010",
+      "key": "86010"
+    },
+    {
+      "table": "Owners",
+      "column": "zip_code",
+      "value": "87304",
+      "key": "87304"
+    },
+    {
+      "table": "Professionals",
+      "column": "cell_number",
+      "value": "880-659-7577x736",
+      "key": "880 659 7577x736"
+    },
+    {
+      "table": "Professionals",
+      "column": "street",
+      "value": "88665 Terence Lodge Apt. 904\nCorneliusfort, NC 194",
+      "key": "88665 terence lodge apt 904 corneliusfort nc 194"
+    },
+    {
+      "table": "Professionals",
+      "column": "cell_number",
+      "value": "889-940-2676",
+      "key": "889 940 2676"
+    },
+    {
+      "table": "Owners",
+      "column": "street",
+      "value": "89011 Kertzmann Spring Suite 642",
+      "key": "89011 kertzmann spring suite 642"
+    },
+    {
+      "table": "Professionals",
+      "column": "home_phone",
+      "value": "891.475.2256",
+      "key": "891 475 2256"
+    },
+    {
+      "table": "Owners",
+      "column": "home_phone",
+      "value": "893-862-5295x61709",
+      "key": "893 862 5295x61709"
+    },
+    {
+      "table": "Dogs",
+      "column": "weight",
+      "value": "9.48",
+      "key": "9 48"
+    },
+    {
+      "table": "Dogs",
+      "column": "weight",
+      "value": "9.8",
+      "key": "9 8"
+    },
+    {
+      "table": "Owners",
+      "column": "home_phone",
+      "value": "916.976.9480x13851",
+      "key": "916 976 9480x13851"
+    },
+    {
+      "table": "Professionals",
+      "column": "home_phone",
+      "value": "(920)304-4499x59146",
+      "key": "920 304 4499x59146"
+    },
+    {
+      "table": "Owners",
+      "column": "street",
+      "value": "9212 Rosenbaum Lights",
+      "key": "9212 rosenbaum lights"
+    },
+    {
+      "table": "Owners",
+      "column": "zip_code",
+      "value": "92406",
+      "key": "92406"
+    },
+    {
+      "table": "Professionals",
+      "column": "street",
+      "value": "92912 Langworth Valleys Apt. 743\nThompsonborough, ",
+      "key": "92912 langworth valleys apt 743 thompsonborough"
+    },
+    {
+      "table": "Owners",
+      "column": "zip_code",
+      "value": "93165",
+      "key": "93165"
+    },
+    {
+      "table": "Professionals",
+      "column": "cell_number",
+      "value": "962-983-8109x3509",
+      "key": "962 983 8109x3509"
+    },
+    {
+      "table": "Professionals",
+      "column": "home_phone",
+      "value": "971.048.3763x9404",
+      "key": "971 048 3763x9404"
+    },
+    {
+      "table": "Professionals",
+      "column": "zip_code",
+      "value": "98844",
+      "key": "98844"
+    },
+    {
+      "table": "Owners",
+      "column": "first_name",
+      "value": "Adelle",
+      "key": "adelle"
+    },
+    {
+      "table": "Professionals",
+      "column": "state",
+      "value": "Alabama",
+      "key": "alabama"
+    },
+    {
+      "table": "Owners",
+      "column": "email_address",
+      "value": "angeline99@example.com",
+      "key": "angeline99 example com"
+    },
+    {
+      "table": "Owners",
+      "column": "state",
+      "value": "Arizona",
+      "key": "arizona"
+    },
+    {
+      "table": "Owners",
+      "column": "state",
+      "value": "Arkansas",
+      "key": "arkansas"
+    },
+    {
+      "table": "Professionals",
+      "column": "city",
+      "value": "Baileymouth",
+      "key": "baileymouth"
+    },
+    {
+      "table": "Owners",
+      "column": "city",
+      "value": "Barrettburgh",
+      "key": "barrettburgh"
+    },
+    {
+      "table": "Owners",
+      "column": "city",
+      "value": "Beerton",
+      "key": "beerton"
+    },
+    {
+      "table": "Dogs",
+      "column": "name",
+      "value": "Bessie",
+      "key": "bessie"
+    },
+    {
+      "table": "Dogs",
+      "column": "name",
+      "value": "Betty",
+      "key": "betty"
+    },
+    {
+      "table": "Professionals",
+      "column": "city",
+      "value": "Borisside",
+      "key": "borisside"
+    },
+    {
+      "table": "Professionals",
+      "column": "first_name",
+      "value": "Brady",
+      "key": "brady"
+    },
+    {
+      "table": "Owners",
+      "column": "city",
+      "value": "Brakusfurt",
+      "key": "brakusfurt"
+    },
+    {
+      "table": "Professionals",
+      "column": "last_name",
+      "value": "Braun",
+      "key": "braun"
+    },
+    {
+      "table": "Breeds",
+      "column": "breed_code",
+      "value": "BUL",
+      "key": "bul"
+    },
+    {
+      "table": "Dogs",
+      "column": "breed_code",
+      "value": "BUL",
+      "key": "bul"
+    },
+    {
+      "table": "Breeds",
+      "column": "breed_name",
+      "value": "Bulldog",
+      "key": "bulldog"
+    },
+    {
+      "table": "Professionals",
+      "column": "state",
+      "value": "California",
+      "key": "california"
+    },
+    {
+      "table": "Professionals",
+      "column": "last_name",
+      "value": "Christiansen",
+      "key": "christiansen"
+    },
+    {
+      "table": "Owners",
+      "column": "email_address",
+      "value": "christy49@example.org",
+      "key": "christy49 example org"
+    },
+    {
+      "table": "Owners",
+      "column": "first_name",
+      "value": "Cindy",
+      "key": "cindy"
+    },
+    {
+      "table": "Professionals",
+      "column": "email_address",
+      "value": "cole.margarita@example.org",
+      "key": "cole margarita example org"
+    },
+    {
+      "table": "Professionals",
+      "column": "state",
+      "value": "Connecticut",
+      "key": "connecticut"
+    },
+    {
+      "table": "Professionals",
+      "column": "last_name",
+      "value": "Considine",
+      "key": "considine"
+    },
+    {
+      "table": "Charges",
+      "column": "charge_type",
+      "value": "Daily Accommodation",
+      "key": "daily accommodation"
+    },
+    {
+      "table": "Professionals",
+      "column": "first_name",
+      "value": "Danny",
+      "key": "danny"
+    },
+    {
+      "table": "Professionals",
+      "column": "email_address",
+      "value": "deanna.schuster@example.com",
+      "key": "deanna schuster example com"
+    },
+    {
+      "table": "Professionals",
+      "column": "email_address",
+      "value": "delphine29@example.com",
+      "key": "delphine29 example com"
+    },
+    {
+      "table": "Professionals",
+      "column": "first_name",
+      "value": "Domenica",
+      "key": "domenica"
+    },
+    {
+      "table": "Professionals",
+      "column": "city",
+      "value": "Domenickton",
+      "key": "domenickton"
+    },
+    {
+      "table": "Charges",
+      "column": "charge_type",
+      "value": "Drugs",
+      "key": "drugs"
+    },
+    {
+      "table": "Owners",
+      "column": "last_name",
+      "value": "DuBuque",
+      "key": "du buque"
+    },
+    {
+      "table": "Owners",
+      "column": "city",
+      "value": "East Hillardberg",
+      "key": "east hillardberg"
+    },
+    {
+      "table": "Professionals",
+      "column": "city",
+      "value": "East Ila",
+      "key": "east ila"
+    },
+    {
+      "table": "Owners",
+      "column": "city",
+      "value": "East Maribelbury",
+      "key": "east maribelbury"
+    },
+    {
+      "table": "Owners",
+      "column": "email_address",
+      "value": "edythe62@example.org",
+      "key": "edythe62 example org"
+    },
+    {
+      "table": "Owners",
+      "column": "first_name",
+      "value": "Emelie",
+      "key": "emelie"
+    },
+    {
+      "table": "Professionals",
+      "column": "role_code",
+      "value": "Employee",
+      "key": "employee"
+    },
+    {
+      "table": "Professionals",
+      "column": "first_name",
+      "value": "Ericka",
+      "key": "ericka"
+    },
+    {
+      "table": "Breeds",
+      "column": "breed_code",
+      "value": "ESK",
+      "key": "esk"
+    },
+    {
+      "table": "Dogs",
+      "column": "breed_code",
+      "value": "ESK",
+      "key": "esk"
+    },
+    {
+      "table": "Breeds",
+      "column": "breed_name",
+      "value": "Eskimo",
+      "key": "eskimo"
+    },
+    {
+      "table": "Dogs",
+      "column": "name",
+      "value": "Evangeline",
+      "key": "evangeline"
+    },
+    {
+      "table": "Treatment_Types",
+      "column": "treatment_type_code",
+      "value": "EXAM",
+      "key": "exam"
+    },
+    {
+      "table": "Treatments",
+      "column": "treatment_type_code",
+      "value": "EXAM",
+      "key": "exam"
+    },
+    {
+      "table": "Owners",
+      "column": "last_name",
+      "value": "Feil",
+      "key": "feil"
+    },
+    {
+      "table": "Owners",
+      "column": "last_name",
+      "value": "Fisher",
+      "key": "fisher"
+    },
+    {
+      "table": "Owners",
+      "column": "state",
+      "value": "Florida",
+      "key": "florida"
+    },
+    {
+      "table": "Professionals",
+      "column": "last_name",
+      "value": "Frami",
+      "key": "frami"
+    },
+    {
+      "table": "Owners",
+      "column": "email_address",
+      "value": "fschoen@example.net",
+      "key": "fschoen example net"
+    },
+    {
+      "table": "Owners",
+      "column": "last_name",
+      "value": "Funk",
+      "key": "funk"
+    },
+    {
+      "table": "Owners",
+      "column": "first_name",
+      "value": "Gay",
+      "key": "gay"
+    },
+    {
+      "table": "Dogs",
+      "column": "name",
+      "value": "George",
+      "key": "george"
+    },
+    {
+      "table": "Professionals",
+      "column": "email_address",
+      "value": "goyette.roosevelt@example.net",
+      "key": "goyette roosevelt example net"
+    },
+    {
+      "table": "Owners",
+      "column": "last_name",
+      "value": "Haley",
+      "key": "haley"
+    },
+    {
+      "table": "Owners",
+      "column": "last_name",
+      "value": "Hamill",
+      "key": "hamill"
+    },
+    {
+      "table": "Owners",
+      "column": "last_name",
+      "value": "Hauck",
+      "key": "hauck"
+    },
+    {
+      "table": "Professionals",
+      "column": "state",
+      "value": "Hawaii",
+      "key": "hawaii"
+    },
+    {
+      "table": "Professionals",
+      "column": "last_name",
+      "value": "Hayes",
+      "key": "hayes"
+    },
+    {
+      "table": "Charges",
+      "column": "charge_type",
+      "value": "Health Check",
+      "key": "health check"
+    },
+    {
+      "table": "Owners",
+      "column": "first_name",
+      "value": "Heather",
+      "key": "heather"
+    },
+    {
+      "table": "Dogs",
+      "column": "name",
+      "value": "Hipolito",
+      "key": "hipolito"
+    },
+    {
+      "table": "Dogs",
+      "column": "name",
+      "value": "Holden",
+      "key": "holden"
+    },
+    {
+      "table": "Dogs",
+      "column": "name",
+      "value": "Houston",
+      "key": "houston"
+    },
+    {
+      "table": "Owners",
+      "column": "email_address",
+      "value": "hudson.favian@example.com",
+      "key": "hudson favian example com"
+    },
+    {
+      "table": "Breeds",
+      "column": "breed_code",
+      "value": "HUS",
+      "key": "hus"
+    },
+    {
+      "table": "Dogs",
+      "column": "breed_code",
+      "value": "HUS",
+      "key": "hus"
+    },
+    {
+      "table": "Breeds",
+      "column": "breed_name",
+      "value": "Husky",
+      "key": "husky"
+    },
+    {
+      "table": "Professionals",
+      "column": "last_name",
+      "value": "Hyatt",
+      "key": "hyatt"
+    },
+    {
+      "table": "Owners",
+      "column": "state",
+      "value": "Indiana",
+      "key": "indiana"
+    },
+    {
+      "table": "Professionals",
+      "column": "state",
+      "value": "Indiana",
+      "key": "indiana"
+    },
+    {
+      "table": "Professionals",
+      "column": "city",
+      "value": "Jaceton",
+      "key": "jaceton"
+    },
+    {
+      "table": "Owners",
+      "column": "first_name",
+      "value": "Jaclyn",
+      "key": "jaclyn"
+    },
+    {
+      "table": "Professionals",
+      "column": "last_name",
+      "value": "Jacobs",
+      "key": "jacobs"
+    },
+    {
+      "table": "Professionals",
+      "column": "email_address",
+      "value": "jacynthe.mclaughlin@example.net",
+      "key": "jacynthe mclaughlin example net"
+    },
+    {
+      "table": "Professionals",
+      "column": "first_name",
+      "value": "Jayson",
+      "key": "jayson"
+    },
+    {
+      "table": "Dogs",
+      "column": "name",
+      "value": "Jeffrey",
+      "key": "jeffrey"
+    },
+    {
+      "table": "Professionals",
+      "column": "email_address",
+      "value": "jeichmann@example.com",
+      "key": "jeichmann example com"
+    },
+    {
+      "table": "Professionals",
+      "column": "email_address",
+      "value": "jerrod.bahringer@example.org",
+      "key": "jerrod bahringer example org"
+    },
+    {
+      "table": "Dogs",
+      "column": "name",
+      "value": "Jesus",
+      "key": "jesus"
+    },
+    {
+      "table": "Owners",
+      "column": "first_name",
+      "value": "Johann",
+      "key": "johann"
+    },
+    {
+      "table": "Professionals",
+      "column": "city",
+      "value": "Juddton",
+      "key": "juddton"
+    },
+    {
+      "table": "Dogs",
+      "column": "name",
+      "value": "Kacey",
+      "key": "kacey"
+    },
+    {
+      "table": "Owners",
+      "column": "first_name",
+      "value": "Kade",
+      "key": "kade"
+    },
+    {
+      "table": "Professionals",
+      "column": "first_name",
+      "value": "Karley",
+      "key": "karley"
+    },
+    {
+      "table": "Professionals",
+      "column": "city",
+      "value": "Kirastad",
+      "key": "kirastad"
+    },
+    {
+      "table": "Professionals",
+      "column": "last_name",
+      "value": "Kshlerin",
+      "key": "kshlerin"
+    },
+    {
+      "table": "Owners",
+      "column": "email_address",
+      "value": "kturner@example.net",
+      "key": "kturner example net"
+    },
+    {
+      "table": "Owners",
+      "column": "city",
+      "value": "Lake Carleyborough",
+      "key": "lake carleyborough"
+    },
+    {
+      "table": "Owners",
+      "column": "city",
+      "value": "Lake Jennyferfort",
+      "key": "lake jennyferfort"
+    },
+    {
+      "table": "Owners",
+      "column": "city",
+      "value": "Lake Tia",
+      "key": "lake tia"
+    },
+    {
+      "table": "Owners",
+      "column": "city",
+      "value": "Lake Valentin",
+      "key": "lake valentin"
+    },
+    {
+      "table": "Professionals",
+      "column": "email_address",
+      "value": "lambert62@example.org",
+      "key": "lambert62 example org"
+    },
+    {
+      "table": "Sizes",
+      "column": "size_description",
+      "value": "Large",
+      "key": "large"
+    },
+    {
+      "table": "Professionals",
+      "column": "first_name",
+      "value": "Lesly",
+      "key": "lesly"
+    },
+    {
+      "table": "Dogs",
+      "column": "size_code",
+      "value": "LGE",
+      "key": "lge"
+    },
+    {
+      "table": "Sizes",
+      "column": "size_code",
+      "value": "LGE",
+      "key": "lge"
+    },
+    {
+      "table": "Owners",
+      "column": "first_name",
+      "value": "Lorenz",
+      "key": "lorenz"
+    },
+    {
+      "table": "Professionals",
+      "column": "email_address",
+      "value": "lourdes.lowe@example.net",
+      "key": "lourdes lowe example net"
+    },
+    {
+      "table": "Professionals",
+      "column": "email_address",
+      "value": "lucile.shanahan@example.org",
+      "key": "lucile shanahan example org"
+    },
+    {
+      "table": "Owners",
+      "column": "email_address",
+      "value": "lynn81@example.org",
+      "key": "lynn81 example org"
+    },
+    {
+      "table": "Dogs",
+      "column": "name",
+      "value": "Lyric",
+      "key": "lyric"
+    },
+    {
+      "table": "Owners",
+      "column": "email_address",
+      "value": "margaretta.runte@example.net",
+      "key": "margaretta runte example net"
+    },
+    {
+      "table": "Owners",
+      "column": "email_address",
+      "value": "marks.gail@example.org",
+      "key": "marks gail example org"
+    },
+    {
+      "table": "Professionals",
+      "column": "email_address",
+      "value": "marquardt.furman@example.org",
+      "key": "marquardt furman example org"
+    },
+    {
+      "table": "Owners",
+      "column": "state",
+      "value": "Maryland",
+      "key": "maryland"
+    },
+    {
+      "table": "Dogs",
+      "column": "name",
+      "value": "Mavis",
+      "key": "mavis"
+    },
+    {
+      "table": "Professionals",
+      "column": "city",
+      "value": "McLaughlinfort",
+      "key": "mc laughlinfort"
+    },
+    {
+      "table": "Dogs",
+      "column": "size_code",
+      "value": "MED",
+      "key": "med"
+    },
+    {
+      "table": "Sizes",
+      "column": "size_code",
+      "value": "MED",
+      "key": "med"
+    },
+    {
+      "table": "Sizes",
+      "column": "size_description",
+      "value": "Medium",
+      "key": "medium"
+    },
+    {
+      "table": "Professionals",
+      "column": "email_address",
+      "value": "mekhi.little@example.org",
+      "key": "mekhi little example org"
+    },
+    {
+      "table": "Owners",
+      "column": "first_name",
+      "value": "Melisa",
+      "key": "melisa"
+    },
+    {
+      "table": "Dogs",
+      "column": "name",
+      "value": "Merritt",
+      "key": "merritt"
+    },
+    {
+      "table": "Owners",
+      "column": "last_name",
+      "value": "Mertz",
+      "key": "mertz"
+    },
+    {
+      "table": "Owners",
+      "column": "state",
+      "value": "Mississippi",
+      "key": "mississippi"
+    },
+    {
+      "table": "Professionals",
+      "column": "state",
+      "value": "Mississippi",
+      "key": "mississippi"
+    },
+    {
+      "table": "Professionals",
+      "column": "state",
+      "value": "Montana",
+      "key": "montana"
+    },
+    {
+      "table": "Professionals",
+      "column": "first_name",
+      "value": "Monte",
+      "key": "monte"
+    },
+    {
+      "table": "Professionals",
+      "column": "last_name",
+      "value": "Murazik",
+      "key": "murazik"
+    },
+    {
+      "table": "Dogs",
+      "column": "name",
+      "value": "Narciso",
+      "key": "narciso"
+    },
+    {
+      "table": "Professionals",
+      "column": "city",
+      "value": "New Laurytown",
+      "key": "new laurytown"
+    },
+    {
+      "table": "Owners",
+      "column": "city",
+      "value": "New Margaretteborough",
+      "key": "new margaretteborough"
+    },
+    {
+      "table": "Professionals",
+      "column": "city",
+      "value": "New Maryjane",
+      "key": "new maryjane"
+    },
+    {
+      "table": "Professionals",
+      "column": "state",
+      "value": "NewMexico",
+      "key": "new mexico"
+    },
+    {
+      "table": "Owners",
+      "column": "state",
+      "value": "NewYork",
+      "key": "new york"
+    },
+    {
+      "table": "Owners",
+      "column": "last_name",
+      "value": "Nicolas",
+      "key": "nicolas"
+    },
+    {
+      "table": "Owners",
+      "column": "first_name",
+      "value": "Nora",
+      "key": "nora"
+    },
+    {
+      "table": "Professionals",
+      "column": "city",
+      "value": "North Adelberttown",
+      "key": "north adelberttown"
+    },
+    {
+      "table": "Professionals",
+      "column": "state",
+      "value": "NorthCarolina",
+      "key": "north carolina"
+    },
+    {
+      "table": "Owners",
+      "column": "state",
+      "value": "NorthDakota",
+      "key": "north dakota"
+    },
+    {
+      "table": "Professionals",
+      "column": "city",
+      "value": "North Odellfurt",
+      "key": "north odellfurt"
+    },
+    {
+      "table": "Professionals",
+      "column": "last_name",
+      "value": "O'Reilly",
+      "key": "o reilly"
+    },
+    {
+      "table": "Professionals",
+      "column": "first_name",
+      "value": "Olaf",
+      "key": "olaf"
+    },
+    {
+      "table": "Owners",
+      "column": "last_name",
+      "value": "Ondricka",
+      "key": "ondricka"
+    },
+    {
+      "table": "Owners",
+      "column": "first_name",
+      "value": "Orlando",
+      "key": "orlando"
+    },
+    {
+      "table": "Owners",
+      "column": "email_address",
+      "value": "pearlie18@example.com",
+      "key": "pearlie18 example com"
+    },
+    {
+      "table": "Owners",
+      "column": "state",
+      "value": "Pennsylvania",
+      "key": "pennsylvania"
+    },
+    {
+      "table": "Treatment_Types",
+      "column": "treatment_type_description",
+      "value": "Physical examination",
+      "key": "physical examination"
+    },
+    {
+      "table": "Owners",
+      "column": "city",
+      "value": "Port Reannamouth",
+      "key": "port reannamouth"
+    },
+    {
+      "table": "Owners",
+      "column": "city",
+      "value": "Port Zackery",
+      "key": "port zackery"
+    },
+    {
+      "table": "Professionals",
+      "column": "last_name",
+      "value": "Pouros",
+      "key": "pouros"
+    },
+    {
+      "table": "Owners",
+      "column": "last_name",
+      "value": "Price",
+      "key": "price"
+    },
+    {
+      "table": "Owners",
+      "column": "last_name",
+      "value": "Prohaska",
+      "key": "prohaska"
+    },
+    {
+      "table": "Owners",
+      "column": "first_name",
+      "value": "Rachelle",
+      "key": "rachelle"
+    },
+    {
+      "table": "Professionals",
+      "column": "city",
+      "value": "Raynorfort",
+      "key": "raynorfort"
+    },
+    {
+      "table": "Owners",
+      "column": "last_name",
+      "value": "Rippin",
+      "key": "rippin"
+    },
+    {
+      "table": "Owners",
+      "column": "first_name",
+      "value": "Rolando",
+      "key": "rolando"
+    },
+    {
+      "table": "Professionals",
+      "column": "first_name",
+      "value": "Ruben",
+      "key": "ruben"
+    },
+    {
+      "table": "Owners",
+      "column": "last_name",
+      "value": "Schmitt",
+      "key": "schmitt"
+    },
+    {
+      "table": "Professionals",
+      "column": "email_address",
+      "value": "schneider.kathryne@example.org",
+      "key": "schneider kathryne example org"
+    },
+    {
+      "table": "Professionals",
+      "column": "first_name",
+      "value": "Sigurd",
+      "key": "sigurd"
+    },
+    {
+      "table": "Sizes",
+      "column": "size_description",
+      "value": "Small",
+      "key": "small"
+    },
+    {
+      "table": "Dogs",
+      "column": "size_code",
+      "value": "SML",
+      "key": "sml"
+    },
+    {
+      "table": "Sizes",
+      "column": "size_code",
+      "value": "SML",
+      "key": "sml"
+    },
+    {
+      "table": "Owners",
+      "column": "city",
+      "value": "South Afton",
+      "key": "south afton"
+    },
+    {
+      "table": "Professionals",
+      "column": "state",
+      "value": "SouthCarolina",
+      "key": "south carolina"
+    },
+    {
+      "table": "Owners",
+      "column": "city",
+      "value": "South Daisyfurt",
+      "key": "south daisyfurt"
+    },
+    {
+      "table": "Owners",
+      "column": "state",
+      "value": "SouthDakota",
+      "key": "south dakota"
+    },
+    {
+      "table": "Professionals",
+      "column": "city",
+      "value": "South Rockyport",
+      "key": "south rockyport"
+    },
+    {
+      "table": "Owners",
+      "column": "last_name",
+      "value": "Stoltenberg",
+      "key": "stoltenberg"
+    },
+    {
+      "table": "Treatment_Types",
+      "column": "treatment_type_description",
+      "value": "Take for a Walk",
+      "key": "take for a walk"
+    },
+    {
+      "table": "Professionals",
+      "column": "first_name",
+      "value": "Taryn",
+      "key": "taryn"
+    },
+    {
+      "table": "Professionals",
+      "column": "last_name",
+      "value": "Tillman",
+      "key": "tillman"
+    },
+    {
+      "table": "Owners",
+      "column": "first_name",
+      "value": "Tre",
+      "key": "tre"
+    },
+    {
+      "table": "Dogs",
+      "column": "name",
+      "value": "Troy",
+      "key": "troy"
+    },
+    {
+      "table": "Professionals",
+      "column": "email_address",
+      "value": "uboehm@example.org",
+      "key": "uboehm example org"
+    },
+    {
+      "table": "Professionals",
+      "column": "last_name",
+      "value": "Ullrich",
+      "key": "ullrich"
+    },
+    {
+      "table": "Professionals",
+      "column": "state",
+      "value": "Utah",
+      "key": "utah"
+    },
+    {
+      "table": "Treatment_Types",
+      "column": "treatment_type_code",
+      "value": "VAC",
+      "key": "vac"
+    },
+    {
+      "table": "Treatments",
+      "column": "treatment_type_code",
+      "value": "VAC",
+      "key": "vac"
+    },
+    {
+      "table": "Treatment_Types",
+      "column": "treatment_type_description",
+      "value": "Vaccination",
+      "key": "vaccination"
+    },
+    {
+      "table": "Professionals",
+      "column": "first_name",
+      "value": "Velva",
+      "key": "velva"
+    },
+    {
+      "table": "Owners",
+      "column": "state",
+      "value": "Vermont",
+      "key": "vermont"
+    },
+    {
+      "table": "Professionals",
+      "column": "first_name",
+      "value": "Vernice",
+      "key": "vernice"
+    },
+    {
+      "table": "Professionals",
+      "column": "role_code",
+      "value": "Veterenarian",
+      "key": "veterenarian"
+    },
+    {
+      "table": "Owners",
+      "column": "state",
+      "value": "Virginia",
+      "key": "virginia"
+    },
+    {
+      "table": "Treatment_Types",
+      "column": "treatment_type_code",
+      "value": "WALK",
+      "key": "walk"
+    },
+    {
+      "table": "Treatments",
+      "column": "treatment_type_code",
+      "value": "WALK",
+      "key": "walk"
+    },
+    {
+      "table": "Professionals",
+      "column": "last_name",
+      "value": "Walter",
+      "key": "walter"
+    },
+    {
+      "table": "Owners",
+      "column": "state",
+      "value": "Washington",
+      "key": "washington"
+    },
+    {
+      "table": "Professionals",
+      "column": "last_name",
+      "value": "Watsica",
+      "key": "watsica"
+    },
+    {
+      "table": "Professionals",
+      "column": "email_address",
+      "value": "west.eula@example.net",
+      "key": "west eula example net"
+    },
+    {
+      "table": "Professionals",
+      "column": "city",
+      "value": "West Heidi",
+      "key": "west heidi"
+    },
+    {
+      "table": "Owners",
+      "column": "city",
+      "value": "West Leonard",
+      "key": "west leonard"
+    },
+    {
+      "table": "Professionals",
+      "column": "first_name",
+      "value": "Winfield",
+      "key": "winfield"
+    },
+    {
+      "table": "Owners",
+      "column": "state",
+      "value": "Wisconsin",
+      "key": "wisconsin"
+    },
+    {
+      "table": "Professionals",
+      "column": "state",
+      "value": "Wisconsin",
+      "key": "wisconsin"
+    },
+    {
+      "table": "Owners",
+      "column": "email_address",
+      "value": "wpfeffer@example.net",
+      "key": "wpfeffer example net"
+    },
+    {
+      "table": "Professionals",
+      "column": "state",
+      "value": "Wyoming",
+      "key": "wyoming"
+    },
+    {
+      "table": "Owners",
+      "column": "email_address",
+      "value": "ybergstrom@example.com",
+      "key": "ybergstrom example com"
+    },
+    {
+      "table": "Owners",
+      "column": "email_address",
+      "value": "ykris@example.com",
+      "key": "ykris example com"
+    },
+    {
+      "table": "Owners",
+      "column": "email_address",
+      "value": "ymaggio@example.com",
+      "key": "ymaggio example com"
+    },
+    {
+      "table": "Owners",
+      "column": "email_address",
+      "value": "zboncak.madonna@example.net",
+      "key": "zboncak madonna example net"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

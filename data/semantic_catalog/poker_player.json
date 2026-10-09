@@ -1,0 +1,233 @@
+{
+  "format_version": "1.0",
+  "db_id": "poker_player",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "poker_player": {
+      "source_label": "poker player",
+      "meaning": "Table labeled 'poker player' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Poker_Player_ID"
+      ],
+      "columns": {
+        "Poker_Player_ID": {
+          "type": "number",
+          "source_label": "poker player id",
+          "primary_key": true
+        },
+        "People_ID": {
+          "type": "number",
+          "source_label": "people id",
+          "foreign_key": {
+            "table": "people",
+            "column": "People_ID"
+          }
+        },
+        "Final_Table_Made": {
+          "type": "number",
+          "source_label": "final table made"
+        },
+        "Best_Finish": {
+          "type": "number",
+          "source_label": "best finish"
+        },
+        "Money_Rank": {
+          "type": "number",
+          "source_label": "money rank"
+        },
+        "Earnings": {
+          "type": "number",
+          "source_label": "earnings"
+        }
+      },
+      "observed_row_count": 5
+    },
+    "people": {
+      "source_label": "people",
+      "meaning": "Table labeled 'people' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "People_ID"
+      ],
+      "columns": {
+        "People_ID": {
+          "type": "number",
+          "source_label": "people id",
+          "primary_key": true
+        },
+        "Nationality": {
+          "type": "text",
+          "source_label": "nationality",
+          "observed_values": [
+            "Russia",
+            "Bulgaria"
+          ]
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Aleksey Ostapenko",
+            "Teodor Salparov",
+            "Roman Bragin",
+            "Sergey Grankin",
+            "Yevgeni Sivozhelez",
+            "Maksim Botin",
+            "Semen Poltavskiy"
+          ]
+        },
+        "Birth_Date": {
+          "type": "text",
+          "source_label": "birth date",
+          "observed_values": [
+            "May 26, 1986",
+            "August 16, 1982",
+            "April 17, 1987",
+            "January 22, 1987",
+            "August 8, 1986",
+            "July 14, 1983",
+            "February 8, 1981"
+          ]
+        },
+        "Height": {
+          "type": "number",
+          "source_label": "height"
+        }
+      },
+      "observed_row_count": 7
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "poker_player",
+      "from_column": "People_ID",
+      "to_table": "people",
+      "to_column": "People_ID",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {
+    "poker player": {
+      "maps_to": "poker_player",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "poker_player__row_count": {
+      "meaning": "Number of rows in poker_player.",
+      "base_table": "poker_player",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "people__row_count": {
+      "meaning": "Number of rows in people.",
+      "base_table": "people",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "people",
+      "column": "Name",
+      "value": "Aleksey Ostapenko",
+      "key": "aleksey ostapenko"
+    },
+    {
+      "table": "people",
+      "column": "Birth_Date",
+      "value": "April 17, 1987",
+      "key": "april 17 1987"
+    },
+    {
+      "table": "people",
+      "column": "Birth_Date",
+      "value": "August 16, 1982",
+      "key": "august 16 1982"
+    },
+    {
+      "table": "people",
+      "column": "Birth_Date",
+      "value": "August 8, 1986",
+      "key": "august 8 1986"
+    },
+    {
+      "table": "people",
+      "column": "Nationality",
+      "value": "Bulgaria",
+      "key": "bulgaria"
+    },
+    {
+      "table": "people",
+      "column": "Birth_Date",
+      "value": "February 8, 1981",
+      "key": "february 8 1981"
+    },
+    {
+      "table": "people",
+      "column": "Birth_Date",
+      "value": "January 22, 1987",
+      "key": "january 22 1987"
+    },
+    {
+      "table": "people",
+      "column": "Birth_Date",
+      "value": "July 14, 1983",
+      "key": "july 14 1983"
+    },
+    {
+      "table": "people",
+      "column": "Name",
+      "value": "Maksim Botin",
+      "key": "maksim botin"
+    },
+    {
+      "table": "people",
+      "column": "Birth_Date",
+      "value": "May 26, 1986",
+      "key": "may 26 1986"
+    },
+    {
+      "table": "people",
+      "column": "Name",
+      "value": "Roman Bragin",
+      "key": "roman bragin"
+    },
+    {
+      "table": "people",
+      "column": "Nationality",
+      "value": "Russia",
+      "key": "russia"
+    },
+    {
+      "table": "people",
+      "column": "Name",
+      "value": "Semen Poltavskiy",
+      "key": "semen poltavskiy"
+    },
+    {
+      "table": "people",
+      "column": "Name",
+      "value": "Sergey Grankin",
+      "key": "sergey grankin"
+    },
+    {
+      "table": "people",
+      "column": "Name",
+      "value": "Teodor Salparov",
+      "key": "teodor salparov"
+    },
+    {
+      "table": "people",
+      "column": "Name",
+      "value": "Yevgeni Sivozhelez",
+      "key": "yevgeni sivozhelez"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

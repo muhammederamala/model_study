@@ -1,0 +1,272 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "station_weather",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "train": {
+      "source_label": "train",
+      "meaning": "Table labeled 'train' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "train_number": {
+          "type": "number",
+          "source_label": "train number"
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Ananthapuri Express",
+            "Guruvayur Express",
+            "Jayanthi Janatha Express",
+            "Island Express",
+            "Madurai Fast Passenger",
+            "Quilon Fast Passenger",
+            "Parasuram Express"
+          ]
+        },
+        "origin": {
+          "type": "text",
+          "source_label": "origin",
+          "observed_values": [
+            "Trivandrum",
+            "Chennai",
+            "Guruvayur",
+            "Kanniyakumari",
+            "Quilon",
+            "Madurai",
+            "Bangalore",
+            "Mumbai",
+            "Nagercoil"
+          ]
+        },
+        "destination": {
+          "type": "text",
+          "source_label": "destination",
+          "observed_values": [
+            "Chennai",
+            "Guruvayur",
+            "Trivandrum",
+            "Mumbai",
+            "Bangalore",
+            "Madurai",
+            "Quilon Junction",
+            "Kanniyakumari",
+            "Mangalore"
+          ]
+        },
+        "time": {
+          "type": "text",
+          "source_label": "time",
+          "observed_values": [
+            "17:15",
+            "22:10",
+            "4:49",
+            "11:35",
+            "06:30",
+            "11:15",
+            "21:49",
+            "04:55",
+            "16:59",
+            "10:38",
+            "04:20"
+          ]
+        },
+        "interval": {
+          "type": "text",
+          "source_label": "interval",
+          "observed_values": [
+            "Daily"
+          ]
+        }
+      },
+      "observed_row_count": 11
+    },
+    "station": {
+      "source_label": "station",
+      "meaning": "Table labeled 'station' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "network_name": {
+          "type": "text",
+          "source_label": "network name",
+          "observed_values": [
+            "Amersham",
+            "Bushey",
+            "Brentwood",
+            "Broxbourne",
+            "Carpenders Park",
+            "Chafford Hundred",
+            "Chalfont & Latimer",
+            "Chesham",
+            "Cheshunt",
+            "Chorleywood",
+            "Croxley"
+          ]
+        },
+        "services": {
+          "type": "text",
+          "source_label": "services",
+          "observed_values": [
+            "Metropolitan line and Chiltern Railways",
+            "London Overground and London Midland",
+            "Greater Anglia",
+            "London Overground",
+            "c2c",
+            "Metropolitan line"
+          ]
+        },
+        "local_authority": {
+          "type": "text",
+          "source_label": "local authority",
+          "observed_values": [
+            "Chiltern",
+            "Watford",
+            "Brentwood",
+            "Broxbourne",
+            "Three Rivers",
+            "Thurrock"
+          ]
+        }
+      },
+      "observed_row_count": 11
+    },
+    "route": {
+      "source_label": "route",
+      "meaning": "Table labeled 'route' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key train_id",
+      "primary_key_columns": [
+        "train_id"
+      ],
+      "columns": {
+        "train_id": {
+          "type": "number",
+          "source_label": "train id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "train",
+            "column": "id"
+          }
+        },
+        "station_id": {
+          "type": "number",
+          "source_label": "station id",
+          "foreign_key": {
+            "table": "station",
+            "column": "id"
+          }
+        }
+      },
+      "observed_row_count": 18
+    },
+    "weekly_weather": {
+      "source_label": "weekly weather",
+      "meaning": "Table labeled 'weekly weather' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key station_id",
+      "primary_key_columns": [
+        "station_id"
+      ],
+      "columns": {
+        "station_id": {
+          "type": "number",
+          "source_label": "station id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "station",
+            "column": "id"
+          }
+        },
+        "day_of_week": {
+          "type": "text",
+          "source_label": "day of week",
+          "observed_values": [
+            "Friday",
+            "Monday",
+            "Saturday",
+            "Sunday",
+            "Thursday",
+            "Tuesday",
+            "Wednesday"
+          ]
+        },
+        "high_temperature": {
+          "type": "number",
+          "source_label": "high temperature"
+        },
+        "low_temperature": {
+          "type": "number",
+          "source_label": "low temperature"
+        },
+        "precipitation": {
+          "type": "number",
+          "source_label": "precipitation"
+        },
+        "wind_speed_mph": {
+          "type": "number",
+          "source_label": "wind speed mph"
+        }
+      },
+      "observed_row_count": 16
+    }
+  },
+  "terms": {
+    "weekly weather": {
+      "maps_to": "weekly_weather",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "train__row_count": {
+      "meaning": "Number of rows in train.",
+      "base_table": "train",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "station__row_count": {
+      "meaning": "Number of rows in station.",
+      "base_table": "station",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "route__row_count": {
+      "meaning": "Number of rows in route.",
+      "base_table": "route",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "weekly_weather__row_count": {
+      "meaning": "Number of rows in weekly_weather.",
+      "base_table": "weekly_weather",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

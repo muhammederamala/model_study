@@ -1,0 +1,1125 @@
+{
+  "format_version": "1.0",
+  "db_id": "real_estate_properties",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "Ref_Feature_Types": {
+      "source_label": "reference feature types",
+      "meaning": "Table labeled 'reference feature types' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "feature_type_code"
+      ],
+      "columns": {
+        "feature_type_code": {
+          "type": "text",
+          "source_label": "feature type code",
+          "primary_key": true,
+          "observed_values": [
+            "Amenity",
+            "Security"
+          ]
+        },
+        "feature_type_name": {
+          "type": "text",
+          "source_label": "feature type name",
+          "observed_values": [
+            "Amenity, eg Pool.",
+            "Securiyt, eg Burglar Alarm."
+          ]
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Ref_Property_Types": {
+      "source_label": "reference property types",
+      "meaning": "Table labeled 'reference property types' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "property_type_code"
+      ],
+      "columns": {
+        "property_type_code": {
+          "type": "text",
+          "source_label": "property type code",
+          "primary_key": true,
+          "observed_values": [
+            "Apartment",
+            "Field",
+            "House",
+            "Other",
+            "Shop"
+          ]
+        },
+        "property_type_description": {
+          "type": "text",
+          "source_label": "property type description",
+          "observed_values": [
+            "House, Bungalow, etc.",
+            "Apartment, Flat, Condo, etc.",
+            "Field, Meadow.",
+            "Other, to be determined.",
+            "Shop, Retail Outlet."
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "Other_Available_Features": {
+      "source_label": "other available features",
+      "meaning": "Table labeled 'other available features' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "feature_id"
+      ],
+      "columns": {
+        "feature_id": {
+          "type": "number",
+          "source_label": "feature id",
+          "primary_key": true
+        },
+        "feature_type_code": {
+          "type": "text",
+          "source_label": "feature type code",
+          "foreign_key": {
+            "table": "Ref_Feature_Types",
+            "column": "feature_type_code"
+          },
+          "observed_values": [
+            "Amenity",
+            "Security"
+          ]
+        },
+        "feature_name": {
+          "type": "text",
+          "source_label": "feature name",
+          "observed_values": [
+            "AirCon",
+            "Pool",
+            "BurglarAlarm"
+          ]
+        },
+        "feature_description": {
+          "type": "text",
+          "source_label": "feature description",
+          "observed_values": [
+            "Air Conditioning.",
+            "Swimming Pool.",
+            "Burglar Alarm"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Properties": {
+      "source_label": "properties",
+      "meaning": "Table labeled 'properties' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "property_id"
+      ],
+      "columns": {
+        "property_id": {
+          "type": "number",
+          "source_label": "property id",
+          "primary_key": true
+        },
+        "property_type_code": {
+          "type": "text",
+          "source_label": "property type code",
+          "foreign_key": {
+            "table": "Ref_Property_Types",
+            "column": "property_type_code"
+          },
+          "observed_values": [
+            "House",
+            "Other",
+            "Field",
+            "Apartment",
+            "Shop"
+          ]
+        },
+        "date_on_market": {
+          "type": "time",
+          "source_label": "date on market"
+        },
+        "date_sold": {
+          "type": "time",
+          "source_label": "date sold"
+        },
+        "property_name": {
+          "type": "text",
+          "source_label": "property name"
+        },
+        "property_address": {
+          "type": "text",
+          "source_label": "property address"
+        },
+        "room_count": {
+          "type": "number",
+          "source_label": "room count"
+        },
+        "vendor_requested_price": {
+          "type": "number",
+          "source_label": "vendor requested price"
+        },
+        "buyer_offered_price": {
+          "type": "number",
+          "source_label": "buyer offered price"
+        },
+        "agreed_selling_price": {
+          "type": "number",
+          "source_label": "agreed selling price"
+        },
+        "apt_feature_1": {
+          "type": "text",
+          "source_label": "apt feature 1",
+          "observed_values": [
+            "aut",
+            "est",
+            "ut",
+            "nesciunt",
+            "quo",
+            "sed",
+            "quos",
+            "fuga",
+            "enim",
+            "consequatur",
+            "et",
+            "qui"
+          ]
+        },
+        "apt_feature_2": {
+          "type": "text",
+          "source_label": "apt feature 2"
+        },
+        "apt_feature_3": {
+          "type": "text",
+          "source_label": "apt feature 3"
+        },
+        "fld_feature_1": {
+          "type": "text",
+          "source_label": "fld feature 1"
+        },
+        "fld_feature_2": {
+          "type": "text",
+          "source_label": "fld feature 2"
+        },
+        "fld_feature_3": {
+          "type": "text",
+          "source_label": "fld feature 3"
+        },
+        "hse_feature_1": {
+          "type": "text",
+          "source_label": "hse feature 1"
+        },
+        "hse_feature_2": {
+          "type": "text",
+          "source_label": "hse feature 2"
+        },
+        "hse_feature_3": {
+          "type": "text",
+          "source_label": "hse feature 3"
+        },
+        "oth_feature_1": {
+          "type": "text",
+          "source_label": "oth feature 1"
+        },
+        "oth_feature_2": {
+          "type": "text",
+          "source_label": "oth feature 2"
+        },
+        "oth_feature_3": {
+          "type": "text",
+          "source_label": "oth feature 3"
+        },
+        "shp_feature_1": {
+          "type": "text",
+          "source_label": "shp feature 1"
+        },
+        "shp_feature_2": {
+          "type": "text",
+          "source_label": "shp feature 2"
+        },
+        "shp_feature_3": {
+          "type": "text",
+          "source_label": "shp feature 3"
+        },
+        "other_property_details": {
+          "type": "text",
+          "source_label": "other property details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Other_Property_Features": {
+      "source_label": "other property features",
+      "meaning": "Table labeled 'other property features' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [],
+      "columns": {
+        "property_id": {
+          "type": "number",
+          "source_label": "property id",
+          "foreign_key": {
+            "table": "Properties",
+            "column": "property_id"
+          }
+        },
+        "feature_id": {
+          "type": "number",
+          "source_label": "feature id",
+          "foreign_key": {
+            "table": "Other_Available_Features",
+            "column": "feature_id"
+          }
+        },
+        "property_feature_description": {
+          "type": "text",
+          "source_label": "property feature description"
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "Other_Available_Features",
+      "from_column": "feature_type_code",
+      "to_table": "Ref_Feature_Types",
+      "to_column": "feature_type_code",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Other_Property_Features",
+      "from_column": "feature_id",
+      "to_table": "Other_Available_Features",
+      "to_column": "feature_id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Other_Property_Features",
+      "from_column": "property_id",
+      "to_table": "Properties",
+      "to_column": "property_id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Properties",
+      "from_column": "property_type_code",
+      "to_table": "Ref_Property_Types",
+      "to_column": "property_type_code",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {
+    "reference feature types": {
+      "maps_to": "Ref_Feature_Types",
+      "source": "Spider normalized table name"
+    },
+    "reference property types": {
+      "maps_to": "Ref_Property_Types",
+      "source": "Spider normalized table name"
+    },
+    "other available features": {
+      "maps_to": "Other_Available_Features",
+      "source": "Spider normalized table name"
+    },
+    "other property features": {
+      "maps_to": "Other_Property_Features",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Ref_Feature_Types__row_count": {
+      "meaning": "Number of rows in Ref_Feature_Types.",
+      "base_table": "Ref_Feature_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Ref_Property_Types__row_count": {
+      "meaning": "Number of rows in Ref_Property_Types.",
+      "base_table": "Ref_Property_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Other_Available_Features__row_count": {
+      "meaning": "Number of rows in Other_Available_Features.",
+      "base_table": "Other_Available_Features",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Properties__row_count": {
+      "meaning": "Number of rows in Properties.",
+      "base_table": "Properties",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Other_Property_Features__row_count": {
+      "meaning": "Number of rows in Other_Property_Features.",
+      "base_table": "Other_Property_Features",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "Properties",
+      "column": "property_address",
+      "value": "062 Micaela Court Apt. 707\nMargretville, WV 51628-3617",
+      "key": "062 micaela court apt 707 margretville wv 51628 3617"
+    },
+    {
+      "table": "Properties",
+      "column": "property_address",
+      "value": "084 Lakin Vista Apt. 394\nFishertown, MA 16876",
+      "key": "084 lakin vista apt 394 fishertown ma 16876"
+    },
+    {
+      "table": "Properties",
+      "column": "property_address",
+      "value": "092 Paucek Highway Apt. 772\nEast Erika, IA 61358",
+      "key": "092 paucek highway apt 772 east erika ia 61358"
+    },
+    {
+      "table": "Properties",
+      "column": "property_address",
+      "value": "098 Tremaine Highway Suite 569\nSouth Wilford, NJ 46587-3537",
+      "key": "098 tremaine highway suite 569 south wilford nj 46587 3537"
+    },
+    {
+      "table": "Properties",
+      "column": "property_address",
+      "value": "107 Roob Courts\nErdmanburgh, IA 42926-0873",
+      "key": "107 roob courts erdmanburgh ia 42926 0873"
+    },
+    {
+      "table": "Properties",
+      "column": "property_address",
+      "value": "1474 Dibbert Fields Suite 055\nSouth Renee, IN 58286-3097",
+      "key": "1474 dibbert fields suite 055 south renee in 58286 3097"
+    },
+    {
+      "table": "Properties",
+      "column": "date_sold",
+      "value": "1971-04-14 03:23:49",
+      "key": "1971 04 14 03 23 49"
+    },
+    {
+      "table": "Properties",
+      "column": "date_sold",
+      "value": "1973-02-24 02:56:06",
+      "key": "1973 02 24 02 56 06"
+    },
+    {
+      "table": "Properties",
+      "column": "date_on_market",
+      "value": "1976-06-10 20:25:38",
+      "key": "1976 06 10 20 25 38"
+    },
+    {
+      "table": "Properties",
+      "column": "date_on_market",
+      "value": "1978-05-15 10:53:37",
+      "key": "1978 05 15 10 53 37"
+    },
+    {
+      "table": "Properties",
+      "column": "date_sold",
+      "value": "1979-05-13 16:58:06",
+      "key": "1979 05 13 16 58 06"
+    },
+    {
+      "table": "Properties",
+      "column": "date_sold",
+      "value": "1980-07-08 16:13:17",
+      "key": "1980 07 08 16 13 17"
+    },
+    {
+      "table": "Properties",
+      "column": "date_sold",
+      "value": "1981-06-26 21:28:28",
+      "key": "1981 06 26 21 28 28"
+    },
+    {
+      "table": "Properties",
+      "column": "date_on_market",
+      "value": "1981-08-23 05:40:38",
+      "key": "1981 08 23 05 40 38"
+    },
+    {
+      "table": "Properties",
+      "column": "date_sold",
+      "value": "1984-02-01 19:54:54",
+      "key": "1984 02 01 19 54 54"
+    },
+    {
+      "table": "Properties",
+      "column": "date_on_market",
+      "value": "1986-11-26 04:12:18",
+      "key": "1986 11 26 04 12 18"
+    },
+    {
+      "table": "Properties",
+      "column": "date_on_market",
+      "value": "1986-12-31 10:05:32",
+      "key": "1986 12 31 10 05 32"
+    },
+    {
+      "table": "Properties",
+      "column": "date_sold",
+      "value": "1987-12-07 07:41:27",
+      "key": "1987 12 07 07 41 27"
+    },
+    {
+      "table": "Properties",
+      "column": "date_on_market",
+      "value": "1990-05-25 23:01:51",
+      "key": "1990 05 25 23 01 51"
+    },
+    {
+      "table": "Properties",
+      "column": "date_sold",
+      "value": "1990-11-14 19:16:38",
+      "key": "1990 11 14 19 16 38"
+    },
+    {
+      "table": "Properties",
+      "column": "date_on_market",
+      "value": "1991-06-21 23:52:10",
+      "key": "1991 06 21 23 52 10"
+    },
+    {
+      "table": "Properties",
+      "column": "date_on_market",
+      "value": "1993-08-04 10:49:04",
+      "key": "1993 08 04 10 49 04"
+    },
+    {
+      "table": "Properties",
+      "column": "date_on_market",
+      "value": "1994-02-14 02:27:13",
+      "key": "1994 02 14 02 27 13"
+    },
+    {
+      "table": "Properties",
+      "column": "date_sold",
+      "value": "1995-01-31 11:18:42",
+      "key": "1995 01 31 11 18 42"
+    },
+    {
+      "table": "Properties",
+      "column": "date_on_market",
+      "value": "1996-09-16 22:04:27",
+      "key": "1996 09 16 22 04 27"
+    },
+    {
+      "table": "Properties",
+      "column": "date_sold",
+      "value": "1997-01-07 19:52:45",
+      "key": "1997 01 07 19 52 45"
+    },
+    {
+      "table": "Properties",
+      "column": "date_sold",
+      "value": "1997-11-07 20:22:05",
+      "key": "1997 11 07 20 22 05"
+    },
+    {
+      "table": "Properties",
+      "column": "date_sold",
+      "value": "1998-09-15 05:26:22",
+      "key": "1998 09 15 05 26 22"
+    },
+    {
+      "table": "Properties",
+      "column": "date_on_market",
+      "value": "2000-08-07 06:59:14",
+      "key": "2000 08 07 06 59 14"
+    },
+    {
+      "table": "Properties",
+      "column": "date_sold",
+      "value": "2001-11-09 04:37:33",
+      "key": "2001 11 09 04 37 33"
+    },
+    {
+      "table": "Properties",
+      "column": "date_sold",
+      "value": "2003-02-27 18:17:11",
+      "key": "2003 02 27 18 17 11"
+    },
+    {
+      "table": "Properties",
+      "column": "date_on_market",
+      "value": "2003-12-25 16:13:19",
+      "key": "2003 12 25 16 13 19"
+    },
+    {
+      "table": "Properties",
+      "column": "date_sold",
+      "value": "2012-08-19 07:36:57",
+      "key": "2012 08 19 07 36 57"
+    },
+    {
+      "table": "Properties",
+      "column": "date_on_market",
+      "value": "2016-05-06 16:53:39",
+      "key": "2016 05 06 16 53 39"
+    },
+    {
+      "table": "Properties",
+      "column": "date_on_market",
+      "value": "2016-05-24 09:57:45",
+      "key": "2016 05 24 09 57 45"
+    },
+    {
+      "table": "Properties",
+      "column": "date_on_market",
+      "value": "2017-09-14 15:49:23",
+      "key": "2017 09 14 15 49 23"
+    },
+    {
+      "table": "Properties",
+      "column": "property_address",
+      "value": "2088 Bashirian Fork Suite 337\nFaustinoport, MT 16771-9320",
+      "key": "2088 bashirian fork suite 337 faustinoport mt 16771 9320"
+    },
+    {
+      "table": "Properties",
+      "column": "property_address",
+      "value": "24365 Ulices Run\nHomenicktown, MD 88485-6198",
+      "key": "24365 ulices run homenicktown md 88485 6198"
+    },
+    {
+      "table": "Properties",
+      "column": "property_address",
+      "value": "2765 Schulist Stream\nLindmouth, UT 03391-3817",
+      "key": "2765 schulist stream lindmouth ut 03391 3817"
+    },
+    {
+      "table": "Properties",
+      "column": "property_address",
+      "value": "4745 Emerson Stravenue Suite 829\nSouth Garret, IN 16772-5682",
+      "key": "4745 emerson stravenue suite 829 south garret in 16772 5682"
+    },
+    {
+      "table": "Properties",
+      "column": "property_address",
+      "value": "49578 Ayden Mountains\nNew Russellhaven, UT 46626",
+      "key": "49578 ayden mountains new russellhaven ut 46626"
+    },
+    {
+      "table": "Properties",
+      "column": "property_address",
+      "value": "60845 Else Highway Apt. 826\nSouth Dougfort, CO 43200-4258",
+      "key": "60845 else highway apt 826 south dougfort co 43200 4258"
+    },
+    {
+      "table": "Properties",
+      "column": "property_address",
+      "value": "6837 Darien Views Apt. 475\nSouth Maraview, KS 77770",
+      "key": "6837 darien views apt 475 south maraview ks 77770"
+    },
+    {
+      "table": "Properties",
+      "column": "property_address",
+      "value": "743 Ephraim Greens\nAnniemouth, HI 47084-3853",
+      "key": "743 ephraim greens anniemouth hi 47084 3853"
+    },
+    {
+      "table": "Properties",
+      "column": "property_address",
+      "value": "986 Hagenes Drives\nDraketon, UT 83411-3393",
+      "key": "986 hagenes drives draketon ut 83411 3393"
+    },
+    {
+      "table": "Other_Property_Features",
+      "column": "property_feature_description",
+      "value": "ad",
+      "key": "ad"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_2",
+      "value": "adipisci",
+      "key": "adipisci"
+    },
+    {
+      "table": "Other_Available_Features",
+      "column": "feature_name",
+      "value": "AirCon",
+      "key": "air con"
+    },
+    {
+      "table": "Other_Available_Features",
+      "column": "feature_description",
+      "value": "Air Conditioning.",
+      "key": "air conditioning"
+    },
+    {
+      "table": "Other_Available_Features",
+      "column": "feature_type_code",
+      "value": "Amenity",
+      "key": "amenity"
+    },
+    {
+      "table": "Ref_Feature_Types",
+      "column": "feature_type_code",
+      "value": "Amenity",
+      "key": "amenity"
+    },
+    {
+      "table": "Ref_Feature_Types",
+      "column": "feature_type_name",
+      "value": "Amenity, eg Pool.",
+      "key": "amenity eg pool"
+    },
+    {
+      "table": "Properties",
+      "column": "property_type_code",
+      "value": "Apartment",
+      "key": "apartment"
+    },
+    {
+      "table": "Ref_Property_Types",
+      "column": "property_type_code",
+      "value": "Apartment",
+      "key": "apartment"
+    },
+    {
+      "table": "Ref_Property_Types",
+      "column": "property_type_description",
+      "value": "Apartment, Flat, Condo, etc.",
+      "key": "apartment flat condo etc"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_1",
+      "value": "aut",
+      "key": "aut"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_2",
+      "value": "aut",
+      "key": "aut"
+    },
+    {
+      "table": "Other_Property_Features",
+      "column": "property_feature_description",
+      "value": "autem",
+      "key": "autem"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_2",
+      "value": "autem",
+      "key": "autem"
+    },
+    {
+      "table": "Properties",
+      "column": "property_name",
+      "value": "avalon",
+      "key": "avalon"
+    },
+    {
+      "table": "Other_Available_Features",
+      "column": "feature_description",
+      "value": "Burglar Alarm",
+      "key": "burglar alarm"
+    },
+    {
+      "table": "Other_Available_Features",
+      "column": "feature_name",
+      "value": "BurglarAlarm",
+      "key": "burglar alarm"
+    },
+    {
+      "table": "Properties",
+      "column": "property_name",
+      "value": "chelsea",
+      "key": "chelsea"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_1",
+      "value": "consequatur",
+      "key": "consequatur"
+    },
+    {
+      "table": "Other_Property_Features",
+      "column": "property_feature_description",
+      "value": "corrupti",
+      "key": "corrupti"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_2",
+      "value": "culpa",
+      "key": "culpa"
+    },
+    {
+      "table": "Other_Property_Features",
+      "column": "property_feature_description",
+      "value": "cumque",
+      "key": "cumque"
+    },
+    {
+      "table": "Other_Property_Features",
+      "column": "property_feature_description",
+      "value": "dolorem",
+      "key": "dolorem"
+    },
+    {
+      "table": "Other_Property_Features",
+      "column": "property_feature_description",
+      "value": "doloribus",
+      "key": "doloribus"
+    },
+    {
+      "table": "Other_Property_Features",
+      "column": "property_feature_description",
+      "value": "earum",
+      "key": "earum"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_1",
+      "value": "enim",
+      "key": "enim"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_2",
+      "value": "eos",
+      "key": "eos"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_1",
+      "value": "est",
+      "key": "est"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_2",
+      "value": "est",
+      "key": "est"
+    },
+    {
+      "table": "Other_Property_Features",
+      "column": "property_feature_description",
+      "value": "et",
+      "key": "et"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_1",
+      "value": "et",
+      "key": "et"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_2",
+      "value": "et",
+      "key": "et"
+    },
+    {
+      "table": "Properties",
+      "column": "property_type_code",
+      "value": "Field",
+      "key": "field"
+    },
+    {
+      "table": "Ref_Property_Types",
+      "column": "property_type_code",
+      "value": "Field",
+      "key": "field"
+    },
+    {
+      "table": "Ref_Property_Types",
+      "column": "property_type_description",
+      "value": "Field, Meadow.",
+      "key": "field meadow"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_1",
+      "value": "fuga",
+      "key": "fuga"
+    },
+    {
+      "table": "Other_Property_Features",
+      "column": "property_feature_description",
+      "value": "hic",
+      "key": "hic"
+    },
+    {
+      "table": "Properties",
+      "column": "property_name",
+      "value": "high line",
+      "key": "high line"
+    },
+    {
+      "table": "Properties",
+      "column": "property_type_code",
+      "value": "House",
+      "key": "house"
+    },
+    {
+      "table": "Ref_Property_Types",
+      "column": "property_type_code",
+      "value": "House",
+      "key": "house"
+    },
+    {
+      "table": "Ref_Property_Types",
+      "column": "property_type_description",
+      "value": "House, Bungalow, etc.",
+      "key": "house bungalow etc"
+    },
+    {
+      "table": "Other_Property_Features",
+      "column": "property_feature_description",
+      "value": "illo",
+      "key": "illo"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_2",
+      "value": "iusto",
+      "key": "iusto"
+    },
+    {
+      "table": "Properties",
+      "column": "property_name",
+      "value": "longacre",
+      "key": "longacre"
+    },
+    {
+      "table": "Other_Property_Features",
+      "column": "property_feature_description",
+      "value": "modi",
+      "key": "modi"
+    },
+    {
+      "table": "Properties",
+      "column": "property_name",
+      "value": "murray hill",
+      "key": "murray hill"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_1",
+      "value": "nesciunt",
+      "key": "nesciunt"
+    },
+    {
+      "table": "Other_Property_Features",
+      "column": "property_feature_description",
+      "value": "odio",
+      "key": "odio"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_2",
+      "value": "odio",
+      "key": "odio"
+    },
+    {
+      "table": "Properties",
+      "column": "property_type_code",
+      "value": "Other",
+      "key": "other"
+    },
+    {
+      "table": "Ref_Property_Types",
+      "column": "property_type_code",
+      "value": "Other",
+      "key": "other"
+    },
+    {
+      "table": "Ref_Property_Types",
+      "column": "property_type_description",
+      "value": "Other, to be determined.",
+      "key": "other to be determined"
+    },
+    {
+      "table": "Properties",
+      "column": "property_name",
+      "value": "parc coliseum",
+      "key": "parc coliseum"
+    },
+    {
+      "table": "Properties",
+      "column": "property_name",
+      "value": "parc east",
+      "key": "parc east"
+    },
+    {
+      "table": "Properties",
+      "column": "property_name",
+      "value": "park",
+      "key": "park"
+    },
+    {
+      "table": "Other_Available_Features",
+      "column": "feature_name",
+      "value": "Pool",
+      "key": "pool"
+    },
+    {
+      "table": "Properties",
+      "column": "property_name",
+      "value": "prism",
+      "key": "prism"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_1",
+      "value": "qui",
+      "key": "qui"
+    },
+    {
+      "table": "Other_Property_Features",
+      "column": "property_feature_description",
+      "value": "quo",
+      "key": "quo"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_1",
+      "value": "quo",
+      "key": "quo"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_1",
+      "value": "quos",
+      "key": "quos"
+    },
+    {
+      "table": "Properties",
+      "column": "property_name",
+      "value": "renoir",
+      "key": "renoir"
+    },
+    {
+      "table": "Properties",
+      "column": "property_name",
+      "value": "riverside",
+      "key": "riverside"
+    },
+    {
+      "table": "Other_Available_Features",
+      "column": "feature_type_code",
+      "value": "Security",
+      "key": "security"
+    },
+    {
+      "table": "Ref_Feature_Types",
+      "column": "feature_type_code",
+      "value": "Security",
+      "key": "security"
+    },
+    {
+      "table": "Ref_Feature_Types",
+      "column": "feature_type_name",
+      "value": "Securiyt, eg Burglar Alarm.",
+      "key": "securiyt eg burglar alarm"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_1",
+      "value": "sed",
+      "key": "sed"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_2",
+      "value": "sequi",
+      "key": "sequi"
+    },
+    {
+      "table": "Properties",
+      "column": "property_type_code",
+      "value": "Shop",
+      "key": "shop"
+    },
+    {
+      "table": "Ref_Property_Types",
+      "column": "property_type_code",
+      "value": "Shop",
+      "key": "shop"
+    },
+    {
+      "table": "Ref_Property_Types",
+      "column": "property_type_description",
+      "value": "Shop, Retail Outlet.",
+      "key": "shop retail outlet"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_2",
+      "value": "sit",
+      "key": "sit"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_2",
+      "value": "suscipit",
+      "key": "suscipit"
+    },
+    {
+      "table": "Other_Available_Features",
+      "column": "feature_description",
+      "value": "Swimming Pool.",
+      "key": "swimming pool"
+    },
+    {
+      "table": "Properties",
+      "column": "property_name",
+      "value": "ten tower",
+      "key": "ten tower"
+    },
+    {
+      "table": "Properties",
+      "column": "property_name",
+      "value": "the cole",
+      "key": "the cole"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_1",
+      "value": "ut",
+      "key": "ut"
+    },
+    {
+      "table": "Properties",
+      "column": "apt_feature_2",
+      "value": "vero",
+      "key": "vero"
+    },
+    {
+      "table": "Other_Property_Features",
+      "column": "property_feature_description",
+      "value": "vitae",
+      "key": "vitae"
+    },
+    {
+      "table": "Properties",
+      "column": "property_name",
+      "value": "vogue",
+      "key": "vogue"
+    },
+    {
+      "table": "Properties",
+      "column": "property_name",
+      "value": "wall street",
+      "key": "wall street"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

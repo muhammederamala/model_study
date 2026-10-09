@@ -1,0 +1,197 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "performance_attendance",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "member": {
+      "source_label": "member",
+      "meaning": "Table labeled 'member' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Member_ID",
+      "primary_key_columns": [
+        "Member_ID"
+      ],
+      "columns": {
+        "Member_ID": {
+          "type": "text",
+          "source_label": "member id",
+          "primary_key": true,
+          "observed_values": [
+            "1",
+            "10",
+            "11",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Wilfredo Ruiz",
+            "Luis González",
+            "Héctor Campana",
+            "Juan Espil",
+            "Andrew Moten",
+            "Charlie Burke",
+            "Corey Allen",
+            "John Eubanks",
+            "Joshua Pittman",
+            "Joseph Bunn"
+          ]
+        },
+        "Nationality": {
+          "type": "text",
+          "source_label": "nationality",
+          "observed_values": [
+            "Uruguay",
+            "Argentina",
+            "United States"
+          ]
+        },
+        "Role": {
+          "type": "text",
+          "source_label": "role",
+          "observed_values": [
+            "Prime Violin",
+            "Violin",
+            "Viola",
+            "Cello",
+            "Bass"
+          ]
+        }
+      },
+      "observed_row_count": 11
+    },
+    "performance": {
+      "source_label": "performance",
+      "meaning": "Table labeled 'performance' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Performance_ID",
+      "primary_key_columns": [
+        "Performance_ID"
+      ],
+      "columns": {
+        "Performance_ID": {
+          "type": "number",
+          "source_label": "performance id",
+          "primary_key": true
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "February 2",
+            "February 4",
+            "February 5",
+            "February 7",
+            "February 10",
+            "February 11"
+          ]
+        },
+        "Host": {
+          "type": "text",
+          "source_label": "host",
+          "observed_values": [
+            "Boston Bruins",
+            "New York Rangers",
+            "Atlanta Thrashers",
+            "Pittsburgh Penguins",
+            "Montreal Canadiens",
+            "Ottawa Senators"
+          ]
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "TD Garden",
+            "Madison Square Garden",
+            "Verizon Center",
+            "Bell Centre",
+            "Scotiabank Place"
+          ]
+        },
+        "Attendance": {
+          "type": "number",
+          "source_label": "attendance"
+        }
+      },
+      "observed_row_count": 6
+    },
+    "member_attendance": {
+      "source_label": "member attendance",
+      "meaning": "Table labeled 'member attendance' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Member_ID",
+      "primary_key_columns": [
+        "Member_ID"
+      ],
+      "columns": {
+        "Member_ID": {
+          "type": "number",
+          "source_label": "member id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "member",
+            "column": "Member_ID"
+          }
+        },
+        "Performance_ID": {
+          "type": "number",
+          "source_label": "performance id",
+          "foreign_key": {
+            "table": "performance",
+            "column": "Performance_ID"
+          }
+        },
+        "Num_of_Pieces": {
+          "type": "number",
+          "source_label": "num of pieces"
+        }
+      },
+      "observed_row_count": 8
+    }
+  },
+  "terms": {
+    "member attendance": {
+      "maps_to": "member_attendance",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "member__row_count": {
+      "meaning": "Number of rows in member.",
+      "base_table": "member",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "performance__row_count": {
+      "meaning": "Number of rows in performance.",
+      "base_table": "performance",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "member_attendance__row_count": {
+      "meaning": "Number of rows in member_attendance.",
+      "base_table": "member_attendance",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

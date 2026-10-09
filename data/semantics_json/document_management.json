@@ -1,0 +1,450 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "document_management",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Roles": {
+      "source_label": "roles",
+      "meaning": "Table labeled 'roles' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key role_code",
+      "primary_key_columns": [
+        "role_code"
+      ],
+      "columns": {
+        "role_code": {
+          "type": "text",
+          "source_label": "role code",
+          "primary_key": true,
+          "observed_values": [
+            "DBA",
+            "PROJ-MGR"
+          ]
+        },
+        "role_description": {
+          "type": "text",
+          "source_label": "role description",
+          "observed_values": [
+            "Database Administrator",
+            "Project Manager"
+          ]
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Users": {
+      "source_label": "users",
+      "meaning": "Table labeled 'users' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key user_id",
+      "primary_key_columns": [
+        "user_id"
+      ],
+      "columns": {
+        "user_id": {
+          "type": "number",
+          "source_label": "user id",
+          "primary_key": true
+        },
+        "role_code": {
+          "type": "text",
+          "source_label": "role code",
+          "foreign_key": {
+            "table": "Roles",
+            "column": "role_code"
+          },
+          "observed_values": [
+            "PROJ-MGR",
+            "DBA"
+          ]
+        },
+        "user_name": {
+          "type": "text",
+          "source_label": "user name"
+        },
+        "user_login": {
+          "type": "text",
+          "source_label": "user login",
+          "observed_values": [
+            "0",
+            "1"
+          ]
+        },
+        "password": {
+          "type": "text",
+          "source_label": "password"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Document_Structures": {
+      "source_label": "document structures",
+      "meaning": "Table labeled 'document structures' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key document_structure_code",
+      "primary_key_columns": [
+        "document_structure_code"
+      ],
+      "columns": {
+        "document_structure_code": {
+          "type": "text",
+          "source_label": "document structure code",
+          "primary_key": true,
+          "observed_values": [
+            "1",
+            "5",
+            "6",
+            "8",
+            "9"
+          ]
+        },
+        "parent_document_structure_code": {
+          "type": "text",
+          "source_label": "parent document structure code",
+          "observed_values": [
+            "1",
+            "6",
+            "8"
+          ]
+        },
+        "document_structure_description": {
+          "type": "text",
+          "source_label": "document structure description",
+          "observed_values": [
+            "Header",
+            "Main section",
+            "Bib",
+            "Image section",
+            "Author section"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "Functional_Areas": {
+      "source_label": "functional areas",
+      "meaning": "Table labeled 'functional areas' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key functional_area_code",
+      "primary_key_columns": [
+        "functional_area_code"
+      ],
+      "columns": {
+        "functional_area_code": {
+          "type": "text",
+          "source_label": "functional area code",
+          "primary_key": true,
+          "observed_values": [
+            "1",
+            "8",
+            "9"
+          ]
+        },
+        "parent_functional_area_code": {
+          "type": "text",
+          "source_label": "parent functional area code",
+          "observed_values": [
+            "8"
+          ]
+        },
+        "functional_area_description": {
+          "type": "text",
+          "source_label": "functional area description",
+          "observed_values": [
+            "Signature",
+            "Acknowledgement",
+            "Keep blank"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Images": {
+      "source_label": "images",
+      "meaning": "Table labeled 'images' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key image_id",
+      "primary_key_columns": [
+        "image_id"
+      ],
+      "columns": {
+        "image_id": {
+          "type": "number",
+          "source_label": "image id",
+          "primary_key": true
+        },
+        "image_alt_text": {
+          "type": "text",
+          "source_label": "image alt text"
+        },
+        "image_name": {
+          "type": "text",
+          "source_label": "image name"
+        },
+        "image_url": {
+          "type": "text",
+          "source_label": "image url"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Documents": {
+      "source_label": "documents",
+      "meaning": "Table labeled 'documents' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key document_code",
+      "primary_key_columns": [
+        "document_code"
+      ],
+      "columns": {
+        "document_code": {
+          "type": "text",
+          "source_label": "document code",
+          "primary_key": true
+        },
+        "document_structure_code": {
+          "type": "text",
+          "source_label": "document structure code",
+          "foreign_key": {
+            "table": "Document_Structures",
+            "column": "document_structure_code"
+          },
+          "observed_values": [
+            "8",
+            "1",
+            "5",
+            "9",
+            "6"
+          ]
+        },
+        "document_type_code": {
+          "type": "text",
+          "source_label": "document type code",
+          "observed_values": [
+            "Book",
+            "Paper",
+            "Advertisement",
+            "CV"
+          ]
+        },
+        "access_count": {
+          "type": "number",
+          "source_label": "access count"
+        },
+        "document_name": {
+          "type": "text",
+          "source_label": "document name"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Document_Functional_Areas": {
+      "source_label": "document functional areas",
+      "meaning": "Table labeled 'document functional areas' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "document_code": {
+          "type": "text",
+          "source_label": "document code",
+          "foreign_key": {
+            "table": "Documents",
+            "column": "document_code"
+          },
+          "observed_values": [
+            "675",
+            "930",
+            "217",
+            "465",
+            "958",
+            "961",
+            "928",
+            "349",
+            "989",
+            "706",
+            "713"
+          ]
+        },
+        "functional_area_code": {
+          "type": "text",
+          "source_label": "functional area code",
+          "foreign_key": {
+            "table": "Functional_Areas",
+            "column": "functional_area_code"
+          },
+          "observed_values": [
+            "9",
+            "1",
+            "8"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Document_Sections": {
+      "source_label": "document sections",
+      "meaning": "Table labeled 'document sections' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key section_id",
+      "primary_key_columns": [
+        "section_id"
+      ],
+      "columns": {
+        "section_id": {
+          "type": "number",
+          "source_label": "section id",
+          "primary_key": true
+        },
+        "document_code": {
+          "type": "text",
+          "source_label": "document code",
+          "foreign_key": {
+            "table": "Documents",
+            "column": "document_code"
+          },
+          "observed_values": [
+            "714",
+            "217",
+            "675",
+            "465",
+            "566",
+            "930",
+            "961",
+            "989",
+            "621",
+            "706",
+            "713"
+          ]
+        },
+        "section_sequence": {
+          "type": "number",
+          "source_label": "section sequence"
+        },
+        "section_code": {
+          "type": "text",
+          "source_label": "section code"
+        },
+        "section_title": {
+          "type": "text",
+          "source_label": "section title",
+          "observed_values": [
+            "after",
+            "before"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Document_Sections_Images": {
+      "source_label": "document sections images",
+      "meaning": "Table labeled 'document sections images' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key section_id",
+      "primary_key_columns": [
+        "section_id"
+      ],
+      "columns": {
+        "section_id": {
+          "type": "number",
+          "source_label": "section id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Document_Sections",
+            "column": "section_id"
+          }
+        },
+        "image_id": {
+          "type": "number",
+          "source_label": "image id",
+          "foreign_key": {
+            "table": "Images",
+            "column": "image_id"
+          }
+        }
+      },
+      "observed_row_count": 20
+    }
+  },
+  "terms": {
+    "document structures": {
+      "maps_to": "Document_Structures",
+      "source": "Spider normalized table name"
+    },
+    "functional areas": {
+      "maps_to": "Functional_Areas",
+      "source": "Spider normalized table name"
+    },
+    "document functional areas": {
+      "maps_to": "Document_Functional_Areas",
+      "source": "Spider normalized table name"
+    },
+    "document sections": {
+      "maps_to": "Document_Sections",
+      "source": "Spider normalized table name"
+    },
+    "document sections images": {
+      "maps_to": "Document_Sections_Images",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Roles__row_count": {
+      "meaning": "Number of rows in Roles.",
+      "base_table": "Roles",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Users__row_count": {
+      "meaning": "Number of rows in Users.",
+      "base_table": "Users",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Document_Structures__row_count": {
+      "meaning": "Number of rows in Document_Structures.",
+      "base_table": "Document_Structures",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Functional_Areas__row_count": {
+      "meaning": "Number of rows in Functional_Areas.",
+      "base_table": "Functional_Areas",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Images__row_count": {
+      "meaning": "Number of rows in Images.",
+      "base_table": "Images",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Documents__row_count": {
+      "meaning": "Number of rows in Documents.",
+      "base_table": "Documents",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Document_Functional_Areas__row_count": {
+      "meaning": "Number of rows in Document_Functional_Areas.",
+      "base_table": "Document_Functional_Areas",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Document_Sections__row_count": {
+      "meaning": "Number of rows in Document_Sections.",
+      "base_table": "Document_Sections",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Document_Sections_Images__row_count": {
+      "meaning": "Number of rows in Document_Sections_Images.",
+      "base_table": "Document_Sections_Images",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

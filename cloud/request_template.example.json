@@ -1,0 +1,8 @@
+{
+  "input": {
+    "question": "$question",
+    "database_id": "$db_id",
+    "schema": "$semantic_schema"
+  },
+  "model": "$model"
+}

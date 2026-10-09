@@ -1,0 +1,276 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "car_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "continents": {
+      "source_label": "continents",
+      "meaning": "Table labeled 'continents' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key ContId",
+      "primary_key_columns": [
+        "ContId"
+      ],
+      "columns": {
+        "ContId": {
+          "type": "number",
+          "source_label": "cont id",
+          "primary_key": true
+        },
+        "Continent": {
+          "type": "text",
+          "source_label": "continent",
+          "observed_values": [
+            "america",
+            "europe",
+            "asia",
+            "africa",
+            "australia"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "countries": {
+      "source_label": "countries",
+      "meaning": "Table labeled 'countries' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key CountryId",
+      "primary_key_columns": [
+        "CountryId"
+      ],
+      "columns": {
+        "CountryId": {
+          "type": "number",
+          "source_label": "country id",
+          "primary_key": true
+        },
+        "CountryName": {
+          "type": "text",
+          "source_label": "country name"
+        },
+        "Continent": {
+          "type": "number",
+          "source_label": "continent",
+          "foreign_key": {
+            "table": "continents",
+            "column": "ContId"
+          }
+        }
+      },
+      "observed_row_count": 15
+    },
+    "car_makers": {
+      "source_label": "car makers",
+      "meaning": "Table labeled 'car makers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Id",
+      "primary_key_columns": [
+        "Id"
+      ],
+      "columns": {
+        "Id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "Maker": {
+          "type": "text",
+          "source_label": "maker"
+        },
+        "FullName": {
+          "type": "text",
+          "source_label": "full name"
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country",
+          "foreign_key": {
+            "table": "countries",
+            "column": "CountryId"
+          },
+          "observed_values": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        }
+      },
+      "observed_row_count": 22
+    },
+    "model_list": {
+      "source_label": "model list",
+      "meaning": "Table labeled 'model list' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key ModelId",
+      "primary_key_columns": [
+        "ModelId"
+      ],
+      "columns": {
+        "ModelId": {
+          "type": "number",
+          "source_label": "model id",
+          "primary_key": true
+        },
+        "Maker": {
+          "type": "number",
+          "source_label": "maker",
+          "foreign_key": {
+            "table": "car_makers",
+            "column": "Id"
+          }
+        },
+        "Model": {
+          "type": "text",
+          "source_label": "model"
+        }
+      },
+      "observed_row_count": 36
+    },
+    "car_names": {
+      "source_label": "car names",
+      "meaning": "Table labeled 'car names' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key MakeId",
+      "primary_key_columns": [
+        "MakeId"
+      ],
+      "columns": {
+        "MakeId": {
+          "type": "number",
+          "source_label": "make id",
+          "primary_key": true
+        },
+        "Model": {
+          "type": "text",
+          "source_label": "model",
+          "foreign_key": {
+            "table": "model_list",
+            "column": "Model"
+          }
+        },
+        "Make": {
+          "type": "text",
+          "source_label": "make"
+        }
+      },
+      "observed_row_count": 406
+    },
+    "cars_data": {
+      "source_label": "cars data",
+      "meaning": "Table labeled 'cars data' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Id",
+      "primary_key_columns": [
+        "Id"
+      ],
+      "columns": {
+        "Id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "car_names",
+            "column": "MakeId"
+          }
+        },
+        "MPG": {
+          "type": "text",
+          "source_label": "mpg"
+        },
+        "Cylinders": {
+          "type": "number",
+          "source_label": "cylinders"
+        },
+        "Edispl": {
+          "type": "number",
+          "source_label": "edispl"
+        },
+        "Horsepower": {
+          "type": "text",
+          "source_label": "horsepower"
+        },
+        "Weight": {
+          "type": "number",
+          "source_label": "weight"
+        },
+        "Accelerate": {
+          "type": "number",
+          "source_label": "accelerate"
+        },
+        "Year": {
+          "type": "number",
+          "source_label": "year"
+        }
+      },
+      "observed_row_count": 406
+    }
+  },
+  "terms": {
+    "car makers": {
+      "maps_to": "car_makers",
+      "source": "Spider normalized table name"
+    },
+    "model list": {
+      "maps_to": "model_list",
+      "source": "Spider normalized table name"
+    },
+    "car names": {
+      "maps_to": "car_names",
+      "source": "Spider normalized table name"
+    },
+    "cars data": {
+      "maps_to": "cars_data",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "continents__row_count": {
+      "meaning": "Number of rows in continents.",
+      "base_table": "continents",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "countries__row_count": {
+      "meaning": "Number of rows in countries.",
+      "base_table": "countries",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "car_makers__row_count": {
+      "meaning": "Number of rows in car_makers.",
+      "base_table": "car_makers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "model_list__row_count": {
+      "meaning": "Number of rows in model_list.",
+      "base_table": "model_list",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "car_names__row_count": {
+      "meaning": "Number of rows in car_names.",
+      "base_table": "car_names",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "cars_data__row_count": {
+      "meaning": "Number of rows in cars_data.",
+      "base_table": "cars_data",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

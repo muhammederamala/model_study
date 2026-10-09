@@ -1,0 +1,249 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "machine_repair",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "repair": {
+      "source_label": "repair",
+      "meaning": "Table labeled 'repair' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key repair_ID",
+      "primary_key_columns": [
+        "repair_ID"
+      ],
+      "columns": {
+        "repair_ID": {
+          "type": "number",
+          "source_label": "repair id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Discoverer",
+            "Discoverer 1",
+            "Discoverer 3",
+            "OPS 3236",
+            "OPS 3467",
+            "OPS 3754",
+            "OPS 3491",
+            "OPS 3042",
+            "OPS 3360"
+          ]
+        },
+        "Launch_Date": {
+          "type": "text",
+          "source_label": "launch date",
+          "observed_values": [
+            "21 Jan 2009",
+            "28 Feb 2009",
+            "03 Jun 2009",
+            "13 Jun 2014",
+            "24 Mar 2014",
+            "19 Jun 2014",
+            "10 Jun 2014",
+            "05 Aug 2014",
+            "18 Nov 2014"
+          ]
+        },
+        "Notes": {
+          "type": "text",
+          "source_label": "notes",
+          "observed_values": [
+            "repair Failed. Failed to achieve orbit",
+            "First object in polar orbit",
+            "repair failed. Failed to achieve orbit",
+            "repair failed. Guidance system failed. No orbit.",
+            "Out-of-focus area on some film.",
+            "Cameras operated satisfactorily",
+            "Cameras operated successfully."
+          ]
+        }
+      },
+      "observed_row_count": 9
+    },
+    "machine": {
+      "source_label": "machine",
+      "meaning": "Table labeled 'machine' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Machine_ID",
+      "primary_key_columns": [
+        "Machine_ID"
+      ],
+      "columns": {
+        "Machine_ID": {
+          "type": "number",
+          "source_label": "machine id",
+          "primary_key": true
+        },
+        "Making_Year": {
+          "type": "number",
+          "source_label": "making year"
+        },
+        "Class": {
+          "type": "text",
+          "source_label": "class",
+          "observed_values": [
+            "125cc"
+          ]
+        },
+        "Team": {
+          "type": "text",
+          "source_label": "team",
+          "observed_values": [
+            "Hero Sports TS- Honda",
+            "Marlboro Pileri - Honda",
+            "Givi Racing- Honda",
+            "Honda",
+            "Team Givi- Honda LCR"
+          ]
+        },
+        "Machine_series": {
+          "type": "text",
+          "source_label": "machine series",
+          "observed_values": [
+            "RS125"
+          ]
+        },
+        "value_points": {
+          "type": "number",
+          "source_label": "value points"
+        },
+        "quality_rank": {
+          "type": "number",
+          "source_label": "quality rank"
+        }
+      },
+      "observed_row_count": 9
+    },
+    "technician": {
+      "source_label": "technician",
+      "meaning": "Table labeled 'technician' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key technician_id",
+      "primary_key_columns": [
+        "technician_id"
+      ],
+      "columns": {
+        "technician_id": {
+          "type": "number",
+          "source_label": "technician id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Joe Sewell",
+            "John Brown",
+            "Tony Sewell",
+            "Mark Sewell",
+            "Charlie Hollocher",
+            "Lou Boudreau",
+            "Eddie Collins",
+            "Joe Cochrane",
+            "Mickey Cochrane"
+          ]
+        },
+        "Team": {
+          "type": "text",
+          "source_label": "team",
+          "observed_values": [
+            "NYY",
+            "CLE",
+            "CHC",
+            "CWS",
+            "PHA"
+          ]
+        },
+        "Starting_Year": {
+          "type": "number",
+          "source_label": "starting year"
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        }
+      },
+      "observed_row_count": 10
+    },
+    "repair_assignment": {
+      "source_label": "repair assignment",
+      "meaning": "Table labeled 'repair assignment' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key technician_id",
+      "primary_key_columns": [
+        "technician_id"
+      ],
+      "columns": {
+        "technician_id": {
+          "type": "number",
+          "source_label": "technician id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "technician",
+            "column": "technician_id"
+          }
+        },
+        "repair_ID": {
+          "type": "number",
+          "source_label": "repair id",
+          "foreign_key": {
+            "table": "repair",
+            "column": "repair_ID"
+          }
+        },
+        "Machine_ID": {
+          "type": "number",
+          "source_label": "machine id",
+          "foreign_key": {
+            "table": "machine",
+            "column": "Machine_ID"
+          }
+        }
+      },
+      "observed_row_count": 9
+    }
+  },
+  "terms": {
+    "repair assignment": {
+      "maps_to": "repair_assignment",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "repair__row_count": {
+      "meaning": "Number of rows in repair.",
+      "base_table": "repair",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "machine__row_count": {
+      "meaning": "Number of rows in machine.",
+      "base_table": "machine",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "technician__row_count": {
+      "meaning": "Number of rows in technician.",
+      "base_table": "technician",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "repair_assignment__row_count": {
+      "meaning": "Number of rows in repair_assignment.",
+      "base_table": "repair_assignment",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

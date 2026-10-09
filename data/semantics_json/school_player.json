@@ -1,0 +1,295 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "school_player",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "school": {
+      "source_label": "school",
+      "meaning": "Table labeled 'school' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key School_ID",
+      "primary_key_columns": [
+        "School_ID"
+      ],
+      "columns": {
+        "School_ID": {
+          "type": "number",
+          "source_label": "school id",
+          "primary_key": true
+        },
+        "School": {
+          "type": "text",
+          "source_label": "school",
+          "observed_values": [
+            "St Aloysius' College",
+            "Barker College",
+            "Cranbrook School",
+            "Knox Grammar School",
+            "Trinity Grammar School",
+            "Waverley College"
+          ]
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "Milsons Point",
+            "Hornsby",
+            "Bellevue Hill",
+            "Wahroonga",
+            "Summer Hill",
+            "Waverley"
+          ]
+        },
+        "Enrollment": {
+          "type": "number",
+          "source_label": "enrollment"
+        },
+        "Founded": {
+          "type": "number",
+          "source_label": "founded"
+        },
+        "Denomination": {
+          "type": "text",
+          "source_label": "denomination",
+          "observed_values": [
+            "Catholic",
+            "Anglican",
+            "Uniting Church"
+          ]
+        },
+        "Boys_or_Girls": {
+          "type": "text",
+          "source_label": "boys or girls",
+          "observed_values": [
+            "Boys",
+            "Boys only to Yr 9 Co-ed Year 10 to 12"
+          ]
+        },
+        "Day_or_Boarding": {
+          "type": "text",
+          "source_label": "day or boarding",
+          "observed_values": [
+            "Day",
+            "Day & Boarding"
+          ]
+        },
+        "Year_Entered_Competition": {
+          "type": "number",
+          "source_label": "year entered competition"
+        },
+        "School_Colors": {
+          "type": "text",
+          "source_label": "school colors",
+          "observed_values": [
+            "Royal Blue and Gold",
+            "Red & Blue",
+            "Red, White & Blue",
+            "Black & Blue",
+            "Green and White"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "school_details": {
+      "source_label": "school details",
+      "meaning": "Table labeled 'school details' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key School_ID",
+      "primary_key_columns": [
+        "School_ID"
+      ],
+      "columns": {
+        "School_ID": {
+          "type": "number",
+          "source_label": "school id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "school",
+            "column": "School_ID"
+          }
+        },
+        "Nickname": {
+          "type": "text",
+          "source_label": "nickname",
+          "observed_values": [
+            "Tigers",
+            "Auks",
+            "Buccaneers",
+            "Raiders",
+            "Seahawks",
+            "Silver Eagles"
+          ]
+        },
+        "Colors": {
+          "type": "text",
+          "source_label": "colors",
+          "observed_values": [
+            "Blue and Yellow",
+            "Dark Green and White",
+            "Garnet and White",
+            "Maroon and White",
+            "Blue and Gold",
+            "Silver and Maroon"
+          ]
+        },
+        "League": {
+          "type": "text",
+          "source_label": "league",
+          "observed_values": [
+            "DSHA"
+          ]
+        },
+        "Class": {
+          "type": "text",
+          "source_label": "class",
+          "observed_values": [
+            "Flight A",
+            "Flight B",
+            "Fight A"
+          ]
+        },
+        "Division": {
+          "type": "text",
+          "source_label": "division",
+          "observed_values": [
+            "Division 1",
+            "Division 3",
+            "Division 2"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "school_performance": {
+      "source_label": "school performance",
+      "meaning": "Table labeled 'school performance' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key School_Id",
+      "primary_key_columns": [
+        "School_Id"
+      ],
+      "columns": {
+        "School_Id": {
+          "type": "number",
+          "source_label": "school id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "school",
+            "column": "School_ID"
+          }
+        },
+        "School_Year": {
+          "type": "text",
+          "source_label": "school year"
+        },
+        "Class_A": {
+          "type": "text",
+          "source_label": "class a"
+        },
+        "Class_AA": {
+          "type": "text",
+          "source_label": "class aa"
+        }
+      },
+      "observed_row_count": 22
+    },
+    "player": {
+      "source_label": "player",
+      "meaning": "Table labeled 'player' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Player_ID",
+      "primary_key_columns": [
+        "Player_ID"
+      ],
+      "columns": {
+        "Player_ID": {
+          "type": "number",
+          "source_label": "player id",
+          "primary_key": true
+        },
+        "Player": {
+          "type": "text",
+          "source_label": "player"
+        },
+        "Team": {
+          "type": "text",
+          "source_label": "team"
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Position": {
+          "type": "text",
+          "source_label": "position",
+          "observed_values": [
+            "Shortstop",
+            "Third baseman",
+            "First Baseman",
+            "Left-handed pitcher",
+            "Catcher",
+            "First baseman",
+            "Right-handed pitcher",
+            "Second baseman",
+            "Outfielder"
+          ]
+        },
+        "School_ID": {
+          "type": "number",
+          "source_label": "school id",
+          "foreign_key": {
+            "table": "school",
+            "column": "School_ID"
+          }
+        }
+      },
+      "observed_row_count": 23
+    }
+  },
+  "terms": {
+    "school details": {
+      "maps_to": "school_details",
+      "source": "Spider normalized table name"
+    },
+    "school performance": {
+      "maps_to": "school_performance",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "school__row_count": {
+      "meaning": "Number of rows in school.",
+      "base_table": "school",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "school_details__row_count": {
+      "meaning": "Number of rows in school_details.",
+      "base_table": "school_details",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "school_performance__row_count": {
+      "meaning": "Number of rows in school_performance.",
+      "base_table": "school_performance",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "player__row_count": {
+      "meaning": "Number of rows in player.",
+      "base_table": "player",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

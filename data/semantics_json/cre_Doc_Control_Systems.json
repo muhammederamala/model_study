@@ -1,0 +1,554 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "cre_Doc_Control_Systems",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Ref_Document_Types": {
+      "source_label": "reference document types",
+      "meaning": "Table labeled 'reference document types' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key document_type_code",
+      "primary_key_columns": [
+        "document_type_code"
+      ],
+      "columns": {
+        "document_type_code": {
+          "type": "text",
+          "source_label": "document type code",
+          "primary_key": true,
+          "observed_values": [
+            "CD",
+            "Hard Drive",
+            "Paper"
+          ]
+        },
+        "document_type_description": {
+          "type": "text",
+          "source_label": "document type description",
+          "observed_values": [
+            "b",
+            "u",
+            "f"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Roles": {
+      "source_label": "roles",
+      "meaning": "Table labeled 'roles' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key role_code",
+      "primary_key_columns": [
+        "role_code"
+      ],
+      "columns": {
+        "role_code": {
+          "type": "text",
+          "source_label": "role code",
+          "primary_key": true,
+          "observed_values": [
+            "ED",
+            "MG",
+            "PR",
+            "PT"
+          ]
+        },
+        "role_description": {
+          "type": "text",
+          "source_label": "role description",
+          "observed_values": [
+            "Editor",
+            "Photo",
+            "Manager",
+            "Proof Manager"
+          ]
+        }
+      },
+      "observed_row_count": 4
+    },
+    "Addresses": {
+      "source_label": "addresses",
+      "meaning": "Table labeled 'addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key address_id",
+      "primary_key_columns": [
+        "address_id"
+      ],
+      "columns": {
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "primary_key": true
+        },
+        "address_details": {
+          "type": "text",
+          "source_label": "address details",
+          "observed_values": [
+            "IT",
+            "MX",
+            "DE",
+            "ES",
+            "IE",
+            "US",
+            "PT"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    },
+    "Ref_Document_Status": {
+      "source_label": "reference document status",
+      "meaning": "Table labeled 'reference document status' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key document_status_code",
+      "primary_key_columns": [
+        "document_status_code"
+      ],
+      "columns": {
+        "document_status_code": {
+          "type": "text",
+          "source_label": "document status code",
+          "primary_key": true,
+          "observed_values": [
+            "done",
+            "overdue",
+            "working"
+          ]
+        },
+        "document_status_description": {
+          "type": "text",
+          "source_label": "document status description",
+          "observed_values": [
+            "currently working on",
+            "mailed",
+            "mailed late"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Ref_Shipping_Agents": {
+      "source_label": "reference shipping agents",
+      "meaning": "Table labeled 'reference shipping agents' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key shipping_agent_code",
+      "primary_key_columns": [
+        "shipping_agent_code"
+      ],
+      "columns": {
+        "shipping_agent_code": {
+          "type": "text",
+          "source_label": "shipping agent code",
+          "primary_key": true,
+          "observed_values": [
+            "AL",
+            "FE",
+            "SH",
+            "UP",
+            "US"
+          ]
+        },
+        "shipping_agent_name": {
+          "type": "text",
+          "source_label": "shipping agent name",
+          "observed_values": [
+            "UPS",
+            "USPS",
+            "Airline",
+            "Fedex",
+            "Ship"
+          ]
+        },
+        "shipping_agent_description": {
+          "type": "text",
+          "source_label": "shipping agent description",
+          "observed_values": [
+            "g",
+            "q",
+            "w",
+            "k",
+            "t"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "Documents": {
+      "source_label": "documents",
+      "meaning": "Table labeled 'documents' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key document_id",
+      "primary_key_columns": [
+        "document_id"
+      ],
+      "columns": {
+        "document_id": {
+          "type": "number",
+          "source_label": "document id",
+          "primary_key": true
+        },
+        "document_status_code": {
+          "type": "text",
+          "source_label": "document status code",
+          "foreign_key": {
+            "table": "Ref_Document_Status",
+            "column": "document_status_code"
+          },
+          "observed_values": [
+            "working",
+            "done",
+            "overdue"
+          ]
+        },
+        "document_type_code": {
+          "type": "text",
+          "source_label": "document type code",
+          "foreign_key": {
+            "table": "Ref_Document_Types",
+            "column": "document_type_code"
+          },
+          "observed_values": [
+            "CD",
+            "Paper",
+            "Hard Drive"
+          ]
+        },
+        "shipping_agent_code": {
+          "type": "text",
+          "source_label": "shipping agent code",
+          "foreign_key": {
+            "table": "Ref_Shipping_Agents",
+            "column": "shipping_agent_code"
+          },
+          "observed_values": [
+            "UP",
+            "US",
+            "SH",
+            "FE",
+            "AL"
+          ]
+        },
+        "receipt_date": {
+          "type": "time",
+          "source_label": "receipt date"
+        },
+        "receipt_number": {
+          "type": "text",
+          "source_label": "receipt number"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Employees": {
+      "source_label": "employees",
+      "meaning": "Table labeled 'employees' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key employee_id",
+      "primary_key_columns": [
+        "employee_id"
+      ],
+      "columns": {
+        "employee_id": {
+          "type": "number",
+          "source_label": "employee id",
+          "primary_key": true
+        },
+        "role_code": {
+          "type": "text",
+          "source_label": "role code",
+          "foreign_key": {
+            "table": "Roles",
+            "column": "role_code"
+          },
+          "observed_values": [
+            "ED",
+            "PR",
+            "PT",
+            "MG"
+          ]
+        },
+        "employee_name": {
+          "type": "text",
+          "source_label": "employee name",
+          "observed_values": [
+            "Koby",
+            "Kenyon",
+            "Haley",
+            "Clemens",
+            "Jordyn",
+            "Erling"
+          ]
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details",
+          "observed_values": [
+            "h",
+            "f",
+            "b",
+            "v",
+            "u"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "Document_Drafts": {
+      "source_label": "document drafts",
+      "meaning": "Table labeled 'document drafts' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key document_id",
+      "primary_key_columns": [
+        "document_id"
+      ],
+      "columns": {
+        "document_id": {
+          "type": "number",
+          "source_label": "document id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Documents",
+            "column": "document_id"
+          }
+        },
+        "draft_number": {
+          "type": "number",
+          "source_label": "draft number"
+        },
+        "draft_details": {
+          "type": "text",
+          "source_label": "draft details",
+          "observed_values": [
+            "e",
+            "k",
+            "v",
+            "r",
+            "m",
+            "b",
+            "w",
+            "p",
+            "x",
+            "a",
+            "l"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Draft_Copies": {
+      "source_label": "draft copies",
+      "meaning": "Table labeled 'draft copies' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key document_id",
+      "primary_key_columns": [
+        "document_id"
+      ],
+      "columns": {
+        "document_id": {
+          "type": "number",
+          "source_label": "document id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Document_Drafts",
+            "column": "document_id"
+          }
+        },
+        "draft_number": {
+          "type": "number",
+          "source_label": "draft number",
+          "foreign_key": {
+            "table": "Document_Drafts",
+            "column": "draft_number"
+          }
+        },
+        "copy_number": {
+          "type": "number",
+          "source_label": "copy number"
+        }
+      },
+      "observed_row_count": 8
+    },
+    "Circulation_History": {
+      "source_label": "circulation history",
+      "meaning": "Table labeled 'circulation history' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key document_id",
+      "primary_key_columns": [
+        "document_id"
+      ],
+      "columns": {
+        "document_id": {
+          "type": "number",
+          "source_label": "document id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Draft_Copies",
+            "column": "document_id"
+          }
+        },
+        "draft_number": {
+          "type": "number",
+          "source_label": "draft number",
+          "foreign_key": {
+            "table": "Draft_Copies",
+            "column": "draft_number"
+          }
+        },
+        "copy_number": {
+          "type": "number",
+          "source_label": "copy number",
+          "foreign_key": {
+            "table": "Draft_Copies",
+            "column": "copy_number"
+          }
+        },
+        "employee_id": {
+          "type": "number",
+          "source_label": "employee id",
+          "foreign_key": {
+            "table": "Employees",
+            "column": "employee_id"
+          }
+        }
+      },
+      "observed_row_count": 4
+    },
+    "Documents_Mailed": {
+      "source_label": "documents mailed",
+      "meaning": "Table labeled 'documents mailed' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key document_id",
+      "primary_key_columns": [
+        "document_id"
+      ],
+      "columns": {
+        "document_id": {
+          "type": "number",
+          "source_label": "document id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Documents",
+            "column": "document_id"
+          }
+        },
+        "mailed_to_address_id": {
+          "type": "number",
+          "source_label": "mailed to address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "address_id"
+          }
+        },
+        "mailing_date": {
+          "type": "time",
+          "source_label": "mailing date"
+        }
+      },
+      "observed_row_count": 14
+    }
+  },
+  "terms": {
+    "reference document types": {
+      "maps_to": "Ref_Document_Types",
+      "source": "Spider normalized table name"
+    },
+    "reference document status": {
+      "maps_to": "Ref_Document_Status",
+      "source": "Spider normalized table name"
+    },
+    "reference shipping agents": {
+      "maps_to": "Ref_Shipping_Agents",
+      "source": "Spider normalized table name"
+    },
+    "document drafts": {
+      "maps_to": "Document_Drafts",
+      "source": "Spider normalized table name"
+    },
+    "draft copies": {
+      "maps_to": "Draft_Copies",
+      "source": "Spider normalized table name"
+    },
+    "circulation history": {
+      "maps_to": "Circulation_History",
+      "source": "Spider normalized table name"
+    },
+    "documents mailed": {
+      "maps_to": "Documents_Mailed",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Ref_Document_Types__row_count": {
+      "meaning": "Number of rows in Ref_Document_Types.",
+      "base_table": "Ref_Document_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Roles__row_count": {
+      "meaning": "Number of rows in Roles.",
+      "base_table": "Roles",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Addresses__row_count": {
+      "meaning": "Number of rows in Addresses.",
+      "base_table": "Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Ref_Document_Status__row_count": {
+      "meaning": "Number of rows in Ref_Document_Status.",
+      "base_table": "Ref_Document_Status",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Ref_Shipping_Agents__row_count": {
+      "meaning": "Number of rows in Ref_Shipping_Agents.",
+      "base_table": "Ref_Shipping_Agents",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Documents__row_count": {
+      "meaning": "Number of rows in Documents.",
+      "base_table": "Documents",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Employees__row_count": {
+      "meaning": "Number of rows in Employees.",
+      "base_table": "Employees",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Document_Drafts__row_count": {
+      "meaning": "Number of rows in Document_Drafts.",
+      "base_table": "Document_Drafts",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Draft_Copies__row_count": {
+      "meaning": "Number of rows in Draft_Copies.",
+      "base_table": "Draft_Copies",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Circulation_History__row_count": {
+      "meaning": "Number of rows in Circulation_History.",
+      "base_table": "Circulation_History",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Documents_Mailed__row_count": {
+      "meaning": "Number of rows in Documents_Mailed.",
+      "base_table": "Documents_Mailed",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

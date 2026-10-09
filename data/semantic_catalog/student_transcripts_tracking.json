@@ -1,0 +1,2529 @@
+{
+  "format_version": "1.0",
+  "db_id": "student_transcripts_tracking",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "Addresses": {
+      "source_label": "addresses",
+      "meaning": "Table labeled 'addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "address_id"
+      ],
+      "columns": {
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "primary_key": true
+        },
+        "line_1": {
+          "type": "text",
+          "source_label": "line 1"
+        },
+        "line_2": {
+          "type": "text",
+          "source_label": "line 2"
+        },
+        "line_3": {
+          "type": "text",
+          "source_label": "line 3"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "zip_postcode": {
+          "type": "text",
+          "source_label": "zip postcode"
+        },
+        "state_province_county": {
+          "type": "text",
+          "source_label": "state province county"
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country"
+        },
+        "other_address_details": {
+          "type": "text",
+          "source_label": "other address details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Courses": {
+      "source_label": "courses",
+      "meaning": "Table labeled 'courses' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "course_id"
+      ],
+      "columns": {
+        "course_id": {
+          "type": "number",
+          "source_label": "course id",
+          "primary_key": true
+        },
+        "course_name": {
+          "type": "text",
+          "source_label": "course name"
+        },
+        "course_description": {
+          "type": "text",
+          "source_label": "course description",
+          "observed_values": [
+            "p",
+            "q",
+            "v",
+            "k",
+            "c",
+            "n",
+            "l",
+            "b",
+            "w",
+            "d"
+          ]
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Departments": {
+      "source_label": "departments",
+      "meaning": "Table labeled 'departments' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "department_id"
+      ],
+      "columns": {
+        "department_id": {
+          "type": "number",
+          "source_label": "department id",
+          "primary_key": true
+        },
+        "department_name": {
+          "type": "text",
+          "source_label": "department name"
+        },
+        "department_description": {
+          "type": "text",
+          "source_label": "department description"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Degree_Programs": {
+      "source_label": "degree programs",
+      "meaning": "Table labeled 'degree programs' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "degree_program_id"
+      ],
+      "columns": {
+        "degree_program_id": {
+          "type": "number",
+          "source_label": "degree program id",
+          "primary_key": true
+        },
+        "department_id": {
+          "type": "number",
+          "source_label": "department id",
+          "foreign_key": {
+            "table": "Departments",
+            "column": "department_id"
+          }
+        },
+        "degree_summary_name": {
+          "type": "text",
+          "source_label": "degree summary name",
+          "observed_values": [
+            "Master",
+            "Bachelor",
+            "PHD"
+          ]
+        },
+        "degree_summary_description": {
+          "type": "text",
+          "source_label": "degree summary description"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Sections": {
+      "source_label": "sections",
+      "meaning": "Table labeled 'sections' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "section_id"
+      ],
+      "columns": {
+        "section_id": {
+          "type": "number",
+          "source_label": "section id",
+          "primary_key": true
+        },
+        "course_id": {
+          "type": "number",
+          "source_label": "course id",
+          "foreign_key": {
+            "table": "Courses",
+            "column": "course_id"
+          }
+        },
+        "section_name": {
+          "type": "text",
+          "source_label": "section name"
+        },
+        "section_description": {
+          "type": "text",
+          "source_label": "section description"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Semesters": {
+      "source_label": "semesters",
+      "meaning": "Table labeled 'semesters' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "semester_id"
+      ],
+      "columns": {
+        "semester_id": {
+          "type": "number",
+          "source_label": "semester id",
+          "primary_key": true
+        },
+        "semester_name": {
+          "type": "text",
+          "source_label": "semester name"
+        },
+        "semester_description": {
+          "type": "text",
+          "source_label": "semester description",
+          "observed_values": [
+            "x",
+            "g",
+            "w",
+            "c",
+            "l",
+            "y",
+            "f",
+            "m",
+            "q",
+            "t",
+            "o"
+          ]
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Students": {
+      "source_label": "students",
+      "meaning": "Table labeled 'students' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "student_id"
+      ],
+      "columns": {
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true
+        },
+        "current_address_id": {
+          "type": "number",
+          "source_label": "current address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "address_id"
+          }
+        },
+        "permanent_address_id": {
+          "type": "number",
+          "source_label": "permanent address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "address_id"
+          }
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "middle_name": {
+          "type": "text",
+          "source_label": "middle name"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "cell_mobile_number": {
+          "type": "text",
+          "source_label": "cell mobile number"
+        },
+        "email_address": {
+          "type": "text",
+          "source_label": "email address"
+        },
+        "ssn": {
+          "type": "text",
+          "source_label": "ssn"
+        },
+        "date_first_registered": {
+          "type": "time",
+          "source_label": "date first registered"
+        },
+        "date_left": {
+          "type": "time",
+          "source_label": "date left"
+        },
+        "other_student_details": {
+          "type": "text",
+          "source_label": "other student details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Student_Enrolment": {
+      "source_label": "student enrolment",
+      "meaning": "Table labeled 'student enrolment' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "student_enrolment_id"
+      ],
+      "columns": {
+        "student_enrolment_id": {
+          "type": "number",
+          "source_label": "student enrolment id",
+          "primary_key": true
+        },
+        "degree_program_id": {
+          "type": "number",
+          "source_label": "degree program id",
+          "foreign_key": {
+            "table": "Degree_Programs",
+            "column": "degree_program_id"
+          }
+        },
+        "semester_id": {
+          "type": "number",
+          "source_label": "semester id",
+          "foreign_key": {
+            "table": "Semesters",
+            "column": "semester_id"
+          }
+        },
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Students",
+            "column": "student_id"
+          }
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Student_Enrolment_Courses": {
+      "source_label": "student enrolment courses",
+      "meaning": "Table labeled 'student enrolment courses' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "student_course_id"
+      ],
+      "columns": {
+        "student_course_id": {
+          "type": "number",
+          "source_label": "student course id",
+          "primary_key": true
+        },
+        "course_id": {
+          "type": "number",
+          "source_label": "course id",
+          "foreign_key": {
+            "table": "Courses",
+            "column": "course_id"
+          }
+        },
+        "student_enrolment_id": {
+          "type": "number",
+          "source_label": "student enrolment id",
+          "foreign_key": {
+            "table": "Student_Enrolment",
+            "column": "student_enrolment_id"
+          }
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Transcripts": {
+      "source_label": "transcripts",
+      "meaning": "Table labeled 'transcripts' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "transcript_id"
+      ],
+      "columns": {
+        "transcript_id": {
+          "type": "number",
+          "source_label": "transcript id",
+          "primary_key": true
+        },
+        "transcript_date": {
+          "type": "time",
+          "source_label": "transcript date"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Transcript_Contents": {
+      "source_label": "transcript contents",
+      "meaning": "Table labeled 'transcript contents' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [],
+      "columns": {
+        "student_course_id": {
+          "type": "number",
+          "source_label": "student course id",
+          "foreign_key": {
+            "table": "Student_Enrolment_Courses",
+            "column": "student_course_id"
+          }
+        },
+        "transcript_id": {
+          "type": "number",
+          "source_label": "transcript id",
+          "foreign_key": {
+            "table": "Transcripts",
+            "column": "transcript_id"
+          }
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "Degree_Programs",
+      "from_column": "department_id",
+      "to_table": "Departments",
+      "to_column": "department_id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Sections",
+      "from_column": "course_id",
+      "to_table": "Courses",
+      "to_column": "course_id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Student_Enrolment",
+      "from_column": "degree_program_id",
+      "to_table": "Degree_Programs",
+      "to_column": "degree_program_id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Student_Enrolment",
+      "from_column": "semester_id",
+      "to_table": "Semesters",
+      "to_column": "semester_id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Student_Enrolment",
+      "from_column": "student_id",
+      "to_table": "Students",
+      "to_column": "student_id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Student_Enrolment_Courses",
+      "from_column": "course_id",
+      "to_table": "Courses",
+      "to_column": "course_id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Student_Enrolment_Courses",
+      "from_column": "student_enrolment_id",
+      "to_table": "Student_Enrolment",
+      "to_column": "student_enrolment_id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Students",
+      "from_column": "current_address_id",
+      "to_table": "Addresses",
+      "to_column": "address_id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Students",
+      "from_column": "permanent_address_id",
+      "to_table": "Addresses",
+      "to_column": "address_id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Transcript_Contents",
+      "from_column": "student_course_id",
+      "to_table": "Student_Enrolment_Courses",
+      "to_column": "student_course_id",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "Transcript_Contents",
+      "from_column": "transcript_id",
+      "to_table": "Transcripts",
+      "to_column": "transcript_id",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {
+    "degree programs": {
+      "maps_to": "Degree_Programs",
+      "source": "Spider normalized table name"
+    },
+    "student enrolment": {
+      "maps_to": "Student_Enrolment",
+      "source": "Spider normalized table name"
+    },
+    "student enrolment courses": {
+      "maps_to": "Student_Enrolment_Courses",
+      "source": "Spider normalized table name"
+    },
+    "transcript contents": {
+      "maps_to": "Transcript_Contents",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Addresses__row_count": {
+      "meaning": "Number of rows in Addresses.",
+      "base_table": "Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Courses__row_count": {
+      "meaning": "Number of rows in Courses.",
+      "base_table": "Courses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Departments__row_count": {
+      "meaning": "Number of rows in Departments.",
+      "base_table": "Departments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Degree_Programs__row_count": {
+      "meaning": "Number of rows in Degree_Programs.",
+      "base_table": "Degree_Programs",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Sections__row_count": {
+      "meaning": "Number of rows in Sections.",
+      "base_table": "Sections",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Semesters__row_count": {
+      "meaning": "Number of rows in Semesters.",
+      "base_table": "Semesters",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Students__row_count": {
+      "meaning": "Number of rows in Students.",
+      "base_table": "Students",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Student_Enrolment__row_count": {
+      "meaning": "Number of rows in Student_Enrolment.",
+      "base_table": "Student_Enrolment",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Student_Enrolment_Courses__row_count": {
+      "meaning": "Number of rows in Student_Enrolment_Courses.",
+      "base_table": "Student_Enrolment_Courses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Transcripts__row_count": {
+      "meaning": "Number of rows in Transcripts.",
+      "base_table": "Transcripts",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Transcript_Contents__row_count": {
+      "meaning": "Number of rows in Transcript_Contents.",
+      "base_table": "Transcript_Contents",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "Addresses",
+      "column": "line_1",
+      "value": "0144 Lamar Plaza Apt. 346",
+      "key": "0144 lamar plaza apt 346"
+    },
+    {
+      "table": "Students",
+      "column": "cell_mobile_number",
+      "value": "03174364122",
+      "key": "03174364122"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_1",
+      "value": "0643 Muller Vista",
+      "key": "0643 muller vista"
+    },
+    {
+      "table": "Addresses",
+      "column": "zip_postcode",
+      "value": "068",
+      "key": "068"
+    },
+    {
+      "table": "Students",
+      "column": "cell_mobile_number",
+      "value": "07661787471",
+      "key": "07661787471"
+    },
+    {
+      "table": "Students",
+      "column": "cell_mobile_number",
+      "value": "(096)889-8954x524",
+      "key": "096 889 8954x524"
+    },
+    {
+      "table": "Students",
+      "column": "cell_mobile_number",
+      "value": "09700166582",
+      "key": "09700166582"
+    },
+    {
+      "table": "Students",
+      "column": "cell_mobile_number",
+      "value": "1-009-710-5151",
+      "key": "1 009 710 5151"
+    },
+    {
+      "table": "Students",
+      "column": "cell_mobile_number",
+      "value": "1-879-796-8987x164",
+      "key": "1 879 796 8987x164"
+    },
+    {
+      "table": "Students",
+      "column": "ssn",
+      "value": "141072406",
+      "key": "141072406"
+    },
+    {
+      "table": "Addresses",
+      "column": "zip_postcode",
+      "value": "148",
+      "key": "148"
+    },
+    {
+      "table": "Students",
+      "column": "ssn",
+      "value": "156",
+      "key": "156"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_1",
+      "value": "16998 Mraz Lodge",
+      "key": "16998 mraz lodge"
+    },
+    {
+      "table": "Students",
+      "column": "cell_mobile_number",
+      "value": "171-642-5684",
+      "key": "171 642 5684"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_1",
+      "value": "186 Evan Motorway Apt. 409",
+      "key": "186 evan motorway apt 409"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_1",
+      "value": "193 Marlin Brook",
+      "key": "193 marlin brook"
+    },
+    {
+      "table": "Students",
+      "column": "date_first_registered",
+      "value": "1971-02-05 07:28:23",
+      "key": "1971 02 05 07 28 23"
+    },
+    {
+      "table": "Students",
+      "column": "date_left",
+      "value": "1971-05-17 19:28:49",
+      "key": "1971 05 17 19 28 49"
+    },
+    {
+      "table": "Students",
+      "column": "date_first_registered",
+      "value": "1973-05-19 19:12:46",
+      "key": "1973 05 19 19 12 46"
+    },
+    {
+      "table": "Transcripts",
+      "column": "transcript_date",
+      "value": "1975-05-06 12:04:47",
+      "key": "1975 05 06 12 04 47"
+    },
+    {
+      "table": "Transcripts",
+      "column": "transcript_date",
+      "value": "1975-05-20 18:31:21",
+      "key": "1975 05 20 18 31 21"
+    },
+    {
+      "table": "Students",
+      "column": "date_left",
+      "value": "1975-10-09 00:49:27",
+      "key": "1975 10 09 00 49 27"
+    },
+    {
+      "table": "Transcripts",
+      "column": "transcript_date",
+      "value": "1975-10-28 15:16:51",
+      "key": "1975 10 28 15 16 51"
+    },
+    {
+      "table": "Students",
+      "column": "date_first_registered",
+      "value": "1976-10-26 02:33:06",
+      "key": "1976 10 26 02 33 06"
+    },
+    {
+      "table": "Students",
+      "column": "date_first_registered",
+      "value": "1982-02-14 08:46:35",
+      "key": "1982 02 14 08 46 35"
+    },
+    {
+      "table": "Students",
+      "column": "date_left",
+      "value": "1982-06-11 00:25:39",
+      "key": "1982 06 11 00 25 39"
+    },
+    {
+      "table": "Students",
+      "column": "date_first_registered",
+      "value": "1982-06-19 13:15:18",
+      "key": "1982 06 19 13 15 18"
+    },
+    {
+      "table": "Transcripts",
+      "column": "transcript_date",
+      "value": "1984-01-18 23:07:07",
+      "key": "1984 01 18 23 07 07"
+    },
+    {
+      "table": "Transcripts",
+      "column": "transcript_date",
+      "value": "1984-12-19 00:37:21",
+      "key": "1984 12 19 00 37 21"
+    },
+    {
+      "table": "Transcripts",
+      "column": "transcript_date",
+      "value": "1985-04-29 01:20:20",
+      "key": "1985 04 29 01 20 20"
+    },
+    {
+      "table": "Transcripts",
+      "column": "transcript_date",
+      "value": "1985-08-21 09:32:39",
+      "key": "1985 08 21 09 32 39"
+    },
+    {
+      "table": "Students",
+      "column": "date_first_registered",
+      "value": "1986-02-24 21:12:23",
+      "key": "1986 02 24 21 12 23"
+    },
+    {
+      "table": "Transcripts",
+      "column": "transcript_date",
+      "value": "1986-07-12 07:27:29",
+      "key": "1986 07 12 07 27 29"
+    },
+    {
+      "table": "Transcripts",
+      "column": "transcript_date",
+      "value": "1988-04-30 01:19:47",
+      "key": "1988 04 30 01 19 47"
+    },
+    {
+      "table": "Students",
+      "column": "date_first_registered",
+      "value": "1989-05-24 23:31:29",
+      "key": "1989 05 24 23 31 29"
+    },
+    {
+      "table": "Transcripts",
+      "column": "transcript_date",
+      "value": "1990-03-05 11:59:41",
+      "key": "1990 03 05 11 59 41"
+    },
+    {
+      "table": "Students",
+      "column": "date_left",
+      "value": "1990-09-01 05:03:27",
+      "key": "1990 09 01 05 03 27"
+    },
+    {
+      "table": "Students",
+      "column": "date_first_registered",
+      "value": "1997-03-20 16:47:25",
+      "key": "1997 03 20 16 47 25"
+    },
+    {
+      "table": "Students",
+      "column": "date_left",
+      "value": "1997-11-16 08:54:33",
+      "key": "1997 11 16 08 54 33"
+    },
+    {
+      "table": "Transcripts",
+      "column": "transcript_date",
+      "value": "1998-11-22 12:18:29",
+      "key": "1998 11 22 12 18 29"
+    },
+    {
+      "table": "Transcripts",
+      "column": "transcript_date",
+      "value": "1999-01-06 20:06:46",
+      "key": "1999 01 06 20 06 46"
+    },
+    {
+      "table": "Students",
+      "column": "date_left",
+      "value": "1999-08-24 00:07:10",
+      "key": "1999 08 24 00 07 10"
+    },
+    {
+      "table": "Transcripts",
+      "column": "transcript_date",
+      "value": "2002-09-24 06:11:49",
+      "key": "2002 09 24 06 11 49"
+    },
+    {
+      "table": "Students",
+      "column": "date_left",
+      "value": "2004-12-08 05:29:11",
+      "key": "2004 12 08 05 29 11"
+    },
+    {
+      "table": "Students",
+      "column": "date_first_registered",
+      "value": "2004-12-24 12:36:46",
+      "key": "2004 12 24 12 36 46"
+    },
+    {
+      "table": "Students",
+      "column": "date_first_registered",
+      "value": "2005-12-15 08:42:10",
+      "key": "2005 12 15 08 42 10"
+    },
+    {
+      "table": "Students",
+      "column": "date_left",
+      "value": "2006-08-04 17:26:49",
+      "key": "2006 08 04 17 26 49"
+    },
+    {
+      "table": "Students",
+      "column": "date_left",
+      "value": "2007-03-31 09:53:19",
+      "key": "2007 03 31 09 53 19"
+    },
+    {
+      "table": "Students",
+      "column": "date_left",
+      "value": "2007-08-02 04:12:58",
+      "key": "2007 08 02 04 12 58"
+    },
+    {
+      "table": "Students",
+      "column": "date_first_registered",
+      "value": "2007-08-29 23:25:41",
+      "key": "2007 08 29 23 25 41"
+    },
+    {
+      "table": "Students",
+      "column": "date_left",
+      "value": "2007-11-28 12:50:21",
+      "key": "2007 11 28 12 50 21"
+    },
+    {
+      "table": "Students",
+      "column": "date_first_registered",
+      "value": "2009-09-25 00:14:25",
+      "key": "2009 09 25 00 14 25"
+    },
+    {
+      "table": "Transcripts",
+      "column": "transcript_date",
+      "value": "2010-12-13 10:55:15",
+      "key": "2010 12 13 10 55 15"
+    },
+    {
+      "table": "Transcripts",
+      "column": "transcript_date",
+      "value": "2013-06-30 13:01:40",
+      "key": "2013 06 30 13 01 40"
+    },
+    {
+      "table": "Students",
+      "column": "date_left",
+      "value": "2013-10-05 17:41:28",
+      "key": "2013 10 05 17 41 28"
+    },
+    {
+      "table": "Students",
+      "column": "date_first_registered",
+      "value": "2014-03-28 05:48:23",
+      "key": "2014 03 28 05 48 23"
+    },
+    {
+      "table": "Students",
+      "column": "date_left",
+      "value": "2014-05-30 23:32:02",
+      "key": "2014 05 30 23 32 02"
+    },
+    {
+      "table": "Students",
+      "column": "date_left",
+      "value": "2016-04-09 12:27:04",
+      "key": "2016 04 09 12 27 04"
+    },
+    {
+      "table": "Students",
+      "column": "date_first_registered",
+      "value": "2017-01-04 08:10:25",
+      "key": "2017 01 04 08 10 25"
+    },
+    {
+      "table": "Students",
+      "column": "date_left",
+      "value": "2017-07-09 21:38:43",
+      "key": "2017 07 09 21 38 43"
+    },
+    {
+      "table": "Students",
+      "column": "date_first_registered",
+      "value": "2018-03-13 09:56:22",
+      "key": "2018 03 13 09 56 22"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_1",
+      "value": "202 Hessel Views Apt. 468",
+      "key": "202 hessel views apt 468"
+    },
+    {
+      "table": "Students",
+      "column": "cell_mobile_number",
+      "value": "(213)445-0399x85208",
+      "key": "213 445 0399x85208"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_1",
+      "value": "2294 Grant Square Apt. 235",
+      "key": "2294 grant square apt 235"
+    },
+    {
+      "table": "Students",
+      "column": "ssn",
+      "value": "248",
+      "key": "248"
+    },
+    {
+      "table": "Students",
+      "column": "ssn",
+      "value": "304246",
+      "key": "304246"
+    },
+    {
+      "table": "Students",
+      "column": "ssn",
+      "value": "34458427",
+      "key": "34458427"
+    },
+    {
+      "table": "Addresses",
+      "column": "zip_postcode",
+      "value": "386",
+      "key": "386"
+    },
+    {
+      "table": "Students",
+      "column": "ssn",
+      "value": "39",
+      "key": "39"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_1",
+      "value": "3999 Aufderhar Ways Suite 593",
+      "key": "3999 aufderhar ways suite 593"
+    },
+    {
+      "table": "Addresses",
+      "column": "zip_postcode",
+      "value": "400",
+      "key": "400"
+    },
+    {
+      "table": "Students",
+      "column": "ssn",
+      "value": "402",
+      "key": "402"
+    },
+    {
+      "table": "Students",
+      "column": "ssn",
+      "value": "43",
+      "key": "43"
+    },
+    {
+      "table": "Students",
+      "column": "cell_mobile_number",
+      "value": "436.613.7683",
+      "key": "436 613 7683"
+    },
+    {
+      "table": "Addresses",
+      "column": "zip_postcode",
+      "value": "446",
+      "key": "446"
+    },
+    {
+      "table": "Students",
+      "column": "cell_mobile_number",
+      "value": "(462)246-7921",
+      "key": "462 246 7921"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_1",
+      "value": "492 Wilkinson Route",
+      "key": "492 wilkinson route"
+    },
+    {
+      "table": "Students",
+      "column": "ssn",
+      "value": "494",
+      "key": "494"
+    },
+    {
+      "table": "Students",
+      "column": "cell_mobile_number",
+      "value": "(507)365-8405",
+      "key": "507 365 8405"
+    },
+    {
+      "table": "Addresses",
+      "column": "zip_postcode",
+      "value": "541",
+      "key": "541"
+    },
+    {
+      "table": "Addresses",
+      "column": "zip_postcode",
+      "value": "590",
+      "key": "590"
+    },
+    {
+      "table": "Students",
+      "column": "cell_mobile_number",
+      "value": "(605)919-3594x3661",
+      "key": "605 919 3594x3661"
+    },
+    {
+      "table": "Students",
+      "column": "ssn",
+      "value": "6274274",
+      "key": "6274274"
+    },
+    {
+      "table": "Addresses",
+      "column": "zip_postcode",
+      "value": "638",
+      "key": "638"
+    },
+    {
+      "table": "Students",
+      "column": "ssn",
+      "value": "668",
+      "key": "668"
+    },
+    {
+      "table": "Addresses",
+      "column": "zip_postcode",
+      "value": "669",
+      "key": "669"
+    },
+    {
+      "table": "Students",
+      "column": "cell_mobile_number",
+      "value": "677.401.9382",
+      "key": "677 401 9382"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_1",
+      "value": "67942 Carlotta Ferry Apt. 686",
+      "key": "67942 carlotta ferry apt 686"
+    },
+    {
+      "table": "Students",
+      "column": "ssn",
+      "value": "68095",
+      "key": "68095"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_1",
+      "value": "7081 Eda Center",
+      "key": "7081 eda center"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_1",
+      "value": "74046 Metz Walk Apt. 113",
+      "key": "74046 metz walk apt 113"
+    },
+    {
+      "table": "Addresses",
+      "column": "zip_postcode",
+      "value": "777",
+      "key": "777"
+    },
+    {
+      "table": "Addresses",
+      "column": "zip_postcode",
+      "value": "839",
+      "key": "839"
+    },
+    {
+      "table": "Addresses",
+      "column": "zip_postcode",
+      "value": "847",
+      "key": "847"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_1",
+      "value": "858 Peggie Bypass Suite 212",
+      "key": "858 peggie bypass suite 212"
+    },
+    {
+      "table": "Students",
+      "column": "cell_mobile_number",
+      "value": "877.549.9067x8723",
+      "key": "877 549 9067x8723"
+    },
+    {
+      "table": "Addresses",
+      "column": "zip_postcode",
+      "value": "895",
+      "key": "895"
+    },
+    {
+      "table": "Addresses",
+      "column": "zip_postcode",
+      "value": "902",
+      "key": "902"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_1",
+      "value": "9283 Schulist Falls Apt. 037",
+      "key": "9283 schulist falls apt 037"
+    },
+    {
+      "table": "Addresses",
+      "column": "zip_postcode",
+      "value": "943",
+      "key": "943"
+    },
+    {
+      "table": "Students",
+      "column": "ssn",
+      "value": "965",
+      "key": "965"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_1",
+      "value": "979 Haag Shores Suite 656",
+      "key": "979 haag shores suite 656"
+    },
+    {
+      "table": "Students",
+      "column": "cell_mobile_number",
+      "value": "(982)153-1469x1733",
+      "key": "982 153 1469x1733"
+    },
+    {
+      "table": "Students",
+      "column": "middle_name",
+      "value": "Aaliyah",
+      "key": "aaliyah"
+    },
+    {
+      "table": "Sections",
+      "column": "section_description",
+      "value": "ad",
+      "key": "ad"
+    },
+    {
+      "table": "Courses",
+      "column": "course_name",
+      "value": "ai",
+      "key": "ai"
+    },
+    {
+      "table": "Students",
+      "column": "middle_name",
+      "value": "Aisha",
+      "key": "aisha"
+    },
+    {
+      "table": "Students",
+      "column": "middle_name",
+      "value": "Alberta",
+      "key": "alberta"
+    },
+    {
+      "table": "Departments",
+      "column": "department_description",
+      "value": "aliquam",
+      "key": "aliquam"
+    },
+    {
+      "table": "Addresses",
+      "column": "country",
+      "value": "Angola",
+      "key": "angola"
+    },
+    {
+      "table": "Students",
+      "column": "last_name",
+      "value": "Ankunding",
+      "key": "ankunding"
+    },
+    {
+      "table": "Students",
+      "column": "middle_name",
+      "value": "Anna",
+      "key": "anna"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_description",
+      "value": "aperiam",
+      "key": "aperiam"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_2",
+      "value": "Apt. 305",
+      "key": "apt 305"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_2",
+      "value": "Apt. 335",
+      "key": "apt 335"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_2",
+      "value": "Apt. 370",
+      "key": "apt 370"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_2",
+      "value": "Apt. 388",
+      "key": "apt 388"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_2",
+      "value": "Apt. 406",
+      "key": "apt 406"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_2",
+      "value": "Apt. 468",
+      "key": "apt 468"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_2",
+      "value": "Apt. 583",
+      "key": "apt 583"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_2",
+      "value": "Apt. 689",
+      "key": "apt 689"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_description",
+      "value": "architecto",
+      "key": "architecto"
+    },
+    {
+      "table": "Addresses",
+      "column": "state_province_county",
+      "value": "Arkansas",
+      "key": "arkansas"
+    },
+    {
+      "table": "Departments",
+      "column": "department_name",
+      "value": "art",
+      "key": "art"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_description",
+      "value": "assumenda",
+      "key": "assumenda"
+    },
+    {
+      "table": "Students",
+      "column": "other_student_details",
+      "value": "assumenda",
+      "key": "assumenda"
+    },
+    {
+      "table": "Students",
+      "column": "other_student_details",
+      "value": "atque",
+      "key": "atque"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_description",
+      "value": "aut",
+      "key": "aut"
+    },
+    {
+      "table": "Departments",
+      "column": "department_description",
+      "value": "autem",
+      "key": "autem"
+    },
+    {
+      "table": "Students",
+      "column": "other_student_details",
+      "value": "autem",
+      "key": "autem"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_name",
+      "value": "Bachelor",
+      "key": "bachelor"
+    },
+    {
+      "table": "Students",
+      "column": "last_name",
+      "value": "Balistreri",
+      "key": "balistreri"
+    },
+    {
+      "table": "Students",
+      "column": "email_address",
+      "value": "baumbach.lucious@example.org",
+      "key": "baumbach lucious example org"
+    },
+    {
+      "table": "Addresses",
+      "column": "country",
+      "value": "Bermuda",
+      "key": "bermuda"
+    },
+    {
+      "table": "Students",
+      "column": "email_address",
+      "value": "beth42@example.org",
+      "key": "beth42 example org"
+    },
+    {
+      "table": "Departments",
+      "column": "department_name",
+      "value": "biology",
+      "key": "biology"
+    },
+    {
+      "table": "Students",
+      "column": "middle_name",
+      "value": "Brooklyn",
+      "key": "brooklyn"
+    },
+    {
+      "table": "Addresses",
+      "column": "country",
+      "value": "Burundi",
+      "key": "burundi"
+    },
+    {
+      "table": "Courses",
+      "column": "course_name",
+      "value": "cal",
+      "key": "cal"
+    },
+    {
+      "table": "Students",
+      "column": "last_name",
+      "value": "Carroll",
+      "key": "carroll"
+    },
+    {
+      "table": "Students",
+      "column": "last_name",
+      "value": "Christiansen",
+      "key": "christiansen"
+    },
+    {
+      "table": "Students",
+      "column": "middle_name",
+      "value": "Cleve",
+      "key": "cleve"
+    },
+    {
+      "table": "Departments",
+      "column": "department_name",
+      "value": "computer science",
+      "key": "computer science"
+    },
+    {
+      "table": "Departments",
+      "column": "department_description",
+      "value": "consequatur",
+      "key": "consequatur"
+    },
+    {
+      "table": "Addresses",
+      "column": "country",
+      "value": "Cook Islands",
+      "key": "cook islands"
+    },
+    {
+      "table": "Addresses",
+      "column": "country",
+      "value": "Croatia",
+      "key": "croatia"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_description",
+      "value": "cumque",
+      "key": "cumque"
+    },
+    {
+      "table": "Departments",
+      "column": "department_name",
+      "value": "dance",
+      "key": "dance"
+    },
+    {
+      "table": "Courses",
+      "column": "course_name",
+      "value": "db",
+      "key": "db"
+    },
+    {
+      "table": "Students",
+      "column": "first_name",
+      "value": "Delaney",
+      "key": "delaney"
+    },
+    {
+      "table": "Addresses",
+      "column": "state_province_county",
+      "value": "Delaware",
+      "key": "delaware"
+    },
+    {
+      "table": "Students",
+      "column": "email_address",
+      "value": "dell43@example.net",
+      "key": "dell43 example net"
+    },
+    {
+      "table": "Students",
+      "column": "first_name",
+      "value": "Deon",
+      "key": "deon"
+    },
+    {
+      "table": "Courses",
+      "column": "course_name",
+      "value": "dl",
+      "key": "dl"
+    },
+    {
+      "table": "Departments",
+      "column": "department_description",
+      "value": "dolorem",
+      "key": "dolorem"
+    },
+    {
+      "table": "Sections",
+      "column": "section_description",
+      "value": "doloremque",
+      "key": "doloremque"
+    },
+    {
+      "table": "Departments",
+      "column": "department_description",
+      "value": "doloribus",
+      "key": "doloribus"
+    },
+    {
+      "table": "Students",
+      "column": "other_student_details",
+      "value": "dolorum",
+      "key": "dolorum"
+    },
+    {
+      "table": "Departments",
+      "column": "department_name",
+      "value": "drama",
+      "key": "drama"
+    },
+    {
+      "table": "Courses",
+      "column": "course_name",
+      "value": "ds",
+      "key": "ds"
+    },
+    {
+      "table": "Departments",
+      "column": "department_description",
+      "value": "ea",
+      "key": "ea"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_description",
+      "value": "earum",
+      "key": "earum"
+    },
+    {
+      "table": "Departments",
+      "column": "department_name",
+      "value": "economics",
+      "key": "economics"
+    },
+    {
+      "table": "Courses",
+      "column": "course_name",
+      "value": "en",
+      "key": "en"
+    },
+    {
+      "table": "Departments",
+      "column": "department_name",
+      "value": "engineer",
+      "key": "engineer"
+    },
+    {
+      "table": "Departments",
+      "column": "department_description",
+      "value": "error",
+      "key": "error"
+    },
+    {
+      "table": "Students",
+      "column": "email_address",
+      "value": "erwin.zboncak@example.com",
+      "key": "erwin zboncak example com"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_description",
+      "value": "esse",
+      "key": "esse"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_description",
+      "value": "et",
+      "key": "et"
+    },
+    {
+      "table": "Sections",
+      "column": "section_description",
+      "value": "et",
+      "key": "et"
+    },
+    {
+      "table": "Students",
+      "column": "other_student_details",
+      "value": "et",
+      "key": "et"
+    },
+    {
+      "table": "Sections",
+      "column": "section_description",
+      "value": "ex",
+      "key": "ex"
+    },
+    {
+      "table": "Sections",
+      "column": "section_description",
+      "value": "facilis",
+      "key": "facilis"
+    },
+    {
+      "table": "Students",
+      "column": "other_student_details",
+      "value": "facilis",
+      "key": "facilis"
+    },
+    {
+      "table": "Semesters",
+      "column": "semester_name",
+      "value": "fall 2010",
+      "key": "fall 2010"
+    },
+    {
+      "table": "Semesters",
+      "column": "semester_name",
+      "value": "fall 2018",
+      "key": "fall 2018"
+    },
+    {
+      "table": "Addresses",
+      "column": "state_province_county",
+      "value": "Florida",
+      "key": "florida"
+    },
+    {
+      "table": "Courses",
+      "column": "course_name",
+      "value": "fr",
+      "key": "fr"
+    },
+    {
+      "table": "Students",
+      "column": "first_name",
+      "value": "Frida",
+      "key": "frida"
+    },
+    {
+      "table": "Addresses",
+      "column": "country",
+      "value": "Gabon",
+      "key": "gabon"
+    },
+    {
+      "table": "Departments",
+      "column": "department_name",
+      "value": "geography",
+      "key": "geography"
+    },
+    {
+      "table": "Addresses",
+      "column": "country",
+      "value": "Gibraltar",
+      "key": "gibraltar"
+    },
+    {
+      "table": "Students",
+      "column": "last_name",
+      "value": "Gleichner",
+      "key": "gleichner"
+    },
+    {
+      "table": "Students",
+      "column": "middle_name",
+      "value": "Golda",
+      "key": "golda"
+    },
+    {
+      "table": "Addresses",
+      "column": "city",
+      "value": "Goodwinhaven",
+      "key": "goodwinhaven"
+    },
+    {
+      "table": "Students",
+      "column": "email_address",
+      "value": "gracie29@example.com",
+      "key": "gracie29 example com"
+    },
+    {
+      "table": "Students",
+      "column": "first_name",
+      "value": "Gregg",
+      "key": "gregg"
+    },
+    {
+      "table": "Addresses",
+      "column": "country",
+      "value": "Haiti",
+      "key": "haiti"
+    },
+    {
+      "table": "Addresses",
+      "column": "state_province_county",
+      "value": "Hawaii",
+      "key": "hawaii"
+    },
+    {
+      "table": "Students",
+      "column": "first_name",
+      "value": "Helga",
+      "key": "helga"
+    },
+    {
+      "table": "Addresses",
+      "column": "city",
+      "value": "Herzoghaven",
+      "key": "herzoghaven"
+    },
+    {
+      "table": "Departments",
+      "column": "department_name",
+      "value": "history",
+      "key": "history"
+    },
+    {
+      "table": "Students",
+      "column": "first_name",
+      "value": "Hobart",
+      "key": "hobart"
+    },
+    {
+      "table": "Students",
+      "column": "last_name",
+      "value": "Huel",
+      "key": "huel"
+    },
+    {
+      "table": "Addresses",
+      "column": "country",
+      "value": "Iceland",
+      "key": "iceland"
+    },
+    {
+      "table": "Addresses",
+      "column": "state_province_county",
+      "value": "Idaho",
+      "key": "idaho"
+    },
+    {
+      "table": "Departments",
+      "column": "department_description",
+      "value": "in",
+      "key": "in"
+    },
+    {
+      "table": "Students",
+      "column": "first_name",
+      "value": "Jarvis",
+      "key": "jarvis"
+    },
+    {
+      "table": "Students",
+      "column": "last_name",
+      "value": "Jaskolski",
+      "key": "jaskolski"
+    },
+    {
+      "table": "Students",
+      "column": "first_name",
+      "value": "Jett",
+      "key": "jett"
+    },
+    {
+      "table": "Students",
+      "column": "email_address",
+      "value": "jhuel@example.com",
+      "key": "jhuel example com"
+    },
+    {
+      "table": "Students",
+      "column": "email_address",
+      "value": "jillian26@example.net",
+      "key": "jillian26 example net"
+    },
+    {
+      "table": "Students",
+      "column": "email_address",
+      "value": "johns.unique@example.net",
+      "key": "johns unique example net"
+    },
+    {
+      "table": "Students",
+      "column": "first_name",
+      "value": "Jordy",
+      "key": "jordy"
+    },
+    {
+      "table": "Students",
+      "column": "middle_name",
+      "value": "Judd",
+      "key": "judd"
+    },
+    {
+      "table": "Addresses",
+      "column": "state_province_county",
+      "value": "Kansas",
+      "key": "kansas"
+    },
+    {
+      "table": "Students",
+      "column": "last_name",
+      "value": "Kemmer",
+      "key": "kemmer"
+    },
+    {
+      "table": "Addresses",
+      "column": "state_province_county",
+      "value": "Kentucky",
+      "key": "kentucky"
+    },
+    {
+      "table": "Addresses",
+      "column": "country",
+      "value": "Kyrgyz Republic",
+      "key": "kyrgyz republic"
+    },
+    {
+      "table": "Courses",
+      "column": "course_name",
+      "value": "la",
+      "key": "la"
+    },
+    {
+      "table": "Students",
+      "column": "other_student_details",
+      "value": "laborum",
+      "key": "laborum"
+    },
+    {
+      "table": "Addresses",
+      "column": "city",
+      "value": "Lake Careyberg",
+      "key": "lake careyberg"
+    },
+    {
+      "table": "Addresses",
+      "column": "city",
+      "value": "Lake Laishafurt",
+      "key": "lake laishafurt"
+    },
+    {
+      "table": "Departments",
+      "column": "department_name",
+      "value": "law",
+      "key": "law"
+    },
+    {
+      "table": "Addresses",
+      "column": "country",
+      "value": "Lesotho",
+      "key": "lesotho"
+    },
+    {
+      "table": "Students",
+      "column": "email_address",
+      "value": "lhartmann@example.org",
+      "key": "lhartmann example org"
+    },
+    {
+      "table": "Departments",
+      "column": "department_name",
+      "value": "linguistic",
+      "key": "linguistic"
+    },
+    {
+      "table": "Students",
+      "column": "middle_name",
+      "value": "Lorenz",
+      "key": "lorenz"
+    },
+    {
+      "table": "Departments",
+      "column": "department_name",
+      "value": "management",
+      "key": "management"
+    },
+    {
+      "table": "Addresses",
+      "column": "city",
+      "value": "Mariliehaven",
+      "key": "mariliehaven"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_name",
+      "value": "Master",
+      "key": "master"
+    },
+    {
+      "table": "Courses",
+      "column": "course_name",
+      "value": "math",
+      "key": "math"
+    },
+    {
+      "table": "Departments",
+      "column": "department_name",
+      "value": "math",
+      "key": "math"
+    },
+    {
+      "table": "Departments",
+      "column": "department_name",
+      "value": "medical",
+      "key": "medical"
+    },
+    {
+      "table": "Addresses",
+      "column": "city",
+      "value": "Michelleburgh",
+      "key": "michelleburgh"
+    },
+    {
+      "table": "Students",
+      "column": "first_name",
+      "value": "Milton",
+      "key": "milton"
+    },
+    {
+      "table": "Courses",
+      "column": "course_name",
+      "value": "ml",
+      "key": "ml"
+    },
+    {
+      "table": "Students",
+      "column": "last_name",
+      "value": "Mohr",
+      "key": "mohr"
+    },
+    {
+      "table": "Students",
+      "column": "middle_name",
+      "value": "Mona",
+      "key": "mona"
+    },
+    {
+      "table": "Students",
+      "column": "middle_name",
+      "value": "Mossie",
+      "key": "mossie"
+    },
+    {
+      "table": "Students",
+      "column": "email_address",
+      "value": "mya88@example.org",
+      "key": "mya88 example org"
+    },
+    {
+      "table": "Departments",
+      "column": "department_description",
+      "value": "natus",
+      "key": "natus"
+    },
+    {
+      "table": "Students",
+      "column": "email_address",
+      "value": "nbruen@example.org",
+      "key": "nbruen example org"
+    },
+    {
+      "table": "Students",
+      "column": "middle_name",
+      "value": "Neal",
+      "key": "neal"
+    },
+    {
+      "table": "Sections",
+      "column": "section_description",
+      "value": "nesciunt",
+      "key": "nesciunt"
+    },
+    {
+      "table": "Students",
+      "column": "other_student_details",
+      "value": "nesciunt",
+      "key": "nesciunt"
+    },
+    {
+      "table": "Addresses",
+      "column": "country",
+      "value": "New Caledonia",
+      "key": "new caledonia"
+    },
+    {
+      "table": "Addresses",
+      "column": "city",
+      "value": "New Clemensburgh",
+      "key": "new clemensburgh"
+    },
+    {
+      "table": "Departments",
+      "column": "department_description",
+      "value": "nihil",
+      "key": "nihil"
+    },
+    {
+      "table": "Departments",
+      "column": "department_description",
+      "value": "nisi",
+      "key": "nisi"
+    },
+    {
+      "table": "Courses",
+      "column": "course_name",
+      "value": "nlp",
+      "key": "nlp"
+    },
+    {
+      "table": "Departments",
+      "column": "department_description",
+      "value": "non",
+      "key": "non"
+    },
+    {
+      "table": "Sections",
+      "column": "section_description",
+      "value": "non",
+      "key": "non"
+    },
+    {
+      "table": "Students",
+      "column": "other_student_details",
+      "value": "non",
+      "key": "non"
+    },
+    {
+      "table": "Addresses",
+      "column": "country",
+      "value": "Norfolk Island",
+      "key": "norfolk island"
+    },
+    {
+      "table": "Addresses",
+      "column": "state_province_county",
+      "value": "NorthCarolina",
+      "key": "north carolina"
+    },
+    {
+      "table": "Addresses",
+      "column": "city",
+      "value": "North Omer",
+      "key": "north omer"
+    },
+    {
+      "table": "Departments",
+      "column": "department_description",
+      "value": "nostrum",
+      "key": "nostrum"
+    },
+    {
+      "table": "Students",
+      "column": "email_address",
+      "value": "nya.lesch@example.net",
+      "key": "nya lesch example net"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_description",
+      "value": "officiis",
+      "key": "officiis"
+    },
+    {
+      "table": "Students",
+      "column": "other_student_details",
+      "value": "omnis",
+      "key": "omnis"
+    },
+    {
+      "table": "Courses",
+      "column": "course_name",
+      "value": "oop",
+      "key": "oop"
+    },
+    {
+      "table": "Students",
+      "column": "first_name",
+      "value": "Orrin",
+      "key": "orrin"
+    },
+    {
+      "table": "Courses",
+      "column": "course_name",
+      "value": "os",
+      "key": "os"
+    },
+    {
+      "table": "Students",
+      "column": "middle_name",
+      "value": "Osborne",
+      "key": "osborne"
+    },
+    {
+      "table": "Students",
+      "column": "last_name",
+      "value": "Osinski",
+      "key": "osinski"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_name",
+      "value": "PHD",
+      "key": "phd"
+    },
+    {
+      "table": "Courses",
+      "column": "course_name",
+      "value": "pl",
+      "key": "pl"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_description",
+      "value": "placeat",
+      "key": "placeat"
+    },
+    {
+      "table": "Addresses",
+      "column": "city",
+      "value": "Port Chelsea",
+      "key": "port chelsea"
+    },
+    {
+      "table": "Addresses",
+      "column": "city",
+      "value": "Port Elvisfurt",
+      "key": "port elvisfurt"
+    },
+    {
+      "table": "Addresses",
+      "column": "city",
+      "value": "Port Evanston",
+      "key": "port evanston"
+    },
+    {
+      "table": "Addresses",
+      "column": "city",
+      "value": "Port Oceane",
+      "key": "port oceane"
+    },
+    {
+      "table": "Addresses",
+      "column": "city",
+      "value": "Prohaskafort",
+      "key": "prohaskafort"
+    },
+    {
+      "table": "Sections",
+      "column": "section_description",
+      "value": "provident",
+      "key": "provident"
+    },
+    {
+      "table": "Students",
+      "column": "email_address",
+      "value": "qo'kon@example.com",
+      "key": "qo kon example com"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_description",
+      "value": "quam",
+      "key": "quam"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_description",
+      "value": "qui",
+      "key": "qui"
+    },
+    {
+      "table": "Sections",
+      "column": "section_description",
+      "value": "qui",
+      "key": "qui"
+    },
+    {
+      "table": "Students",
+      "column": "other_student_details",
+      "value": "qui",
+      "key": "qui"
+    },
+    {
+      "table": "Students",
+      "column": "other_student_details",
+      "value": "quia",
+      "key": "quia"
+    },
+    {
+      "table": "Sections",
+      "column": "section_description",
+      "value": "quis",
+      "key": "quis"
+    },
+    {
+      "table": "Students",
+      "column": "last_name",
+      "value": "Rempel",
+      "key": "rempel"
+    },
+    {
+      "table": "Sections",
+      "column": "section_description",
+      "value": "reprehenderit",
+      "key": "reprehenderit"
+    },
+    {
+      "table": "Students",
+      "column": "other_student_details",
+      "value": "rerum",
+      "key": "rerum"
+    },
+    {
+      "table": "Students",
+      "column": "first_name",
+      "value": "Reva",
+      "key": "reva"
+    },
+    {
+      "table": "Students",
+      "column": "last_name",
+      "value": "Rogahn",
+      "key": "rogahn"
+    },
+    {
+      "table": "Courses",
+      "column": "course_name",
+      "value": "rs",
+      "key": "rs"
+    },
+    {
+      "table": "Addresses",
+      "column": "city",
+      "value": "Rutherfordtown",
+      "key": "rutherfordtown"
+    },
+    {
+      "table": "Addresses",
+      "column": "country",
+      "value": "Samoa",
+      "key": "samoa"
+    },
+    {
+      "table": "Addresses",
+      "column": "country",
+      "value": "Saudi Arabia",
+      "key": "saudi arabia"
+    },
+    {
+      "table": "Students",
+      "column": "last_name",
+      "value": "Schuppe",
+      "key": "schuppe"
+    },
+    {
+      "table": "Students",
+      "column": "email_address",
+      "value": "skassulke@example.net",
+      "key": "skassulke example net"
+    },
+    {
+      "table": "Addresses",
+      "column": "state_province_county",
+      "value": "SouthDakota",
+      "key": "south dakota"
+    },
+    {
+      "table": "Addresses",
+      "column": "city",
+      "value": "South Palma",
+      "key": "south palma"
+    },
+    {
+      "table": "Semesters",
+      "column": "semester_name",
+      "value": "spring 2010",
+      "key": "spring 2010"
+    },
+    {
+      "table": "Semesters",
+      "column": "semester_name",
+      "value": "spring 2012",
+      "key": "spring 2012"
+    },
+    {
+      "table": "Semesters",
+      "column": "semester_name",
+      "value": "spring 2013",
+      "key": "spring 2013"
+    },
+    {
+      "table": "Semesters",
+      "column": "semester_name",
+      "value": "spring 2014",
+      "key": "spring 2014"
+    },
+    {
+      "table": "Semesters",
+      "column": "semester_name",
+      "value": "spring 2015",
+      "key": "spring 2015"
+    },
+    {
+      "table": "Semesters",
+      "column": "semester_name",
+      "value": "spring 2016",
+      "key": "spring 2016"
+    },
+    {
+      "table": "Semesters",
+      "column": "semester_name",
+      "value": "spring 2017",
+      "key": "spring 2017"
+    },
+    {
+      "table": "Semesters",
+      "column": "semester_name",
+      "value": "spring 2018",
+      "key": "spring 2018"
+    },
+    {
+      "table": "Semesters",
+      "column": "semester_name",
+      "value": "spring 2019",
+      "key": "spring 2019"
+    },
+    {
+      "table": "Students",
+      "column": "first_name",
+      "value": "Stanford",
+      "key": "stanford"
+    },
+    {
+      "table": "Departments",
+      "column": "department_name",
+      "value": "statistics",
+      "key": "statistics"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_2",
+      "value": "Suite 079",
+      "key": "suite 079"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_2",
+      "value": "Suite 239",
+      "key": "suite 239"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_2",
+      "value": "Suite 383",
+      "key": "suite 383"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_2",
+      "value": "Suite 674",
+      "key": "suite 674"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_2",
+      "value": "Suite 703",
+      "key": "suite 703"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_2",
+      "value": "Suite 830",
+      "key": "suite 830"
+    },
+    {
+      "table": "Addresses",
+      "column": "line_2",
+      "value": "Suite 865",
+      "key": "suite 865"
+    },
+    {
+      "table": "Semesters",
+      "column": "semester_name",
+      "value": "summer 2010",
+      "key": "summer 2010"
+    },
+    {
+      "table": "Students",
+      "column": "email_address",
+      "value": "swift.kolby@example.com",
+      "key": "swift kolby example com"
+    },
+    {
+      "table": "Students",
+      "column": "first_name",
+      "value": "Timmothy",
+      "key": "timmothy"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_description",
+      "value": "unde",
+      "key": "unde"
+    },
+    {
+      "table": "Students",
+      "column": "middle_name",
+      "value": "Vaughn",
+      "key": "vaughn"
+    },
+    {
+      "table": "Students",
+      "column": "middle_name",
+      "value": "Violet",
+      "key": "violet"
+    },
+    {
+      "table": "Addresses",
+      "column": "state_province_county",
+      "value": "Virginia",
+      "key": "virginia"
+    },
+    {
+      "table": "Degree_Programs",
+      "column": "degree_summary_description",
+      "value": "voluptas",
+      "key": "voluptas"
+    },
+    {
+      "table": "Sections",
+      "column": "section_description",
+      "value": "voluptas",
+      "key": "voluptas"
+    },
+    {
+      "table": "Sections",
+      "column": "section_description",
+      "value": "voluptatem",
+      "key": "voluptatem"
+    },
+    {
+      "table": "Students",
+      "column": "other_student_details",
+      "value": "voluptatem",
+      "key": "voluptatem"
+    },
+    {
+      "table": "Students",
+      "column": "last_name",
+      "value": "Ward",
+      "key": "ward"
+    },
+    {
+      "table": "Students",
+      "column": "first_name",
+      "value": "Warren",
+      "key": "warren"
+    },
+    {
+      "table": "Addresses",
+      "column": "state_province_county",
+      "value": "Washington",
+      "key": "washington"
+    },
+    {
+      "table": "Students",
+      "column": "last_name",
+      "value": "Weimann",
+      "key": "weimann"
+    },
+    {
+      "table": "Addresses",
+      "column": "state_province_county",
+      "value": "WestVirginia",
+      "key": "west virginia"
+    },
+    {
+      "table": "Semesters",
+      "column": "semester_name",
+      "value": "winter 2010",
+      "key": "winter 2010"
+    },
+    {
+      "table": "Semesters",
+      "column": "semester_name",
+      "value": "winter 2018",
+      "key": "winter 2018"
+    },
+    {
+      "table": "Addresses",
+      "column": "state_province_county",
+      "value": "Wyoming",
+      "key": "wyoming"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

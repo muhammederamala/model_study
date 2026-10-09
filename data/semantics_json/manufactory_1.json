@@ -1,0 +1,134 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "manufactory_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Manufacturers": {
+      "source_label": "manufacturers",
+      "meaning": "Table labeled 'manufacturers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Code",
+      "primary_key_columns": [
+        "Code"
+      ],
+      "columns": {
+        "Code": {
+          "type": "number",
+          "source_label": "code",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Sony",
+            "Creative Labs",
+            "Hewlett-Packard",
+            "Iomega",
+            "Fujitsu",
+            "Winchester"
+          ]
+        },
+        "Headquarter": {
+          "type": "text",
+          "source_label": "headquarter",
+          "observed_values": [
+            "Tokyo",
+            "Austin",
+            "Los Angeles",
+            "Beijing",
+            "Taiwan",
+            "Paris"
+          ]
+        },
+        "Founder": {
+          "type": "text",
+          "source_label": "founder",
+          "observed_values": [
+            "Andy",
+            "Owen",
+            "James",
+            "Mary",
+            "John",
+            "Robert"
+          ]
+        },
+        "Revenue": {
+          "type": "number",
+          "source_label": "revenue"
+        }
+      },
+      "observed_row_count": 6
+    },
+    "Products": {
+      "source_label": "products",
+      "meaning": "Table labeled 'products' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Code",
+      "primary_key_columns": [
+        "Code"
+      ],
+      "columns": {
+        "Code": {
+          "type": "number",
+          "source_label": "code",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Hard drive",
+            "Memory",
+            "ZIP drive",
+            "Floppy disk",
+            "Monitor",
+            "DVD drive",
+            "CD drive",
+            "Printer",
+            "Toner cartridge",
+            "DVD burner"
+          ]
+        },
+        "Price": {
+          "type": "number",
+          "source_label": "price"
+        },
+        "Manufacturer": {
+          "type": "number",
+          "source_label": "manufacturer",
+          "foreign_key": {
+            "table": "Manufacturers",
+            "column": "Code"
+          }
+        }
+      },
+      "observed_row_count": 11
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "Manufacturers__row_count": {
+      "meaning": "Number of rows in Manufacturers.",
+      "base_table": "Manufacturers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Products__row_count": {
+      "meaning": "Number of rows in Products.",
+      "base_table": "Products",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

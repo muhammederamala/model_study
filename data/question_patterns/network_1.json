@@ -1,0 +1,162 @@
+{
+  "db_id": "network_1",
+  "n_questions": 56,
+  "n_questions_with_join": 28,
+  "join_pairs": [
+    {
+      "left": "friend.student_id",
+      "right": "highschooler.id",
+      "n": 18
+    },
+    {
+      "left": "highschooler.id",
+      "right": "likes.student_id",
+      "n": 10
+    },
+    {
+      "left": "friend.friend_id",
+      "right": "highschooler.id",
+      "n": 2
+    },
+    {
+      "left": "highschooler.id",
+      "right": "likes.liked_id",
+      "n": 2
+    }
+  ],
+  "agg_usage": [
+    {
+      "fn": "COUNT",
+      "target": "*",
+      "n": 32
+    },
+    {
+      "fn": "AVG",
+      "target": "grade",
+      "n": 2
+    },
+    {
+      "fn": "MIN",
+      "target": "grade",
+      "n": 2
+    }
+  ],
+  "column_clause_usage": {
+    "grade": {
+      "where": 6,
+      "group by": 6
+    },
+    "id": {
+      "where": 4
+    },
+    "name": {
+      "where": 10
+    },
+    "student_id": {
+      "group by": 18,
+      "where": 4
+    }
+  },
+  "question_openers": {
+    "what are the": {
+      "GROUP BY": 5,
+      "COUNT": 5,
+      "subquery": 4,
+      "negation (NOT IN / EXCEPT)": 2,
+      "INTERSECT": 2
+    },
+    "what is the": {
+      "GROUP BY": 2,
+      "ORDER BY ... DESC": 2,
+      "LIMIT 1": 2,
+      "COUNT": 2,
+      "subquery": 2,
+      "AVG": 1,
+      "negation (NOT IN / EXCEPT)": 1
+    },
+    "show the names": {
+      "GROUP BY": 5,
+      "COUNT": 5
+    },
+    "count the number": {
+      "COUNT": 4,
+      "GROUP BY": 1
+    },
+    "how many high": {
+      "COUNT": 3,
+      "GROUP BY": 1
+    },
+    "which grade has": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "return the grade": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "return the name": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "give the name": {
+      "GROUP BY": 1,
+      "ORDER BY ... DESC": 1,
+      "LIMIT 1": 1,
+      "COUNT": 1
+    },
+    "how many friends": {
+      "COUNT": 2,
+      "GROUP BY": 1
+    },
+    "how many likes": {
+      "COUNT": 2,
+      "GROUP BY": 1
+    },
+    "show the number": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "show me all": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "which grades have": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "show the student": {
+      "GROUP BY": 1,
+      "COUNT": 1
+    },
+    "show ids of": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "show names of": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    },
+    "show the ids": {
+      "INTERSECT": 1,
+      "subquery": 1
+    },
+    "show name of": {
+      "INTERSECT": 1,
+      "subquery": 1
+    },
+    "find the average": {
+      "AVG": 1,
+      "subquery": 1
+    },
+    "find the minimum": {
+      "negation (NOT IN / EXCEPT)": 1,
+      "subquery": 1
+    }
+  }
+}

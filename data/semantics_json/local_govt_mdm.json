@@ -1,0 +1,314 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "local_govt_mdm",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Customer_Master_Index": {
+      "source_label": "customer master index",
+      "meaning": "Table labeled 'customer master index' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key master_customer_id",
+      "primary_key_columns": [
+        "master_customer_id"
+      ],
+      "columns": {
+        "master_customer_id": {
+          "type": "number",
+          "source_label": "master customer id",
+          "primary_key": true
+        },
+        "cmi_details": {
+          "type": "text",
+          "source_label": "cmi details",
+          "observed_values": [
+            "Schmitt-Lang",
+            "Volkman, Mills and Ferry",
+            "Gusikowski PLC",
+            "Schmidt, Kertzmann and Lubowitz",
+            "Gottlieb, Becker and Wyman",
+            "Mayer-Hagenes",
+            "Streich-Morissette",
+            "Quigley-Paucek",
+            "Reynolds-McClure"
+          ]
+        }
+      },
+      "observed_row_count": 9
+    },
+    "CMI_Cross_References": {
+      "source_label": "cmi cross references",
+      "meaning": "Table labeled 'cmi cross references' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key cmi_cross_ref_id",
+      "primary_key_columns": [
+        "cmi_cross_ref_id"
+      ],
+      "columns": {
+        "cmi_cross_ref_id": {
+          "type": "number",
+          "source_label": "cmi cross reference id",
+          "primary_key": true
+        },
+        "master_customer_id": {
+          "type": "number",
+          "source_label": "master customer id",
+          "foreign_key": {
+            "table": "Customer_Master_Index",
+            "column": "master_customer_id"
+          }
+        },
+        "source_system_code": {
+          "type": "text",
+          "source_label": "source system code",
+          "observed_values": [
+            "Rent",
+            "Parking",
+            "Benefits",
+            "Business",
+            "Electoral",
+            "Tax"
+          ]
+        }
+      },
+      "observed_row_count": 21
+    },
+    "Council_Tax": {
+      "source_label": "council tax",
+      "meaning": "Table labeled 'council tax' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key council_tax_id",
+      "primary_key_columns": [
+        "council_tax_id"
+      ],
+      "columns": {
+        "council_tax_id": {
+          "type": "number",
+          "source_label": "council tax id",
+          "primary_key": true
+        },
+        "cmi_cross_ref_id": {
+          "type": "number",
+          "source_label": "cmi cross reference id",
+          "foreign_key": {
+            "table": "CMI_Cross_References",
+            "column": "cmi_cross_ref_id"
+          }
+        }
+      },
+      "observed_row_count": 6
+    },
+    "Business_Rates": {
+      "source_label": "business rates",
+      "meaning": "Table labeled 'business rates' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key business_rates_id",
+      "primary_key_columns": [
+        "business_rates_id"
+      ],
+      "columns": {
+        "business_rates_id": {
+          "type": "number",
+          "source_label": "business rates id",
+          "primary_key": true
+        },
+        "cmi_cross_ref_id": {
+          "type": "number",
+          "source_label": "cmi cross reference id",
+          "foreign_key": {
+            "table": "CMI_Cross_References",
+            "column": "cmi_cross_ref_id"
+          }
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Benefits_Overpayments": {
+      "source_label": "benefits overpayments",
+      "meaning": "Table labeled 'benefits overpayments' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key council_tax_id",
+      "primary_key_columns": [
+        "council_tax_id"
+      ],
+      "columns": {
+        "council_tax_id": {
+          "type": "number",
+          "source_label": "council tax id",
+          "primary_key": true
+        },
+        "cmi_cross_ref_id": {
+          "type": "number",
+          "source_label": "cmi cross ref id",
+          "foreign_key": {
+            "table": "CMI_Cross_References",
+            "column": "cmi_cross_ref_id"
+          }
+        }
+      },
+      "observed_row_count": 4
+    },
+    "Parking_Fines": {
+      "source_label": "parking fines",
+      "meaning": "Table labeled 'parking fines' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key council_tax_id",
+      "primary_key_columns": [
+        "council_tax_id"
+      ],
+      "columns": {
+        "council_tax_id": {
+          "type": "number",
+          "source_label": "council tax id",
+          "primary_key": true
+        },
+        "cmi_cross_ref_id": {
+          "type": "number",
+          "source_label": "cmi cross reference id",
+          "foreign_key": {
+            "table": "CMI_Cross_References",
+            "column": "cmi_cross_ref_id"
+          }
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Rent_Arrears": {
+      "source_label": "rent arrears",
+      "meaning": "Table labeled 'rent arrears' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key council_tax_id",
+      "primary_key_columns": [
+        "council_tax_id"
+      ],
+      "columns": {
+        "council_tax_id": {
+          "type": "number",
+          "source_label": "council tax id",
+          "primary_key": true
+        },
+        "cmi_cross_ref_id": {
+          "type": "number",
+          "source_label": "cmi cross reference id",
+          "foreign_key": {
+            "table": "CMI_Cross_References",
+            "column": "cmi_cross_ref_id"
+          }
+        }
+      },
+      "observed_row_count": 4
+    },
+    "Electoral_Register": {
+      "source_label": "electoral register",
+      "meaning": "Table labeled 'electoral register' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key electoral_register_id",
+      "primary_key_columns": [
+        "electoral_register_id"
+      ],
+      "columns": {
+        "electoral_register_id": {
+          "type": "number",
+          "source_label": "electoral register id",
+          "primary_key": true
+        },
+        "cmi_cross_ref_id": {
+          "type": "number",
+          "source_label": "cmi cross reference id",
+          "foreign_key": {
+            "table": "CMI_Cross_References",
+            "column": "cmi_cross_ref_id"
+          }
+        }
+      },
+      "observed_row_count": 6
+    }
+  },
+  "terms": {
+    "customer master index": {
+      "maps_to": "Customer_Master_Index",
+      "source": "Spider normalized table name"
+    },
+    "cmi cross references": {
+      "maps_to": "CMI_Cross_References",
+      "source": "Spider normalized table name"
+    },
+    "council tax": {
+      "maps_to": "Council_Tax",
+      "source": "Spider normalized table name"
+    },
+    "business rates": {
+      "maps_to": "Business_Rates",
+      "source": "Spider normalized table name"
+    },
+    "benefits overpayments": {
+      "maps_to": "Benefits_Overpayments",
+      "source": "Spider normalized table name"
+    },
+    "parking fines": {
+      "maps_to": "Parking_Fines",
+      "source": "Spider normalized table name"
+    },
+    "rent arrears": {
+      "maps_to": "Rent_Arrears",
+      "source": "Spider normalized table name"
+    },
+    "electoral register": {
+      "maps_to": "Electoral_Register",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Customer_Master_Index__row_count": {
+      "meaning": "Number of rows in Customer_Master_Index.",
+      "base_table": "Customer_Master_Index",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "CMI_Cross_References__row_count": {
+      "meaning": "Number of rows in CMI_Cross_References.",
+      "base_table": "CMI_Cross_References",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Council_Tax__row_count": {
+      "meaning": "Number of rows in Council_Tax.",
+      "base_table": "Council_Tax",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Business_Rates__row_count": {
+      "meaning": "Number of rows in Business_Rates.",
+      "base_table": "Business_Rates",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Benefits_Overpayments__row_count": {
+      "meaning": "Number of rows in Benefits_Overpayments.",
+      "base_table": "Benefits_Overpayments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Parking_Fines__row_count": {
+      "meaning": "Number of rows in Parking_Fines.",
+      "base_table": "Parking_Fines",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Rent_Arrears__row_count": {
+      "meaning": "Number of rows in Rent_Arrears.",
+      "base_table": "Rent_Arrears",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Electoral_Register__row_count": {
+      "meaning": "Number of rows in Electoral_Register.",
+      "base_table": "Electoral_Register",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

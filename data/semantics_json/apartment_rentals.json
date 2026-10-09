@@ -1,0 +1,328 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "apartment_rentals",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Apartment_Buildings": {
+      "source_label": "apartment buildings",
+      "meaning": "Table labeled 'apartment buildings' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key building_id",
+      "primary_key_columns": [
+        "building_id"
+      ],
+      "columns": {
+        "building_id": {
+          "type": "number",
+          "source_label": "building id",
+          "primary_key": true
+        },
+        "building_short_name": {
+          "type": "text",
+          "source_label": "building short name"
+        },
+        "building_full_name": {
+          "type": "text",
+          "source_label": "building full name"
+        },
+        "building_description": {
+          "type": "text",
+          "source_label": "building description",
+          "observed_values": [
+            "Studio",
+            "Flat",
+            "Duplex"
+          ]
+        },
+        "building_address": {
+          "type": "text",
+          "source_label": "building address"
+        },
+        "building_manager": {
+          "type": "text",
+          "source_label": "building manager"
+        },
+        "building_phone": {
+          "type": "text",
+          "source_label": "building phone"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Apartments": {
+      "source_label": "apartments",
+      "meaning": "Table labeled 'apartments' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key apt_id",
+      "primary_key_columns": [
+        "apt_id"
+      ],
+      "columns": {
+        "apt_id": {
+          "type": "number",
+          "source_label": "apartment id",
+          "primary_key": true
+        },
+        "building_id": {
+          "type": "number",
+          "source_label": "building id",
+          "foreign_key": {
+            "table": "Apartment_Buildings",
+            "column": "building_id"
+          }
+        },
+        "apt_type_code": {
+          "type": "text",
+          "source_label": "apartment type code",
+          "observed_values": [
+            "Flat",
+            "Studio",
+            "Duplex"
+          ]
+        },
+        "apt_number": {
+          "type": "text",
+          "source_label": "apartment number"
+        },
+        "bathroom_count": {
+          "type": "number",
+          "source_label": "bathroom count"
+        },
+        "bedroom_count": {
+          "type": "number",
+          "source_label": "bedroom count"
+        },
+        "room_count": {
+          "type": "text",
+          "source_label": "room count",
+          "observed_values": [
+            "7",
+            "5",
+            "8",
+            "9",
+            "6",
+            "3"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Apartment_Facilities": {
+      "source_label": "apartment facilities",
+      "meaning": "Table labeled 'apartment facilities' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key apt_id",
+      "primary_key_columns": [
+        "apt_id"
+      ],
+      "columns": {
+        "apt_id": {
+          "type": "number",
+          "source_label": "apartment id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Apartments",
+            "column": "apt_id"
+          }
+        },
+        "facility_code": {
+          "type": "text",
+          "source_label": "facility code",
+          "observed_values": [
+            "Boardband",
+            "Gym",
+            "Swimming Pool",
+            "Cable TV"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "Guests": {
+      "source_label": "guests",
+      "meaning": "Table labeled 'guests' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key guest_id",
+      "primary_key_columns": [
+        "guest_id"
+      ],
+      "columns": {
+        "guest_id": {
+          "type": "number",
+          "source_label": "guest id",
+          "primary_key": true
+        },
+        "gender_code": {
+          "type": "text",
+          "source_label": "gender code",
+          "observed_values": [
+            "Male",
+            "Unknown",
+            "Female"
+          ]
+        },
+        "guest_first_name": {
+          "type": "text",
+          "source_label": "guest first name"
+        },
+        "guest_last_name": {
+          "type": "text",
+          "source_label": "guest last name"
+        },
+        "date_of_birth": {
+          "type": "time",
+          "source_label": "date of birth"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Apartment_Bookings": {
+      "source_label": "apartment bookings",
+      "meaning": "Table labeled 'apartment bookings' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key apt_booking_id",
+      "primary_key_columns": [
+        "apt_booking_id"
+      ],
+      "columns": {
+        "apt_booking_id": {
+          "type": "number",
+          "source_label": "apartment booking id",
+          "primary_key": true
+        },
+        "apt_id": {
+          "type": "number",
+          "source_label": "apartment id",
+          "foreign_key": {
+            "table": "Apartments",
+            "column": "apt_id"
+          }
+        },
+        "guest_id": {
+          "type": "number",
+          "source_label": "guest id",
+          "foreign_key": {
+            "table": "Guests",
+            "column": "guest_id"
+          }
+        },
+        "booking_status_code": {
+          "type": "text",
+          "source_label": "booking status code",
+          "observed_values": [
+            "Provisional",
+            "Confirmed"
+          ]
+        },
+        "booking_start_date": {
+          "type": "time",
+          "source_label": "booking start date"
+        },
+        "booking_end_date": {
+          "type": "time",
+          "source_label": "booking end date"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "View_Unit_Status": {
+      "source_label": "view unit status",
+      "meaning": "Table labeled 'view unit status' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key status_date",
+      "primary_key_columns": [
+        "status_date"
+      ],
+      "columns": {
+        "apt_id": {
+          "type": "number",
+          "source_label": "apartment id",
+          "foreign_key": {
+            "table": "Apartments",
+            "column": "apt_id"
+          }
+        },
+        "apt_booking_id": {
+          "type": "number",
+          "source_label": "apartment booking id",
+          "foreign_key": {
+            "table": "Apartment_Bookings",
+            "column": "apt_booking_id"
+          }
+        },
+        "status_date": {
+          "type": "time",
+          "source_label": "status date",
+          "primary_key": true
+        },
+        "available_yn": {
+          "type": "others",
+          "source_label": "available yes or no"
+        }
+      },
+      "observed_row_count": 20
+    }
+  },
+  "terms": {
+    "apartment buildings": {
+      "maps_to": "Apartment_Buildings",
+      "source": "Spider normalized table name"
+    },
+    "apartment facilities": {
+      "maps_to": "Apartment_Facilities",
+      "source": "Spider normalized table name"
+    },
+    "apartment bookings": {
+      "maps_to": "Apartment_Bookings",
+      "source": "Spider normalized table name"
+    },
+    "view unit status": {
+      "maps_to": "View_Unit_Status",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Apartment_Buildings__row_count": {
+      "meaning": "Number of rows in Apartment_Buildings.",
+      "base_table": "Apartment_Buildings",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Apartments__row_count": {
+      "meaning": "Number of rows in Apartments.",
+      "base_table": "Apartments",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Apartment_Facilities__row_count": {
+      "meaning": "Number of rows in Apartment_Facilities.",
+      "base_table": "Apartment_Facilities",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Guests__row_count": {
+      "meaning": "Number of rows in Guests.",
+      "base_table": "Guests",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Apartment_Bookings__row_count": {
+      "meaning": "Number of rows in Apartment_Bookings.",
+      "base_table": "Apartment_Bookings",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "View_Unit_Status__row_count": {
+      "meaning": "Number of rows in View_Unit_Status.",
+      "base_table": "View_Unit_Status",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

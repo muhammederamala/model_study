@@ -1,0 +1,770 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "sakila_1",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "actor": {
+      "source_label": "actor",
+      "meaning": "Table labeled 'actor' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key actor_id",
+      "primary_key_columns": [
+        "actor_id"
+      ],
+      "columns": {
+        "actor_id": {
+          "type": "number",
+          "source_label": "actor id",
+          "primary_key": true
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "last_update": {
+          "type": "time",
+          "source_label": "last update"
+        }
+      },
+      "observed_row_count": 200
+    },
+    "address": {
+      "source_label": "address",
+      "meaning": "Table labeled 'address' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key address_id",
+      "primary_key_columns": [
+        "address_id"
+      ],
+      "columns": {
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "primary_key": true
+        },
+        "address": {
+          "type": "text",
+          "source_label": "address"
+        },
+        "address2": {
+          "type": "text",
+          "source_label": "address2"
+        },
+        "district": {
+          "type": "text",
+          "source_label": "district"
+        },
+        "city_id": {
+          "type": "number",
+          "source_label": "city id",
+          "foreign_key": {
+            "table": "city",
+            "column": "city_id"
+          }
+        },
+        "postal_code": {
+          "type": "text",
+          "source_label": "postal code"
+        },
+        "phone": {
+          "type": "text",
+          "source_label": "phone"
+        },
+        "last_update": {
+          "type": "time",
+          "source_label": "last update"
+        }
+      },
+      "observed_row_count": 603
+    },
+    "category": {
+      "source_label": "category",
+      "meaning": "Table labeled 'category' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key category_id",
+      "primary_key_columns": [
+        "category_id"
+      ],
+      "columns": {
+        "category_id": {
+          "type": "number",
+          "source_label": "category id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "last_update": {
+          "type": "time",
+          "source_label": "last update"
+        }
+      },
+      "observed_row_count": 16
+    },
+    "city": {
+      "source_label": "city",
+      "meaning": "Table labeled 'city' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key city_id",
+      "primary_key_columns": [
+        "city_id"
+      ],
+      "columns": {
+        "city_id": {
+          "type": "number",
+          "source_label": "city id",
+          "primary_key": true
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "country_id": {
+          "type": "number",
+          "source_label": "country id",
+          "foreign_key": {
+            "table": "country",
+            "column": "country_id"
+          }
+        },
+        "last_update": {
+          "type": "time",
+          "source_label": "last update"
+        }
+      },
+      "observed_row_count": 600
+    },
+    "country": {
+      "source_label": "country",
+      "meaning": "Table labeled 'country' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key country_id",
+      "primary_key_columns": [
+        "country_id"
+      ],
+      "columns": {
+        "country_id": {
+          "type": "number",
+          "source_label": "country id",
+          "primary_key": true
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country"
+        },
+        "last_update": {
+          "type": "time",
+          "source_label": "last update"
+        }
+      },
+      "observed_row_count": 109
+    },
+    "customer": {
+      "source_label": "customer",
+      "meaning": "Table labeled 'customer' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key customer_id",
+      "primary_key_columns": [
+        "customer_id"
+      ],
+      "columns": {
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true
+        },
+        "store_id": {
+          "type": "number",
+          "source_label": "store id",
+          "foreign_key": {
+            "table": "store",
+            "column": "store_id"
+          }
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "email": {
+          "type": "text",
+          "source_label": "email"
+        },
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "address",
+            "column": "address_id"
+          }
+        },
+        "active": {
+          "type": "boolean",
+          "source_label": "active"
+        },
+        "create_date": {
+          "type": "time",
+          "source_label": "create date"
+        },
+        "last_update": {
+          "type": "time",
+          "source_label": "last update"
+        }
+      },
+      "observed_row_count": 599
+    },
+    "film": {
+      "source_label": "film",
+      "meaning": "Table labeled 'film' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key film_id",
+      "primary_key_columns": [
+        "film_id"
+      ],
+      "columns": {
+        "film_id": {
+          "type": "number",
+          "source_label": "film id",
+          "primary_key": true
+        },
+        "title": {
+          "type": "text",
+          "source_label": "title"
+        },
+        "description": {
+          "type": "text",
+          "source_label": "description"
+        },
+        "release_year": {
+          "type": "time",
+          "source_label": "release year"
+        },
+        "language_id": {
+          "type": "number",
+          "source_label": "language id",
+          "foreign_key": {
+            "table": "language",
+            "column": "language_id"
+          }
+        },
+        "original_language_id": {
+          "type": "number",
+          "source_label": "original language id",
+          "foreign_key": {
+            "table": "language",
+            "column": "language_id"
+          }
+        },
+        "rental_duration": {
+          "type": "number",
+          "source_label": "rental duration"
+        },
+        "rental_rate": {
+          "type": "number",
+          "source_label": "rental rate"
+        },
+        "length": {
+          "type": "number",
+          "source_label": "length"
+        },
+        "replacement_cost": {
+          "type": "number",
+          "source_label": "replacement cost"
+        },
+        "rating": {
+          "type": "text",
+          "source_label": "rating",
+          "observed_values": [
+            "PG",
+            "G",
+            "NC-17",
+            "PG-13",
+            "R"
+          ]
+        },
+        "special_features": {
+          "type": "text",
+          "source_label": "special features"
+        },
+        "last_update": {
+          "type": "time",
+          "source_label": "last update"
+        }
+      },
+      "observed_row_count": 1000
+    },
+    "film_actor": {
+      "source_label": "film actor",
+      "meaning": "Table labeled 'film actor' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key actor_id",
+      "primary_key_columns": [
+        "actor_id"
+      ],
+      "columns": {
+        "actor_id": {
+          "type": "number",
+          "source_label": "actor id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "actor",
+            "column": "actor_id"
+          }
+        },
+        "film_id": {
+          "type": "number",
+          "source_label": "film id",
+          "foreign_key": {
+            "table": "film",
+            "column": "film_id"
+          }
+        },
+        "last_update": {
+          "type": "time",
+          "source_label": "last update"
+        }
+      },
+      "observed_row_count": 5462
+    },
+    "film_category": {
+      "source_label": "film category",
+      "meaning": "Table labeled 'film category' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key film_id",
+      "primary_key_columns": [
+        "film_id"
+      ],
+      "columns": {
+        "film_id": {
+          "type": "number",
+          "source_label": "film id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "film",
+            "column": "film_id"
+          }
+        },
+        "category_id": {
+          "type": "number",
+          "source_label": "category id",
+          "foreign_key": {
+            "table": "category",
+            "column": "category_id"
+          }
+        },
+        "last_update": {
+          "type": "time",
+          "source_label": "last update"
+        }
+      },
+      "observed_row_count": 1000
+    },
+    "film_text": {
+      "source_label": "film text",
+      "meaning": "Table labeled 'film text' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key film_id",
+      "primary_key_columns": [
+        "film_id"
+      ],
+      "columns": {
+        "film_id": {
+          "type": "number",
+          "source_label": "film id",
+          "primary_key": true
+        },
+        "title": {
+          "type": "text",
+          "source_label": "title"
+        },
+        "description": {
+          "type": "text",
+          "source_label": "description"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "inventory": {
+      "source_label": "inventory",
+      "meaning": "Table labeled 'inventory' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key inventory_id",
+      "primary_key_columns": [
+        "inventory_id"
+      ],
+      "columns": {
+        "inventory_id": {
+          "type": "number",
+          "source_label": "inventory id",
+          "primary_key": true
+        },
+        "film_id": {
+          "type": "number",
+          "source_label": "film id",
+          "foreign_key": {
+            "table": "film",
+            "column": "film_id"
+          }
+        },
+        "store_id": {
+          "type": "number",
+          "source_label": "store id",
+          "foreign_key": {
+            "table": "store",
+            "column": "store_id"
+          }
+        },
+        "last_update": {
+          "type": "time",
+          "source_label": "last update"
+        }
+      },
+      "observed_row_count": 4581
+    },
+    "language": {
+      "source_label": "language",
+      "meaning": "Table labeled 'language' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key language_id",
+      "primary_key_columns": [
+        "language_id"
+      ],
+      "columns": {
+        "language_id": {
+          "type": "number",
+          "source_label": "language id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "last_update": {
+          "type": "time",
+          "source_label": "last update"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "payment": {
+      "source_label": "payment",
+      "meaning": "Table labeled 'payment' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key payment_id",
+      "primary_key_columns": [
+        "payment_id"
+      ],
+      "columns": {
+        "payment_id": {
+          "type": "number",
+          "source_label": "payment id",
+          "primary_key": true
+        },
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "customer",
+            "column": "customer_id"
+          }
+        },
+        "staff_id": {
+          "type": "number",
+          "source_label": "staff id",
+          "foreign_key": {
+            "table": "staff",
+            "column": "staff_id"
+          }
+        },
+        "rental_id": {
+          "type": "number",
+          "source_label": "rental id",
+          "foreign_key": {
+            "table": "rental",
+            "column": "rental_id"
+          }
+        },
+        "amount": {
+          "type": "number",
+          "source_label": "amount"
+        },
+        "payment_date": {
+          "type": "time",
+          "source_label": "payment date"
+        },
+        "last_update": {
+          "type": "time",
+          "source_label": "last update"
+        }
+      },
+      "observed_row_count": 16049
+    },
+    "rental": {
+      "source_label": "rental",
+      "meaning": "Table labeled 'rental' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key rental_id",
+      "primary_key_columns": [
+        "rental_id"
+      ],
+      "columns": {
+        "rental_id": {
+          "type": "number",
+          "source_label": "rental id",
+          "primary_key": true
+        },
+        "rental_date": {
+          "type": "time",
+          "source_label": "rental date"
+        },
+        "inventory_id": {
+          "type": "number",
+          "source_label": "inventory id",
+          "foreign_key": {
+            "table": "inventory",
+            "column": "inventory_id"
+          }
+        },
+        "customer_id": {
+          "type": "number",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "customer",
+            "column": "customer_id"
+          }
+        },
+        "return_date": {
+          "type": "time",
+          "source_label": "return date"
+        },
+        "staff_id": {
+          "type": "number",
+          "source_label": "staff id",
+          "foreign_key": {
+            "table": "staff",
+            "column": "staff_id"
+          }
+        },
+        "last_update": {
+          "type": "time",
+          "source_label": "last update"
+        }
+      },
+      "observed_row_count": 16044
+    },
+    "staff": {
+      "source_label": "staff",
+      "meaning": "Table labeled 'staff' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key staff_id",
+      "primary_key_columns": [
+        "staff_id"
+      ],
+      "columns": {
+        "staff_id": {
+          "type": "number",
+          "source_label": "staff id",
+          "primary_key": true
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "address",
+            "column": "address_id"
+          }
+        },
+        "picture": {
+          "type": "others",
+          "source_label": "picture"
+        },
+        "email": {
+          "type": "text",
+          "source_label": "email"
+        },
+        "store_id": {
+          "type": "number",
+          "source_label": "store id"
+        },
+        "active": {
+          "type": "boolean",
+          "source_label": "active"
+        },
+        "username": {
+          "type": "text",
+          "source_label": "username"
+        },
+        "password": {
+          "type": "text",
+          "source_label": "password"
+        },
+        "last_update": {
+          "type": "time",
+          "source_label": "last update"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "store": {
+      "source_label": "store",
+      "meaning": "Table labeled 'store' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key store_id",
+      "primary_key_columns": [
+        "store_id"
+      ],
+      "columns": {
+        "store_id": {
+          "type": "number",
+          "source_label": "store id",
+          "primary_key": true
+        },
+        "manager_staff_id": {
+          "type": "number",
+          "source_label": "manager staff id",
+          "foreign_key": {
+            "table": "staff",
+            "column": "staff_id"
+          }
+        },
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "address",
+            "column": "address_id"
+          }
+        },
+        "last_update": {
+          "type": "time",
+          "source_label": "last update"
+        }
+      },
+      "observed_row_count": 0
+    }
+  },
+  "terms": {
+    "film actor": {
+      "maps_to": "film_actor",
+      "source": "Spider normalized table name"
+    },
+    "film category": {
+      "maps_to": "film_category",
+      "source": "Spider normalized table name"
+    },
+    "film text": {
+      "maps_to": "film_text",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "actor__row_count": {
+      "meaning": "Number of rows in actor.",
+      "base_table": "actor",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "address__row_count": {
+      "meaning": "Number of rows in address.",
+      "base_table": "address",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "category__row_count": {
+      "meaning": "Number of rows in category.",
+      "base_table": "category",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "city__row_count": {
+      "meaning": "Number of rows in city.",
+      "base_table": "city",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "country__row_count": {
+      "meaning": "Number of rows in country.",
+      "base_table": "country",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "customer__row_count": {
+      "meaning": "Number of rows in customer.",
+      "base_table": "customer",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "film__row_count": {
+      "meaning": "Number of rows in film.",
+      "base_table": "film",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "film_actor__row_count": {
+      "meaning": "Number of rows in film_actor.",
+      "base_table": "film_actor",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "film_category__row_count": {
+      "meaning": "Number of rows in film_category.",
+      "base_table": "film_category",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "film_text__row_count": {
+      "meaning": "Number of rows in film_text.",
+      "base_table": "film_text",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "inventory__row_count": {
+      "meaning": "Number of rows in inventory.",
+      "base_table": "inventory",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "language__row_count": {
+      "meaning": "Number of rows in language.",
+      "base_table": "language",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "payment__row_count": {
+      "meaning": "Number of rows in payment.",
+      "base_table": "payment",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "rental__row_count": {
+      "meaning": "Number of rows in rental.",
+      "base_table": "rental",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "staff__row_count": {
+      "meaning": "Number of rows in staff.",
+      "base_table": "staff",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "store__row_count": {
+      "meaning": "Number of rows in store.",
+      "base_table": "store",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

@@ -1,0 +1,291 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "match_season",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "country": {
+      "source_label": "country",
+      "meaning": "Table labeled 'country' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Country_id",
+      "primary_key_columns": [
+        "Country_id"
+      ],
+      "columns": {
+        "Country_id": {
+          "type": "number",
+          "source_label": "country id",
+          "primary_key": true
+        },
+        "Country_name": {
+          "type": "text",
+          "source_label": "country name",
+          "observed_values": [
+            "Indonesia",
+            "Iran",
+            "Iraq",
+            "Ireland",
+            "Isle of Man",
+            "United States"
+          ]
+        },
+        "Capital": {
+          "type": "text",
+          "source_label": "capital",
+          "observed_values": [
+            "Jakarta",
+            "Tehran",
+            "Baghdad",
+            "Dublin",
+            "Douglas",
+            "Washington"
+          ]
+        },
+        "Official_native_language": {
+          "type": "text",
+          "source_label": "official native language",
+          "observed_values": [
+            "Bahasa Indonesia",
+            "Persian ( Arabic script )",
+            "Arabic ( Arabic script ) Kurdish",
+            "Irish English",
+            "English Manx",
+            "English"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "team": {
+      "source_label": "team",
+      "meaning": "Table labeled 'team' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Team_id",
+      "primary_key_columns": [
+        "Team_id"
+      ],
+      "columns": {
+        "Team_id": {
+          "type": "number",
+          "source_label": "team id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Columbus Crew",
+            "Evalyn Feil",
+            "Anais VonRueden",
+            "Miami Fusion",
+            "Enrique Osinski",
+            "Brown Erdman",
+            "Los Angeles Galaxy",
+            "Berneice Hand",
+            "Ryley Goldner",
+            "D.C. United"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    },
+    "match_season": {
+      "source_label": "match season",
+      "meaning": "Table labeled 'match season' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Season",
+      "primary_key_columns": [
+        "Season"
+      ],
+      "columns": {
+        "Season": {
+          "type": "number",
+          "source_label": "season",
+          "primary_key": true
+        },
+        "Player": {
+          "type": "text",
+          "source_label": "player"
+        },
+        "Position": {
+          "type": "text",
+          "source_label": "position",
+          "observed_values": [
+            "Midfielder",
+            "Defender",
+            "Forward"
+          ]
+        },
+        "Country": {
+          "type": "number",
+          "source_label": "country",
+          "foreign_key": {
+            "table": "country",
+            "column": "Country_id"
+          }
+        },
+        "Team": {
+          "type": "number",
+          "source_label": "team",
+          "foreign_key": {
+            "table": "team",
+            "column": "Team_id"
+          }
+        },
+        "Draft_Pick_Number": {
+          "type": "number",
+          "source_label": "draft pick number"
+        },
+        "Draft_Class": {
+          "type": "text",
+          "source_label": "draft class"
+        },
+        "College": {
+          "type": "text",
+          "source_label": "college"
+        }
+      },
+      "observed_row_count": 16
+    },
+    "player": {
+      "source_label": "player",
+      "meaning": "Table labeled 'player' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Player_ID",
+      "primary_key_columns": [
+        "Player_ID"
+      ],
+      "columns": {
+        "Player_ID": {
+          "type": "number",
+          "source_label": "player id",
+          "primary_key": true
+        },
+        "Player": {
+          "type": "text",
+          "source_label": "player",
+          "observed_values": [
+            "Cho Soong-Jae (630)",
+            "Chung Hong (717)",
+            "Im Kyu-tae (492)",
+            "Jeong Suk-Young (793)",
+            "Kim Hyun-Joon (908)",
+            "Kim Young-Jun (474)",
+            "Lim Yong-Kyu (288)",
+            "Seol Jae-Min (none)",
+            "An Jae-Sung",
+            "Bae Nam-Ju"
+          ]
+        },
+        "Years_Played": {
+          "type": "text",
+          "source_label": "years played",
+          "observed_values": [
+            "1 (2011)",
+            "8 (2003–2005, 2007–2011)",
+            "2 (2010–2011)",
+            "4 (2003–2004, 2010–2011)",
+            "3 (2009–2011)",
+            "2 (2010-2011)",
+            "3 (2005, 2007–2008)",
+            "2 (1988, 1990)"
+          ]
+        },
+        "Total_WL": {
+          "type": "text",
+          "source_label": "total wl",
+          "observed_values": [
+            "2–0",
+            "0–0",
+            "6–9",
+            "1–2",
+            "3–4",
+            "6–4",
+            "7–6",
+            "2–2",
+            "4–3",
+            "1–3"
+          ]
+        },
+        "Singles_WL": {
+          "type": "text",
+          "source_label": "singles wl",
+          "observed_values": [
+            "1–0",
+            "0–0",
+            "5–7",
+            "1–2",
+            "2–1",
+            "6–3",
+            "5–6",
+            "3–2",
+            "0–2"
+          ]
+        },
+        "Doubles_WL": {
+          "type": "text",
+          "source_label": "doubles wl",
+          "observed_values": [
+            "1–0",
+            "0–0",
+            "1–2",
+            "1–3",
+            "0–1",
+            "2–0",
+            "2–2",
+            "1–1"
+          ]
+        },
+        "Team": {
+          "type": "number",
+          "source_label": "team",
+          "foreign_key": {
+            "table": "team",
+            "column": "Team_id"
+          }
+        }
+      },
+      "observed_row_count": 10
+    }
+  },
+  "terms": {
+    "match season": {
+      "maps_to": "match_season",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "country__row_count": {
+      "meaning": "Number of rows in country.",
+      "base_table": "country",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "team__row_count": {
+      "meaning": "Number of rows in team.",
+      "base_table": "team",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "match_season__row_count": {
+      "meaning": "Number of rows in match_season.",
+      "base_table": "match_season",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "player__row_count": {
+      "meaning": "Number of rows in player.",
+      "base_table": "player",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

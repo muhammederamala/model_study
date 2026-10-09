@@ -1,0 +1,364 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "aircraft",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "pilot": {
+      "source_label": "pilot",
+      "meaning": "Table labeled 'pilot' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Pilot_Id",
+      "primary_key_columns": [
+        "Pilot_Id"
+      ],
+      "columns": {
+        "Pilot_Id": {
+          "type": "number",
+          "source_label": "pilot id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Prof. Zackery Collins",
+            "Katheryn Gorczany IV",
+            "Mr. Cristian Halvorson II",
+            "Ayana Spencer",
+            "Ellen Ledner III",
+            "Elisha Hickle V",
+            "Dr. Jade Bradtke V",
+            "Winnifred Boyle",
+            "Della Lindgren",
+            "Maxwell Graham",
+            "Blaise Muller",
+            "Baylee Steuber"
+          ]
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        }
+      },
+      "observed_row_count": 12
+    },
+    "aircraft": {
+      "source_label": "aircraft",
+      "meaning": "Table labeled 'aircraft' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Aircraft_ID",
+      "primary_key_columns": [
+        "Aircraft_ID"
+      ],
+      "columns": {
+        "Aircraft_ID": {
+          "type": "number",
+          "source_label": "aircraft id",
+          "primary_key": true
+        },
+        "Aircraft": {
+          "type": "text",
+          "source_label": "aircraft",
+          "observed_values": [
+            "Robinson R-22",
+            "Bell 206B3 JetRanger",
+            "CH-47D Chinook",
+            "Mil Mi-26",
+            "CH-53E Super Stallion"
+          ]
+        },
+        "Description": {
+          "type": "text",
+          "source_label": "description",
+          "observed_values": [
+            "Light utility helicopter",
+            "Turboshaft utility helicopter",
+            "Tandem rotor helicopter",
+            "Heavy-lift helicopter"
+          ]
+        },
+        "Max_Gross_Weight": {
+          "type": "text",
+          "source_label": "max gross weight",
+          "observed_values": [
+            "1,370 lb (635 kg)",
+            "3,200 lb (1,451 kg)",
+            "50,000 lb (22,680 kg)",
+            "123,500 lb (56,000 kg)",
+            "73,500 lb (33,300 kg)"
+          ]
+        },
+        "Total_disk_area": {
+          "type": "text",
+          "source_label": "total disk area",
+          "observed_values": [
+            "497 ft² (46.2 m²)",
+            "872 ft² (81.1 m²)",
+            "5,655 ft² (526 m²)",
+            "8,495 ft² (789 m²)",
+            "4,900 ft² (460 m²)"
+          ]
+        },
+        "Max_disk_Loading": {
+          "type": "text",
+          "source_label": "max disk loading",
+          "observed_values": [
+            "2.6 lb/ft² (14 kg/m²)",
+            "3.7 lb/ft² (18 kg/m²)",
+            "8.8 lb/ft² (43 kg/m²)",
+            "14.5 lb/ft² (71 kg/m²)",
+            "15 lb/ft² (72 kg/m²)"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "match": {
+      "source_label": "match",
+      "meaning": "Table labeled 'match' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Round",
+      "primary_key_columns": [
+        "Round"
+      ],
+      "columns": {
+        "Round": {
+          "type": "number",
+          "source_label": "round",
+          "primary_key": true
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "Mina' Zayid , Abu Dhabi",
+            "Swan River , Perth",
+            "Flamengo Beach , Rio de Janeiro",
+            "Windsor , Ontario",
+            "New York City",
+            "EuroSpeedway Lausitz",
+            "River Danube , Budapest"
+          ]
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "United Arab Emirates",
+            "Australia",
+            "Brazil",
+            "Canada",
+            "United States",
+            "Germany",
+            "Hungary"
+          ]
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "March 26–27",
+            "April 17–18",
+            "May 8–9",
+            "June 5–6",
+            "June 19–20",
+            "August 7–8",
+            "Cancelled"
+          ]
+        },
+        "Fastest_Qualifying": {
+          "type": "text",
+          "source_label": "fastest qualifying",
+          "observed_values": [
+            "Hannes Arch",
+            "Paul Bonhomme",
+            "Nigel Lamb",
+            "Cancelled"
+          ]
+        },
+        "Winning_Pilot": {
+          "type": "text",
+          "source_label": "winning pilot",
+          "foreign_key": {
+            "table": "pilot",
+            "column": "Pilot_Id"
+          },
+          "observed_values": [
+            "1",
+            "4",
+            "6",
+            "9",
+            "2"
+          ]
+        },
+        "Winning_Aircraft": {
+          "type": "text",
+          "source_label": "winning aircraft",
+          "foreign_key": {
+            "table": "aircraft",
+            "column": "Aircraft_ID"
+          },
+          "observed_values": [
+            "1",
+            "2",
+            "4",
+            "3",
+            "5"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "airport": {
+      "source_label": "airport",
+      "meaning": "Table labeled 'airport' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Airport_ID",
+      "primary_key_columns": [
+        "Airport_ID"
+      ],
+      "columns": {
+        "Airport_ID": {
+          "type": "number",
+          "source_label": "airport id",
+          "primary_key": true
+        },
+        "Airport_Name": {
+          "type": "text",
+          "source_label": "airport name",
+          "observed_values": [
+            "London Heathrow",
+            "London Gatwick",
+            "London Stansted",
+            "Manchester",
+            "London Luton",
+            "Birmingham Airport",
+            "Edinburgh",
+            "Glasgow International",
+            "Bristol",
+            "East Midlands"
+          ]
+        },
+        "Total_Passengers": {
+          "type": "number",
+          "source_label": "total passengers"
+        },
+        "%_Change_2007": {
+          "type": "text",
+          "source_label": "% change 2007",
+          "observed_values": [
+            "1.5%",
+            "2.9%",
+            "6.0%",
+            "4.0%",
+            "2.6%",
+            "4.3%",
+            "0.5%",
+            "7.0%",
+            "5.7%",
+            "3.8%"
+          ]
+        },
+        "International_Passengers": {
+          "type": "number",
+          "source_label": "international passengers"
+        },
+        "Domestic_Passengers": {
+          "type": "number",
+          "source_label": "domestic passengers"
+        },
+        "Transit_Passengers": {
+          "type": "number",
+          "source_label": "transit passengers"
+        },
+        "Aircraft_Movements": {
+          "type": "number",
+          "source_label": "aircraft movements"
+        },
+        "Freight_Metric_Tonnes": {
+          "type": "number",
+          "source_label": "freight metric tonnes"
+        }
+      },
+      "observed_row_count": 10
+    },
+    "airport_aircraft": {
+      "source_label": "airport aircraft",
+      "meaning": "Table labeled 'airport aircraft' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Airport_ID",
+      "primary_key_columns": [
+        "Airport_ID"
+      ],
+      "columns": {
+        "ID": {
+          "type": "number",
+          "source_label": "id"
+        },
+        "Airport_ID": {
+          "type": "number",
+          "source_label": "airport id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "airport",
+            "column": "Airport_ID"
+          }
+        },
+        "Aircraft_ID": {
+          "type": "number",
+          "source_label": "aircraft id",
+          "foreign_key": {
+            "table": "aircraft",
+            "column": "Aircraft_ID"
+          }
+        }
+      },
+      "observed_row_count": 4
+    }
+  },
+  "terms": {
+    "airport aircraft": {
+      "maps_to": "airport_aircraft",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "pilot__row_count": {
+      "meaning": "Number of rows in pilot.",
+      "base_table": "pilot",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "aircraft__row_count": {
+      "meaning": "Number of rows in aircraft.",
+      "base_table": "aircraft",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "match__row_count": {
+      "meaning": "Number of rows in match.",
+      "base_table": "match",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "airport__row_count": {
+      "meaning": "Number of rows in airport.",
+      "base_table": "airport",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "airport_aircraft__row_count": {
+      "meaning": "Number of rows in airport_aircraft.",
+      "base_table": "airport_aircraft",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

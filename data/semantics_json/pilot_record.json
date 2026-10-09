@@ -1,0 +1,229 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "pilot_record",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "aircraft": {
+      "source_label": "aircraft",
+      "meaning": "Table labeled 'aircraft' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Aircraft_ID",
+      "primary_key_columns": [
+        "Aircraft_ID"
+      ],
+      "columns": {
+        "Aircraft_ID": {
+          "type": "number",
+          "source_label": "aircraft id",
+          "primary_key": true
+        },
+        "Order_Year": {
+          "type": "number",
+          "source_label": "order year"
+        },
+        "Manufacturer": {
+          "type": "text",
+          "source_label": "manufacturer",
+          "observed_values": [
+            "Gillig",
+            "NFI"
+          ]
+        },
+        "Model": {
+          "type": "text",
+          "source_label": "model",
+          "observed_values": [
+            "Phantom (High Floor)",
+            "Advantage (Low Floor)",
+            "GE40LFR",
+            "C40LFR"
+          ]
+        },
+        "Fleet_Series": {
+          "type": "text",
+          "source_label": "fleet series",
+          "observed_values": [
+            "444-464 (21)",
+            "465-467 (3)",
+            "468-473 (6)",
+            "474-481 (8)",
+            "482-492 (11)",
+            "300-309 (10)",
+            "310-329 (20)"
+          ]
+        },
+        "Powertrain": {
+          "type": "text",
+          "source_label": "powertrain",
+          "observed_values": [
+            "DD S50EGR Allison WB-400R",
+            "DD S50 Allison WB-400R",
+            "Cummins ISC Allison WB-400R",
+            "Cummins ISL Allison WB-400R",
+            "Ford Triton V10 ISE-Thundervolt TB40-HG",
+            "Cummins Westport ISL-G Allison WB-400R"
+          ]
+        },
+        "Fuel_Propulsion": {
+          "type": "text",
+          "source_label": "fuel propulsion",
+          "observed_values": [
+            "Diesel",
+            "Hybrid",
+            "CNG"
+          ]
+        }
+      },
+      "observed_row_count": 7
+    },
+    "pilot": {
+      "source_label": "pilot",
+      "meaning": "Table labeled 'pilot' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Pilot_ID",
+      "primary_key_columns": [
+        "Pilot_ID"
+      ],
+      "columns": {
+        "Pilot_ID": {
+          "type": "number",
+          "source_label": "pilot id",
+          "primary_key": true
+        },
+        "Pilot_name": {
+          "type": "text",
+          "source_label": "pilot name",
+          "observed_values": [
+            "Patrick O'Bryant",
+            "Jermaine O'Neal",
+            "Dan O'Sullivan",
+            "Charles Oakley",
+            "Hakeem Olajuwon"
+          ]
+        },
+        "Rank": {
+          "type": "number",
+          "source_label": "rank"
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Nationality": {
+          "type": "text",
+          "source_label": "nationality",
+          "observed_values": [
+            "United States",
+            "United Kindom",
+            "Nigeria"
+          ]
+        },
+        "Position": {
+          "type": "text",
+          "source_label": "position",
+          "observed_values": [
+            "Center Team",
+            "Forward-Center Team",
+            "Forward Team"
+          ]
+        },
+        "Join_Year": {
+          "type": "number",
+          "source_label": "join year"
+        },
+        "Team": {
+          "type": "text",
+          "source_label": "team",
+          "observed_values": [
+            "Bradley",
+            "Eau Claire High School",
+            "Fordham",
+            "Virginia Union",
+            "Houston"
+          ]
+        }
+      },
+      "observed_row_count": 5
+    },
+    "pilot_record": {
+      "source_label": "pilot record",
+      "meaning": "Table labeled 'pilot record' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Pilot_ID",
+      "primary_key_columns": [
+        "Pilot_ID"
+      ],
+      "columns": {
+        "Record_ID": {
+          "type": "number",
+          "source_label": "record id"
+        },
+        "Pilot_ID": {
+          "type": "number",
+          "source_label": "pilot id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "pilot",
+            "column": "Pilot_ID"
+          }
+        },
+        "Aircraft_ID": {
+          "type": "number",
+          "source_label": "aircraft id",
+          "foreign_key": {
+            "table": "aircraft",
+            "column": "Aircraft_ID"
+          }
+        },
+        "Date": {
+          "type": "text",
+          "source_label": "date",
+          "observed_values": [
+            "2003/01/04",
+            "2005/01/04",
+            "2008/01/04",
+            "2004/01/04",
+            "2006/01/04",
+            "2007/01/04"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    }
+  },
+  "terms": {
+    "pilot record": {
+      "maps_to": "pilot_record",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "aircraft__row_count": {
+      "meaning": "Number of rows in aircraft.",
+      "base_table": "aircraft",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "pilot__row_count": {
+      "meaning": "Number of rows in pilot.",
+      "base_table": "pilot",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "pilot_record__row_count": {
+      "meaning": "Number of rows in pilot_record.",
+      "base_table": "pilot_record",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

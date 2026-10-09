@@ -1,0 +1,613 @@
+{
+  "format_version": "1.0",
+  "db_id": "concert_singer",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "stadium": {
+      "source_label": "stadium",
+      "meaning": "Table labeled 'stadium' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Stadium_ID"
+      ],
+      "columns": {
+        "Stadium_ID": {
+          "type": "number",
+          "source_label": "stadium id",
+          "primary_key": true
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "Raith Rovers",
+            "Ayr United",
+            "East Fife",
+            "Queen's Park",
+            "Stirling Albion",
+            "Arbroath",
+            "Alloa Athletic",
+            "Peterhead",
+            "Brechin City"
+          ]
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Stark's Park",
+            "Somerset Park",
+            "Bayview Stadium",
+            "Hampden Park",
+            "Forthbank Stadium",
+            "Gayfield Park",
+            "Recreation Park",
+            "Balmoor",
+            "Glebe Park"
+          ]
+        },
+        "Capacity": {
+          "type": "number",
+          "source_label": "capacity"
+        },
+        "Highest": {
+          "type": "number",
+          "source_label": "highest"
+        },
+        "Lowest": {
+          "type": "number",
+          "source_label": "lowest"
+        },
+        "Average": {
+          "type": "number",
+          "source_label": "average"
+        }
+      },
+      "observed_row_count": 9
+    },
+    "singer": {
+      "source_label": "singer",
+      "meaning": "Table labeled 'singer' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Singer_ID"
+      ],
+      "columns": {
+        "Singer_ID": {
+          "type": "number",
+          "source_label": "singer id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Joe Sharp",
+            "Timbaland",
+            "Justin Brown",
+            "Rose White",
+            "John Nizinik",
+            "Tribal King"
+          ]
+        },
+        "Country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "Netherlands",
+            "United States",
+            "France"
+          ]
+        },
+        "Song_Name": {
+          "type": "text",
+          "source_label": "song name",
+          "observed_values": [
+            "You",
+            "Dangerous",
+            "Hey Oh",
+            "Sun",
+            "Gentleman",
+            "Love"
+          ]
+        },
+        "Song_release_year": {
+          "type": "text",
+          "source_label": "song release year",
+          "observed_values": [
+            "1992",
+            "2008",
+            "2013",
+            "2003",
+            "2014",
+            "2016"
+          ]
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Is_male": {
+          "type": "others",
+          "source_label": "is male"
+        }
+      },
+      "observed_row_count": 6
+    },
+    "concert": {
+      "source_label": "concert",
+      "meaning": "Table labeled 'concert' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "concert_ID"
+      ],
+      "columns": {
+        "concert_ID": {
+          "type": "number",
+          "source_label": "concert id",
+          "primary_key": true
+        },
+        "concert_Name": {
+          "type": "text",
+          "source_label": "concert name",
+          "observed_values": [
+            "Auditions",
+            "Super bootcamp",
+            "Home Visits",
+            "Week 1",
+            "Week 2"
+          ]
+        },
+        "Theme": {
+          "type": "text",
+          "source_label": "theme",
+          "observed_values": [
+            "Free choice",
+            "Free choice 2",
+            "Bleeding Love",
+            "Wide Awake",
+            "Happy Tonight",
+            "Party All Night"
+          ]
+        },
+        "Stadium_ID": {
+          "type": "text",
+          "source_label": "stadium id",
+          "foreign_key": {
+            "table": "stadium",
+            "column": "Stadium_ID"
+          },
+          "observed_values": [
+            "1",
+            "2",
+            "10",
+            "9",
+            "7"
+          ]
+        },
+        "Year": {
+          "type": "text",
+          "source_label": "year",
+          "observed_values": [
+            "2014",
+            "2015"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "singer_in_concert": {
+      "source_label": "singer in concert",
+      "meaning": "Table labeled 'singer in concert' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "concert_ID"
+      ],
+      "columns": {
+        "concert_ID": {
+          "type": "number",
+          "source_label": "concert id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "concert",
+            "column": "concert_ID"
+          }
+        },
+        "Singer_ID": {
+          "type": "text",
+          "source_label": "singer id",
+          "foreign_key": {
+            "table": "singer",
+            "column": "Singer_ID"
+          },
+          "observed_values": [
+            "2",
+            "3",
+            "5",
+            "6",
+            "4"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "concert",
+      "from_column": "Stadium_ID",
+      "to_table": "stadium",
+      "to_column": "Stadium_ID",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "singer_in_concert",
+      "from_column": "Singer_ID",
+      "to_table": "singer",
+      "to_column": "Singer_ID",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "singer_in_concert",
+      "from_column": "concert_ID",
+      "to_table": "concert",
+      "to_column": "concert_ID",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {
+    "singer in concert": {
+      "maps_to": "singer_in_concert",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "stadium__row_count": {
+      "meaning": "Number of rows in stadium.",
+      "base_table": "stadium",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "singer__row_count": {
+      "meaning": "Number of rows in singer.",
+      "base_table": "singer",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "concert__row_count": {
+      "meaning": "Number of rows in concert.",
+      "base_table": "concert",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "singer_in_concert__row_count": {
+      "meaning": "Number of rows in singer_in_concert.",
+      "base_table": "singer_in_concert",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "concert",
+      "column": "Stadium_ID",
+      "value": "10",
+      "key": "10"
+    },
+    {
+      "table": "singer",
+      "column": "Song_release_year",
+      "value": "1992",
+      "key": "1992"
+    },
+    {
+      "table": "singer",
+      "column": "Song_release_year",
+      "value": "2003",
+      "key": "2003"
+    },
+    {
+      "table": "singer",
+      "column": "Song_release_year",
+      "value": "2008",
+      "key": "2008"
+    },
+    {
+      "table": "singer",
+      "column": "Song_release_year",
+      "value": "2013",
+      "key": "2013"
+    },
+    {
+      "table": "concert",
+      "column": "Year",
+      "value": "2014",
+      "key": "2014"
+    },
+    {
+      "table": "singer",
+      "column": "Song_release_year",
+      "value": "2014",
+      "key": "2014"
+    },
+    {
+      "table": "concert",
+      "column": "Year",
+      "value": "2015",
+      "key": "2015"
+    },
+    {
+      "table": "singer",
+      "column": "Song_release_year",
+      "value": "2016",
+      "key": "2016"
+    },
+    {
+      "table": "stadium",
+      "column": "Location",
+      "value": "Alloa Athletic",
+      "key": "alloa athletic"
+    },
+    {
+      "table": "stadium",
+      "column": "Location",
+      "value": "Arbroath",
+      "key": "arbroath"
+    },
+    {
+      "table": "concert",
+      "column": "concert_Name",
+      "value": "Auditions",
+      "key": "auditions"
+    },
+    {
+      "table": "stadium",
+      "column": "Location",
+      "value": "Ayr United",
+      "key": "ayr united"
+    },
+    {
+      "table": "stadium",
+      "column": "Name",
+      "value": "Balmoor",
+      "key": "balmoor"
+    },
+    {
+      "table": "stadium",
+      "column": "Name",
+      "value": "Bayview Stadium",
+      "key": "bayview stadium"
+    },
+    {
+      "table": "concert",
+      "column": "Theme",
+      "value": "Bleeding Love",
+      "key": "bleeding love"
+    },
+    {
+      "table": "stadium",
+      "column": "Location",
+      "value": "Brechin City",
+      "key": "brechin city"
+    },
+    {
+      "table": "singer",
+      "column": "Song_Name",
+      "value": "Dangerous",
+      "key": "dangerous"
+    },
+    {
+      "table": "stadium",
+      "column": "Location",
+      "value": "East Fife",
+      "key": "east fife"
+    },
+    {
+      "table": "stadium",
+      "column": "Name",
+      "value": "Forthbank Stadium",
+      "key": "forthbank stadium"
+    },
+    {
+      "table": "singer",
+      "column": "Country",
+      "value": "France",
+      "key": "france"
+    },
+    {
+      "table": "concert",
+      "column": "Theme",
+      "value": "Free choice",
+      "key": "free choice"
+    },
+    {
+      "table": "concert",
+      "column": "Theme",
+      "value": "Free choice 2",
+      "key": "free choice 2"
+    },
+    {
+      "table": "stadium",
+      "column": "Name",
+      "value": "Gayfield Park",
+      "key": "gayfield park"
+    },
+    {
+      "table": "singer",
+      "column": "Song_Name",
+      "value": "Gentleman",
+      "key": "gentleman"
+    },
+    {
+      "table": "stadium",
+      "column": "Name",
+      "value": "Glebe Park",
+      "key": "glebe park"
+    },
+    {
+      "table": "stadium",
+      "column": "Name",
+      "value": "Hampden Park",
+      "key": "hampden park"
+    },
+    {
+      "table": "concert",
+      "column": "Theme",
+      "value": "Happy Tonight",
+      "key": "happy tonight"
+    },
+    {
+      "table": "singer",
+      "column": "Song_Name",
+      "value": "Hey Oh",
+      "key": "hey oh"
+    },
+    {
+      "table": "concert",
+      "column": "concert_Name",
+      "value": "Home Visits",
+      "key": "home visits"
+    },
+    {
+      "table": "singer",
+      "column": "Name",
+      "value": "Joe Sharp",
+      "key": "joe sharp"
+    },
+    {
+      "table": "singer",
+      "column": "Name",
+      "value": "John Nizinik",
+      "key": "john nizinik"
+    },
+    {
+      "table": "singer",
+      "column": "Name",
+      "value": "Justin Brown",
+      "key": "justin brown"
+    },
+    {
+      "table": "singer",
+      "column": "Song_Name",
+      "value": "Love",
+      "key": "love"
+    },
+    {
+      "table": "singer",
+      "column": "Country",
+      "value": "Netherlands",
+      "key": "netherlands"
+    },
+    {
+      "table": "concert",
+      "column": "Theme",
+      "value": "Party All Night",
+      "key": "party all night"
+    },
+    {
+      "table": "stadium",
+      "column": "Location",
+      "value": "Peterhead",
+      "key": "peterhead"
+    },
+    {
+      "table": "stadium",
+      "column": "Location",
+      "value": "Queen's Park",
+      "key": "queen s park"
+    },
+    {
+      "table": "stadium",
+      "column": "Location",
+      "value": "Raith Rovers",
+      "key": "raith rovers"
+    },
+    {
+      "table": "stadium",
+      "column": "Name",
+      "value": "Recreation Park",
+      "key": "recreation park"
+    },
+    {
+      "table": "singer",
+      "column": "Name",
+      "value": "Rose White",
+      "key": "rose white"
+    },
+    {
+      "table": "stadium",
+      "column": "Name",
+      "value": "Somerset Park",
+      "key": "somerset park"
+    },
+    {
+      "table": "stadium",
+      "column": "Name",
+      "value": "Stark's Park",
+      "key": "stark s park"
+    },
+    {
+      "table": "stadium",
+      "column": "Location",
+      "value": "Stirling Albion",
+      "key": "stirling albion"
+    },
+    {
+      "table": "singer",
+      "column": "Song_Name",
+      "value": "Sun",
+      "key": "sun"
+    },
+    {
+      "table": "concert",
+      "column": "concert_Name",
+      "value": "Super bootcamp",
+      "key": "super bootcamp"
+    },
+    {
+      "table": "singer",
+      "column": "Name",
+      "value": "Timbaland",
+      "key": "timbaland"
+    },
+    {
+      "table": "singer",
+      "column": "Name",
+      "value": "Tribal King",
+      "key": "tribal king"
+    },
+    {
+      "table": "singer",
+      "column": "Country",
+      "value": "United States",
+      "key": "united states"
+    },
+    {
+      "table": "concert",
+      "column": "concert_Name",
+      "value": "Week 1",
+      "key": "week 1"
+    },
+    {
+      "table": "concert",
+      "column": "concert_Name",
+      "value": "Week 2",
+      "key": "week 2"
+    },
+    {
+      "table": "concert",
+      "column": "Theme",
+      "value": "Wide Awake",
+      "key": "wide awake"
+    },
+    {
+      "table": "singer",
+      "column": "Song_Name",
+      "value": "You",
+      "key": "you"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

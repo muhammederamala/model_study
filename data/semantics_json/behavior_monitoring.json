@@ -1,0 +1,606 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "behavior_monitoring",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Ref_Address_Types": {
+      "source_label": "reference address types",
+      "meaning": "Table labeled 'reference address types' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key address_type_code",
+      "primary_key_columns": [
+        "address_type_code"
+      ],
+      "columns": {
+        "address_type_code": {
+          "type": "text",
+          "source_label": "address type code",
+          "primary_key": true,
+          "observed_values": [
+            "BILL",
+            "HOME"
+          ]
+        },
+        "address_type_description": {
+          "type": "text",
+          "source_label": "address type description",
+          "observed_values": [
+            "Billing",
+            "Home or Residence"
+          ]
+        }
+      },
+      "observed_row_count": 2
+    },
+    "Ref_Detention_Type": {
+      "source_label": "reference detention type",
+      "meaning": "Table labeled 'reference detention type' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key detention_type_code",
+      "primary_key_columns": [
+        "detention_type_code"
+      ],
+      "columns": {
+        "detention_type_code": {
+          "type": "text",
+          "source_label": "detention type code",
+          "primary_key": true,
+          "observed_values": [
+            "AFTER",
+            "BREAK ",
+            "LUNCH"
+          ]
+        },
+        "detention_type_description": {
+          "type": "text",
+          "source_label": "detention type description",
+          "observed_values": [
+            "During Break time",
+            "After School",
+            "Lunch-time"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Ref_Incident_Type": {
+      "source_label": "reference incident type",
+      "meaning": "Table labeled 'reference incident type' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key incident_type_code",
+      "primary_key_columns": [
+        "incident_type_code"
+      ],
+      "columns": {
+        "incident_type_code": {
+          "type": "text",
+          "source_label": "incident type code",
+          "primary_key": true,
+          "observed_values": [
+            "DISTURB",
+            "NOISE",
+            "VIOLENCE"
+          ]
+        },
+        "incident_type_description": {
+          "type": "text",
+          "source_label": "incident type description",
+          "observed_values": [
+            "Noise",
+            "Violence",
+            "Disturbance"
+          ]
+        }
+      },
+      "observed_row_count": 3
+    },
+    "Addresses": {
+      "source_label": "addresses",
+      "meaning": "Table labeled 'addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key address_id",
+      "primary_key_columns": [
+        "address_id"
+      ],
+      "columns": {
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "primary_key": true
+        },
+        "line_1": {
+          "type": "text",
+          "source_label": "line 1"
+        },
+        "line_2": {
+          "type": "text",
+          "source_label": "line 2"
+        },
+        "line_3": {
+          "type": "text",
+          "source_label": "line 3"
+        },
+        "city": {
+          "type": "text",
+          "source_label": "city"
+        },
+        "zip_postcode": {
+          "type": "text",
+          "source_label": "zip postcode"
+        },
+        "state_province_county": {
+          "type": "text",
+          "source_label": "state province county"
+        },
+        "country": {
+          "type": "text",
+          "source_label": "country",
+          "observed_values": [
+            "USA"
+          ]
+        },
+        "other_address_details": {
+          "type": "text",
+          "source_label": "other address details"
+        }
+      },
+      "observed_row_count": 20
+    },
+    "Students": {
+      "source_label": "students",
+      "meaning": "Table labeled 'students' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key student_id",
+      "primary_key_columns": [
+        "student_id"
+      ],
+      "columns": {
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true
+        },
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "address_id"
+          }
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "middle_name": {
+          "type": "text",
+          "source_label": "middle name"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "cell_mobile_number": {
+          "type": "text",
+          "source_label": "cell mobile number"
+        },
+        "email_address": {
+          "type": "text",
+          "source_label": "email address"
+        },
+        "date_first_rental": {
+          "type": "time",
+          "source_label": "date first rental"
+        },
+        "date_left_university": {
+          "type": "time",
+          "source_label": "date left university"
+        },
+        "other_student_details": {
+          "type": "text",
+          "source_label": "other student details",
+          "observed_values": [
+            "first honor"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Teachers": {
+      "source_label": "teachers",
+      "meaning": "Table labeled 'teachers' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key teacher_id",
+      "primary_key_columns": [
+        "teacher_id"
+      ],
+      "columns": {
+        "teacher_id": {
+          "type": "number",
+          "source_label": "teacher id",
+          "primary_key": true
+        },
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "address_id"
+          }
+        },
+        "first_name": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "middle_name": {
+          "type": "text",
+          "source_label": "middle name"
+        },
+        "last_name": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "gender": {
+          "type": "text",
+          "source_label": "gender",
+          "observed_values": [
+            "1",
+            "0"
+          ]
+        },
+        "cell_mobile_number": {
+          "type": "text",
+          "source_label": "cell mobile number"
+        },
+        "email_address": {
+          "type": "text",
+          "source_label": "email address"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details",
+          "observed_values": [
+            "Dean"
+          ]
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Assessment_Notes": {
+      "source_label": "assessment notes",
+      "meaning": "Table labeled 'assessment notes' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "notes_id": {
+          "type": "number",
+          "source_label": "notes id"
+        },
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Students",
+            "column": "student_id"
+          }
+        },
+        "teacher_id": {
+          "type": "number",
+          "source_label": "teacher id",
+          "foreign_key": {
+            "table": "Teachers",
+            "column": "teacher_id"
+          }
+        },
+        "date_of_notes": {
+          "type": "time",
+          "source_label": "date of notes"
+        },
+        "text_of_notes": {
+          "type": "text",
+          "source_label": "text of notes"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Behavior_Incident": {
+      "source_label": "behavior incident",
+      "meaning": "Table labeled 'behavior incident' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key incident_id",
+      "primary_key_columns": [
+        "incident_id"
+      ],
+      "columns": {
+        "incident_id": {
+          "type": "number",
+          "source_label": "incident id",
+          "primary_key": true
+        },
+        "incident_type_code": {
+          "type": "text",
+          "source_label": "incident type code",
+          "foreign_key": {
+            "table": "Ref_Incident_Type",
+            "column": "incident_type_code"
+          },
+          "observed_values": [
+            "NOISE",
+            "DISTURB",
+            "VIOLENCE"
+          ]
+        },
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Students",
+            "column": "student_id"
+          }
+        },
+        "date_incident_start": {
+          "type": "time",
+          "source_label": "date incident start"
+        },
+        "date_incident_end": {
+          "type": "time",
+          "source_label": "date incident end"
+        },
+        "incident_summary": {
+          "type": "text",
+          "source_label": "incident summary"
+        },
+        "recommendations": {
+          "type": "text",
+          "source_label": "recommendations",
+          "observed_values": [
+            "Transfer schools"
+          ]
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Detention": {
+      "source_label": "detention",
+      "meaning": "Table labeled 'detention' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key detention_id",
+      "primary_key_columns": [
+        "detention_id"
+      ],
+      "columns": {
+        "detention_id": {
+          "type": "number",
+          "source_label": "detention id",
+          "primary_key": true
+        },
+        "detention_type_code": {
+          "type": "text",
+          "source_label": "detention type code",
+          "foreign_key": {
+            "table": "Ref_Detention_Type",
+            "column": "detention_type_code"
+          },
+          "observed_values": [
+            "AFTER",
+            "BREAK ",
+            "LUNCH"
+          ]
+        },
+        "teacher_id": {
+          "type": "number",
+          "source_label": "teacher id",
+          "foreign_key": {
+            "table": "Teachers",
+            "column": "teacher_id"
+          }
+        },
+        "datetime_detention_start": {
+          "type": "time",
+          "source_label": "datetime detention start"
+        },
+        "datetime_detention_end": {
+          "type": "time",
+          "source_label": "datetime detention end"
+        },
+        "detention_summary": {
+          "type": "text",
+          "source_label": "detention summary"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details"
+        }
+      },
+      "observed_row_count": 15
+    },
+    "Student_Addresses": {
+      "source_label": "student addresses",
+      "meaning": "Table labeled 'student addresses' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Students",
+            "column": "student_id"
+          }
+        },
+        "address_id": {
+          "type": "number",
+          "source_label": "address id",
+          "foreign_key": {
+            "table": "Addresses",
+            "column": "address_id"
+          }
+        },
+        "date_address_from": {
+          "type": "time",
+          "source_label": "date address from"
+        },
+        "date_address_to": {
+          "type": "time",
+          "source_label": "date address to"
+        },
+        "monthly_rental": {
+          "type": "number",
+          "source_label": "monthly rental"
+        },
+        "other_details": {
+          "type": "text",
+          "source_label": "other details",
+          "observed_values": [
+            "house",
+            "apartment"
+          ]
+        }
+      },
+      "observed_row_count": 20
+    },
+    "Students_in_Detention": {
+      "source_label": "students in detention",
+      "meaning": "Table labeled 'students in detention' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "student_id": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Students",
+            "column": "student_id"
+          }
+        },
+        "detention_id": {
+          "type": "number",
+          "source_label": "detention id",
+          "foreign_key": {
+            "table": "Detention",
+            "column": "detention_id"
+          }
+        },
+        "incident_id": {
+          "type": "number",
+          "source_label": "incident id",
+          "foreign_key": {
+            "table": "Behavior_Incident",
+            "column": "incident_id"
+          }
+        }
+      },
+      "observed_row_count": 15
+    }
+  },
+  "terms": {
+    "reference address types": {
+      "maps_to": "Ref_Address_Types",
+      "source": "Spider normalized table name"
+    },
+    "reference detention type": {
+      "maps_to": "Ref_Detention_Type",
+      "source": "Spider normalized table name"
+    },
+    "reference incident type": {
+      "maps_to": "Ref_Incident_Type",
+      "source": "Spider normalized table name"
+    },
+    "assessment notes": {
+      "maps_to": "Assessment_Notes",
+      "source": "Spider normalized table name"
+    },
+    "behavior incident": {
+      "maps_to": "Behavior_Incident",
+      "source": "Spider normalized table name"
+    },
+    "student addresses": {
+      "maps_to": "Student_Addresses",
+      "source": "Spider normalized table name"
+    },
+    "students in detention": {
+      "maps_to": "Students_in_Detention",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Ref_Address_Types__row_count": {
+      "meaning": "Number of rows in Ref_Address_Types.",
+      "base_table": "Ref_Address_Types",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Ref_Detention_Type__row_count": {
+      "meaning": "Number of rows in Ref_Detention_Type.",
+      "base_table": "Ref_Detention_Type",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Ref_Incident_Type__row_count": {
+      "meaning": "Number of rows in Ref_Incident_Type.",
+      "base_table": "Ref_Incident_Type",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Addresses__row_count": {
+      "meaning": "Number of rows in Addresses.",
+      "base_table": "Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Students__row_count": {
+      "meaning": "Number of rows in Students.",
+      "base_table": "Students",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Teachers__row_count": {
+      "meaning": "Number of rows in Teachers.",
+      "base_table": "Teachers",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Assessment_Notes__row_count": {
+      "meaning": "Number of rows in Assessment_Notes.",
+      "base_table": "Assessment_Notes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Behavior_Incident__row_count": {
+      "meaning": "Number of rows in Behavior_Incident.",
+      "base_table": "Behavior_Incident",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Detention__row_count": {
+      "meaning": "Number of rows in Detention.",
+      "base_table": "Detention",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Student_Addresses__row_count": {
+      "meaning": "Number of rows in Student_Addresses.",
+      "base_table": "Student_Addresses",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Students_in_Detention__row_count": {
+      "meaning": "Number of rows in Students_in_Detention.",
+      "base_table": "Students_in_Detention",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

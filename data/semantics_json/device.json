@@ -1,0 +1,212 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "device",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "device": {
+      "source_label": "device",
+      "meaning": "Table labeled 'device' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Device_ID",
+      "primary_key_columns": [
+        "Device_ID"
+      ],
+      "columns": {
+        "Device_ID": {
+          "type": "number",
+          "source_label": "device id",
+          "primary_key": true
+        },
+        "Device": {
+          "type": "text",
+          "source_label": "device",
+          "observed_values": [
+            "BlackBerry Storm 9530",
+            "Apple",
+            "Huawei",
+            "Xiaomi",
+            "Samsung",
+            "Galaxy"
+          ]
+        },
+        "Carrier": {
+          "type": "text",
+          "source_label": "carrier",
+          "observed_values": [
+            "MTS Mobility",
+            "Verizon Wireless",
+            "Telus Mobility",
+            "Bell Mobility",
+            "Iusacell",
+            "Vodafone AU"
+          ]
+        },
+        "Package_Version": {
+          "type": "text",
+          "source_label": "package version",
+          "observed_values": [
+            "5.0.0.808",
+            "5.0.0.328",
+            "5.0.0.419",
+            "4.7.0.208",
+            "5.0.0.742"
+          ]
+        },
+        "Applications": {
+          "type": "text",
+          "source_label": "applications",
+          "observed_values": [
+            "5.0.0.419",
+            "5.0.0.328",
+            "4.7.0.151",
+            "5.0.0.451"
+          ]
+        },
+        "Software_Platform": {
+          "type": "text",
+          "source_label": "software platform",
+          "observed_values": [
+            "Android",
+            "iOS"
+          ]
+        }
+      },
+      "observed_row_count": 6
+    },
+    "shop": {
+      "source_label": "shop",
+      "meaning": "Table labeled 'shop' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Shop_ID",
+      "primary_key_columns": [
+        "Shop_ID"
+      ],
+      "columns": {
+        "Shop_ID": {
+          "type": "number",
+          "source_label": "shop id",
+          "primary_key": true
+        },
+        "Shop_Name": {
+          "type": "text",
+          "source_label": "shop name",
+          "observed_values": [
+            "Dinas Device",
+            "Best Buy",
+            "Ferndale",
+            "Apple",
+            "Pentre store",
+            "Tynewydd repair",
+            "Dinas store",
+            "Naval repair",
+            "Gelli repair",
+            "Naval's shop",
+            "ATnT",
+            "National Cellphone"
+          ]
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "Dinas",
+            "Cymmer",
+            "Blaenllechau",
+            "Pentre",
+            "Porth",
+            "Penygraig",
+            "Gelli",
+            "Maerdy",
+            "Wattstown"
+          ]
+        },
+        "Open_Date": {
+          "type": "text",
+          "source_label": "open date",
+          "observed_values": [
+            "1 January",
+            "15 July",
+            "8 November",
+            "10 June",
+            "24 February",
+            "11 April",
+            "13 January",
+            "10 December",
+            "21 August",
+            "27 January",
+            "23–24 December",
+            "18 February"
+          ]
+        },
+        "Open_Year": {
+          "type": "number",
+          "source_label": "open year"
+        }
+      },
+      "observed_row_count": 12
+    },
+    "stock": {
+      "source_label": "stock",
+      "meaning": "Table labeled 'stock' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key Shop_ID",
+      "primary_key_columns": [
+        "Shop_ID"
+      ],
+      "columns": {
+        "Shop_ID": {
+          "type": "number",
+          "source_label": "shop id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "shop",
+            "column": "Shop_ID"
+          }
+        },
+        "Device_ID": {
+          "type": "number",
+          "source_label": "device id",
+          "foreign_key": {
+            "table": "device",
+            "column": "Device_ID"
+          }
+        },
+        "Quantity": {
+          "type": "number",
+          "source_label": "quantity"
+        }
+      },
+      "observed_row_count": 8
+    }
+  },
+  "terms": {},
+  "metrics": {
+    "device__row_count": {
+      "meaning": "Number of rows in device.",
+      "base_table": "device",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "shop__row_count": {
+      "meaning": "Number of rows in shop.",
+      "base_table": "shop",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "stock__row_count": {
+      "meaning": "Number of rows in stock.",
+      "base_table": "stock",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

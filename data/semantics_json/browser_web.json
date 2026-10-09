@@ -1,0 +1,163 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "browser_web",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Web_client_accelerator": {
+      "source_label": "web client accelerator",
+      "meaning": "Table labeled 'web client accelerator' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name"
+        },
+        "Operating_system": {
+          "type": "text",
+          "source_label": "operating system"
+        },
+        "Client": {
+          "type": "text",
+          "source_label": "client",
+          "observed_values": [
+            "End user, ISP",
+            "user",
+            "All",
+            "ISP",
+            "user/Google server",
+            "End User, ISP",
+            "user/Opera server",
+            "user/ISP"
+          ]
+        },
+        "Connection": {
+          "type": "text",
+          "source_label": "connection",
+          "observed_values": [
+            "Broadband, Satellite, Wireless, Fiber, DSL",
+            "up to 756kbit/s",
+            "Dialup, Wireless, Broadband, DSL",
+            "Any",
+            "Dial-up",
+            "Broadband",
+            "Dial-up, Broadband, DSL, ISDN, Satellite, Wireless",
+            "Dial, DSL, ISDN, Satellite, wireless"
+          ]
+        }
+      },
+      "observed_row_count": 19
+    },
+    "browser": {
+      "source_label": "browser",
+      "meaning": "Table labeled 'browser' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key id",
+      "primary_key_columns": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "number",
+          "source_label": "id",
+          "primary_key": true
+        },
+        "name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Internet Explorer",
+            "Firefox",
+            "Safari",
+            "Opera"
+          ]
+        },
+        "market_share": {
+          "type": "number",
+          "source_label": "market share"
+        }
+      },
+      "observed_row_count": 4
+    },
+    "accelerator_compatible_browser": {
+      "source_label": "accelerator compatible browser",
+      "meaning": "Table labeled 'accelerator compatible browser' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key accelerator_id",
+      "primary_key_columns": [
+        "accelerator_id"
+      ],
+      "columns": {
+        "accelerator_id": {
+          "type": "number",
+          "source_label": "accelerator id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "Web_client_accelerator",
+            "column": "id"
+          }
+        },
+        "browser_id": {
+          "type": "number",
+          "source_label": "browser id",
+          "foreign_key": {
+            "table": "browser",
+            "column": "id"
+          }
+        },
+        "compatible_since_year": {
+          "type": "number",
+          "source_label": "compatible since year"
+        }
+      },
+      "observed_row_count": 9
+    }
+  },
+  "terms": {
+    "web client accelerator": {
+      "maps_to": "Web_client_accelerator",
+      "source": "Spider normalized table name"
+    },
+    "accelerator compatible browser": {
+      "maps_to": "accelerator_compatible_browser",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Web_client_accelerator__row_count": {
+      "meaning": "Number of rows in Web_client_accelerator.",
+      "base_table": "Web_client_accelerator",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "browser__row_count": {
+      "meaning": "Number of rows in browser.",
+      "base_table": "browser",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "accelerator_compatible_browser__row_count": {
+      "meaning": "Number of rows in accelerator_compatible_browser.",
+      "base_table": "accelerator_compatible_browser",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

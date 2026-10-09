@@ -1,0 +1,434 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "college_3",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "Student": {
+      "source_label": "student",
+      "meaning": "Table labeled 'student' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key StuID",
+      "primary_key_columns": [
+        "StuID"
+      ],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "student id",
+          "primary_key": true
+        },
+        "LName": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "Fname": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "Sex": {
+          "type": "text",
+          "source_label": "sex",
+          "observed_values": [
+            "F",
+            "M"
+          ]
+        },
+        "Major": {
+          "type": "number",
+          "source_label": "major"
+        },
+        "Advisor": {
+          "type": "number",
+          "source_label": "advisor"
+        },
+        "city_code": {
+          "type": "text",
+          "source_label": "city code"
+        }
+      },
+      "observed_row_count": 34
+    },
+    "Faculty": {
+      "source_label": "faculty",
+      "meaning": "Table labeled 'faculty' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key FacID",
+      "primary_key_columns": [
+        "FacID"
+      ],
+      "columns": {
+        "FacID": {
+          "type": "number",
+          "source_label": "faculty id",
+          "primary_key": true
+        },
+        "Lname": {
+          "type": "text",
+          "source_label": "last name"
+        },
+        "Fname": {
+          "type": "text",
+          "source_label": "first name"
+        },
+        "Rank": {
+          "type": "text",
+          "source_label": "rank",
+          "observed_values": [
+            "Instructor",
+            "Professor",
+            "AssocProf",
+            "AsstProf"
+          ]
+        },
+        "Sex": {
+          "type": "text",
+          "source_label": "sex",
+          "observed_values": [
+            "M",
+            "F"
+          ]
+        },
+        "Phone": {
+          "type": "number",
+          "source_label": "phone"
+        },
+        "Room": {
+          "type": "text",
+          "source_label": "room"
+        },
+        "Building": {
+          "type": "text",
+          "source_label": "building",
+          "observed_values": [
+            "NEB",
+            "Barton",
+            "Krieger"
+          ]
+        }
+      },
+      "observed_row_count": 58
+    },
+    "Department": {
+      "source_label": "department",
+      "meaning": "Table labeled 'department' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key DNO",
+      "primary_key_columns": [
+        "DNO"
+      ],
+      "columns": {
+        "DNO": {
+          "type": "number",
+          "source_label": "department number",
+          "primary_key": true
+        },
+        "Division": {
+          "type": "text",
+          "source_label": "division",
+          "observed_values": [
+            "AS",
+            "EN"
+          ]
+        },
+        "DName": {
+          "type": "text",
+          "source_label": "department name"
+        },
+        "Room": {
+          "type": "text",
+          "source_label": "room"
+        },
+        "Building": {
+          "type": "text",
+          "source_label": "building",
+          "observed_values": [
+            "Mergenthaler",
+            "Mudd",
+            "Remsen",
+            "Gilman",
+            "Krieger",
+            "Macaulay",
+            "Bloomberg",
+            "Ames",
+            "Barton",
+            "Latrobe",
+            "NEB",
+            "Maryland"
+          ]
+        },
+        "DPhone": {
+          "type": "number",
+          "source_label": "department phone"
+        }
+      },
+      "observed_row_count": 26
+    },
+    "Member_of": {
+      "source_label": "member of",
+      "meaning": "Table labeled 'member of' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "FacID": {
+          "type": "number",
+          "source_label": "faculty id",
+          "foreign_key": {
+            "table": "Faculty",
+            "column": "FacID"
+          }
+        },
+        "DNO": {
+          "type": "number",
+          "source_label": "department number",
+          "foreign_key": {
+            "table": "Department",
+            "column": "DNO"
+          }
+        },
+        "Appt_Type": {
+          "type": "text",
+          "source_label": "appt type",
+          "observed_values": [
+            "Primary",
+            "Secondary"
+          ]
+        }
+      },
+      "observed_row_count": 63
+    },
+    "Course": {
+      "source_label": "course",
+      "meaning": "Table labeled 'course' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key CID",
+      "primary_key_columns": [
+        "CID"
+      ],
+      "columns": {
+        "CID": {
+          "type": "text",
+          "source_label": "course id",
+          "primary_key": true
+        },
+        "CName": {
+          "type": "text",
+          "source_label": "course name"
+        },
+        "Credits": {
+          "type": "number",
+          "source_label": "credits"
+        },
+        "Instructor": {
+          "type": "number",
+          "source_label": "instructor",
+          "foreign_key": {
+            "table": "Faculty",
+            "column": "FacID"
+          }
+        },
+        "Days": {
+          "type": "text",
+          "source_label": "days",
+          "observed_values": [
+            "MTW",
+            "Th",
+            "ThF",
+            "MW",
+            "W",
+            "M",
+            "T",
+            "MT",
+            "TTh",
+            "TW",
+            "Tu"
+          ]
+        },
+        "Hours": {
+          "type": "text",
+          "source_label": "hours"
+        },
+        "DNO": {
+          "type": "number",
+          "source_label": "department number",
+          "foreign_key": {
+            "table": "Department",
+            "column": "DNO"
+          }
+        }
+      },
+      "observed_row_count": 76
+    },
+    "Minor_in": {
+      "source_label": "minor in",
+      "meaning": "Table labeled 'minor in' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Student",
+            "column": "StuID"
+          }
+        },
+        "DNO": {
+          "type": "number",
+          "source_label": "department number",
+          "foreign_key": {
+            "table": "Department",
+            "column": "DNO"
+          }
+        }
+      },
+      "observed_row_count": 10
+    },
+    "Enrolled_in": {
+      "source_label": "enrolled in",
+      "meaning": "Table labeled 'enrolled in' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one table row; no primary key is declared in Spider metadata",
+      "primary_key_columns": [],
+      "columns": {
+        "StuID": {
+          "type": "number",
+          "source_label": "student id",
+          "foreign_key": {
+            "table": "Student",
+            "column": "StuID"
+          }
+        },
+        "CID": {
+          "type": "text",
+          "source_label": "course id",
+          "foreign_key": {
+            "table": "Course",
+            "column": "CID"
+          }
+        },
+        "Grade": {
+          "type": "text",
+          "source_label": "grade",
+          "foreign_key": {
+            "table": "Gradeconversion",
+            "column": "lettergrade"
+          },
+          "observed_values": [
+            "A-",
+            "B",
+            "B+",
+            "A",
+            "B-",
+            "C",
+            "C+",
+            "C-",
+            "A+",
+            "D-",
+            "D+",
+            "D"
+          ]
+        }
+      },
+      "observed_row_count": 210
+    },
+    "Gradeconversion": {
+      "source_label": "grade conversion",
+      "meaning": "Table labeled 'grade conversion' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key lettergrade",
+      "primary_key_columns": [
+        "lettergrade"
+      ],
+      "columns": {
+        "lettergrade": {
+          "type": "text",
+          "source_label": "letter grade",
+          "primary_key": true
+        },
+        "gradepoint": {
+          "type": "number",
+          "source_label": "grade point"
+        }
+      },
+      "observed_row_count": 13
+    }
+  },
+  "terms": {
+    "member of": {
+      "maps_to": "Member_of",
+      "source": "Spider normalized table name"
+    },
+    "minor in": {
+      "maps_to": "Minor_in",
+      "source": "Spider normalized table name"
+    },
+    "enrolled in": {
+      "maps_to": "Enrolled_in",
+      "source": "Spider normalized table name"
+    },
+    "grade conversion": {
+      "maps_to": "Gradeconversion",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "Student__row_count": {
+      "meaning": "Number of rows in Student.",
+      "base_table": "Student",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Faculty__row_count": {
+      "meaning": "Number of rows in Faculty.",
+      "base_table": "Faculty",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Department__row_count": {
+      "meaning": "Number of rows in Department.",
+      "base_table": "Department",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Member_of__row_count": {
+      "meaning": "Number of rows in Member_of.",
+      "base_table": "Member_of",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Course__row_count": {
+      "meaning": "Number of rows in Course.",
+      "base_table": "Course",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Minor_in__row_count": {
+      "meaning": "Number of rows in Minor_in.",
+      "base_table": "Minor_in",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Enrolled_in__row_count": {
+      "meaning": "Number of rows in Enrolled_in.",
+      "base_table": "Enrolled_in",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "Gradeconversion__row_count": {
+      "meaning": "Number of rows in Gradeconversion.",
+      "base_table": "Gradeconversion",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

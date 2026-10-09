@@ -1,0 +1,347 @@
+{
+  "format_version": "1.0",
+  "kind": "text_to_sql_semantics",
+  "schema_file": "data/spider_data/tables.json",
+  "dataset": "scholar",
+  "status": "machine_derived_needs_domain_review",
+  "important": "Table and column labels, types, keys, and foreign keys come from Spider tables.json. Observed values and row counts come from its SQLite database. Labels are hints, not confirmed business definitions. No business metrics or assumptions have been invented.",
+  "assumptions_to_confirm": [],
+  "entities": {
+    "venue": {
+      "source_label": "venue",
+      "meaning": "Table labeled 'venue' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key venueId",
+      "primary_key_columns": [
+        "venueId"
+      ],
+      "columns": {
+        "venueId": {
+          "type": "number",
+          "source_label": "venue id",
+          "primary_key": true
+        },
+        "venueName": {
+          "type": "text",
+          "source_label": "venue name"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "author": {
+      "source_label": "author",
+      "meaning": "Table labeled 'author' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key authorId",
+      "primary_key_columns": [
+        "authorId"
+      ],
+      "columns": {
+        "authorId": {
+          "type": "number",
+          "source_label": "author id",
+          "primary_key": true
+        },
+        "authorName": {
+          "type": "text",
+          "source_label": "author name"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "dataset": {
+      "source_label": "dataset",
+      "meaning": "Table labeled 'dataset' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key datasetId",
+      "primary_key_columns": [
+        "datasetId"
+      ],
+      "columns": {
+        "datasetId": {
+          "type": "number",
+          "source_label": "dataset id",
+          "primary_key": true
+        },
+        "datasetName": {
+          "type": "text",
+          "source_label": "dataset name"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "journal": {
+      "source_label": "journal",
+      "meaning": "Table labeled 'journal' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key journalId",
+      "primary_key_columns": [
+        "journalId"
+      ],
+      "columns": {
+        "journalId": {
+          "type": "number",
+          "source_label": "journal id",
+          "primary_key": true
+        },
+        "journalName": {
+          "type": "text",
+          "source_label": "journal name"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "keyphrase": {
+      "source_label": "key phrase",
+      "meaning": "Table labeled 'key phrase' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key keyphraseId",
+      "primary_key_columns": [
+        "keyphraseId"
+      ],
+      "columns": {
+        "keyphraseId": {
+          "type": "number",
+          "source_label": "key phrase id",
+          "primary_key": true
+        },
+        "keyphraseName": {
+          "type": "text",
+          "source_label": "key phrase name"
+        }
+      },
+      "observed_row_count": 0
+    },
+    "paper": {
+      "source_label": "paper",
+      "meaning": "Table labeled 'paper' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key paperId",
+      "primary_key_columns": [
+        "paperId"
+      ],
+      "columns": {
+        "paperId": {
+          "type": "number",
+          "source_label": "paper id",
+          "primary_key": true
+        },
+        "title": {
+          "type": "text",
+          "source_label": "title"
+        },
+        "venueId": {
+          "type": "number",
+          "source_label": "venue id",
+          "foreign_key": {
+            "table": "venue",
+            "column": "venueId"
+          }
+        },
+        "year": {
+          "type": "number",
+          "source_label": "year"
+        },
+        "numCiting": {
+          "type": "number",
+          "source_label": "number citing"
+        },
+        "numCitedBy": {
+          "type": "number",
+          "source_label": "number cited by"
+        },
+        "journalId": {
+          "type": "number",
+          "source_label": "journal id",
+          "foreign_key": {
+            "table": "journal",
+            "column": "journalId"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "cite": {
+      "source_label": "cite",
+      "meaning": "Table labeled 'cite' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key citingPaperId",
+      "primary_key_columns": [
+        "citingPaperId"
+      ],
+      "columns": {
+        "citingPaperId": {
+          "type": "number",
+          "source_label": "citing paper id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "paper",
+            "column": "paperId"
+          }
+        },
+        "citedPaperId": {
+          "type": "number",
+          "source_label": "cited paper id",
+          "foreign_key": {
+            "table": "paper",
+            "column": "paperId"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "paperDataset": {
+      "source_label": "paper dataset",
+      "meaning": "Table labeled 'paper dataset' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key datasetId",
+      "primary_key_columns": [
+        "datasetId"
+      ],
+      "columns": {
+        "paperId": {
+          "type": "number",
+          "source_label": "paper id"
+        },
+        "datasetId": {
+          "type": "number",
+          "source_label": "dataset id",
+          "primary_key": true
+        }
+      },
+      "observed_row_count": 0
+    },
+    "paperKeyphrase": {
+      "source_label": "paper key phrase",
+      "meaning": "Table labeled 'paper key phrase' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key keyphraseId",
+      "primary_key_columns": [
+        "keyphraseId"
+      ],
+      "columns": {
+        "paperId": {
+          "type": "number",
+          "source_label": "paper id",
+          "foreign_key": {
+            "table": "paper",
+            "column": "paperId"
+          }
+        },
+        "keyphraseId": {
+          "type": "number",
+          "source_label": "key phrase id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "keyphrase",
+            "column": "keyphraseId"
+          }
+        }
+      },
+      "observed_row_count": 0
+    },
+    "writes": {
+      "source_label": "writes",
+      "meaning": "Table labeled 'writes' in Spider schema metadata; business meaning is unconfirmed.",
+      "grain": "one row identified by the schema's primary key paperId",
+      "primary_key_columns": [
+        "paperId"
+      ],
+      "columns": {
+        "paperId": {
+          "type": "number",
+          "source_label": "paper id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "paper",
+            "column": "paperId"
+          }
+        },
+        "authorId": {
+          "type": "number",
+          "source_label": "author id",
+          "foreign_key": {
+            "table": "author",
+            "column": "authorId"
+          }
+        }
+      },
+      "observed_row_count": 0
+    }
+  },
+  "terms": {
+    "key phrase": {
+      "maps_to": "keyphrase",
+      "source": "Spider normalized table name"
+    },
+    "paper dataset": {
+      "maps_to": "paperDataset",
+      "source": "Spider normalized table name"
+    },
+    "paper key phrase": {
+      "maps_to": "paperKeyphrase",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "venue__row_count": {
+      "meaning": "Number of rows in venue.",
+      "base_table": "venue",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "author__row_count": {
+      "meaning": "Number of rows in author.",
+      "base_table": "author",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "dataset__row_count": {
+      "meaning": "Number of rows in dataset.",
+      "base_table": "dataset",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "journal__row_count": {
+      "meaning": "Number of rows in journal.",
+      "base_table": "journal",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "keyphrase__row_count": {
+      "meaning": "Number of rows in keyphrase.",
+      "base_table": "keyphrase",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "paper__row_count": {
+      "meaning": "Number of rows in paper.",
+      "base_table": "paper",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "cite__row_count": {
+      "meaning": "Number of rows in cite.",
+      "base_table": "cite",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "paperDataset__row_count": {
+      "meaning": "Number of rows in paperDataset.",
+      "base_table": "paperDataset",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "paperKeyphrase__row_count": {
+      "meaning": "Number of rows in paperKeyphrase.",
+      "base_table": "paperKeyphrase",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "writes__row_count": {
+      "meaning": "Number of rows in writes.",
+      "base_table": "writes",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "query_rules": [
+    "Use only tables and columns declared in this schema.",
+    "Use foreign-key joins declared in the schema when applicable; do not invent relationships.",
+    "Check the row grain before aggregating across one-to-many joins to avoid duplicate counts or sums.",
+    "Observed values are examples from the supplied SQLite database, not an exhaustive value list unless the source data remains unchanged.",
+    "Do not infer business metrics, units, time zones, or status meanings from column names alone; clarify when necessary."
+  ],
+  "example_interpretations": []
+}

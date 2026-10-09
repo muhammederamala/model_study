@@ -1,0 +1,660 @@
+{
+  "format_version": "1.0",
+  "db_id": "employee_hire_evaluation",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "employee": {
+      "source_label": "employee",
+      "meaning": "Table labeled 'employee' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Employee_ID"
+      ],
+      "columns": {
+        "Employee_ID": {
+          "type": "number",
+          "source_label": "employee id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "George Chuter",
+            "Lee Mears",
+            "Mark Regan",
+            "Jason Hobson",
+            "Tim Payne",
+            "Andrew Sheridan",
+            "Matt Stevens",
+            "Phil Vickery",
+            "Steve Borthwick",
+            "Louis Deacon"
+          ]
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        },
+        "City": {
+          "type": "text",
+          "source_label": "city",
+          "observed_values": [
+            "Bristol",
+            "Bath",
+            "Wasps",
+            "Sale",
+            "Leicester"
+          ]
+        }
+      },
+      "observed_row_count": 10
+    },
+    "shop": {
+      "source_label": "shop",
+      "meaning": "Table labeled 'shop' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Shop_ID"
+      ],
+      "columns": {
+        "Shop_ID": {
+          "type": "number",
+          "source_label": "shop id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "FC Haka",
+            "HJK",
+            "FC Honka",
+            "FC Inter",
+            "FF Jaro",
+            "FC KooTeePee",
+            "KuPS",
+            "FC Lahti",
+            "IFK Mariehamn"
+          ]
+        },
+        "Location": {
+          "type": "text",
+          "source_label": "location",
+          "observed_values": [
+            "Valkeakoski",
+            "Helsinki",
+            "Espoo",
+            "Turku",
+            "Jakobstad",
+            "Kotka",
+            "Kuopio",
+            "Lahti",
+            "Mariehamn"
+          ]
+        },
+        "District": {
+          "type": "text",
+          "source_label": "district",
+          "observed_values": [
+            "Tehtaan kenttä",
+            "Finnair Stadium",
+            "Tapiolan Urheilupuisto",
+            "Veritas Stadion",
+            "Jakobstads Centralplan",
+            "Arto Tolsa Areena",
+            "Magnum Areena",
+            "Lahden Stadion",
+            "Wiklöf Holding Arena"
+          ]
+        },
+        "Number_products": {
+          "type": "number",
+          "source_label": "number products"
+        },
+        "Manager_name": {
+          "type": "text",
+          "source_label": "manager name",
+          "observed_values": [
+            "Olli Huttunen",
+            "Antti Muurinen",
+            "Mika Lehkosuo",
+            "Job Dragtsma",
+            "Mika Laurikainen",
+            "Tommi Kautonen",
+            "Kai Nyyssönen",
+            "Ilkka Mäkelä",
+            "Pekka Lyyski"
+          ]
+        }
+      },
+      "observed_row_count": 9
+    },
+    "hiring": {
+      "source_label": "hiring",
+      "meaning": "Table labeled 'hiring' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Employee_ID"
+      ],
+      "columns": {
+        "Shop_ID": {
+          "type": "number",
+          "source_label": "shop id",
+          "foreign_key": {
+            "table": "shop",
+            "column": "Shop_ID"
+          }
+        },
+        "Employee_ID": {
+          "type": "number",
+          "source_label": "employee id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "employee",
+            "column": "Employee_ID"
+          }
+        },
+        "Start_from": {
+          "type": "text",
+          "source_label": "start from",
+          "observed_values": [
+            "2009",
+            "2003",
+            "2011",
+            "2012",
+            "2013",
+            "2010",
+            "2008"
+          ]
+        },
+        "Is_full_time": {
+          "type": "others",
+          "source_label": "is full time"
+        }
+      },
+      "observed_row_count": 7
+    },
+    "evaluation": {
+      "source_label": "evaluation",
+      "meaning": "Table labeled 'evaluation' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Employee_ID"
+      ],
+      "columns": {
+        "Employee_ID": {
+          "type": "text",
+          "source_label": "employee id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "employee",
+            "column": "Employee_ID"
+          },
+          "observed_values": [
+            "1",
+            "10",
+            "2",
+            "4",
+            "7"
+          ]
+        },
+        "Year_awarded": {
+          "type": "text",
+          "source_label": "year awarded",
+          "observed_values": [
+            "2011",
+            "2016",
+            "2015",
+            "2017",
+            "2018"
+          ]
+        },
+        "Bonus": {
+          "type": "number",
+          "source_label": "bonus"
+        }
+      },
+      "observed_row_count": 6
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "evaluation",
+      "from_column": "Employee_ID",
+      "to_table": "employee",
+      "to_column": "Employee_ID",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "hiring",
+      "from_column": "Employee_ID",
+      "to_table": "employee",
+      "to_column": "Employee_ID",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "hiring",
+      "from_column": "Shop_ID",
+      "to_table": "shop",
+      "to_column": "Shop_ID",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {},
+  "metrics": {
+    "employee__row_count": {
+      "meaning": "Number of rows in employee.",
+      "base_table": "employee",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "shop__row_count": {
+      "meaning": "Number of rows in shop.",
+      "base_table": "shop",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "hiring__row_count": {
+      "meaning": "Number of rows in hiring.",
+      "base_table": "hiring",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "evaluation__row_count": {
+      "meaning": "Number of rows in evaluation.",
+      "base_table": "evaluation",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "evaluation",
+      "column": "Employee_ID",
+      "value": "10",
+      "key": "10"
+    },
+    {
+      "table": "hiring",
+      "column": "Start_from",
+      "value": "2003",
+      "key": "2003"
+    },
+    {
+      "table": "hiring",
+      "column": "Start_from",
+      "value": "2008",
+      "key": "2008"
+    },
+    {
+      "table": "hiring",
+      "column": "Start_from",
+      "value": "2009",
+      "key": "2009"
+    },
+    {
+      "table": "hiring",
+      "column": "Start_from",
+      "value": "2010",
+      "key": "2010"
+    },
+    {
+      "table": "evaluation",
+      "column": "Year_awarded",
+      "value": "2011",
+      "key": "2011"
+    },
+    {
+      "table": "hiring",
+      "column": "Start_from",
+      "value": "2011",
+      "key": "2011"
+    },
+    {
+      "table": "hiring",
+      "column": "Start_from",
+      "value": "2012",
+      "key": "2012"
+    },
+    {
+      "table": "hiring",
+      "column": "Start_from",
+      "value": "2013",
+      "key": "2013"
+    },
+    {
+      "table": "evaluation",
+      "column": "Year_awarded",
+      "value": "2015",
+      "key": "2015"
+    },
+    {
+      "table": "evaluation",
+      "column": "Year_awarded",
+      "value": "2016",
+      "key": "2016"
+    },
+    {
+      "table": "evaluation",
+      "column": "Year_awarded",
+      "value": "2017",
+      "key": "2017"
+    },
+    {
+      "table": "evaluation",
+      "column": "Year_awarded",
+      "value": "2018",
+      "key": "2018"
+    },
+    {
+      "table": "employee",
+      "column": "Name",
+      "value": "Andrew Sheridan",
+      "key": "andrew sheridan"
+    },
+    {
+      "table": "shop",
+      "column": "Manager_name",
+      "value": "Antti Muurinen",
+      "key": "antti muurinen"
+    },
+    {
+      "table": "shop",
+      "column": "District",
+      "value": "Arto Tolsa Areena",
+      "key": "arto tolsa areena"
+    },
+    {
+      "table": "employee",
+      "column": "City",
+      "value": "Bath",
+      "key": "bath"
+    },
+    {
+      "table": "employee",
+      "column": "City",
+      "value": "Bristol",
+      "key": "bristol"
+    },
+    {
+      "table": "shop",
+      "column": "Location",
+      "value": "Espoo",
+      "key": "espoo"
+    },
+    {
+      "table": "shop",
+      "column": "Name",
+      "value": "FC Haka",
+      "key": "fc haka"
+    },
+    {
+      "table": "shop",
+      "column": "Name",
+      "value": "FC Honka",
+      "key": "fc honka"
+    },
+    {
+      "table": "shop",
+      "column": "Name",
+      "value": "FC Inter",
+      "key": "fc inter"
+    },
+    {
+      "table": "shop",
+      "column": "Name",
+      "value": "FC KooTeePee",
+      "key": "fc koo tee pee"
+    },
+    {
+      "table": "shop",
+      "column": "Name",
+      "value": "FC Lahti",
+      "key": "fc lahti"
+    },
+    {
+      "table": "shop",
+      "column": "Name",
+      "value": "FF Jaro",
+      "key": "ff jaro"
+    },
+    {
+      "table": "shop",
+      "column": "District",
+      "value": "Finnair Stadium",
+      "key": "finnair stadium"
+    },
+    {
+      "table": "employee",
+      "column": "Name",
+      "value": "George Chuter",
+      "key": "george chuter"
+    },
+    {
+      "table": "shop",
+      "column": "Location",
+      "value": "Helsinki",
+      "key": "helsinki"
+    },
+    {
+      "table": "shop",
+      "column": "Name",
+      "value": "HJK",
+      "key": "hjk"
+    },
+    {
+      "table": "shop",
+      "column": "Name",
+      "value": "IFK Mariehamn",
+      "key": "ifk mariehamn"
+    },
+    {
+      "table": "shop",
+      "column": "Manager_name",
+      "value": "Ilkka Mäkelä",
+      "key": "ilkka mäkelä"
+    },
+    {
+      "table": "shop",
+      "column": "Location",
+      "value": "Jakobstad",
+      "key": "jakobstad"
+    },
+    {
+      "table": "shop",
+      "column": "District",
+      "value": "Jakobstads Centralplan",
+      "key": "jakobstads centralplan"
+    },
+    {
+      "table": "employee",
+      "column": "Name",
+      "value": "Jason Hobson",
+      "key": "jason hobson"
+    },
+    {
+      "table": "shop",
+      "column": "Manager_name",
+      "value": "Job Dragtsma",
+      "key": "job dragtsma"
+    },
+    {
+      "table": "shop",
+      "column": "Manager_name",
+      "value": "Kai Nyyssönen",
+      "key": "kai nyyssönen"
+    },
+    {
+      "table": "shop",
+      "column": "Location",
+      "value": "Kotka",
+      "key": "kotka"
+    },
+    {
+      "table": "shop",
+      "column": "Name",
+      "value": "KuPS",
+      "key": "ku ps"
+    },
+    {
+      "table": "shop",
+      "column": "Location",
+      "value": "Kuopio",
+      "key": "kuopio"
+    },
+    {
+      "table": "shop",
+      "column": "District",
+      "value": "Lahden Stadion",
+      "key": "lahden stadion"
+    },
+    {
+      "table": "shop",
+      "column": "Location",
+      "value": "Lahti",
+      "key": "lahti"
+    },
+    {
+      "table": "employee",
+      "column": "Name",
+      "value": "Lee Mears",
+      "key": "lee mears"
+    },
+    {
+      "table": "employee",
+      "column": "City",
+      "value": "Leicester",
+      "key": "leicester"
+    },
+    {
+      "table": "employee",
+      "column": "Name",
+      "value": "Louis Deacon",
+      "key": "louis deacon"
+    },
+    {
+      "table": "shop",
+      "column": "District",
+      "value": "Magnum Areena",
+      "key": "magnum areena"
+    },
+    {
+      "table": "shop",
+      "column": "Location",
+      "value": "Mariehamn",
+      "key": "mariehamn"
+    },
+    {
+      "table": "employee",
+      "column": "Name",
+      "value": "Mark Regan",
+      "key": "mark regan"
+    },
+    {
+      "table": "employee",
+      "column": "Name",
+      "value": "Matt Stevens",
+      "key": "matt stevens"
+    },
+    {
+      "table": "shop",
+      "column": "Manager_name",
+      "value": "Mika Laurikainen",
+      "key": "mika laurikainen"
+    },
+    {
+      "table": "shop",
+      "column": "Manager_name",
+      "value": "Mika Lehkosuo",
+      "key": "mika lehkosuo"
+    },
+    {
+      "table": "shop",
+      "column": "Manager_name",
+      "value": "Olli Huttunen",
+      "key": "olli huttunen"
+    },
+    {
+      "table": "shop",
+      "column": "Manager_name",
+      "value": "Pekka Lyyski",
+      "key": "pekka lyyski"
+    },
+    {
+      "table": "employee",
+      "column": "Name",
+      "value": "Phil Vickery",
+      "key": "phil vickery"
+    },
+    {
+      "table": "employee",
+      "column": "City",
+      "value": "Sale",
+      "key": "sale"
+    },
+    {
+      "table": "employee",
+      "column": "Name",
+      "value": "Steve Borthwick",
+      "key": "steve borthwick"
+    },
+    {
+      "table": "shop",
+      "column": "District",
+      "value": "Tapiolan Urheilupuisto",
+      "key": "tapiolan urheilupuisto"
+    },
+    {
+      "table": "shop",
+      "column": "District",
+      "value": "Tehtaan kenttä",
+      "key": "tehtaan kenttä"
+    },
+    {
+      "table": "employee",
+      "column": "Name",
+      "value": "Tim Payne",
+      "key": "tim payne"
+    },
+    {
+      "table": "shop",
+      "column": "Manager_name",
+      "value": "Tommi Kautonen",
+      "key": "tommi kautonen"
+    },
+    {
+      "table": "shop",
+      "column": "Location",
+      "value": "Turku",
+      "key": "turku"
+    },
+    {
+      "table": "shop",
+      "column": "Location",
+      "value": "Valkeakoski",
+      "key": "valkeakoski"
+    },
+    {
+      "table": "shop",
+      "column": "District",
+      "value": "Veritas Stadion",
+      "key": "veritas stadion"
+    },
+    {
+      "table": "employee",
+      "column": "City",
+      "value": "Wasps",
+      "key": "wasps"
+    },
+    {
+      "table": "shop",
+      "column": "District",
+      "value": "Wiklöf Holding Arena",
+      "key": "wiklöf holding arena"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}

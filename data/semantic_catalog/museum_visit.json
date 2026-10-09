@@ -1,0 +1,298 @@
+{
+  "format_version": "1.0",
+  "db_id": "museum_visit",
+  "source": {
+    "schema": "data/semantics_json/<db_id>.json (Spider tables.json and SQLite)",
+    "values": "observed distinct strings in the matching Spider SQLite database",
+    "questions_or_gold_sql_used": false
+  },
+  "status": "machine_derived_needs_domain_review",
+  "entities": {
+    "museum": {
+      "source_label": "museum",
+      "meaning": "Table labeled 'museum' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Museum_ID"
+      ],
+      "columns": {
+        "Museum_ID": {
+          "type": "number",
+          "source_label": "museum id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Plaza Museum",
+            "Capital Plaza Museum",
+            "Jefferson Development Museum",
+            "Willow Grande Museum",
+            "RiverPark Museum",
+            "Place Tower Museum",
+            "Central City District Residential Museum",
+            "ZirMed Gateway Museum"
+          ]
+        },
+        "Num_of_Staff": {
+          "type": "number",
+          "source_label": "num of staff"
+        },
+        "Open_Year": {
+          "type": "text",
+          "source_label": "open year",
+          "observed_values": [
+            "2000",
+            "2012",
+            "2010",
+            "2011",
+            "2008",
+            "2009"
+          ]
+        }
+      },
+      "observed_row_count": 8
+    },
+    "visitor": {
+      "source_label": "customer",
+      "meaning": "Table labeled 'customer' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "ID"
+      ],
+      "columns": {
+        "ID": {
+          "type": "number",
+          "source_label": "customer id",
+          "primary_key": true
+        },
+        "Name": {
+          "type": "text",
+          "source_label": "name",
+          "observed_values": [
+            "Gonzalo Higuaín ",
+            "Guti Midfielder",
+            "Arjen Robben",
+            "Raúl Brown",
+            "Fernando Gago",
+            "Rafael van der Vaart"
+          ]
+        },
+        "Level_of_membership": {
+          "type": "number",
+          "source_label": "level of membership"
+        },
+        "Age": {
+          "type": "number",
+          "source_label": "age"
+        }
+      },
+      "observed_row_count": 6
+    },
+    "visit": {
+      "source_label": "visit",
+      "meaning": "Table labeled 'visit' in Spider schema metadata; business meaning is unconfirmed.",
+      "primary_key_columns": [
+        "Museum_ID"
+      ],
+      "columns": {
+        "Museum_ID": {
+          "type": "number",
+          "source_label": "museum id",
+          "primary_key": true,
+          "foreign_key": {
+            "table": "museum",
+            "column": "Museum_ID"
+          }
+        },
+        "visitor_ID": {
+          "type": "text",
+          "source_label": "customer id",
+          "foreign_key": {
+            "table": "visitor",
+            "column": "ID"
+          },
+          "observed_values": [
+            "5",
+            "3",
+            "6"
+          ]
+        },
+        "Num_of_Ticket": {
+          "type": "number",
+          "source_label": "num of ticket"
+        },
+        "Total_spent": {
+          "type": "number",
+          "source_label": "total spent"
+        }
+      },
+      "observed_row_count": 6
+    }
+  },
+  "relationships": [
+    {
+      "from_table": "visit",
+      "from_column": "Museum_ID",
+      "to_table": "museum",
+      "to_column": "Museum_ID",
+      "source": "Spider tables.json foreign_keys"
+    },
+    {
+      "from_table": "visit",
+      "from_column": "visitor_ID",
+      "to_table": "visitor",
+      "to_column": "ID",
+      "source": "Spider tables.json foreign_keys"
+    }
+  ],
+  "terms": {
+    "customer": {
+      "maps_to": "visitor",
+      "source": "Spider normalized table name"
+    }
+  },
+  "metrics": {
+    "museum__row_count": {
+      "meaning": "Number of rows in museum.",
+      "base_table": "museum",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "visitor__row_count": {
+      "meaning": "Number of rows in visitor.",
+      "base_table": "visitor",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    },
+    "visit__row_count": {
+      "meaning": "Number of rows in visit.",
+      "base_table": "visit",
+      "calculation": "COUNT(*)",
+      "status": "structural metric; business interpretation unconfirmed"
+    }
+  },
+  "values": [
+    {
+      "table": "museum",
+      "column": "Open_Year",
+      "value": "2000",
+      "key": "2000"
+    },
+    {
+      "table": "museum",
+      "column": "Open_Year",
+      "value": "2008",
+      "key": "2008"
+    },
+    {
+      "table": "museum",
+      "column": "Open_Year",
+      "value": "2009",
+      "key": "2009"
+    },
+    {
+      "table": "museum",
+      "column": "Open_Year",
+      "value": "2010",
+      "key": "2010"
+    },
+    {
+      "table": "museum",
+      "column": "Open_Year",
+      "value": "2011",
+      "key": "2011"
+    },
+    {
+      "table": "museum",
+      "column": "Open_Year",
+      "value": "2012",
+      "key": "2012"
+    },
+    {
+      "table": "visitor",
+      "column": "Name",
+      "value": "Arjen Robben",
+      "key": "arjen robben"
+    },
+    {
+      "table": "museum",
+      "column": "Name",
+      "value": "Capital Plaza Museum",
+      "key": "capital plaza museum"
+    },
+    {
+      "table": "museum",
+      "column": "Name",
+      "value": "Central City District Residential Museum",
+      "key": "central city district residential museum"
+    },
+    {
+      "table": "visitor",
+      "column": "Name",
+      "value": "Fernando Gago",
+      "key": "fernando gago"
+    },
+    {
+      "table": "visitor",
+      "column": "Name",
+      "value": "Gonzalo Higuaín ",
+      "key": "gonzalo higuaín"
+    },
+    {
+      "table": "visitor",
+      "column": "Name",
+      "value": "Guti Midfielder",
+      "key": "guti midfielder"
+    },
+    {
+      "table": "museum",
+      "column": "Name",
+      "value": "Jefferson Development Museum",
+      "key": "jefferson development museum"
+    },
+    {
+      "table": "museum",
+      "column": "Name",
+      "value": "Place Tower Museum",
+      "key": "place tower museum"
+    },
+    {
+      "table": "museum",
+      "column": "Name",
+      "value": "Plaza Museum",
+      "key": "plaza museum"
+    },
+    {
+      "table": "visitor",
+      "column": "Name",
+      "value": "Rafael van der Vaart",
+      "key": "rafael van der vaart"
+    },
+    {
+      "table": "visitor",
+      "column": "Name",
+      "value": "Raúl Brown",
+      "key": "raúl brown"
+    },
+    {
+      "table": "museum",
+      "column": "Name",
+      "value": "RiverPark Museum",
+      "key": "river park museum"
+    },
+    {
+      "table": "museum",
+      "column": "Name",
+      "value": "Willow Grande Museum",
+      "key": "willow grande museum"
+    },
+    {
+      "table": "museum",
+      "column": "Name",
+      "value": "ZirMed Gateway Museum",
+      "key": "zir med gateway museum"
+    }
+  ],
+  "value_index_limit_per_column": 25000,
+  "skipped_high_cardinality_columns": []
+}
